@@ -1,0 +1,14 @@
+{
+  "name": "@rehash/app",
+  "version": "0.1.0",
+  "description": "The rehash password manager app",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "@rehash/ui": "0.1.0"
+  },
+  "license": "MIT"
+}
