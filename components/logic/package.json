@@ -1,0 +1,11 @@
+{
+  "name": "@rehash/logic",
+  "version": "0.1.0",
+  "description": "The password generation logic for the rehash password manager",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "vitest"
+  },
+  "author": "Leo Katzengruber",
+  "license": "MIT"
+}

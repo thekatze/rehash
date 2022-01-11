@@ -4,11 +4,20 @@
   "description": "The rehash password manager app",
   "private": true,
   "scripts": {
-    "dev": "vite",
+    "start": "vite",
     "build": "vite build"
   },
   "dependencies": {
-    "@rehash/ui": "0.1.0"
+    "@rehash/logic": "workspace:*",
+    "solid-js": "^1.3.1"
+  },
+  "devDependencies": {
+    "typescript": "^4.5.4",
+    "vite": "^2.7.10",
+    "vite-plugin-solid": "^2.2.1",
+    "vite-plugin-windicss": "^1.5.4",
+    "windicss": "^3.4.0",
+    "unplugin-icons": "^0.12.23"
   },
   "license": "MIT"
 }
