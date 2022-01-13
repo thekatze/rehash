@@ -3,28 +3,31 @@ import { createContext } from "solid-js";
 import { ContextProviderComponent } from "solid-js/types/reactive/signal";
 
 type TranslateFunction = (key: string, props?: any) => string;
-type SetLocaleFunction = (key: string) => void;
+type SetLocaleFunction = (lang: string) => Promise<void>;
 
 export const I18nContext = createContext<
   [TranslateFunction, SetLocaleFunction]
->([(v: string) => v, (v: string) => v]);
+>([(v: string) => v, (v: string) => Promise.resolve()]);
 
-const i18n = rosetta({
-  en: await import("@/i18n/lang/en.json"),
-  de: await import("@/i18n/lang/de.json"),
-});
+const i18n = rosetta();
+
+async function loadLanguage(lang: string) {
+  i18n.set(lang, await import(`./lang/${lang}.json`));
+  i18n.locale(lang);
+}
+
+// TODO: autodetect and save chosen language
+await loadLanguage("en");
 
 // TODO: enable language switching
 // https://phrase.com/blog/posts/solidjs-localization-i18next/
 export const I18nProvider: ContextProviderComponent<typeof I18nContext> = (
   props
 ) => {
-  i18n.locale("en");
-
   const data = [
     i18n.t,
-    (lang: string): void => {
-      console.log("changing language to " + lang);
+    async (lang: string): Promise<void> => {
+      await loadLanguage(lang);
     },
   ];
 

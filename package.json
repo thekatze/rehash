@@ -8,8 +8,8 @@
     "packages/**"
   ],
   "scripts": {
-    "start": "pnpm -C apps/app run start",
-    "build": "pnpm -C apps/app run build"
+    "app:start": "pnpm -C apps/app run start",
+    "app:build": "pnpm -C apps/app run build"
   },
   "license": "MIT"
 }

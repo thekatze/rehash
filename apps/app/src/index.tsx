@@ -13,5 +13,5 @@ render(
       </Router>
     </I18nProvider>
   ),
-  document.getElementById("root") as HTMLElement
+  document.getElementById("app") as HTMLElement
 );
