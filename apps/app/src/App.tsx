@@ -1,9 +1,17 @@
 import type { Component } from "solid-js";
-
-import { PasswordGenerator } from "@rehash/logic";
+import { useRoutes } from "solid-app-router";
+import routes from "@/routes";
 
 const App: Component = () => {
-  return <p>{new PasswordGenerator().generate()}</p>;
+  const Routes = useRoutes(routes);
+  return (
+    <>
+      <header>rehash</header>
+      <main>
+        <Routes />
+      </main>
+    </>
+  );
 };
 
 export default App;

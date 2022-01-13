@@ -9,15 +9,18 @@
   },
   "dependencies": {
     "@rehash/logic": "workspace:*",
+    "rosetta": "^1.1.0",
+    "solid-app-router": "^0.2.1",
     "solid-js": "^1.3.1"
   },
   "devDependencies": {
+    "@types/node": "^17.0.8",
     "typescript": "^4.5.4",
+    "unplugin-icons": "^0.12.23",
     "vite": "^2.7.10",
     "vite-plugin-solid": "^2.2.1",
     "vite-plugin-windicss": "^1.5.4",
-    "windicss": "^3.4.0",
-    "unplugin-icons": "^0.12.23"
+    "windicss": "^3.4.0"
   },
   "license": "MIT"
 }
