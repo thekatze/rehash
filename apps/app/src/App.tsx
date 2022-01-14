@@ -1,16 +1,21 @@
 import type { Component } from "solid-js";
-import { useRoutes } from "solid-app-router";
+import { Link, useRoutes } from "solid-app-router";
 import routes from "@/routes";
+import { ReApp, ReHeader, ReHeaderTitle, ReMain } from "./ui";
 
 const App: Component = () => {
   const Routes = useRoutes(routes);
   return (
-    <>
-      <header>rehash</header>
-      <main>
+    <ReApp>
+      <ReHeader>
+        <Link href="/" className="text-white no-underline">
+          <ReHeaderTitle>rehash</ReHeaderTitle>
+        </Link>
+      </ReHeader>
+      <ReMain>
         <Routes />
-      </main>
-    </>
+      </ReMain>
+    </ReApp>
   );
 };
 

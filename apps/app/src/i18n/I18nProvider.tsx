@@ -1,13 +1,23 @@
 import rosetta from "rosetta";
-import { createContext } from "solid-js";
+import { createContext, useContext } from "solid-js";
 import { ContextProviderComponent } from "solid-js/types/reactive/signal";
 
 type TranslateFunction = (key: string, props?: any) => string;
 type SetLocaleFunction = (lang: string) => Promise<void>;
 
-export const I18nContext = createContext<
-  [TranslateFunction, SetLocaleFunction]
->([(v: string) => v, (v: string) => Promise.resolve()]);
+export const I18nContext =
+  createContext<[TranslateFunction, SetLocaleFunction]>();
+
+export function useI18n(): [TranslateFunction, SetLocaleFunction] {
+  const context = useContext(I18nContext);
+
+  if (!context)
+    throw new ReferenceError(
+      "I18nProvider not found. Did you wrap your app in the <I18nProvider> component?"
+    );
+
+  return context;
+}
 
 const i18n = rosetta();
 

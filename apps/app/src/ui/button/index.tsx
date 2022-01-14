@@ -1,10 +1,15 @@
-import { Component } from "solid-js";
+import { Component, JSX } from "solid-js";
 
-interface ButtonProps {}
+interface ReButtonProps {
+  onClick?: JSX.EventHandlerUnion<HTMLButtonElement, MouseEvent>;
+}
 
-export const ReButton: Component<ButtonProps> = (props) => {
+export const ReButton: Component<ReButtonProps> = (props) => {
   return (
-    <button className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-6 py-2 font-bold rounded-lg cursor-pointer transition hover:ring focus:ring uppercase ring-orange-500 ring-opacity-50">
+    <button
+      onClick={props.onClick}
+      className="branding-bg-sm text-white px-6 py-2 font-bold rounded-lg cursor-pointer transition hover:ring focus:ring uppercase ring-orange-500 dark:ring-purple-500 ring-opacity-50"
+    >
       {props.children}
     </button>
   );
