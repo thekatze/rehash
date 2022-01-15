@@ -4,7 +4,7 @@
   "description": "The rehash password manager app",
   "private": true,
   "scripts": {
-    "start": "vite",
+    "start": "vite --https",
     "build": "vite build"
   },
   "dependencies": {

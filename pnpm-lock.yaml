@@ -33,7 +33,10 @@ importers:
       windicss: 3.4.2
 
   components/logic:
-    specifiers: {}
+    specifiers:
+      hash-wasm: ^4.9.0
+    dependencies:
+      hash-wasm: 4.9.0
 
 packages:
 
@@ -798,6 +801,10 @@ packages:
     dependencies:
       function-bind: 1.1.1
     dev: true
+
+  /hash-wasm/4.9.0:
+    resolution: {integrity: sha512-7SW7ejyfnRxuOc7ptQHSf4LDoZaWOivfzqw+5rpcQku0nHfmicPKE51ra9BiRLAmT8+gGLestr1XroUkqdjL6w==}
+    dev: false
 
   /html-entities/2.3.2:
     resolution: {integrity: sha512-c3Ab/url5ksaT0WyleslpBEthOzWhrjQbg75y7XUsfSzi3Dgzt0l8w5e7DylRn15MTlMMD58dTfzddNS2kcAjQ==}
