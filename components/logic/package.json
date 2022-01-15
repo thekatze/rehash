@@ -6,7 +6,7 @@
   "scripts": {
     "test": "vitest"
   },
-  "author": "Leo Katzengruber",
+  "author": "TheKatze",
   "license": "MIT",
   "dependencies": {
     "hash-wasm": "^4.9.0",

@@ -1,6 +1,6 @@
 import { argon2id } from "hash-wasm";
 
-interface GeneratorOptions {
+export interface GeneratorOptions {
   iterations: number;
   parallelism: number;
   memorySize: number;
@@ -17,24 +17,17 @@ export interface GeneratorEntry {
 }
 
 export class RehashGenerator {
+  private password: string;
   private options: GeneratorOptions;
 
-  constructor(
-    options: GeneratorOptions = {
-      iterations: 15,
-      parallelism: 2,
-      memorySize: 2048,
-    }
-  ) {
+  constructor(password: string, options: GeneratorOptions) {
+    this.password = password;
     this.options = options;
   }
 
-  public async generate(
-    entry: GeneratorEntry,
-    masterPassword: string
-  ): Promise<string> {
+  public async generate(entry: GeneratorEntry): Promise<string> {
     const result = await argon2id({
-      password: masterPassword,
+      password: this.password,
       salt: (entry.username + entry.url).padEnd(8),
       outputType: "encoded",
       hashLength: entry.options.length,
