@@ -6,6 +6,8 @@ import solidPlugin from "vite-plugin-solid";
 import WindiCSS from "vite-plugin-windicss";
 
 export default defineConfig(({ command, mode }) => {
+  const isDev = mode == "development";
+
   return {
     plugins: [
       solidPlugin(),
@@ -20,12 +22,14 @@ export default defineConfig(({ command, mode }) => {
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "./src"),
-        rosetta: mode === "development" ? "rosetta/debug" : "rosetta",
+        rosetta: isDev ? "rosetta/debug" : "rosetta",
       },
     },
-    https: {
-      key: fs.readFileSync(".cert/dev-private.pem"),
-      cert: fs.readFileSync(".cert/dev.pem"),
-    },
+    https: isDev
+      ? {
+          key: fs.readFileSync(".cert/dev-private.pem"),
+          cert: fs.readFileSync(".cert/dev.pem"),
+        }
+      : {},
   };
 });
