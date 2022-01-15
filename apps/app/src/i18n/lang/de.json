@@ -1,3 +1,3 @@
 {
-    "hello": "Hallo, {{name}}!"
+  "hello": "Hallo, {{name}}!"
 }

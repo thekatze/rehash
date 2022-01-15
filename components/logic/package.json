@@ -9,6 +9,7 @@
   "author": "Leo Katzengruber",
   "license": "MIT",
   "dependencies": {
-    "hash-wasm": "^4.9.0"
+    "hash-wasm": "^4.9.0",
+    "localforage": "^1.10.0"
   }
 }
