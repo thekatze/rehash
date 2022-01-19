@@ -7,9 +7,6 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "jsx": "preserve",
-    "jsxImportSource": "solid-js",
-    "types": ["vite/client"],
     "resolveJsonModule": true,
     "paths": {
       "@/*": ["./src/*"]

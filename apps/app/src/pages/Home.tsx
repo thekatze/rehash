@@ -2,13 +2,13 @@ import { useI18n } from "@/i18n/I18nProvider";
 import { Component } from "solid-js";
 import { ReButton, ReCard, useUiTheme } from "@/ui";
 
-import { RehashStore } from "@rehash/logic";
+import { useRehash } from "@/providers/RehashProvider";
 
 const Home: Component = () => {
   const [t] = useI18n();
   const [setTheme] = useUiTheme();
 
-  const store = new RehashStore("leo", "su!pa_5423ggnull#53");
+  const [generator, entries, store] = useRehash();
 
   return (
     <>
@@ -18,14 +18,32 @@ const Home: Component = () => {
         </ReButton>
       </ReCard>
       <ReCard>
-        <ReButton onClick={() => store.create()}>Create Store</ReButton>
+        <ReButton
+          onClick={async () => {
+            await store.initialize("myfirststore", "password");
+
+            if (await store.exists()) {
+              store.unlock();
+            } else {
+              await store.create({
+                iterations: 15,
+                memorySize: 2048,
+                parallelism: 2,
+              });
+            }
+          }}
+        >
+          Initialize Store
+        </ReButton>
+        <ReButton onClick={async () => console.log(await store.exists())}>
+          Does store exist?
+        </ReButton>
         <ReButton onClick={() => store.delete()}>Delete Store</ReButton>
-        <ReButton onClick={() => store.unlock()}>Unlock Store</ReButton>
       </ReCard>
       <ReCard>
         <ReButton
           onClick={() =>
-            store.add({
+            entries.add({
               username: "thekatze",
               url: "app.rehash.com",
               options: { length: 32 },
@@ -34,12 +52,12 @@ const Home: Component = () => {
         >
           Create Entry
         </ReButton>
-        <ReButton onClick={() => console.log(store.list())}>
+        <ReButton onClick={() => console.log(entries.list())}>
           List Entries
         </ReButton>
         <ReButton
           onClick={async () =>
-            console.log(await store.createGenerator().generate(store.list()[0]))
+            console.log(await generator.generate(entries.list()[0]))
           }
         >
           Generate password for first entry

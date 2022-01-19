@@ -5,7 +5,7 @@ type SetUiThemeFunction = <U extends boolean>(
   value: (U extends Function ? never : U) | ((prev: boolean) => U)
 ) => U;
 
-export const UiThemeContext = createContext<[SetUiThemeFunction]>();
+const UiThemeContext = createContext<[SetUiThemeFunction]>();
 
 export function useUiTheme(): [SetUiThemeFunction] {
   const context = useContext(UiThemeContext);
@@ -23,7 +23,7 @@ export const UiThemeProvider: ContextProviderComponent<
 > = (props) => {
   const [dark, setDark] = createSignal(false);
 
-  const data = [setDark];
+  const data: [SetUiThemeFunction] = [setDark];
 
   return (
     <UiThemeContext.Provider value={data}>

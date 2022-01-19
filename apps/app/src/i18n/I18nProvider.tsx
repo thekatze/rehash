@@ -34,7 +34,7 @@ await loadLanguage("en");
 export const I18nProvider: ContextProviderComponent<typeof I18nContext> = (
   props
 ) => {
-  const data = [
+  const data: [TranslateFunction, SetLocaleFunction] = [
     i18n.t,
     async (lang: string): Promise<void> => {
       await loadLanguage(lang);
