@@ -3,8 +3,8 @@ import {
   GeneratorOptions,
   RehashGenerator,
   RehashStore,
-  StoreCreationEntry,
   StoreEntry,
+  StoreEntryWithId,
 } from "@rehash/logic";
 import { createContext, useContext } from "solid-js";
 import { createStore } from "solid-js/store";
@@ -15,9 +15,9 @@ type GeneratorActions = {
 };
 
 type EntryActions = {
-  list: () => StoreEntry[];
-  add: (entry: StoreCreationEntry) => Promise<void>;
-  edit: (entry: StoreEntry) => Promise<void>;
+  list: () => StoreEntryWithId[];
+  add: (entry: StoreEntry) => Promise<void>;
+  edit: (entry: StoreEntryWithId) => Promise<void>;
   remove: (uuid: string) => Promise<void>;
 };
 

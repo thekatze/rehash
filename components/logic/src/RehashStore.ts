@@ -3,11 +3,11 @@ import localforage from "localforage";
 import { RehashGenerator } from ".";
 import { StoreCryptor } from "./StoreCryptor";
 
-export interface StoreCreationEntry extends GeneratorEntry {
+export interface StoreEntry extends GeneratorEntry {
   displayName?: string;
 }
 
-export interface StoreEntry extends StoreCreationEntry {
+export interface StoreEntryWithId extends StoreEntry {
   id: string;
 }
 
@@ -18,7 +18,7 @@ export interface EncryptedStore {
 
 export interface Store {
   options: GeneratorOptions;
-  entries: StoreEntry[];
+  entries: { [id: string]: StoreEntry };
 }
 
 class LockedError extends Error {
@@ -51,7 +51,7 @@ export class RehashStore {
       memorySize: 2048,
     }
   ): Promise<void> {
-    this.store = { options: options, entries: [] };
+    this.store = { options: options, entries: {} };
     this.saveStore();
   }
 
@@ -62,20 +62,26 @@ export class RehashStore {
     this.saveStore();
   }
 
-  public async add(entry: StoreCreationEntry) {
+  public async add(entry: StoreEntry) {
     if (!this.isUnlocked()) throw new LockedError();
+    if (!this.store) throw new LockedError();
 
-    Object.assign(entry, { id: crypto.randomUUID() });
+    let nextId = crypto.randomUUID();
 
-    this.store?.entries.push(entry as StoreEntry);
+    while (this.store.entries[nextId] !== undefined)
+      nextId = crypto.randomUUID();
+
+    this.store.entries[nextId] = entry;
 
     this.saveStore();
   }
 
-  public list(): StoreEntry[] {
+  public list(): StoreEntryWithId[] {
     if (!this.isUnlocked()) throw new LockedError();
 
-    return this.store!.entries;
+    return Object.keys(this.store!.entries).map((x) => {
+      return { id: x, ...this.store!.entries[x] };
+    });
   }
 
   public async unlock(): Promise<boolean> {
