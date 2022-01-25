@@ -10,6 +10,6 @@
   "license": "MIT",
   "dependencies": {
     "hash-wasm": "^4.9.0",
-    "localforage": "^1.10.0"
+    "idb-keyval": "^6.1.0"
   }
 }

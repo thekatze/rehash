@@ -1,7 +1,7 @@
 import { GeneratorEntry, GeneratorOptions } from "./RehashGenerator";
-import localforage from "localforage";
 import { RehashGenerator } from ".";
 import { StoreCryptor } from "./StoreCryptor";
+import { get, set } from "idb-keyval";
 
 export interface StoreEntry extends GeneratorEntry {
   displayName?: string;
@@ -30,14 +30,11 @@ class LockedError extends Error {
 const STORE_KEY = "rehash_store";
 
 export class RehashStore {
-  private persistentStore: LocalForage;
   private store?: Store;
   private password: string;
   private storeCryptor: StoreCryptor;
 
   constructor(password: string) {
-    this.persistentStore = localforage.createInstance({});
-
     this.password = password;
     this.storeCryptor = new StoreCryptor(password);
   }
@@ -83,9 +80,7 @@ export class RehashStore {
   }
 
   public async unlock(): Promise<boolean> {
-    const encryptedStore = (await this.persistentStore.getItem(
-      STORE_KEY
-    )) as EncryptedStore;
+    const encryptedStore = await this.export();
 
     if (!encryptedStore) return false;
 
@@ -114,7 +109,7 @@ export class RehashStore {
         ? await this.storeCryptor.encrypt(this.store)
         : null);
 
-    await this.persistentStore.setItem("rehash_store", storeToSave);
+    await set("rehash_store", storeToSave);
   }
 
   public async exists(): Promise<boolean> {
@@ -126,6 +121,6 @@ export class RehashStore {
   }
 
   public async export(): Promise<EncryptedStore> {
-    return (await this.persistentStore.getItem(STORE_KEY)) as EncryptedStore;
+    return (await get(STORE_KEY)) as EncryptedStore;
   }
 }
