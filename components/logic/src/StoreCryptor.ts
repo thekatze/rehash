@@ -4,8 +4,8 @@ export class StoreCryptor {
   private salt: Uint8Array;
   private password: Uint8Array;
 
-  constructor(salt: string, password: string) {
-    this.salt = new TextEncoder().encode(salt);
+  constructor(password: string) {
+    this.salt = new TextEncoder().encode("re$hash_salt");
     this.password = new TextEncoder().encode(password);
   }
 

@@ -3,6 +3,7 @@ import { Component } from "solid-js";
 import { ReButton, ReCard, useUiTheme } from "@/ui";
 
 import { useRehash } from "@/providers/RehashProvider";
+import FileSaver from "file-saver";
 
 const Home: Component = () => {
   const [t] = useI18n();
@@ -20,7 +21,7 @@ const Home: Component = () => {
       <ReCard>
         <ReButton
           onClick={async () => {
-            await store.initialize("myfirststore", "password");
+            await store.initialize("password");
 
             if (await store.exists()) {
               store.unlock();
@@ -39,6 +40,31 @@ const Home: Component = () => {
           Does store exist?
         </ReButton>
         <ReButton onClick={() => store.delete()}>Delete Store</ReButton>
+      </ReCard>
+      <ReCard>
+        <ReButton
+          onClick={() =>
+            store.import(
+              JSON.parse(
+                '{"iv":"6hrBIqTShg3aB9gCbFRD6y25exwE7pLIeQMZPCJZvIk=","store":"c6PcJXKOhcoR0haTlWyAhLuW02aH17q/GlKbiFfANEyuoatvY/AAEG8jlLW+h0NBVw6E/uwn6SkTYZLeOONZGdX5dDaIgDyKQMP4oEBgttdYJVS/SCrwtkyYdZtLL3234TCsHPg7sDIKIAcwXLzrQy2RBIskXDJnup/u2quu1D5MDxLXBaAu4Di1pQYVC3a3CPh6YqQWW2aP+KMYyyTj1uwrRmbAAo1+RMFx/tgj1qRcoTnORECtxQ+yynGjo3ALvNJdijRcpcNMpcGvbl9Pl93x7uB+55HeXAmSpXYdKG8gCueYHHkHfJewAyG7g0kRhsz8QkQXCu7GqT5O+7a1Xkv/UQQfkZ3M7YYgyCEgMfg6+pVQ+NiA+RKld+HZ6rxupoe4gs4wKzGyxTgrM7ALSyCoM8SQ3qr/W9+3afowFDMagAFsAFqig/1J2SBe6t82WwiGyEQlXBFjPcfbySUhHe+ZInc6nyc8wjeYAazsH5DvELJfPg5rHt55jU9s31YSthjzVYFpu5C+H1OIUnWlzPz1quY9Z9fO703pgY9TE+ZkGEIxxA=="}'
+              )
+            )
+          }
+        >
+          Import Store
+        </ReButton>
+        <ReButton
+          onClick={async () =>
+            FileSaver(
+              new Blob([JSON.stringify(await store.export())], {
+                type: "application/json",
+              }),
+              "rehash-store.json"
+            )
+          }
+        >
+          Export Store
+        </ReButton>
       </ReCard>
       <ReCard>
         <ReButton

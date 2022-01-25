@@ -1,4 +1,5 @@
 import {
+  EncryptedStore,
   GeneratorEntry,
   GeneratorOptions,
   RehashGenerator,
@@ -22,11 +23,13 @@ type EntryActions = {
 };
 
 type StoreActions = {
-  initialize: (name: string, password: string) => Promise<void>;
+  initialize: (password: string) => Promise<void>;
   unlock: () => Promise<boolean>;
   create: (options: GeneratorOptions) => Promise<void>;
   exists: () => Promise<boolean>;
   delete: () => Promise<void>;
+  import: (encryptedStore: EncryptedStore) => Promise<void>;
+  export: () => Promise<EncryptedStore>;
 };
 
 const RehashContext =
@@ -50,7 +53,7 @@ export const RehashProvider: ContextProviderComponent<typeof RehashContext> = (
     store: RehashStore;
     generator?: RehashGenerator;
   }>({
-    store: new RehashStore("", ""),
+    store: new RehashStore(""),
   });
 
   const data: [GeneratorActions, EntryActions, StoreActions] = [
@@ -78,14 +81,16 @@ export const RehashProvider: ContextProviderComponent<typeof RehashContext> = (
       },
     },
     {
-      initialize: async (name, password) => {
-        setStore("store", () => new RehashStore(name, password));
+      initialize: async (password) => {
+        setStore("store", () => new RehashStore(password));
         setStore("generator", () => undefined);
       },
       unlock: () => store.store.unlock(),
       create: (options) => store.store.create(options),
       exists: () => store.store.exists(),
       delete: () => store.store.delete(),
+      import: (encryptedStore) => store.store.import(encryptedStore),
+      export: () => store.store.export(),
     },
   ];
 

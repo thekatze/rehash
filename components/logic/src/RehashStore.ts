@@ -35,13 +35,11 @@ export class RehashStore {
   private password: string;
   private storeCryptor: StoreCryptor;
 
-  constructor(storeName: string, password: string) {
-    this.persistentStore = localforage.createInstance({
-      name: storeName,
-    });
+  constructor(password: string) {
+    this.persistentStore = localforage.createInstance({});
 
     this.password = password;
-    this.storeCryptor = new StoreCryptor(`${storeName}re$salt`, password);
+    this.storeCryptor = new StoreCryptor(password);
   }
 
   public async create(
@@ -109,20 +107,25 @@ export class RehashStore {
     return this.store !== undefined;
   }
 
-  private async saveStore() {
-    const encryptedStore =
-      this.store !== undefined
+  private async saveStore(store?: EncryptedStore) {
+    const storeToSave =
+      store ??
+      (this.store !== undefined
         ? await this.storeCryptor.encrypt(this.store)
-        : null;
+        : null);
 
-    await this.persistentStore.setItem("rehash_store", encryptedStore);
+    await this.persistentStore.setItem("rehash_store", storeToSave);
   }
 
   public async exists(): Promise<boolean> {
-    const encryptedStore = (await this.persistentStore.getItem(
-      STORE_KEY
-    )) as EncryptedStore;
+    return !!(await this.export());
+  }
 
-    return !!encryptedStore;
+  public async import(encryptedStore: EncryptedStore) {
+    await this.saveStore(encryptedStore);
+  }
+
+  public async export(): Promise<EncryptedStore> {
+    return (await this.persistentStore.getItem(STORE_KEY)) as EncryptedStore;
   }
 }
