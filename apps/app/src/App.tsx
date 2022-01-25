@@ -11,6 +11,9 @@ const App: Component = () => {
         <Link href="/" className="text-white no-underline">
           <ReHeaderTitle>rehash</ReHeaderTitle>
         </Link>
+        <Link href="/create">Create</Link>
+        <Link href="/entry/946f4784-fe52-4a83-be56-d13f7ce4ddcd">Edit</Link>
+        <Link href="/settings">Settings</Link>
       </ReHeader>
       <ReMain>
         <Routes />

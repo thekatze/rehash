@@ -17,6 +17,7 @@ type GeneratorActions = {
 
 type EntryActions = {
   list: () => StoreEntryWithId[];
+  get: (uuid: string) => StoreEntryWithId | undefined;
   add: (entry: StoreEntry) => Promise<void>;
   edit: (entry: StoreEntryWithId) => Promise<void>;
   remove: (uuid: string) => Promise<void>;
@@ -70,6 +71,7 @@ export const RehashProvider: ContextProviderComponent<typeof RehashContext> = (
     },
     {
       list: () => store.store.list(),
+      get: (id) => store.store.get(id),
       add: (entry) => store.store.add(entry),
       edit: (entry) => {
         // TODO:

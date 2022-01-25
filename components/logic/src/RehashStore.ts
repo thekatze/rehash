@@ -79,6 +79,14 @@ export class RehashStore {
     });
   }
 
+  public get(id: string): StoreEntryWithId | undefined {
+    if (!this.isUnlocked()) throw new LockedError();
+
+    const entry = this.store?.entries[id];
+
+    return entry === undefined ? undefined : { id, ...entry };
+  }
+
   public async unlock(): Promise<boolean> {
     const encryptedStore = await this.export();
 
