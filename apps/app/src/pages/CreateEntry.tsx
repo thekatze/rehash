@@ -1,7 +1,7 @@
 import { Component } from "solid-js";
 
-const Create: Component = () => {
+const CreateEntry: Component = () => {
   return <div>Create</div>;
 };
 
-export default Create;
+export default CreateEntry;

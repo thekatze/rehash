@@ -25,7 +25,7 @@ type EntryActions = {
 
 type StoreActions = {
   initialize: (password: string) => Promise<void>;
-  unlock: () => Promise<boolean>;
+  unlocked: () => boolean;
   create: (options: GeneratorOptions) => Promise<void>;
   exists: () => Promise<boolean>;
   delete: () => Promise<void>;
@@ -51,9 +51,11 @@ export const RehashProvider: ContextProviderComponent<typeof RehashContext> = (
   props
 ) => {
   const [store, setStore] = createStore<{
+    unlocked: boolean;
     store: RehashStore;
     generator?: RehashGenerator;
   }>({
+    unlocked: false,
     store: new RehashStore(""),
   });
 
@@ -86,8 +88,10 @@ export const RehashProvider: ContextProviderComponent<typeof RehashContext> = (
       initialize: async (password) => {
         setStore("store", () => new RehashStore(password));
         setStore("generator", () => undefined);
+        const unlocked = await store.store.unlock();
+        setStore("unlocked", () => unlocked);
       },
-      unlock: () => store.store.unlock(),
+      unlocked: () => store.unlocked,
       create: (options) => store.store.create(options),
       exists: () => store.store.exists(),
       delete: () => store.store.delete(),

@@ -12,7 +12,9 @@ const EditEntry: Component = () => {
 
   const [password] = createResource(
     () => params.id,
-    async () => await generator.generate(entry!)
+    async () => {
+      return await generator.generate(entry!);
+    }
   );
 
   return (
