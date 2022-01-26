@@ -6,5 +6,6 @@ export default {
     "branding-bg-lg":
       "bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 dark:(from-blue-700 via-purple-700 to-pink-700)",
     "dark-transition": "transition-colors duration-250",
+    "header-link": "text-white no-underline mx-5 p-1",
   },
 };

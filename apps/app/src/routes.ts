@@ -1,13 +1,14 @@
+import { RouteDefinition } from "solid-app-router";
 import { lazy } from "solid-js";
 
-export default [
+const routes: RouteDefinition[] = [
   {
     path: "/",
     component: lazy(() => import("@/pages/Home")),
   },
   {
     path: "/create",
-    component: lazy(() => import("@/pages/Create")),
+    component: lazy(() => import("@/pages/CreateEntry")),
   },
   {
     path: "/entry/:id",
@@ -17,4 +18,14 @@ export default [
     path: "/settings",
     component: lazy(() => import("@/pages/Settings")),
   },
+  {
+    path: "/unlock",
+    component: lazy(() => import("@/pages/UnlockStore")),
+  },
+  {
+    path: "/new",
+    component: lazy(() => import("@/pages/NewStore")),
+  },
 ];
+
+export default routes;
