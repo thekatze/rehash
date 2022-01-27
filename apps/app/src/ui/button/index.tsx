@@ -2,6 +2,7 @@ import { Component, JSX } from "solid-js";
 
 interface ReButtonProps {
   onClick?: JSX.EventHandlerUnion<HTMLButtonElement, MouseEvent>;
+  submit?: boolean;
 }
 
 export const ReButton: Component<ReButtonProps> = (props) => {
@@ -9,6 +10,7 @@ export const ReButton: Component<ReButtonProps> = (props) => {
     <button
       onClick={props.onClick}
       className="branding-bg-sm text-white px-6 py-2 font-bold rounded-lg cursor-pointer transition hover:ring focus:ring uppercase ring-orange-500 dark:ring-purple-500 ring-opacity-50"
+      type={props.submit ? "submit" : "button"}
     >
       {props.children}
     </button>
