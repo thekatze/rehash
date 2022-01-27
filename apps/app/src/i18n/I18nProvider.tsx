@@ -21,13 +21,28 @@ export function useI18n(): [TranslateFunction, SetLocaleFunction] {
 
 const i18n = rosetta();
 
-async function loadLanguage(lang: string) {
-  i18n.set(lang, await import(`./lang/${lang}.json`));
+async function loadLanguage(lang?: string) {
+  const hasLanguage =
+    lang !== undefined &&
+    Object.keys(supportedLanguages).some((key) => key === lang);
+
+  if (!hasLanguage) {
+    lang = "en";
+  }
+
+  i18n.set(lang!, supportedLanguages[lang!]);
   i18n.locale(lang);
 }
 
-// TODO: autodetect and save chosen language
-await loadLanguage("en");
+const supportedLanguages: { [locale: string]: () => Promise<any> } = {
+  en: async () => await import("./lang/en.json"),
+  de: async () => await import("./lang/de.json"),
+};
+
+const locale = new Intl.Locale(navigator.languages[0]);
+
+// TODO: save explicitly chosen language
+await loadLanguage(locale.language);
 
 // TODO: enable language switching
 // https://phrase.com/blog/posts/solidjs-localization-i18next/

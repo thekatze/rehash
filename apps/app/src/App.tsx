@@ -23,9 +23,7 @@ const App: Component = () => {
   return (
     <ReApp>
       <ReHeader>
-        <Link href="/" className="text-white no-underline">
-          <ReHeaderTitle>rehash</ReHeaderTitle>
-        </Link>
+        <ReHeaderTitle>rehash</ReHeaderTitle>
         <Show when={store.unlocked()}>
           <Link href="/create" className="header-link">
             Create

@@ -47,14 +47,14 @@ export class RehashStore {
     }
   ): Promise<void> {
     this.store = { options: options, entries: {} };
-    this.saveStore();
+    await this.saveStore();
   }
 
   public async delete(): Promise<void> {
     if (!this.isUnlocked()) throw new LockedError();
 
     this.store = undefined;
-    this.saveStore();
+    await this.saveStore();
   }
 
   public async add(entry: StoreEntry) {
@@ -68,7 +68,7 @@ export class RehashStore {
 
     this.store.entries[nextId] = entry;
 
-    this.saveStore();
+    await this.saveStore();
   }
 
   public list(): StoreEntryWithId[] {

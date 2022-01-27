@@ -88,11 +88,17 @@ export const RehashProvider: ContextProviderComponent<typeof RehashContext> = (
       initialize: async (password) => {
         setStore("store", () => new RehashStore(password));
         setStore("generator", () => undefined);
+
         const unlocked = await store.store.unlock();
         setStore("unlocked", () => unlocked);
       },
       unlocked: () => store.unlocked,
-      create: (options) => store.store.create(options),
+      create: async (options) => {
+        await store.store.create(options);
+        const unlocked = await store.store.unlock();
+
+        setStore("unlocked", () => unlocked);
+      },
       exists: () => store.store.exists(),
       delete: () => store.store.delete(),
       import: (encryptedStore) => store.store.import(encryptedStore),
