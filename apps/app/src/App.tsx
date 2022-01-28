@@ -25,14 +25,11 @@ const App: Component = () => {
       <ReHeader>
         <ReHeaderTitle>rehash</ReHeaderTitle>
         <Show when={store.unlocked()}>
+          <Link href="/" className="header-link">
+            Home
+          </Link>
           <Link href="/create" className="header-link">
             Create
-          </Link>
-          <Link
-            href="/entry/946f4784-fe52-4a83-be56-d13f7ce4ddcd"
-            className="header-link"
-          >
-            Edit
           </Link>
           <Link href="/settings" className="header-link">
             Settings
