@@ -4,7 +4,7 @@ import FileSaver from "file-saver";
 import { useRehash } from "@/providers/RehashProvider";
 
 const Settings: Component = () => {
-  const [setTheme] = useUiTheme();
+  const [_, setTheme] = useUiTheme();
   const [generator, entries, store] = useRehash();
 
   return (
