@@ -34,7 +34,7 @@ export const UiThemeProvider: ContextProviderComponent<
   const setting = localStorage.getItem("reThemeDark") === "true";
   const [dark, setDark] = createSignal(setting);
 
-  createEffect(() => localStorage.setItem("reThemeDark", dark() + ""));
+  createEffect(() => localStorage.setItem("reThemeDark", `${dark()}`));
 
   const data: [GetUiThemeFunction, SetUiThemeFunction] = [dark, setDark];
 

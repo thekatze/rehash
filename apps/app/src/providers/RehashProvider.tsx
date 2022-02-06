@@ -18,7 +18,7 @@ type GeneratorActions = {
 type EntryActions = {
   list: () => StoreEntryWithId[];
   get: (uuid: string) => StoreEntryWithId | undefined;
-  add: (entry: StoreEntry) => Promise<void>;
+  add: (entry: StoreEntry) => Promise<string>;
   edit: (entry: StoreEntryWithId) => Promise<void>;
   remove: (uuid: string) => Promise<void>;
 };

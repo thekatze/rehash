@@ -57,7 +57,7 @@ export class RehashStore {
     await this.saveStore();
   }
 
-  public async add(entry: StoreEntry) {
+  public async add(entry: StoreEntry): Promise<string> {
     if (!this.isUnlocked()) throw new LockedError();
     if (!this.store) throw new LockedError();
 
@@ -69,6 +69,8 @@ export class RehashStore {
     this.store.entries[nextId] = entry;
 
     await this.saveStore();
+
+    return nextId;
   }
 
   public list(): StoreEntryWithId[] {

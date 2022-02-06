@@ -1,6 +1,5 @@
-import { StoreSettings } from "@/components/StoreSettings";
 import { useRehash } from "@/providers/RehashProvider";
-import { ReButton, ReCard, ReTextField } from "@/ui";
+import { ReButton, ReCard, ReForm, ReTextField } from "@/ui";
 import { useNavigate } from "solid-app-router";
 import { Component, createDeferred, createMemo, createSignal } from "solid-js";
 
@@ -9,9 +8,7 @@ const NewStore: Component = () => {
   const navigate = useNavigate();
   const [password, setPassword] = createSignal("");
 
-  async function createNewStore(e: Event) {
-    e.preventDefault();
-
+  async function createNewStore() {
     await store.initialize(password());
     await store.create({ iterations: 15, memorySize: 2048, parallelism: 2 });
 
@@ -26,16 +23,15 @@ const NewStore: Component = () => {
   return (
     <div>
       <ReCard>
-        <form onSubmit={createNewStore}>
+        <ReForm onSubmit={createNewStore}>
           <ReTextField
             onInput={(e) => setPassword(e.currentTarget.value)}
             label="Password"
             password
           />
           {passwordStrength()}
-          <StoreSettings />
           <ReButton submit> Create new Store </ReButton>
-        </form>
+        </ReForm>
       </ReCard>
     </div>
   );

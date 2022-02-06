@@ -1,5 +1,5 @@
 import { useRehash } from "@/providers/RehashProvider";
-import { ReButton, ReCard, ReTextField } from "@/ui";
+import { ReButton, ReCard, ReForm, ReTextField } from "@/ui";
 import { useNavigate } from "solid-app-router";
 import { Component, createSignal } from "solid-js";
 
@@ -10,9 +10,7 @@ const UnlockStore: Component = () => {
   const [password, setPassword] = createSignal("");
   const [error, setError] = createSignal(false);
 
-  async function unlock(e: Event) {
-    e.preventDefault();
-
+  async function unlock() {
     await store.initialize(password());
 
     if (store.unlocked()) {
@@ -24,7 +22,7 @@ const UnlockStore: Component = () => {
 
   return (
     <ReCard>
-      <form onSubmit={unlock}>
+      <ReForm onSubmit={unlock}>
         <ReTextField
           onInput={(e) => {
             setPassword(e.currentTarget.value);
@@ -35,7 +33,7 @@ const UnlockStore: Component = () => {
           error={error()}
         />
         <ReButton submit> Unlock </ReButton>
-      </form>
+      </ReForm>
     </ReCard>
   );
 };

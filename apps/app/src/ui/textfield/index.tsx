@@ -41,7 +41,7 @@ export const ReTextField: Component<ReTextFieldProps> = (props) => {
       </Show>
       <input
         type={props.password ? "password" : "text"}
-        className="w-full px-2 py-1 border-b-2 border-b-highlight-med outline-none focus:(border-b-pine) bg-surface dark:(bg-dark-surface border-b-dark-highlight-med) dark:focus:border-b-dark-pine dark-transition placeholder-highlight-high dark:placeholder-dark-highlight-high"
+        className="w-full px-2 py-1 border-b-2 border-b-highlight-med outline-none focus:(border-b-pine) bg-surface placeholder-muted dark:(bg-dark-surface border-b-dark-highlight-med placeholder-dark-muted) dark:focus:border-b-dark-pine dark-transition"
         classList={{ "border-b-love": props.error }}
         onInput={(e) => {
           setValue(e.currentTarget.value);
