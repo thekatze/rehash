@@ -1,4 +1,5 @@
 import { Component, createSignal, Show } from "solid-js";
+import { useUiTheme } from "..";
 
 interface ReTextFieldProps {
   label?: string;
@@ -14,25 +15,34 @@ interface ReTextFieldProps {
 
 export const ReTextField: Component<ReTextFieldProps> = (props) => {
   const [value, setValue] = createSignal("");
+  const [dark] = useUiTheme();
 
   return (
     <div className="relative my-4">
       <Show when={!!props.label}>
         <label
           className="text-xs absolute left-0 -top-3 transition-opacity "
-          classList={{
-            "opacity-0": !value(),
-            "text-red-600": props.error,
-            "text-gray-600": !!value() && !props.error,
-          }}
+          classList={
+            dark()
+              ? {
+                  "opacity-0": !value(),
+                  "text-love": props.error,
+                  "text-highlight-high": !!value() && !props.error,
+                }
+              : {
+                  "opacity-0": !value(),
+                  "text-dark-love": props.error,
+                  "text-dark-highlight-high": !!value() && !props.error,
+                }
+          }
         >
           {props.label}
         </label>
       </Show>
       <input
         type={props.password ? "password" : "text"}
-        className="w-full px-2 py-1 border-b-2 outline-none focus:(border-b-orange-400) dark:(bg-true-gray-800 border-true-gray-700) dark:focus:border-b-purple-600"
-        classList={{ "border-b-red-600": props.error }}
+        className="w-full px-2 py-1 border-b-2 border-b-highlight-med outline-none focus:(border-b-pine) bg-surface dark:(bg-dark-surface border-b-dark-highlight-med) dark:focus:border-b-dark-pine dark-transition placeholder-highlight-high dark:placeholder-dark-highlight-high"
+        classList={{ "border-b-love": props.error }}
         onInput={(e) => {
           setValue(e.currentTarget.value);
           props.onInput?.call(undefined, e);

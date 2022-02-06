@@ -4,15 +4,20 @@ import {
   createSignal,
   createEffect,
 } from "solid-js";
-import { ContextProviderComponent } from "solid-js/types/reactive/signal";
+import {
+  Accessor,
+  ContextProviderComponent,
+} from "solid-js/types/reactive/signal";
 
+type GetUiThemeFunction = Accessor<boolean>;
 type SetUiThemeFunction = <U extends boolean>(
   value: (U extends Function ? never : U) | ((prev: boolean) => U)
 ) => U;
 
-const UiThemeContext = createContext<[SetUiThemeFunction]>();
+const UiThemeContext =
+  createContext<[GetUiThemeFunction, SetUiThemeFunction]>();
 
-export function useUiTheme(): [SetUiThemeFunction] {
+export function useUiTheme(): [GetUiThemeFunction, SetUiThemeFunction] {
   const context = useContext(UiThemeContext);
 
   if (!context)
@@ -31,7 +36,7 @@ export const UiThemeProvider: ContextProviderComponent<
 
   createEffect(() => localStorage.setItem("reThemeDark", dark() + ""));
 
-  const data: [SetUiThemeFunction] = [setDark];
+  const data: [GetUiThemeFunction, SetUiThemeFunction] = [dark, setDark];
 
   return (
     <UiThemeContext.Provider value={data}>

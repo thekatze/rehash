@@ -6,7 +6,8 @@ interface ReHeaderProps {
 
 export const ReHeader: Component<ReHeaderProps> = (props) => {
   return (
-    <header className="branding-bg-lg text-white w-full py-3 px-5 flex mb-4 place-items-center">
+    <header className="bg-overlay dark:(bg-dark-overlay) w-full py-3 px-5 flex mb-4 place-items-center">
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-love to-rose dark:(from-dark-love to-dark-rose)"></div>
       {props.children}
     </header>
   );
