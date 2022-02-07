@@ -26,6 +26,10 @@ const routes: RouteDefinition[] = [
     path: "/new",
     component: lazy(() => import("@/pages/NewStore")),
   },
+  {
+    path: "/*all",
+    component: lazy(() => import("@/pages/Home")),
+  },
 ];
 
 export default routes;

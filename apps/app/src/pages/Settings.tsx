@@ -9,7 +9,6 @@ const Settings: Component = () => {
 
   return (
     <div>
-      Settings
       <ReCard>
         <ReButton onClick={() => setTheme((theme) => !theme)}>
           Switch Theme

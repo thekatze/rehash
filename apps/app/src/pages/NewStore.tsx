@@ -1,7 +1,14 @@
 import { useRehash } from "@/providers/RehashProvider";
 import { ReButton, ReCard, ReForm, ReTextField } from "@/ui";
 import { useNavigate } from "solid-app-router";
-import { Component, createDeferred, createMemo, createSignal } from "solid-js";
+import {
+  Component,
+  createDeferred,
+  createMemo,
+  createSignal,
+  lazy,
+  Suspense,
+} from "solid-js";
 
 const NewStore: Component = () => {
   const [generator, entries, store] = useRehash();
@@ -15,10 +22,9 @@ const NewStore: Component = () => {
     navigate("/");
   }
 
-  const passwordStrength = createMemo(() => {
-    // TODO: zxcvbn-ts
-    return password().length / 3.4;
-  });
+  const PasswordStrengthMeter = lazy(
+    async () => await import("@/components/PasswordStrengthMeter")
+  );
 
   return (
     <div>
@@ -29,7 +35,9 @@ const NewStore: Component = () => {
             label="Password"
             password
           />
-          {passwordStrength()}
+          <Suspense fallback={<p>Loading Password Strength Calculator</p>}>
+            <PasswordStrengthMeter password={password} />
+          </Suspense>
           <ReButton submit> Create new Store </ReButton>
         </ReForm>
       </ReCard>

@@ -9,6 +9,9 @@
   },
   "dependencies": {
     "@rehash/logic": "workspace:*",
+    "@zxcvbn-ts/core": "^1.2.0",
+    "@zxcvbn-ts/language-common": "^1.0.2",
+    "@zxcvbn-ts/language-en": "^1.2.0",
     "file-saver": "^2.0.5",
     "rosetta": "^1.1.0",
     "solid-app-router": "^0.2.1",
