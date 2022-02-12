@@ -5,3 +5,4 @@ export * from "./header";
 export * from "./main";
 export * from "./textfield";
 export * from "./form";
+export * from "./skeleton";
