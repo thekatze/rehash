@@ -1,14 +1,20 @@
-import rosetta from "rosetta";
-import { createContext, useContext } from "solid-js";
+import rosetta, { Rosetta } from "rosetta";
+import { createContext, useContext, Accessor } from "solid-js";
+import { createStore } from "solid-js/store";
 import { ContextProviderComponent } from "solid-js/types/reactive/signal";
 
 type TranslateFunction = (key: string, props?: any) => string;
 type SetLocaleFunction = (lang: string) => Promise<void>;
 
-export const I18nContext =
-  createContext<[TranslateFunction, SetLocaleFunction]>();
+type LocaleOptions = {
+  currentLocale: Accessor<string>;
+  setLocale: SetLocaleFunction;
+  listLocales: Accessor<string[]>;
+};
 
-export function useI18n(): [TranslateFunction, SetLocaleFunction] {
+export const I18nContext = createContext<[TranslateFunction, LocaleOptions]>();
+
+export function useI18n(): [TranslateFunction, LocaleOptions] {
   const context = useContext(I18nContext);
 
   if (!context)
@@ -19,9 +25,12 @@ export function useI18n(): [TranslateFunction, SetLocaleFunction] {
   return context;
 }
 
-const i18n = rosetta();
+const supportedLanguages: { [locale: string]: () => Promise<any> } = {
+  en: async () => await import("./lang/en.json"),
+  de: async () => await import("./lang/de.json"),
+};
 
-async function loadLanguage(lang?: string) {
+async function buildI18nForLocale(lang?: string) {
   const hasLanguage =
     lang !== undefined &&
     Object.keys(supportedLanguages).some((key) => key === lang);
@@ -30,29 +39,34 @@ async function loadLanguage(lang?: string) {
     lang = "en";
   }
 
-  i18n.set(lang!, supportedLanguages[lang!]);
-  i18n.locale(lang);
+  const newI18n = rosetta();
+  newI18n.set(lang!, await supportedLanguages[lang!]());
+  newI18n.locale(lang);
+
+  return newI18n;
 }
 
-const supportedLanguages: { [locale: string]: () => Promise<any> } = {
-  en: async () => await import("./lang/en.json"),
-  de: async () => await import("./lang/de.json"),
-};
-
 const locale = new Intl.Locale(navigator.languages[0]);
-
-// TODO: save explicitly chosen language
-await loadLanguage(locale.language);
+const defaultI18n = await buildI18nForLocale(locale.language);
 
 // TODO: enable language switching
 // https://phrase.com/blog/posts/solidjs-localization-i18next/
 export const I18nProvider: ContextProviderComponent<typeof I18nContext> = (
   props
 ) => {
-  const data: [TranslateFunction, SetLocaleFunction] = [
-    i18n.t,
-    async (lang: string): Promise<void> => {
-      await loadLanguage(lang);
+  const [store, setStore] = createStore<{
+    i18n: Rosetta<unknown>;
+  }>({ i18n: defaultI18n });
+
+  const data: [TranslateFunction, LocaleOptions] = [
+    store.i18n.t,
+    {
+      currentLocale: () => store.i18n.locale(),
+      setLocale: async (lang: string): Promise<void> => {
+        const newI18n = await buildI18nForLocale(lang);
+        setStore("i18n", () => newI18n);
+      },
+      listLocales: () => Object.keys(supportedLanguages),
     },
   ];
 

@@ -3,8 +3,10 @@ import { Link, useNavigate, useRoutes } from "solid-app-router";
 import routes from "@/routes";
 import { ReApp, ReHeader, ReHeaderTitle, ReMain } from "./ui";
 import { useRehash } from "./providers/RehashProvider";
+import { useI18n } from "./i18n/I18nProvider";
 
 const App: Component = () => {
+  const [t] = useI18n();
   const Routes = useRoutes(routes);
 
   const navigate = useNavigate();
@@ -26,13 +28,13 @@ const App: Component = () => {
         <ReHeaderTitle>rehash</ReHeaderTitle>
         <Show when={store.unlocked()}>
           <Link href="/" className="header-link">
-            Home
+            {t("HOME")}
           </Link>
           <Link href="/create" className="header-link">
-            Create
+            {t("CREATE")}
           </Link>
           <Link href="/settings" className="header-link">
-            Settings
+            {t("SETTINGS")}
           </Link>
         </Show>
       </ReHeader>

@@ -1,15 +1,11 @@
+import { useI18n } from "@/i18n/I18nProvider";
 import { useRehash } from "@/providers/RehashProvider";
 import { ReButton, ReCard, ReForm, ReSkeleton, ReTextField } from "@/ui";
 import { useNavigate } from "solid-app-router";
-import {
-  Component,
-  createDeferred,
-  createSignal,
-  lazy,
-  Suspense,
-} from "solid-js";
+import { Component, createSignal, lazy, Suspense } from "solid-js";
 
 const NewStore: Component = () => {
+  const [t] = useI18n();
   const [generator, entries, store] = useRehash();
   const navigate = useNavigate();
   const [password, setPassword] = createSignal("");
@@ -28,12 +24,12 @@ const NewStore: Component = () => {
   return (
     <div>
       <ReCard>
-        <h2 className="text-xl font-bold">New Store</h2>
-        <p>Set a strong master password for your new store.</p>
+        <h2 className="text-xl font-bold">{t("NEW_STORE_HEADER")}</h2>
+        <p>{t("NEW_STORE_TEXT")}</p>
         <ReForm onSubmit={createNewStore}>
           <ReTextField
             onInput={(e) => setPassword(e.currentTarget.value)}
-            label="Password"
+            label={t("PASSWORD")}
             password
           />
           <Suspense
@@ -45,7 +41,7 @@ const NewStore: Component = () => {
           >
             <PasswordStrengthMeter password={password} />
           </Suspense>
-          <ReButton submit> Create new Store </ReButton>
+          <ReButton submit>{t("CREATE_STORE")}</ReButton>
         </ReForm>
       </ReCard>
     </div>

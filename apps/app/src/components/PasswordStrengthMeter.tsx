@@ -1,3 +1,4 @@
+import { useI18n } from "@/i18n/I18nProvider";
 import { useUiTheme } from "@/ui";
 import { zxcvbn, ZxcvbnOptions } from "@zxcvbn-ts/core";
 import { Accessor, Component, createResource, Show } from "solid-js";
@@ -26,6 +27,7 @@ async function loadOptions(): Promise<void> {
 const PasswordStrengthMeter: Component<PasswordStrengthMeterProps> = (
   props
 ) => {
+  const [t] = useI18n();
   const [dark] = useUiTheme();
 
   const [result, { mutate, refetch }] = createResource(
@@ -43,7 +45,7 @@ const PasswordStrengthMeter: Component<PasswordStrengthMeterProps> = (
   return (
     <div className="text-xs">
       <label className="text-subtle dark:text-dark-subtle">
-        Password Strength:
+        {t("PASSWORD_STRENGTH")}
       </label>
       <div className="flex flex-row my-1">
         {[...Array(4).keys()].map((threshold) => {
@@ -74,7 +76,7 @@ const PasswordStrengthMeter: Component<PasswordStrengthMeterProps> = (
       <p className="min-h-1rem mb-2">
         <Show when={options.loading && props.password()}>
           <AlertIcon className="text-love dark:text-dark-love" />
-          Loading dictionary, password strength estimate is still inaccurate.
+          {t("PASSWORD_STRENGTH_DICTIONARY_LOADING")}
         </Show>
         <Show when={result()?.feedback?.warning}>
           <AlertIcon className="text-love dark:text-dark-love" />

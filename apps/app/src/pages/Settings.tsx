@@ -2,8 +2,10 @@ import { Component } from "solid-js";
 import { ReCard, ReButton, useUiTheme } from "@/ui";
 import FileSaver from "file-saver";
 import { useRehash } from "@/providers/RehashProvider";
+import { useI18n } from "@/i18n/I18nProvider";
 
 const Settings: Component = () => {
+  const [t, { currentLocale, setLocale, listLocales }] = useI18n();
   const [_, setTheme] = useUiTheme();
   const [generator, entries, store] = useRehash();
 
@@ -11,11 +13,23 @@ const Settings: Component = () => {
     <div>
       <ReCard>
         <ReButton onClick={() => setTheme((theme) => !theme)}>
-          Switch Theme
+          {t("SWITCH_THEME")}
         </ReButton>
       </ReCard>
       <ReCard>
-        <ReButton onClick={() => store.delete()}>Delete Store</ReButton>
+        {t("LANGUAGE")}
+        <select onChange={async (e) => await setLocale(e.currentTarget.value)}>
+          {listLocales().map((locale) => {
+            const displayName = new Intl.DisplayNames([locale], {
+              type: "language",
+            });
+
+            return <option value={locale}>{displayName.of(locale)}</option>;
+          })}
+        </select>
+      </ReCard>
+      <ReCard>
+        <ReButton onClick={() => store.delete()}>{t("DELETE_STORE")}</ReButton>
       </ReCard>
       <ReCard>
         <ReButton
@@ -28,7 +42,7 @@ const Settings: Component = () => {
             )
           }
         >
-          Export Store
+          {t("EXPORT_STORE")}
         </ReButton>
       </ReCard>
     </div>

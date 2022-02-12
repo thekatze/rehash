@@ -1,9 +1,11 @@
+import { useI18n } from "@/i18n/I18nProvider";
 import { useRehash } from "@/providers/RehashProvider";
 import { ReButton, ReCard, ReForm, ReTextField } from "@/ui";
 import { useNavigate } from "solid-app-router";
 import { Component, createSignal } from "solid-js";
 
 const UnlockStore: Component = () => {
+  const [t] = useI18n();
   const [generator, entries, store] = useRehash();
   const navigate = useNavigate();
 
@@ -28,11 +30,11 @@ const UnlockStore: Component = () => {
             setPassword(e.currentTarget.value);
             setError(false);
           }}
-          label="Password"
+          label={t("PASSWORD")}
           password
           error={error()}
         />
-        <ReButton submit> Unlock </ReButton>
+        <ReButton submit>{t("UNLOCK")}</ReButton>
       </ReForm>
     </ReCard>
   );

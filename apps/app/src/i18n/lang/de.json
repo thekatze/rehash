@@ -1,3 +1,20 @@
 {
-  "hello": "Hallo, {{name}}!"
+  "CREATE": "Erstellen",
+  "CREATE_STORE": "Tresor erstellen",
+  "DELETE_STORE": "Tresor löschen",
+  "DISPLAY_NAME": "Anzeigename",
+  "EXPORT_STORE": "Tresor exportieren",
+  "FILTER": "Filter",
+  "HOME": "Übersicht",
+  "LANGUAGE": "Sprache",
+  "NEW_STORE_HEADER": "Neuer Tresor",
+  "NEW_STORE_TEXT": "Gebe ein sicheres Masterpasswort für den Tresor ein.",
+  "PASSWORD": "Passwort",
+  "PASSWORD_STRENGTH": "Passwortsicherheit:",
+  "PASSWORD_STRENGTH_DICTIONARY_LOADING": "Loading dictionary, password strength estimate is still inaccurate.",
+  "SETTINGS": "Einstellungen",
+  "SWITCH_THEME": "Thema wechseln",
+  "UNLOCK": "Tresor öffnen",
+  "URL": "URL",
+  "USERNAME": "Benutzername"
 }

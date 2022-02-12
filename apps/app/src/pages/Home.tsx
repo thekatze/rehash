@@ -27,7 +27,7 @@ const Home: Component = () => {
     <>
       <ReCard>
         <ReTextField
-          label="Filter"
+          label={t("FILTER")}
           onInput={(e) => setFilter(e.currentTarget.value)}
         />
       </ReCard>

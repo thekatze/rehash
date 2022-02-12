@@ -1,3 +1,4 @@
+import { useI18n } from "@/i18n/I18nProvider";
 import { useRehash } from "@/providers/RehashProvider";
 import { ReButton, ReCard, ReForm, ReTextField } from "@/ui";
 import { StoreEntry } from "@rehash/logic";
@@ -6,6 +7,7 @@ import { Component, createSignal } from "solid-js";
 
 const CreateEntry: Component = () => {
   const [generator, entries, store] = useRehash();
+  const [t] = useI18n();
 
   const [url, setUrl] = createSignal("");
   const [username, setUsername] = createSignal("");
@@ -16,7 +18,7 @@ const CreateEntry: Component = () => {
   async function create() {
     // TODO: Validation, url formatting and settable options
     const entry: StoreEntry = {
-      displayName: displayName() !== "" ? displayName() : undefined,
+      displayName: displayName().trim() !== "" ? displayName() : undefined,
       url: url(),
       username: username(),
       options: { length: 32 },
@@ -31,18 +33,18 @@ const CreateEntry: Component = () => {
     <ReCard>
       <ReForm onSubmit={create}>
         <ReTextField
-          label="Url"
+          label={t("URL")}
           onInput={(e) => setUrl(e.currentTarget.value)}
         />
         <ReTextField
-          label="Username"
+          label={t("USERNAME")}
           onInput={(e) => setUsername(e.currentTarget.value)}
         />
         <ReTextField
-          label="Displayname"
+          label={t("DISPLAY_NAME")}
           onInput={(e) => setDisplayName(e.currentTarget.value)}
         />
-        <ReButton submit> Create </ReButton>
+        <ReButton submit> {t("CREATE")} </ReButton>
       </ReForm>
     </ReCard>
   );
