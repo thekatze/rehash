@@ -4,7 +4,6 @@ import { useNavigate } from "solid-app-router";
 import {
   Component,
   createDeferred,
-  createMemo,
   createSignal,
   lazy,
   Suspense,
@@ -22,9 +21,9 @@ const NewStore: Component = () => {
     navigate("/");
   }
 
-  const PasswordStrengthMeter = lazy(
-    async () => await import("@/components/PasswordStrengthMeter")
-  );
+  const PasswordStrengthMeter = createDeferred(() =>
+    lazy(async () => await import("@/components/PasswordStrengthMeter"))
+  )();
 
   return (
     <div>
