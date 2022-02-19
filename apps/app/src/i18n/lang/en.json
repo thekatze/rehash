@@ -1,6 +1,7 @@
 {
   "CREATE": "Create",
   "CREATE_STORE": "Create Store",
+  "DELETE_ENTRY": "Delete",
   "DELETE_STORE": "Delete Store",
   "DISPLAY_NAME": "Display Name",
   "EXPORT_STORE": "Export Store",
@@ -12,6 +13,7 @@
   "PASSWORD": "Password",
   "PASSWORD_STRENGTH": "Password strength:",
   "PASSWORD_STRENGTH_DICTIONARY_LOADING": "Loading dictionary, password strength estimate is still inaccurate.",
+  "SAVE_CHANGES": "Save Changes",
   "SETTINGS": "Settings",
   "SWITCH_THEME": "Switch Theme",
   "UNLOCK": "Unlock",

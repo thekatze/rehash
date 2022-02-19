@@ -75,14 +75,8 @@ export const RehashProvider: ContextProviderComponent<typeof RehashContext> = (
       list: () => store.store.list(),
       get: (id) => store.store.get(id),
       add: (entry) => store.store.add(entry),
-      edit: (entry) => {
-        // TODO:
-        return Promise.resolve();
-      },
-      remove: (uuid) => {
-        // TODO:
-        return Promise.resolve();
-      },
+      edit: (entry) => store.store.edit(entry),
+      remove: (uuid) => store.store.remove(uuid),
     },
     {
       initialize: async (password) => {

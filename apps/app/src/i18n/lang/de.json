@@ -1,6 +1,7 @@
 {
   "CREATE": "Erstellen",
   "CREATE_STORE": "Tresor erstellen",
+  "DELETE_ENTRY": "Löschen",
   "DELETE_STORE": "Tresor löschen",
   "DISPLAY_NAME": "Anzeigename",
   "EXPORT_STORE": "Tresor exportieren",
@@ -12,6 +13,7 @@
   "PASSWORD": "Passwort",
   "PASSWORD_STRENGTH": "Passwortsicherheit:",
   "PASSWORD_STRENGTH_DICTIONARY_LOADING": "Loading dictionary, password strength estimate is still inaccurate.",
+  "SAVE_CHANGES": "Änderungen speichern",
   "SETTINGS": "Einstellungen",
   "SWITCH_THEME": "Thema wechseln",
   "UNLOCK": "Tresor öffnen",

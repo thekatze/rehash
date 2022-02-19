@@ -18,7 +18,7 @@ export interface EncryptedStore {
 
 export interface Store {
   options: GeneratorOptions;
-  entries: { [id: string]: StoreEntry };
+  entries: { [id: string]: StoreEntry | undefined };
 }
 
 class LockedError extends Error {
@@ -59,25 +59,44 @@ export class RehashStore {
 
   public async add(entry: StoreEntry): Promise<string> {
     if (!this.isUnlocked()) throw new LockedError();
-    if (!this.store) throw new LockedError();
 
     let nextId = crypto.randomUUID();
 
-    while (this.store.entries[nextId] !== undefined)
+    while (this.store!.entries[nextId] !== undefined)
       nextId = crypto.randomUUID();
 
-    this.store.entries[nextId] = entry;
+    this.store!.entries[nextId] = entry;
 
     await this.saveStore();
 
     return nextId;
   }
 
+  public async edit(entry: StoreEntryWithId): Promise<void> {
+    if (!this.isUnlocked()) throw new LockedError();
+
+    const old = this.store!.entries[entry.id];
+
+    if (old !== undefined) {
+      this.store!.entries[entry.id] = entry;
+    }
+
+    await this.saveStore();
+  }
+
+  public async remove(uuid: string): Promise<void> {
+    if (!this.isUnlocked()) throw new LockedError();
+
+    this.store!.entries[uuid] = undefined;
+
+    await this.saveStore();
+  }
+
   public list(): StoreEntryWithId[] {
     if (!this.isUnlocked()) throw new LockedError();
 
     return Object.keys(this.store!.entries).map((x) => {
-      return { id: x, ...this.store!.entries[x] };
+      return { id: x, ...this.store!.entries[x]! };
     });
   }
 
