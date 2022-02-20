@@ -49,11 +49,15 @@ importers:
       '@astrojs/renderer-solid': ^0.4.0
       '@rehash/logic': workspace:*
       astro: ^0.23.0
+      vite-plugin-windicss: ^1.7.1
+      windicss: ^3.4.3
     dependencies:
       '@rehash/logic': link:../../components/logic
     devDependencies:
       '@astrojs/renderer-solid': 0.4.0
       astro: 0.23.0
+      vite-plugin-windicss: 1.7.1
+      windicss: 3.4.3
 
   components/logic:
     specifiers:
@@ -4002,6 +4006,19 @@ packages:
       - less
       - sass
       - stylus
+      - supports-color
+    dev: true
+
+  /vite-plugin-windicss/1.7.1:
+    resolution: {integrity: sha512-eEDeTPaeQAfe0widkTkm9X51BVpOE/yDIuFbULIKjXI7CfY1yjsPcxA6E3aZbLBYQcUmfhVUTYVaH5iAE5L8Hg==}
+    peerDependencies:
+      vite: ^2.0.1
+    dependencies:
+      '@windicss/plugin-utils': 1.7.1
+      debug: 4.3.3
+      kolorist: 1.5.1
+      windicss: 3.4.3
+    transitivePeerDependencies:
       - supports-color
     dev: true
 

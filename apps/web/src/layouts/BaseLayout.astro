@@ -1,0 +1,33 @@
+---
+const {title} = Astro.props;
+---
+
+<html>
+  <head>
+    <title>{title}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+
+    <script type="module" src={Astro.resolve('../windicss.ts')}></script>
+  </head>
+  <body class="min-h-screen flex flex-col bg-base text-text">
+    <header class="flex relative bg-overlay py-3 px-5 mb-4 place-items-center">
+      <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-love to-rose"></div>
+      <h1 class="font-black text-2xl mr-6">
+        rehash
+      </h1>
+      <span class="flex-grow">
+        
+      </span>
+
+      <a href="https://app.rehash.one" class="font-bold underline">Go to App ➡️</a>
+    </header>
+    <main class="flex-grow">
+      <slot />
+    </main>
+    <footer class="bg-surface text-subtle p-6">
+      Im the footer, socials will be inserted here
+    </footer>
+  </body>
+</html>

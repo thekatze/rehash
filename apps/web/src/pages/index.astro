@@ -1,16 +1,20 @@
 ---
-import InteractiveDemo from '../components/InteractiveDemo.tsx';
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import InteractiveDemo from "@/components/InteractiveDemo.tsx";
 ---
 
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-  </head>
-  <body>
-    <main>
-      <InteractiveDemo client:visible />
-    </main>
-  </body>
-</html>
+<BaseLayout title="rehash">
+  <div class="mx-auto max-w-prose px-3">
+    <h2 class="md:text-7xl <md:text-4xl font-black">
+      Offline passwords
+    </h2>
+    <h3 class="text-3xl text-right">
+      accessible anywhere.
+    </h3>
+  </div>
+
+  <div class="mx-auto md:w-1/2 mt-24 p-6 md:min-w-prose bg-surface">
+    <h4>Interactive Demo</h4>
+    <InteractiveDemo client:idle />
+  </div>
+</BaseLayout>

@@ -9,15 +9,15 @@ const InteractiveDemo: Component = (props) => {
       ? undefined
       : new RehashGenerator(password(), {
           iterations: 1,
-          memorySize: 2048,
-          parallelism: 2,
+          memorySize: 32,
+          parallelism: 1,
         }).generate({ url: "1", username: "2", options: { length: 32 } });
   });
 
   return (
     <div>
       <input type="text" onInput={(e) => setPassword(e.currentTarget.value)} />
-      {generatedPassword()}
+      <p>{generatedPassword()}</p>
     </div>
   );
 };
