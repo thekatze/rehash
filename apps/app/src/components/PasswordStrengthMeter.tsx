@@ -1,6 +1,6 @@
 import { useI18n } from "@/i18n/I18nProvider";
 import { useUiTheme } from "@/ui";
-import { zxcvbn, ZxcvbnOptions } from "@zxcvbn-ts/core";
+import { zxcvbnAsync, zxcvbnOptions } from "@zxcvbn-ts/core";
 import { Accessor, Component, createResource, Show } from "solid-js";
 import AlertIcon from "~icons/majesticons/alert-circle-line";
 
@@ -21,7 +21,7 @@ async function loadOptions(): Promise<void> {
     translations: en.default.translations,
   };
 
-  ZxcvbnOptions.setOptions(options);
+  zxcvbnOptions.setOptions(options);
 }
 
 const PasswordStrengthMeter: Component<PasswordStrengthMeterProps> = (
@@ -32,7 +32,7 @@ const PasswordStrengthMeter: Component<PasswordStrengthMeterProps> = (
 
   const [result, { mutate, refetch }] = createResource(
     props.password,
-    async () => await zxcvbn(props.password().substring(0, 100))
+    async () => await zxcvbnAsync(props.password().substring(0, 100))
   );
 
   const [options] = createResource(async () => {
