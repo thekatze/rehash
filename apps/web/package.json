@@ -1,0 +1,17 @@
+{
+  "name": "@rehash/web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@rehash/logic": "workspace:*"
+  },
+  "devDependencies": {
+    "@astrojs/renderer-solid": "^0.4.0",
+    "astro": "^0.23.0"
+  }
+}

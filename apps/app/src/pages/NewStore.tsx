@@ -17,9 +17,10 @@ const NewStore: Component = () => {
     navigate("/");
   }
 
-  const PasswordStrengthMeter = lazy(
-    async () => await import("@/components/PasswordStrengthMeter")
-  );
+  const PasswordStrengthMeter = lazy(async () => {
+    await new Promise((resolve) => requestIdleCallback(resolve));
+    return await import("@/components/PasswordStrengthMeter");
+  });
 
   return (
     <div>
