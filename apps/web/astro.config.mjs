@@ -11,6 +11,10 @@ import WindiCSS from "vite-plugin-windicss";
 // @ts-check
 export default /** @type {import('astro').AstroUserConfig} */ ({
 	// Enable the Solid renderer to support Solid JSX components.
+	buildOptions: {
+		site: "https://www.rehash.one",
+		sitemap: true
+	},
 	renderers: ['@astrojs/renderer-solid'],
 	vite: {
 		plugins: [WindiCSS()]
