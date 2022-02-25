@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node windi.mjs",
     "preview": "astro preview"
   },
   "dependencies": {
