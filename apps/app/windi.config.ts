@@ -2,7 +2,6 @@ export default {
   darkMode: "class",
   shortcuts: {
     "dark-transition": "transition-colors duration-250",
-    "header-link": "text-text dark:text-dark-text no-underline mx-5 p-1",
   },
   theme: {
     // https://rosepinetheme.com/palette

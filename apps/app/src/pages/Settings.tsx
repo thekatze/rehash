@@ -3,11 +3,13 @@ import { ReCard, ReButton, useUiTheme } from "@/ui";
 import FileSaver from "file-saver";
 import { useRehash } from "@/providers/RehashProvider";
 import { useI18n } from "@/i18n/I18nProvider";
+import { useNavigate } from "solid-app-router";
 
 const Settings: Component = () => {
   const [t, { currentLocale, setLocale, listLocales }] = useI18n();
   const [_, setTheme] = useUiTheme();
   const [generator, entries, store] = useRehash();
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -29,7 +31,14 @@ const Settings: Component = () => {
         </select>
       </ReCard>
       <ReCard>
-        <ReButton onClick={() => store.delete()}>{t("DELETE_STORE")}</ReButton>
+        <ReButton
+          onClick={async () => {
+            await store.delete();
+            navigate("/new");
+          }}
+        >
+          {t("DELETE_STORE")}
+        </ReButton>
       </ReCard>
       <ReCard>
         <ReButton

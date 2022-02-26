@@ -32,7 +32,7 @@ const EntryListItem: Component<EntryListItemProps> = (props) => {
   }
 
   return (
-    <ul className="bg-surface dark:(bg-dark-surface) p-3 relative flex flex-row my-2">
+    <ul className="bg-surface rounded dark:(bg-dark-surface) p-3 relative flex flex-row my-2">
       <Link
         href={`/entry/${props.entry.id}`}
         className="no-underline flex-grow"
@@ -49,11 +49,11 @@ const EntryListItem: Component<EntryListItemProps> = (props) => {
       <div className="place-self-center text-2xl">
         <IconUser
           onClick={copyUsername}
-          className="cursor-pointer origin-center"
+          className="cursor-pointer origin-center hover:text-iris dark:hover:text-dark-iris transition-colors"
         />
         <IconClipboard
           onClick={copyPassword}
-          className="cursor-pointer origin-center"
+          className="cursor-pointer origin-center hover:text-iris dark:hover:text-dark-iris transition-colors"
         />
       </div>
       <Show when={loading()}>

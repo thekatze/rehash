@@ -1,15 +1,21 @@
-import { Component, createEffect, Show } from "solid-js";
-import { Link, useNavigate, useRoutes } from "solid-app-router";
+import { Component, createEffect, createMemo, Show } from "solid-js";
+import { Link, useLocation, useNavigate, useRoutes } from "solid-app-router";
 import routes from "@/routes";
 import { ReApp, ReHeader, ReHeaderTitle, ReMain } from "./ui";
 import { useRehash } from "./providers/RehashProvider";
 import { useI18n } from "./i18n/I18nProvider";
+import MenuIcon from "~icons/majesticons/menu-line";
+import BackIcon from "~icons/majesticons/arrow-left-line";
 
 const App: Component = () => {
   const [t] = useI18n();
   const Routes = useRoutes(routes);
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const isHome = createMemo(() => location.pathname === "/");
+
   const [generator, entries, store] = useRehash();
 
   createEffect(async () => {
@@ -25,21 +31,24 @@ const App: Component = () => {
   return (
     <ReApp>
       <ReHeader>
-        <ReHeaderTitle>rehash</ReHeaderTitle>
         <Show when={store.unlocked()}>
-          <Link href="/" className="header-link">
-            {t("HOME")}
-          </Link>
-          <Link href="/create" className="header-link">
-            {t("CREATE")}
-          </Link>
-          <Link href="/settings" className="header-link">
-            {t("SETTINGS")}
-          </Link>
+          <Show
+            when={isHome()}
+            fallback={
+              <Link href="/" className="text-text dark:text-dark-text">
+                <BackIcon className="text-2xl" />
+              </Link>
+            }
+          >
+            <MenuIcon className="text-2xl" />
+          </Show>
         </Show>
+        <ReHeaderTitle>rehash</ReHeaderTitle>
       </ReHeader>
       <ReMain>
-        <Routes />
+        <div className="min-w-270px max-w-prose m-auto">
+          <Routes />
+        </div>
       </ReMain>
     </ReApp>
   );
