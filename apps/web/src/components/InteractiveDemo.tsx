@@ -1,23 +1,53 @@
-import { createSignal, createResource, Component } from "solid-js";
+import { createSignal, createResource, createMemo, Component } from "solid-js";
 import { RehashGenerator } from "@rehash/logic";
+import ReTextField from "./ReTextField";
 
 const InteractiveDemo: Component = (props) => {
+  const [url, setUrl] = createSignal("https://app.rehash.one");
+  const [username, setUsername] = createSignal("DonJoe");
   const [password, setPassword] = createSignal("");
 
-  const [generatedPassword] = createResource(password, async () => {
+  const generatePasswordFunction = createMemo(() => {
     return password() === ""
       ? undefined
       : new RehashGenerator(password(), {
           iterations: 1,
-          memorySize: 32,
-          parallelism: 1,
-        }).generate({ url: "1", username: "2", options: { length: 32 } });
+          memorySize: 2048,
+          parallelism: 2,
+        }).generate({
+          url: url(),
+          username: username(),
+          options: { length: 32 },
+        });
   });
+
+  const [generatedPassword] = createResource(generatePasswordFunction, () =>
+    generatePasswordFunction()
+  );
 
   return (
     <div>
-      <input type="text" onInput={(e) => setPassword(e.currentTarget.value)} />
-      <p>{generatedPassword()}</p>
+      <ReTextField
+        value={url()}
+        label="URL"
+        onInput={(e) => setUrl(e.currentTarget.value)}
+      />
+      <ReTextField
+        value={username()}
+        label="Username"
+        onInput={(e) => setUsername(e.currentTarget.value)}
+      />
+      <ReTextField
+        password
+        value={password()}
+        label="Master Password"
+        onInput={(e) => setPassword(e.currentTarget.value)}
+      />
+      <p className="font-mono text-center bg-highlight-high p-2 rounded">
+        {generatedPassword() !== undefined
+          ? generatedPassword()
+          : "Generated Password will appear here"}
+      </p>
     </div>
   );
 };

@@ -2,11 +2,12 @@
 const {title} = Astro.props;
 ---
 
-<html>
+<html lang="en">
   <head>
     <title>{title}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
+    <meta name="description" content="The rehash password manager. Manages your passwords without ever storing them anywhere.">
     <link rel="icon" type="image/x-icon" href="./favicon.ico" />
 
     <script type="module" src={Astro.resolve('../windicss.ts')}></script>

@@ -31,10 +31,10 @@ export function useUiTheme(): [GetUiThemeFunction, SetUiThemeFunction] {
 export const UiThemeProvider: ContextProviderComponent<
   typeof UiThemeContext
 > = (props) => {
-  const setting = localStorage.getItem("reThemeDark") === "true";
-  const [dark, setDark] = createSignal(setting);
+  const setting = localStorage.getItem("reThemeBright") === "true";
+  const [dark, setDark] = createSignal(!setting);
 
-  createEffect(() => localStorage.setItem("reThemeDark", `${dark()}`));
+  createEffect(() => localStorage.setItem("reThemeBright", `${!dark()}`));
 
   const data: [GetUiThemeFunction, SetUiThemeFunction] = [dark, setDark];
 
