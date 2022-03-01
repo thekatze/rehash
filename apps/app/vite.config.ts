@@ -18,10 +18,10 @@ export default defineConfig(({ command, mode }) => {
       }),
       VitePWA({
         includeAssets: [
-          "favicon.svg",
-          "favicon.ico",
-          "robots.txt",
-          "apple-touch-icon.png",
+          "assets/favicon.svg",
+          "assets/favicon.ico",
+          "assets/robots.txt",
+          "assets/apple-touch-icon.png",
         ],
         manifest: {
           name: "rehash",
@@ -31,17 +31,17 @@ export default defineConfig(({ command, mode }) => {
           theme_color: "#191724",
           icons: [
             {
-              src: "pwa-192x192.png",
+              src: "assets/pwa-192x192.png",
               sizes: "192x192",
               type: "image/png",
             },
             {
-              src: "pwa-512x512.png",
+              src: "assets/pwa-512x512.png",
               sizes: "512x512",
               type: "image/png",
             },
             {
-              src: "pwa-512x512.png",
+              src: "assets/pwa-512x512.png",
               sizes: "512x512",
               type: "image/png",
               purpose: "any maskable",
