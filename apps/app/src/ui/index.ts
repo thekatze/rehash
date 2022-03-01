@@ -6,3 +6,4 @@ export * from "./main";
 export * from "./textfield";
 export * from "./form";
 export * from "./skeleton";
+export * from "./spacer";
