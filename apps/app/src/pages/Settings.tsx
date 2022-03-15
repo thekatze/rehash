@@ -16,7 +16,7 @@ const Settings: Component = () => {
       type: "language",
     });
 
-    return { key: id, value: displayName.of(id) };
+    return { value: id, display: displayName.of(id) };
   });
 
   return (
