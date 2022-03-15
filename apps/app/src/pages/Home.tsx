@@ -1,6 +1,6 @@
 import { useI18n } from "@/i18n/I18nProvider";
 import { Component, createSignal } from "solid-js";
-import { ReButton, ReCard, ReTextField } from "@/ui";
+import { ReCard, ReTextField } from "@/ui";
 import SettingsIcon from "~icons/majesticons/settings-cog-line";
 import CreateIcon from "~icons/majesticons/plus-line";
 
@@ -31,15 +31,17 @@ const Home: Component = () => {
       <div className="flex flex-row justify-center mb-2">
         <Link
           href="/create"
-          className="flex-grow flex justify-center items-center text-dark-text bg-pine dark:bg-dark-pine rounded p-3 mr-1"
+          className="flex-grow flex justify-center items-center text-dark-text bg-pine dark:bg-dark-pine rounded p-3 mr-1 no-underline"
         >
           <CreateIcon />
+          {t("CREATE")}
         </Link>
         <Link
           href="/settings"
-          className="flex-grow flex justify-center items-center text-dark-text bg-pine dark:bg-dark-pine rounded p-3 ml-1"
+          className="flex-grow flex justify-center items-center text-dark-text bg-pine dark:bg-dark-pine rounded p-3 ml-1 no-underline"
         >
           <SettingsIcon />
+          {t("SETTINGS")}
         </Link>
       </div>
       <ReCard>

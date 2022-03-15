@@ -38,7 +38,7 @@ const EditEntry: Component = () => {
   }
 
   async function remove() {
-    entries.remove(entry!.id);
+    await entries.remove(entry!.id);
 
     navigate("/", {});
   }
@@ -62,7 +62,7 @@ const EditEntry: Component = () => {
           onInput={(e) => setUsername(e.currentTarget.value)}
         />
         <ReButton submit>{t("SAVE_CHANGES")}</ReButton>
-        <ReButton danger onClick={remove}>
+        <ReButton danger onClick={async () => await remove()}>
           {t("DELETE_ENTRY")}
         </ReButton>
       </ReForm>

@@ -11,13 +11,11 @@
       "email": "leofel.katz@gmail.com"
     }
   ],
-  "workspaces": [
-    "apps/**",
-    "packages/**"
-  ],
   "scripts": {
     "app:start": "pnpm -C apps/app run start",
-    "app:build": "pnpm -C apps/app run build"
+    "app:build": "pnpm -C apps/app run build",
+    "web:start": "pnpm -C apps/web run start",
+    "web:build": "pnpm -C apps/web run build"
   },
   "keywords": ["solidhack", "best_app"],
   "license": "MIT"

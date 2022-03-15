@@ -11,7 +11,7 @@ const InteractiveDemo: Component = (props) => {
     return password() === ""
       ? undefined
       : new RehashGenerator(password(), {
-          iterations: 1,
+          iterations: 15,
           memorySize: 2048,
           parallelism: 2,
         }).generate({

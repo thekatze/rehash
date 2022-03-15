@@ -46,8 +46,11 @@ async function buildI18nForLocale(lang?: string) {
   return newI18n;
 }
 
-const locale = new Intl.Locale(navigator.languages[0]);
-const defaultI18n = await buildI18nForLocale(locale.language);
+const locale =
+  localStorage.getItem("locale") ??
+  new Intl.Locale(navigator.languages[0]).language;
+
+const defaultI18n = await buildI18nForLocale(locale);
 
 // TODO: enable language switching
 // https://phrase.com/blog/posts/solidjs-localization-i18next/
@@ -55,16 +58,20 @@ export const I18nProvider: ContextProviderComponent<typeof I18nContext> = (
   props
 ) => {
   const [store, setStore] = createStore<{
+    t: TranslateFunction;
     i18n: Rosetta<unknown>;
-  }>({ i18n: defaultI18n });
+  }>({ t: defaultI18n.t, i18n: defaultI18n });
 
   const data: [TranslateFunction, LocaleOptions] = [
-    store.i18n.t,
+    store.t,
     {
       currentLocale: () => store.i18n.locale(),
       setLocale: async (lang: string): Promise<void> => {
         const newI18n = await buildI18nForLocale(lang);
         setStore("i18n", () => newI18n);
+        setStore("t", () => newI18n.t);
+
+        localStorage.setItem("locale", lang);
       },
       listLocales: () => Object.keys(supportedLanguages),
     },

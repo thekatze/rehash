@@ -1,5 +1,5 @@
 import { Component } from "solid-js";
-import { ReCard, ReButton, useUiTheme } from "@/ui";
+import { ReCard, ReButton, useUiTheme, ReSelect } from "@/ui";
 import FileSaver from "file-saver";
 import { useRehash } from "@/providers/RehashProvider";
 import { useI18n } from "@/i18n/I18nProvider";
@@ -11,6 +11,14 @@ const Settings: Component = () => {
   const [generator, entries, store] = useRehash();
   const navigate = useNavigate();
 
+  const languages = listLocales().map((id) => {
+    const displayName = new Intl.DisplayNames([id], {
+      type: "language",
+    });
+
+    return { key: id, value: displayName.of(id) };
+  });
+
   return (
     <div>
       <ReCard>
@@ -19,16 +27,12 @@ const Settings: Component = () => {
         </ReButton>
       </ReCard>
       <ReCard>
-        {t("LANGUAGE")}
-        <select onChange={async (e) => await setLocale(e.currentTarget.value)}>
-          {listLocales().map((locale) => {
-            const displayName = new Intl.DisplayNames([locale], {
-              type: "language",
-            });
-
-            return <option value={locale}>{displayName.of(locale)}</option>;
-          })}
-        </select>
+        <ReSelect
+          label={t("LANGUAGE")}
+          items={languages}
+          onChange={async (e) => await setLocale(e.currentTarget.value)}
+          selected={currentLocale()}
+        />
       </ReCard>
       <ReCard>
         <ReButton
