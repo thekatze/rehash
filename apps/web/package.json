@@ -12,8 +12,8 @@
   },
   "devDependencies": {
     "@astrojs/renderer-solid": "^0.4.0",
-    "astro": "^0.23.0",
-    "vite-plugin-windicss": "^1.7.1",
-    "windicss": "^3.4.3"
+    "astro": "^0.23.7",
+    "vite-plugin-windicss": "^1.8.3",
+    "windicss": "^3.5.1"
   }
 }

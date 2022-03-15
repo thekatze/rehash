@@ -3,6 +3,14 @@
   "private": true,
   "version": "0.1.0",
   "description": "The rehash.one password manager",
+  "info": "An offline password manager that does not store your passwords.",
+  "homepage": "https://www.rehash.one",
+  "contributors": [
+    {
+      "name": "Leo Katzengruber",
+      "email": "leofel.katz@gmail.com"
+    }
+  ],
   "workspaces": [
     "apps/**",
     "packages/**"
@@ -11,5 +19,6 @@
     "app:start": "pnpm -C apps/app run start",
     "app:build": "pnpm -C apps/app run build"
   },
+  "keywords": ["solidhack", "best_app"],
   "license": "MIT"
 }
