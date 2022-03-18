@@ -1,4 +1,10 @@
-import { createSignal, createResource, createMemo, Component } from "solid-js";
+import {
+  Show,
+  createSignal,
+  createResource,
+  createMemo,
+  Component,
+} from "solid-js";
 import { RehashGenerator } from "@rehash/logic";
 import ReTextField from "./ReTextField";
 
@@ -44,9 +50,12 @@ const InteractiveDemo: Component = (props) => {
         onInput={(e) => setPassword(e.currentTarget.value)}
       />
       <p className="font-mono text-center bg-highlight-high p-2 rounded">
-        {generatedPassword() !== undefined
-          ? generatedPassword()
-          : "Generated Password will appear here"}
+        <Show
+          when={generatedPassword.loading || generatedPassword() === undefined}
+          fallback={generatedPassword()}
+        >
+          Generated Password will appear here
+        </Show>
       </p>
     </div>
   );

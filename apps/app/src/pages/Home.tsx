@@ -1,5 +1,5 @@
 import { useI18n } from "@/i18n/I18nProvider";
-import { Component, createSignal } from "solid-js";
+import { Component, createMemo, createSignal, Show } from "solid-js";
 import { ReCard, ReTextField } from "@/ui";
 import SettingsIcon from "~icons/majesticons/settings-cog-line";
 import CreateIcon from "~icons/majesticons/plus-line";
@@ -11,20 +11,19 @@ import { Link } from "solid-app-router";
 const Home: Component = () => {
   const [t] = useI18n();
   const [generator, entries, store] = useRehash();
-  const [list, setList] = createSignal(entries.list());
+  const [filter, setFilter] = createSignal("");
 
-  function setFilter(filter: string) {
-    const filtered = entries
+  const filteredList = createMemo(() =>
+    entries
       .list()
       .filter(
         (entry) =>
-          entry.url.includes(filter) ||
-          entry.username.includes(filter) ||
-          entry.displayName?.includes(filter)
-      );
-
-    setList(filtered);
-  }
+          entry.url !== undefined &&
+          (entry.url.includes(filter()) ||
+            entry.username.includes(filter()) ||
+            entry.displayName?.includes(filter()))
+      )
+  );
 
   return (
     <div className="flex flex-col mb-4">
@@ -50,7 +49,16 @@ const Home: Component = () => {
           onInput={(e) => setFilter(e.currentTarget.value)}
         />
       </ReCard>
-      <EntryList entries={list()} />
+      <Show
+        when={filteredList().length > 0}
+        fallback={
+          <ReCard>
+            {filter() !== "" ? t("NO_FILTER_RESULTS") : t("INTRO_TEXT")}
+          </ReCard>
+        }
+      >
+        <EntryList entries={filteredList()} />
+      </Show>
     </div>
   );
 };

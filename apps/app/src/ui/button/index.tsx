@@ -14,14 +14,14 @@ export const ReButton: Component<ReButtonProps> = (props) => {
   return (
     <button
       onClick={props.onClick}
-      className="text-dark-text px-6 py-2 font-bold rounded-lg cursor-pointer transition hover:ring focus:ring uppercase"
+      className="text-dark-text w-full my-1 px-6 py-2 font-bold rounded-lg cursor-pointer transition uppercase transform active:translate-y-2px"
       classList={
         dark()
           ? {
               "bg-dark-pine": !props.danger,
               "bg-dark-love": props.danger,
-              "ring-dark-foam": !props.danger,
-              "ring-dark-rose": props.danger,
+              "hover:bg-dark-foam": !props.danger,
+              "hover:bg-dark-rose": props.danger,
               "px-6": !props.small,
               "px-4": props.small,
               "py-2": !props.small,
@@ -31,8 +31,8 @@ export const ReButton: Component<ReButtonProps> = (props) => {
           : {
               "bg-pine": !props.danger,
               "bg-love": props.danger,
-              "ring-foam": !props.danger,
-              "ring-rose": props.danger,
+              "hover:bg-foam": !props.danger,
+              "hover:bg-rose": props.danger,
               "px-6": !props.small,
               "px-4": props.small,
               "py-2": !props.small,

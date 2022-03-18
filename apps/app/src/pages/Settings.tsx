@@ -33,18 +33,6 @@ const Settings: Component = () => {
           onChange={async (e) => await setLocale(e.currentTarget.value)}
           selected={currentLocale()}
         />
-      </ReCard>
-      <ReCard>
-        <ReButton
-          onClick={async () => {
-            await store.delete();
-            navigate("/new");
-          }}
-        >
-          {t("DELETE_STORE")}
-        </ReButton>
-      </ReCard>
-      <ReCard>
         <ReButton
           onClick={async () =>
             FileSaver(
@@ -56,6 +44,15 @@ const Settings: Component = () => {
           }
         >
           {t("EXPORT_STORE")}
+        </ReButton>
+        <ReButton
+          danger
+          onClick={async () => {
+            await store.delete();
+            navigate("/new");
+          }}
+        >
+          {t("DELETE_STORE")}
         </ReButton>
       </ReCard>
     </div>

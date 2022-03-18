@@ -2,7 +2,13 @@ import { useI18n } from "@/i18n/I18nProvider";
 import { useRehash } from "@/providers/RehashProvider";
 import { ReButton, ReCard, ReForm, ReTextField } from "@/ui";
 import { useNavigate, useParams } from "solid-app-router";
-import { Component, createResource, createSignal } from "solid-js";
+import {
+  Component,
+  createMemo,
+  createResource,
+  createSignal,
+  Show,
+} from "solid-js";
 
 const EditEntry: Component = () => {
   const [t] = useI18n();
@@ -17,13 +23,18 @@ const EditEntry: Component = () => {
   const [username, setUsername] = createSignal(entry!.username);
   const [displayName, setDisplayName] = createSignal(entry!.displayName);
 
-  const [password] = createResource(entry!.id, async () => {
-    return await generator.generate({
+  const generatePasswordFunction = createMemo(() =>
+    generator.generate({
       url: url(),
       username: username(),
-      options: entry!.options,
-    });
-  });
+      options: { length: 32 },
+    })
+  );
+
+  const [password] = createResource(
+    generatePasswordFunction,
+    async () => await generatePasswordFunction()
+  );
 
   async function edit() {
     entries.edit({
@@ -61,13 +72,16 @@ const EditEntry: Component = () => {
           label={t("USERNAME")}
           onInput={(e) => setUsername(e.currentTarget.value)}
         />
+        <p className="font-mono text-center bg-dark-highlight-high p-2 rounded">
+          <Show when={password.loading} fallback={password()}>
+            {t("GENERATING_PASSWORD")}
+          </Show>
+        </p>
         <ReButton submit>{t("SAVE_CHANGES")}</ReButton>
         <ReButton danger onClick={async () => await remove()}>
           {t("DELETE_ENTRY")}
         </ReButton>
       </ReForm>
-
-      <p>{password()}</p>
     </ReCard>
   );
 };
