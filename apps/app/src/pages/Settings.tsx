@@ -51,18 +51,22 @@ const Settings: Component = () => {
         <ReButton
           danger
           onClick={async () => {
-            await store.delete();
-            navigate("/new");
+            await showModal(ConfirmationModal, {
+              text: t("DELETE_STORE_CONFIRMATION"),
+              yes: {
+                label: t("YES"),
+                callback: async () => {
+                  await store.delete();
+                  navigate("/new");
+                },
+              },
+              no: {
+                label: t("NO"),
+              },
+            });
           }}
         >
           {t("DELETE_STORE")}
-        </ReButton>
-        <ReButton
-          onClick={async () => {
-            await showModal(ConfirmationModal, { text: "Yes or no sweetie?" });
-          }}
-        >
-          TEST MODAL
         </ReButton>
       </ReCard>
     </div>

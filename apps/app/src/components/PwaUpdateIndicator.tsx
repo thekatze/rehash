@@ -19,9 +19,11 @@ const PwaUpdateIndicator: Component = () => {
 
   return (
     <Show when={needRefresh()}>
-      <ReButton small onClick={() => updateServiceWorker(true)}>
-        {t("UPDATE_AVAILABLE")}
-      </ReButton>
+      <div className="max-w-64">
+        <ReButton small onClick={() => updateServiceWorker(true)}>
+          {t("UPDATE_AVAILABLE")}
+        </ReButton>
+      </div>
     </Show>
   );
 };

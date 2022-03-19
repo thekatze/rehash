@@ -2,7 +2,9 @@
   "CREATE": "Create",
   "CREATE_STORE": "Create Store",
   "DELETE_ENTRY": "Delete",
+  "DELETE_ENTRY_CONFIRMATION": "Do you really want to delete this entry?",
   "DELETE_STORE": "Delete Store",
+  "DELETE_STORE_CONFIRMATION": "Do you really want to delete all of your entries?",
   "DISPLAY_NAME": "Display Name",
   "EXPORT_STORE": "Export Store",
   "FILTER": "Filter",
@@ -12,6 +14,7 @@
   "LANGUAGE": "Language",
   "NEW_STORE_HEADER": "New Store",
   "NEW_STORE_TEXT": "Set a strong master password for your new store.",
+  "NO": "No",
   "NO_FILTER_RESULTS": "No filter results",
   "PASSWORD": "Password",
   "PASSWORD_STRENGTH": "Password strength:",
@@ -22,5 +25,6 @@
   "UNLOCK": "Unlock",
   "UPDATE_AVAILABLE": "Update available",
   "URL": "URL",
-  "USERNAME": "Username"
+  "USERNAME": "Username",
+  "YES": "Yes"
 }

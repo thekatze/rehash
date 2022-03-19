@@ -9,9 +9,14 @@ import { Dynamic } from "solid-js/web";
 import { ContextProviderComponent } from "solid-js/types/reactive/signal";
 
 type ModalProps = { canCancel?: boolean };
-export type Modal<T> = Component<ModalProps & T>;
+export type Modal<TProps> = Component<
+  ModalProps & TProps & { close: () => void }
+>;
 
-type OpenModalFunction = <T>(modalBody: Modal<T>, props?: T) => Promise<void>;
+type OpenModalFunction = <TProps>(
+  modalBody: Modal<TProps>,
+  props?: TProps
+) => Promise<void>;
 
 const ModalContext = createContext<[OpenModalFunction]>();
 
@@ -41,8 +46,8 @@ export const ModalProvider: ContextProviderComponent<typeof ModalContext> = (
     },
   ];
 
-  function closeModal(e: Event) {
-    if (e.target !== e.currentTarget) return;
+  function closeModal(e?: Event) {
+    if (e?.target !== e?.currentTarget) return;
     setComponent(null);
   }
 
@@ -53,7 +58,11 @@ export const ModalProvider: ContextProviderComponent<typeof ModalContext> = (
           onClick={closeModal}
           className="absolute flex items-center justify-center w-full h-full z-1 bg-dark-base bg-opacity-50"
         >
-          <Dynamic component={component()![0]} {...component()![1]} />
+          <Dynamic
+            component={component()![0]}
+            close={closeModal}
+            {...component()![1]}
+          />
         </div>
       </Show>
       {props.children}

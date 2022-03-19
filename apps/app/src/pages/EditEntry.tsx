@@ -1,6 +1,8 @@
+import ConfirmationModal from "@/components/modals/ConfirmationModal";
 import { useI18n } from "@/i18n/I18nProvider";
 import { useRehash } from "@/providers/RehashProvider";
 import { ReButton, ReCard, ReForm, ReTextField } from "@/ui";
+import { useModals } from "@/ui/app/ModalProvider";
 import { useNavigate, useParams } from "solid-app-router";
 import {
   Component,
@@ -15,6 +17,7 @@ const EditEntry: Component = () => {
   const params = useParams();
   const navigate = useNavigate();
   const [generator, entries, store] = useRehash();
+  const [openModal] = useModals();
 
   const entry = entries.get(params.id);
   if (!entry) navigate("/", {});
@@ -46,12 +49,24 @@ const EditEntry: Component = () => {
         length: 32,
       },
     });
+
+    navigate("/", {});
   }
 
   async function remove() {
-    await entries.remove(entry!.id);
-
-    navigate("/", {});
+    await openModal(ConfirmationModal, {
+      text: t("DELETE_ENTRY_CONFIRMATION"),
+      yes: {
+        label: t("YES"),
+        callback: async () => {
+          await entries.remove(entry!.id);
+          navigate("/", {});
+        },
+      },
+      no: {
+        label: t("NO"),
+      },
+    });
   }
 
   return (

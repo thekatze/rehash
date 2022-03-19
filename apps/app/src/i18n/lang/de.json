@@ -2,7 +2,9 @@
   "CREATE": "Erstellen",
   "CREATE_STORE": "Tresor erstellen",
   "DELETE_ENTRY": "Löschen",
+  "DELETE_ENTRY_CONFIRMATION": "Wollen Sie wirklich diesen Eintrag löschen?",
   "DELETE_STORE": "Tresor löschen",
+  "DELETE_STORE_CONFIRMATION": "Wollen Sie wirklich alle Einträge löschen?",
   "DISPLAY_NAME": "Anzeigename",
   "EXPORT_STORE": "Tresor exportieren",
   "FILTER": "Filter",
@@ -12,6 +14,7 @@
   "LANGUAGE": "Sprache",
   "NEW_STORE_HEADER": "Neuer Tresor",
   "NEW_STORE_TEXT": "Gebe ein sicheres Masterpasswort für den Tresor ein.",
+  "NO": "Nein",
   "NO_FILTER_RESULTS": "Keine Ergebnisse",
   "PASSWORD": "Passwort",
   "PASSWORD_STRENGTH": "Passwortsicherheit:",
@@ -22,5 +25,6 @@
   "UNLOCK": "Tresor öffnen",
   "UPDATE_AVAILABLE": "Update verfügbar",
   "URL": "URL",
-  "USERNAME": "Benutzername"
+  "USERNAME": "Benutzername",
+  "YES": "Ja"
 }
