@@ -34,13 +34,18 @@ export const UiThemeProvider: ContextProviderComponent<
   const setting = localStorage.getItem("reThemeBright") === "true";
   const [dark, setDark] = createSignal(!setting);
 
-  createEffect(() => localStorage.setItem("reThemeBright", `${!dark()}`));
+  createEffect(() => {
+    document.body.className = dark() ? "dark" : "";
+    localStorage.setItem("reThemeBright", `${!dark()}`);
+  });
 
   const data: [GetUiThemeFunction, SetUiThemeFunction] = [dark, setDark];
 
   return (
     <UiThemeContext.Provider value={data}>
-      <div classList={{ dark: dark() }}>{props.children}</div>
+      <div className="bg-base text-text dark:(bg-dark-base text-dark-text) dark-transition">
+        {props.children}
+      </div>
     </UiThemeContext.Provider>
   );
 };

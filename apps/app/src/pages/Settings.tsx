@@ -4,12 +4,15 @@ import FileSaver from "file-saver";
 import { useRehash } from "@/providers/RehashProvider";
 import { useI18n } from "@/i18n/I18nProvider";
 import { useNavigate } from "solid-app-router";
+import { useModals } from "@/ui/app/ModalProvider";
+import ConfirmationModal from "@/components/modals/ConfirmationModal";
 
 const Settings: Component = () => {
   const [t, { currentLocale, setLocale, listLocales }] = useI18n();
   const [_, setTheme] = useUiTheme();
   const [generator, entries, store] = useRehash();
   const navigate = useNavigate();
+  const [showModal] = useModals();
 
   const languages = listLocales().map((id) => {
     const displayName = new Intl.DisplayNames([id], {
@@ -53,6 +56,13 @@ const Settings: Component = () => {
           }}
         >
           {t("DELETE_STORE")}
+        </ReButton>
+        <ReButton
+          onClick={async () => {
+            await showModal(ConfirmationModal, { text: "Yes or no sweetie?" });
+          }}
+        >
+          TEST MODAL
         </ReButton>
       </ReCard>
     </div>
