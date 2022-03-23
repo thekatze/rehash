@@ -15,7 +15,7 @@ const InteractiveDemo: Component = (props) => {
 
   const generatePasswordFunction = createMemo(() => {
     return password() === ""
-      ? undefined
+      ? Promise.resolve(undefined)
       : new RehashGenerator(password(), {
           iterations: 15,
           memorySize: 2048,
@@ -23,7 +23,7 @@ const InteractiveDemo: Component = (props) => {
         }).generate({
           url: url(),
           username: username(),
-          options: { length: 32 },
+          options: { length: 32, iteration: 1 },
         });
   });
 

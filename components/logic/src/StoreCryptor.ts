@@ -1,19 +1,19 @@
 import { EncryptedStore, Store } from "./RehashStore";
 
 export class StoreCryptor {
-  private salt: Uint8Array;
   private password: Uint8Array;
 
   constructor(password: string) {
-    this.salt = new TextEncoder().encode("re$hash_salt");
     this.password = new TextEncoder().encode(password);
   }
 
   public async decrypt(store: EncryptedStore): Promise<Store> {
-    const key = await this.passwordToKey();
+    const iv = decodeBase64(store.iv);
+
+    const key = await this.passwordToKey(iv);
 
     const data = await crypto.subtle.decrypt(
-      this.getAesParams(decodeBase64(store.iv)),
+      this.getAesParams(iv),
       key,
       decodeBase64(store.store)
     );
@@ -24,8 +24,8 @@ export class StoreCryptor {
   }
 
   public async encrypt(store: Store): Promise<EncryptedStore> {
-    const key = await this.passwordToKey();
     const aesParams = this.getAesParams();
+    const key = await this.passwordToKey(aesParams.iv);
 
     const data = await crypto.subtle.encrypt(
       aesParams,
@@ -46,7 +46,7 @@ export class StoreCryptor {
     };
   }
 
-  private async passwordToKey(): Promise<CryptoKey> {
+  private async passwordToKey(salt: BufferSource): Promise<CryptoKey> {
     const derived = await crypto.subtle.importKey(
       "raw",
       this.password,
@@ -66,7 +66,7 @@ export class StoreCryptor {
           await crypto.subtle.deriveKey(
             {
               name: "PBKDF2",
-              salt: this.salt,
+              salt,
               iterations: 100000,
               hash: "SHA-512",
             },

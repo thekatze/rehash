@@ -6,8 +6,16 @@ import solidPlugin from "vite-plugin-solid";
 import WindiCSS from "vite-plugin-windicss";
 import { VitePWA } from "vite-plugin-pwa";
 
-export default defineConfig(({ command, mode }) => {
+import { promisify } from "util";
+import { exec } from "child_process";
+
+const execute = promisify(exec);
+
+export default defineConfig(async ({ command, mode }) => {
   const isDev = mode == "development";
+  const version = isDev
+    ? "development"
+    : (await execute("git rev-parse --short HEAD")).stdout;
 
   return {
     plugins: [
@@ -52,6 +60,9 @@ export default defineConfig(({ command, mode }) => {
     ],
     build: {
       target: "esnext",
+    },
+    define: {
+      __GIT_REVISION__: JSON.stringify(version),
     },
     resolve: {
       alias: {

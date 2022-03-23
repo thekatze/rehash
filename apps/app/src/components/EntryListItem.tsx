@@ -32,7 +32,7 @@ const EntryListItem: Component<EntryListItemProps> = (props) => {
   }
 
   return (
-    <ul className="bg-surface rounded dark:(bg-dark-surface) p-3 relative flex flex-row my-2">
+    <ul className="bg-surface hover:bg-overlay rounded dark:(bg-dark-surface hover:bg-dark-overlay) p-3 relative flex flex-row my-2 dark-transition">
       <Link
         href={`/entry/${props.entry.id}`}
         className="no-underline flex-grow"

@@ -30,7 +30,7 @@ const EditEntry: Component = () => {
     generator.generate({
       url: url(),
       username: username(),
-      options: { length: 32 },
+      options: { length: 32, iteration: 1 },
     })
   );
 
@@ -47,6 +47,7 @@ const EditEntry: Component = () => {
       username: username(),
       options: {
         length: 32,
+        iteration: 1,
       },
     });
 

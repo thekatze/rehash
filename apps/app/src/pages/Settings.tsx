@@ -1,5 +1,5 @@
 import { Component } from "solid-js";
-import { ReCard, ReButton, useUiTheme, ReSelect } from "@/ui";
+import { ReCard, ReButton, useUiTheme, ReSelect, ReSpacer } from "@/ui";
 import FileSaver from "file-saver";
 import { useRehash } from "@/providers/RehashProvider";
 import { useI18n } from "@/i18n/I18nProvider";
@@ -68,6 +68,9 @@ const Settings: Component = () => {
         >
           {t("DELETE_STORE")}
         </ReButton>
+        <p className="text-right text-subtle dark:text-subtle">
+          {__GIT_REVISION__}
+        </p>
       </ReCard>
     </div>
   );

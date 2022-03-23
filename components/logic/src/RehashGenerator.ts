@@ -8,6 +8,7 @@ export interface GeneratorOptions {
 
 interface EntryGeneratorOptions {
   length: number;
+  iteration: number;
 }
 
 export interface GeneratorEntry {
@@ -28,7 +29,9 @@ export class RehashGenerator {
   public async generate(entry: GeneratorEntry): Promise<string> {
     const result = await argon2id({
       password: this.password,
-      salt: (entry.username + entry.url).padEnd(8),
+      salt: (entry.username + `${entry.options.iteration}` + entry.url).padEnd(
+        8
+      ),
       outputType: "encoded",
       hashLength: entry.options.length,
       iterations: this.options.iterations,
