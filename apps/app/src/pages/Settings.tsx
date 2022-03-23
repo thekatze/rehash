@@ -59,6 +59,7 @@ const Settings: Component = () => {
                   await store.delete();
                   navigate("/new");
                 },
+                danger: true,
               },
               no: {
                 label: t("NO"),

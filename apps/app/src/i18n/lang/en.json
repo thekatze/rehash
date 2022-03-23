@@ -1,4 +1,6 @@
 {
+  "COPIED_PASSWORD": "Password has been copied to clipboard.",
+  "COPIED_USERNAME": "Username has been copied to clipboard.",
   "CREATE": "Create",
   "CREATE_STORE": "Create Store",
   "DELETE_ENTRY": "Delete",

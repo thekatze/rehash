@@ -6,10 +6,12 @@ interface ConfirmationModalProps {
   yes: {
     label: string;
     callback?: () => void;
+    danger?: boolean;
   };
   no: {
     label: string;
     callback?: () => void;
+    danger?: boolean;
   };
 }
 
@@ -19,6 +21,7 @@ const ConfirmationModal: Modal<ConfirmationModalProps> = (props) => {
       <ReCard>
         {props.text}
         <ReButton
+          danger={props.yes.danger ?? false}
           onClick={() => {
             if (props.yes.callback) props.yes.callback();
             props.close();
@@ -27,6 +30,7 @@ const ConfirmationModal: Modal<ConfirmationModalProps> = (props) => {
           {props.yes.label}
         </ReButton>
         <ReButton
+          danger={props.no.danger ?? false}
           onClick={() => {
             if (props.no.callback) props.no.callback();
             props.close();

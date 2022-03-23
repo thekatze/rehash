@@ -1,4 +1,6 @@
+import { useI18n } from "@/i18n/I18nProvider";
 import { useRehash } from "@/providers/RehashProvider";
+import { useToasts } from "@/ui/app/ToastProvider";
 import { StoreEntryWithId } from "@rehash/logic";
 import { Link } from "solid-app-router";
 import { Component, createSignal, Show } from "solid-js";
@@ -12,6 +14,8 @@ interface EntryListItemProps {
 
 const EntryListItem: Component<EntryListItemProps> = (props) => {
   const [generator, entries, store] = useRehash();
+  const [toast] = useToasts();
+  const [t] = useI18n();
 
   const title = props.entry.displayName ?? props.entry.url;
   const [loading, setLoading] = createSignal(false);
@@ -25,10 +29,12 @@ const EntryListItem: Component<EntryListItemProps> = (props) => {
     const password = await generator.generate(props.entry);
     copyToClipboard(password);
     setLoading(false);
+    toast(t("COPIED_PASSWORD"), "info");
   }
 
   function copyUsername() {
     copyToClipboard(props.entry.username);
+    toast(t("COPIED_USERNAME"), "info");
   }
 
   return (

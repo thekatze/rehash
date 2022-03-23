@@ -1,4 +1,6 @@
 {
+  "COPIED_PASSWORD": "Passwort wurde in die Zwischenablage kopiert.",
+  "COPIED_USERNAME": "Benutzername wurde in die Zwischenablage kopiert.",
   "CREATE": "Erstellen",
   "CREATE_STORE": "Tresor erstellen",
   "DELETE_ENTRY": "Löschen",

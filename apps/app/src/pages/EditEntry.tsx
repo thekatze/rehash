@@ -63,6 +63,7 @@ const EditEntry: Component = () => {
           await entries.remove(entry!.id);
           navigate("/", {});
         },
+        danger: true,
       },
       no: {
         label: t("NO"),
