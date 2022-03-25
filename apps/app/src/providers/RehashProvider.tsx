@@ -7,9 +7,8 @@ import {
   StoreEntry,
   StoreEntryWithId,
 } from "@rehash/logic";
-import { createContext, useContext } from "solid-js";
+import { Component, createContext, useContext } from "solid-js";
 import { createStore } from "solid-js/store";
-import { ContextProviderComponent } from "solid-js/types/reactive/signal";
 
 type GeneratorActions = {
   generate: (entry: GeneratorEntry) => Promise<string>;
@@ -47,9 +46,7 @@ export function useRehash(): [GeneratorActions, EntryActions, StoreActions] {
   return context;
 }
 
-export const RehashProvider: ContextProviderComponent<typeof RehashContext> = (
-  props
-) => {
+export const RehashProvider: Component = (props) => {
   const [store, setStore] = createStore<{
     unlocked: boolean;
     store: RehashStore;

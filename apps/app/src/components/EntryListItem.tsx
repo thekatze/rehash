@@ -1,5 +1,6 @@
 import { useI18n } from "@/i18n/I18nProvider";
 import { useRehash } from "@/providers/RehashProvider";
+import { ReIconButton } from "@/ui";
 import { useToasts } from "@/ui/app/ToastProvider";
 import { StoreEntryWithId } from "@rehash/logic";
 import { Link } from "solid-app-router";
@@ -38,7 +39,7 @@ const EntryListItem: Component<EntryListItemProps> = (props) => {
   }
 
   return (
-    <ul className="bg-surface hover:bg-overlay rounded dark:(bg-dark-surface hover:bg-dark-overlay) p-3 relative flex flex-row my-2 dark-transition">
+    <ul className="bg-surface hover:bg-overlay rounded dark:(bg-dark-surface hover:bg-dark-overlay) p-3 relative flex flex-row my-2 items-center dark-transition">
       <Link
         href={`/entry/${props.entry.id}`}
         className="no-underline flex-grow"
@@ -52,15 +53,9 @@ const EntryListItem: Component<EntryListItemProps> = (props) => {
           </span>
         </div>
       </Link>
-      <div className="place-self-center text-2xl">
-        <IconUser
-          onClick={copyUsername}
-          className="cursor-pointer origin-center hover:text-iris dark:hover:text-dark-iris transition-colors"
-        />
-        <IconClipboard
-          onClick={copyPassword}
-          className="cursor-pointer origin-center hover:text-iris dark:hover:text-dark-iris transition-colors"
-        />
+      <div className="text-2xl">
+        <ReIconButton icon={<IconUser />} onClick={copyUsername} />
+        <ReIconButton icon={<IconClipboard />} onClick={copyPassword} />
       </div>
       <Show when={loading()}>
         <div className="bg-gradient-to-r from-love to-rose dark:(from-dark-love to-dark-rose) absolute animate-pulse w-full bottom-0 -mx-3 h-1"></div>

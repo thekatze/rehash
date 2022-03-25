@@ -12,6 +12,7 @@ interface ReTextFieldProps {
   ) => void;
   password?: boolean;
   error?: boolean;
+  autofocus?: boolean;
 }
 
 export const ReTextField: Component<ReTextFieldProps> = (props) => {
@@ -21,10 +22,10 @@ export const ReTextField: Component<ReTextFieldProps> = (props) => {
   if (props.value) setValue(props.value);
 
   return (
-    <div className="relative my-4">
+    <div className="relative my-3">
       <Show when={!!props.label}>
         <label
-          className="text-xs absolute left-0 -top-3 transition-opacity "
+          className="text-xs absolute left-0 -top-2 transition-opacity"
           classList={
             dark()
               ? {
@@ -52,6 +53,7 @@ export const ReTextField: Component<ReTextFieldProps> = (props) => {
           props.onInput?.call(undefined, e);
         }}
         placeholder={props.label}
+        autofocus={props.autofocus}
       />
     </div>
   );

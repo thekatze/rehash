@@ -8,8 +8,8 @@ import App from "./App";
 
 render(
   () => (
-    <I18nProvider value={null!}>
-      <RehashProvider value={null!}>
+    <I18nProvider>
+      <RehashProvider>
         <Router>
           <App />
         </Router>

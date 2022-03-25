@@ -3,11 +3,9 @@ import {
   useContext,
   createSignal,
   createEffect,
+  Component,
 } from "solid-js";
-import {
-  Accessor,
-  ContextProviderComponent,
-} from "solid-js/types/reactive/signal";
+import { Accessor } from "solid-js/types/reactive/signal";
 
 type GetUiThemeFunction = Accessor<boolean>;
 type SetUiThemeFunction = <U extends boolean>(
@@ -28,9 +26,7 @@ export function useUiTheme(): [GetUiThemeFunction, SetUiThemeFunction] {
   return context;
 }
 
-export const UiThemeProvider: ContextProviderComponent<
-  typeof UiThemeContext
-> = (props) => {
+export const UiThemeProvider: Component = (props) => {
   const setting = localStorage.getItem("reThemeBright") === "true";
   const [dark, setDark] = createSignal(!setting);
 

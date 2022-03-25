@@ -1,9 +1,17 @@
 import { Component, createMemo, Show } from "solid-js";
-import { Link, useLocation, useNavigate, useRoutes } from "solid-app-router";
+import { useLocation, useNavigate, useRoutes } from "solid-app-router";
 import routes from "@/routes";
-import { ReApp, ReHeader, ReHeaderTitle, ReMain, ReSpacer } from "./ui";
+import {
+  ReApp,
+  ReHeader,
+  ReHeaderTitle,
+  ReMain,
+  ReSidebar,
+  ReSidebarButton,
+  ReSpacer,
+} from "./ui";
 import { useRehash } from "./providers/RehashProvider";
-import BackIcon from "~icons/majesticons/arrow-left-line";
+import MenuIcon from "~icons/majesticons/menu-line";
 import PwaUpdateIndicator from "./components/PwaUpdateIndicator";
 
 const App: Component = () => {
@@ -28,13 +36,10 @@ const App: Component = () => {
 
   return (
     <ReApp>
+      <ReSidebar>Todo: Put navigation here</ReSidebar>
       <ReHeader>
         <Show when={store.unlocked()}>
-          <Show when={!isHome()}>
-            <Link href="/" className="text-text dark:text-dark-text">
-              <BackIcon className="text-2xl" />
-            </Link>
-          </Show>
+          <ReSidebarButton icon={<MenuIcon />} />
         </Show>
         <ReHeaderTitle>rehash</ReHeaderTitle>
         <ReSpacer />

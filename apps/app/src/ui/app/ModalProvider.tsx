@@ -6,7 +6,6 @@ import {
   Show,
 } from "solid-js";
 import { Dynamic } from "solid-js/web";
-import { ContextProviderComponent } from "solid-js/types/reactive/signal";
 
 type ModalProps = { canCancel?: boolean };
 export type Modal<TProps> = Component<
@@ -31,9 +30,7 @@ export function useModals(): [OpenModalFunction] {
   return context;
 }
 
-export const ModalProvider: ContextProviderComponent<typeof ModalContext> = (
-  props
-) => {
+export const ModalProvider: Component = (props) => {
   const [component, setComponent] = createSignal<[Modal<any>, any] | null>(
     null
   );

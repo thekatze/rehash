@@ -21,7 +21,7 @@ const CreateEntry: Component = () => {
       displayName: displayName().trim() !== "" ? displayName() : undefined,
       url: url(),
       username: username(),
-      options: { length: 32 },
+      options: { length: 32, iteration: 1 },
     };
 
     const id = await entries.add(entry);

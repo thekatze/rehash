@@ -6,12 +6,13 @@ import CreateIcon from "~icons/majesticons/plus-line";
 
 import EntryList from "@/components/EntryList";
 import { useRehash } from "@/providers/RehashProvider";
-import { Link } from "solid-app-router";
+import { useNavigate } from "solid-app-router";
 
 const Home: Component = () => {
   const [t] = useI18n();
   const [generator, entries, store] = useRehash();
   const [filter, setFilter] = createSignal("");
+  const navigate = useNavigate();
 
   const filteredList = createMemo(() =>
     entries
@@ -28,18 +29,12 @@ const Home: Component = () => {
   return (
     <div className="flex flex-col mb-4">
       <div className="flex flex-row gap-4 mb-4">
-        <Link href="/create" className="w-full">
-          <ReButton>
-            <CreateIcon />
-            {t("CREATE")}
-          </ReButton>
-        </Link>
-        <Link href="/settings" className="w-full">
-          <ReButton>
-            <SettingsIcon />
-            {t("SETTINGS")}
-          </ReButton>
-        </Link>
+        <ReButton icon={<CreateIcon />} onClick={() => navigate("/create")}>
+          {t("CREATE")}
+        </ReButton>
+        <ReButton icon={<SettingsIcon />} onClick={() => navigate("/settings")}>
+          {t("SETTINGS")}
+        </ReButton>
       </div>
       <ReCard>
         <ReTextField

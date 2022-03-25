@@ -10,10 +10,10 @@ interface ReSelectProps {
 export const ReSelect: Component<ReSelectProps> = (props) => {
   return (
     <>
-      <label>{props.label}</label>
+      <label className="text-xs">{props.label}</label>
       <select
         onChange={props.onChange}
-        className="w-full rounded px-3 py-1 dark:bg-dark-overlay"
+        className="w-full rounded px-3 py-1 mb-1 dark:bg-dark-overlay"
       >
         <For each={props.items}>
           {(item) => (

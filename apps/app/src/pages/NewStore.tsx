@@ -29,6 +29,7 @@ const NewStore: Component = () => {
         <p>{t("NEW_STORE_TEXT")}</p>
         <ReForm onSubmit={createNewStore}>
           <ReTextField
+            autofocus
             onInput={(e) => setPassword(e.currentTarget.value)}
             label={t("PASSWORD")}
             password

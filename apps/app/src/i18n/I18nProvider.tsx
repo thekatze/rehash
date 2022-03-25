@@ -1,7 +1,6 @@
 import rosetta, { Rosetta } from "rosetta";
-import { createContext, useContext, Accessor } from "solid-js";
+import { createContext, useContext, Accessor, Component } from "solid-js";
 import { createStore } from "solid-js/store";
-import { ContextProviderComponent } from "solid-js/types/reactive/signal";
 
 type TranslateFunction = (key: string, props?: any) => string;
 type SetLocaleFunction = (lang: string) => Promise<void>;
@@ -54,9 +53,7 @@ const defaultI18n = await buildI18nForLocale(locale);
 
 // TODO: enable language switching
 // https://phrase.com/blog/posts/solidjs-localization-i18next/
-export const I18nProvider: ContextProviderComponent<typeof I18nContext> = (
-  props
-) => {
+export const I18nProvider: Component = (props) => {
   const [store, setStore] = createStore<{
     t: TranslateFunction;
     i18n: Rosetta<unknown>;

@@ -5,6 +5,7 @@ export * from "./form";
 export * from "./header";
 export * from "./main";
 export * from "./select";
+export * from "./sidebar";
 export * from "./skeleton";
 export * from "./spacer";
 export * from "./textfield";

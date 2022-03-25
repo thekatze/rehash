@@ -33,6 +33,7 @@ const UnlockStore: Component = () => {
           label={t("PASSWORD")}
           password
           error={error()}
+          autofocus
         />
         <ReButton submit>{t("UNLOCK")}</ReButton>
       </ReForm>

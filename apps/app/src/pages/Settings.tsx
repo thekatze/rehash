@@ -36,6 +36,8 @@ const Settings: Component = () => {
           onChange={async (e) => await setLocale(e.currentTarget.value)}
           selected={currentLocale()}
         />
+      </ReCard>
+      <ReCard>
         <ReButton
           onClick={async () =>
             FileSaver(
