@@ -1,5 +1,14 @@
 {
+  "ABOUT": "About",
   "CANCEL": "Cancel",
+  "CONTRIBUTE": "Contribute",
+  "CONTRIBUTE_TEXT": "As a full-time employed programmer, maintaining my personal projects is pretty difficult. You can help out the development of rehash in the ways listed here.",
+  "CONTRIBUTE_BUG": "Report a bug",
+  "CONTRIBUTE_BUG_TEXT": "Report a bug you found.",
+  "CONTRIBUTE_FEATURE": "Request a feature",
+  "CONTRIBUTE_FEATURE_TEXT": "Alternatively: Request new bugs.",
+  "CONTRIBUTE_PULL_REQUEST": "Create a pull request",
+  "CONTRIBUTE_PULL_REQUEST_TEXT": "The do-it-yourself approach.",
   "COPIED_PASSWORD": "Password has been copied to clipboard.",
   "COPIED_USERNAME": "Username has been copied to clipboard.",
   "CREATE": "Create",
@@ -26,8 +35,10 @@
   "SETTINGS": "Settings",
   "SWITCH_THEME": "Switch Theme",
   "UNLOCK": "Unlock",
+  "UNLOCK_TEXT": "Enter your password to unlock the store.",
   "UPDATE_AVAILABLE": "Update available",
   "URL": "URL",
   "USERNAME": "Username",
+  "VERSION": "Version: {{ version }}",
   "YES": "Yes"
 }

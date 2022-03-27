@@ -1,6 +1,6 @@
 import { useI18n } from "@/i18n/I18nProvider";
 import { useRehash } from "@/providers/RehashProvider";
-import { ReButton, ReCard, ReForm, ReTextField } from "@/ui";
+import { ReButton, ReCard, ReCardHeader, ReForm, ReTextField } from "@/ui";
 import { useNavigate } from "solid-app-router";
 import { Component, createSignal } from "solid-js";
 
@@ -24,6 +24,8 @@ const UnlockStore: Component = () => {
 
   return (
     <ReCard>
+      <ReCardHeader>{t("UNLOCK")}</ReCardHeader>
+      {t("UNLOCK_TEXT")}
       <ReForm onSubmit={unlock}>
         <ReTextField
           onInput={(e) => {

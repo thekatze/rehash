@@ -77,9 +77,6 @@ const Settings: Component = () => {
         >
           {t("DELETE_STORE")}
         </ReButton>
-        <p className="text-right text-subtle dark:text-subtle">
-          {__GIT_REVISION__}
-        </p>
       </ReCard>
     </div>
   );

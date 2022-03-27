@@ -1,6 +1,13 @@
 import { useI18n } from "@/i18n/I18nProvider";
 import { useRehash } from "@/providers/RehashProvider";
-import { ReButton, ReCard, ReForm, ReSkeleton, ReTextField } from "@/ui";
+import {
+  ReButton,
+  ReCard,
+  ReCardHeader,
+  ReForm,
+  ReSkeleton,
+  ReTextField,
+} from "@/ui";
 import { useNavigate } from "solid-app-router";
 import { Component, createSignal, lazy, Suspense } from "solid-js";
 
@@ -25,7 +32,7 @@ const NewStore: Component = () => {
   return (
     <div>
       <ReCard>
-        <h2 className="text-xl font-bold">{t("NEW_STORE_HEADER")}</h2>
+        <ReCardHeader>{t("NEW_STORE_HEADER")}</ReCardHeader>
         <p>{t("NEW_STORE_TEXT")}</p>
         <ReForm onSubmit={createNewStore}>
           <ReTextField

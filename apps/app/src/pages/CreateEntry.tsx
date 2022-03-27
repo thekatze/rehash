@@ -1,6 +1,6 @@
 import { useI18n } from "@/i18n/I18nProvider";
 import { useRehash } from "@/providers/RehashProvider";
-import { ReButton, ReCard, ReForm, ReTextField } from "@/ui";
+import { ReButton, ReCard, ReCardHeader, ReForm, ReTextField } from "@/ui";
 import { StoreEntry } from "@rehash/logic";
 import { useNavigate } from "solid-app-router";
 import { Component, createSignal } from "solid-js";
@@ -31,6 +31,7 @@ const CreateEntry: Component = () => {
 
   return (
     <ReCard>
+      <ReCardHeader>{t("CREATE")}</ReCardHeader>
       <ReForm onSubmit={create}>
         <ReTextField
           label={t("URL")}

@@ -6,21 +6,23 @@ import HomeIcon from "~icons/majesticons/home-line";
 import SettingsIcon from "~icons/majesticons/settings-cog-line";
 import ContributeIcon from "~icons/majesticons/git-pull-line";
 import AboutIcon from "~icons/majesticons/info-circle-line";
+import { useI18n } from "@/i18n/I18nProvider";
 
 const Sidebar: Component = () => {
   const navigate = useNavigate();
+  const [t] = useI18n();
 
   return (
     <>
       <ReList>
         <ReListItem icon={<HomeIcon />} onClick={() => navigate("/")}>
-          Home
+          {t("HOME")}
         </ReListItem>
         <ReListItem
           icon={<SettingsIcon />}
           onClick={() => navigate("/settings")}
         >
-          Settings
+          {t("SETTINGS")}
         </ReListItem>
       </ReList>
       <ReSpacer />
@@ -29,10 +31,10 @@ const Sidebar: Component = () => {
           icon={<ContributeIcon />}
           onClick={() => navigate("/contribute")}
         >
-          Contribute
+          {t("CONTRIBUTE")}
         </ReListItem>
         <ReListItem icon={<AboutIcon />} onClick={() => navigate("/about")}>
-          About
+          {t("ABOUT")}
         </ReListItem>
       </ReList>
     </>
