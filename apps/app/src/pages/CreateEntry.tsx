@@ -45,6 +45,9 @@ const CreateEntry: Component = () => {
           onInput={(e) => setDisplayName(e.currentTarget.value)}
         />
         <ReButton submit> {t("CREATE")} </ReButton>
+        <ReButton danger onClick={() => navigate("/")}>
+          {t("CANCEL")}
+        </ReButton>
       </ReForm>
     </ReCard>
   );

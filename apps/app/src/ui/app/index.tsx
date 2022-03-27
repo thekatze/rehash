@@ -1,20 +1,32 @@
-import { Component } from "solid-js";
+import { Component, JSX } from "solid-js";
 import { UiThemeProvider } from "./ThemeProvider";
 import { ModalProvider } from "./ModalProvider";
 import { ToastProvider } from "./ToastProvider";
 import { SidebarProvider } from "./SidebarProvider";
+import { AppLayout } from "./AppLayout";
 
 export { useUiTheme } from "./ThemeProvider";
 
-export const ReApp: Component = (props) => {
+interface ReAppProps {
+  header?: JSX.Element;
+  sidebar?: JSX.Element;
+  // workaround, remove asap
+  hideSidebar?: boolean;
+}
+
+export const ReApp: Component<ReAppProps> = (props) => {
   return (
     <UiThemeProvider>
       <ToastProvider>
         <ModalProvider>
           <SidebarProvider>
-            <div className="flex flex-col min-w-full min-h-screen">
+            <AppLayout
+              header={props.header}
+              sidebar={props.sidebar}
+              hideSidebar={props.hideSidebar}
+            >
               {props.children}
-            </div>
+            </AppLayout>
           </SidebarProvider>
         </ModalProvider>
       </ToastProvider>

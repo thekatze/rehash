@@ -7,9 +7,12 @@ import { useNavigate } from "solid-app-router";
 import { useModals } from "@/ui/app/ModalProvider";
 import ConfirmationModal from "@/components/modals/ConfirmationModal";
 
+import MoonIcon from "~icons/majesticons/moon-line";
+import LightbulbIcon from "~icons/majesticons/lightbulb-shine-line";
+
 const Settings: Component = () => {
   const [t, { currentLocale, setLocale, listLocales }] = useI18n();
-  const [_, setTheme] = useUiTheme();
+  const [theme, setTheme] = useUiTheme();
   const [generator, entries, store] = useRehash();
   const navigate = useNavigate();
   const [showModal] = useModals();
@@ -25,7 +28,10 @@ const Settings: Component = () => {
   return (
     <div>
       <ReCard>
-        <ReButton onClick={() => setTheme((theme) => !theme)}>
+        <ReButton
+          icon={theme() ? <MoonIcon /> : <LightbulbIcon />}
+          onClick={() => setTheme((theme) => !theme)}
+        >
           {t("SWITCH_THEME")}
         </ReButton>
       </ReCard>

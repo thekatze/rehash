@@ -60,6 +60,7 @@ export default defineConfig(async ({ command, mode }) => {
     ],
     build: {
       target: "esnext",
+      sourcemap: true,
     },
     define: {
       __GIT_REVISION__: JSON.stringify(version),

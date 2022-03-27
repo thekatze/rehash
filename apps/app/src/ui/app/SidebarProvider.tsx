@@ -24,7 +24,10 @@ export function useSidebar(): [
 }
 
 export const SidebarProvider: Component = (props) => {
-  const [visible, setVisible] = createSignal(false);
+  const minWidth = window.matchMedia("(min-width: 768px)");
+  const [visible, setVisible] = createSignal(minWidth.matches);
+
+  minWidth.addEventListener("change", (e) => setVisible(e.matches));
 
   const data: [GetSidebarVisibleFunction, SetSidebarVisibleFunction] = [
     visible,
