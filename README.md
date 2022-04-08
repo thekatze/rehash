@@ -16,7 +16,7 @@ rehash is based on [PwdHash](https://crypto.stanford.edu/PwdHash/), an approach 
 
 # How does it work?
 
-Your password is generated using a cryptographic hash function, a one way mapping from any input data to a unique identifier of that data.
+Your password is generated using a cryptographic hash function, a one-way mapping from any input data to a unique identifier of that data.
 
 Here are some examples:
 
@@ -33,15 +33,15 @@ rehash uses the [Argon2id](https://github.com/P-H-C/phc-winner-argon2) function 
 
 # Is rehash for me?
 
-Probably not. It caters to a niche audience. A normal password manager is the way to go for most intents and purposes. Personally, I would highly recommend [Bitwarden](https://bitwarden.com/).
+Probably not. It caters to a niche audience. A normal password manager is the way to go for most intents and purposes. I would highly recommend [Bitwarden](https://bitwarden.com/).
 
 The major drawbacks of rehash are:
 
 - Changing the master password changes all your passwords.
-- Changing a single password is difficult (there is support for password iterations, but its only an alleviation, not a solution)
+- Changing a single password is difficult (there is support for password iterations, but it is only an alleviation, not a solution)
 - It is not as secure as a password manager with truly randomly generated passwords.
 
 The type of person rehash is for could be described like this:
 
-- Does not want their passwords stored in the cloud (encrypted or not - its about the principle)
+- Does not want their passwords stored in the cloud (encrypted or not - it's about the principle)
 - Uses many different devices, so using a traditional offline password manager like [KeePass](https://keepassxc.org/) is unviable
