@@ -1,15 +1,16 @@
+import Card from "@/components/Card";
 import { useI18n } from "@/i18n/I18nProvider";
-import { ReCard } from "@/ui";
+import { Text } from "@hope-ui/solid";
 import { Component } from "solid-js";
 
 const About: Component = () => {
   const [t] = useI18n();
   return (
-    <ReCard>
-      <span className="text-subtle dark:text-dark-subtle">
+    <Card>
+      <Text color="lightgrey">
         {t("VERSION", { version: __GIT_REVISION__ })}
-      </span>
-    </ReCard>
+      </Text>
+    </Card>
   );
 };
 

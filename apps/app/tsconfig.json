@@ -8,6 +8,7 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "jsx": "preserve",
+    "skipLibCheck": true,
     "jsxImportSource": "solid-js",
     "types": ["vite/client", "unplugin-icons/types/solid"],
     "resolveJsonModule": true,

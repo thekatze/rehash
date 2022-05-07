@@ -1,59 +1,110 @@
+import Card from "@/components/Card";
 import { useI18n } from "@/i18n/I18nProvider";
 import { useRehash } from "@/providers/RehashProvider";
-import {
-  ReButton,
-  ReCard,
-  ReCardHeader,
-  ReForm,
-  ReSkeleton,
-  ReTextField,
-} from "@/ui";
 import { useNavigate } from "solid-app-router";
-import { Component, createSignal, lazy, Suspense } from "solid-js";
+import { Component, createSignal, For, Show } from "solid-js";
+import {
+  Accordion,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
+  Box,
+  Button,
+  FormControl,
+  FormErrorMessage,
+  FormHelperText,
+  FormLabel,
+  Heading,
+  HStack,
+  Input,
+  Skeleton,
+  Text,
+  VStack,
+} from "@hope-ui/solid";
+import usePasswordStrength from "@/hooks/usePasswordStrength";
 
 const NewStore: Component = () => {
   const [t] = useI18n();
-  const [generator, entries, store] = useRehash();
+  const [, , store] = useRehash();
   const navigate = useNavigate();
   const [password, setPassword] = createSignal("");
 
-  async function createNewStore() {
+  const [passwordStrength, passwordFeedback] = usePasswordStrength(password);
+
+  async function createNewStore(e: any) {
+    e.preventDefault();
     await store.initialize(password());
     await store.create({ iterations: 15, memorySize: 2048, parallelism: 2 });
 
     navigate("/");
   }
 
-  const PasswordStrengthMeter = lazy(async () => {
-    await new Promise((resolve) => requestIdleCallback(resolve));
-    return await import("@/components/PasswordStrengthMeter");
-  });
+  const invalid = () => !!passwordFeedback();
+  const colorForIndex = (i: number) => {
+    if ((passwordStrength()?.score ?? 0) <= i) return "gray";
+
+    switch (passwordStrength()?.score) {
+      case 0:
+        return "gray";
+      case 1:
+        return "red";
+      case 2:
+        return "red";
+      case 3:
+        return "yellow";
+      case 4:
+        return "green";
+    }
+  };
 
   return (
-    <div>
-      <ReCard>
-        <ReCardHeader>{t("NEW_STORE_HEADER")}</ReCardHeader>
-        <p>{t("NEW_STORE_TEXT")}</p>
-        <ReForm onSubmit={createNewStore}>
-          <ReTextField
-            autofocus
-            onInput={(e) => setPassword(e.currentTarget.value)}
-            label={t("PASSWORD")}
-            password
+    <Card>
+      <VStack
+        spacing="$4"
+        as="form"
+        alignItems="stretch"
+        onSubmit={createNewStore}
+      >
+        <Heading size="xl">{t("NEW_STORE_HEADER")}</Heading>
+        <FormControl required invalid={invalid()}>
+          <FormLabel for="password">{t("PASSWORD")}</FormLabel>
+          <Input
+            id="password"
+            onInput={(e: any) => setPassword(e.currentTarget.value)}
+            type="password"
           />
-          <Suspense
-            fallback={
-              <div className="w-44 h-8 mb-5">
-                <ReSkeleton />
-              </div>
-            }
+          <HStack alignItems="stretch" spacing="$2" mt="$2">
+            <For each={[...new Array(4).keys()]}>
+              {(i) => (
+                <Box
+                  backgroundColor={colorForIndex(i)}
+                  height="$1"
+                  flexGrow={1}
+                />
+              )}
+            </For>
+          </HStack>
+          <Show
+            when={invalid()}
+            fallback={<FormHelperText>{t("NEW_STORE_TEXT")}</FormHelperText>}
           >
-            <PasswordStrengthMeter password={password} />
-          </Suspense>
-          <ReButton submit>{t("CREATE_STORE")}</ReButton>
-        </ReForm>
-      </ReCard>
-    </div>
+            <FormErrorMessage>{passwordFeedback()}</FormErrorMessage>
+          </Show>
+        </FormControl>
+        <Accordion>
+          <AccordionItem>
+            <AccordionButton>
+              <Text>Advanced Options</Text> <AccordionIcon />
+            </AccordionButton>
+            <AccordionPanel>//TODO</AccordionPanel>
+          </AccordionItem>
+        </Accordion>
+        <HStack justifyContent="flex-end">
+          <Button type="submit">{t("CREATE_STORE")}</Button>
+        </HStack>
+      </VStack>
+    </Card>
   );
 };
 

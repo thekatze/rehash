@@ -7,8 +7,10 @@ importers:
 
   apps/app:
     specifiers:
+      '@hope-ui/solid': ^0.5.0
       '@iconify-json/majesticons': ^1.1.1
       '@rehash/logic': workspace:*
+      '@stitches/core': ^1.2.8
       '@types/file-saver': ^2.0.5
       '@types/node': ^17.0.31
       '@zxcvbn-ts/core': ^2.0.1
@@ -18,6 +20,7 @@ importers:
       rosetta: ^1.1.0
       solid-app-router: ^0.3.2
       solid-js: ^1.3.17
+      solid-transition-group: ^0.0.10
       typescript: ^4.6.4
       unplugin-icons: ^0.14.3
       vite: ^2.9.8
@@ -27,7 +30,9 @@ importers:
       windicss: ^3.5.1
       workbox-window: ^6.5.3
     dependencies:
+      '@hope-ui/solid': 0.5.0_ns2rgxgp5h3mpedlwm4jfylu2m
       '@rehash/logic': link:../../components/logic
+      '@stitches/core': 1.2.8
       '@zxcvbn-ts/core': 2.0.1
       '@zxcvbn-ts/language-common': 2.0.1
       '@zxcvbn-ts/language-en': 2.0.1
@@ -35,6 +40,7 @@ importers:
       rosetta: 1.1.0
       solid-app-router: 0.3.2_solid-js@1.3.17
       solid-js: 1.3.17
+      solid-transition-group: 0.0.10_solid-js@1.3.17
     devDependencies:
       '@iconify-json/majesticons': 1.1.1
       '@types/file-saver': 2.0.5
@@ -1610,6 +1616,33 @@ packages:
     resolution: {integrity: sha512-8HqW8EVqjnCmWXVpqAOZf+EGESdkR27odcMMMGefgKXtar00SoYNSryGv//TELI4T3QFsECo78p+0lmalk/CFA==}
     dev: true
 
+  /@floating-ui/core/0.6.2:
+    resolution: {integrity: sha512-jktYRmZwmau63adUG3GKOAVCofBXkk55S/zQ94XOorAHhwqFIOFAy1rSp2N0Wp6/tGbe9V3u/ExlGZypyY17rg==}
+    dev: false
+
+  /@floating-ui/dom/0.4.4:
+    resolution: {integrity: sha512-0Ulu3B/dqQplUUSqnTx0foSrlYuMN+GTtlJWvNJwt6Fr7/PqmlR/Y08o6/+bxDWr6p3roBJRaQ51MDZsNmEhhw==}
+    dependencies:
+      '@floating-ui/core': 0.6.2
+    dev: false
+
+  /@hope-ui/solid/0.5.0_ns2rgxgp5h3mpedlwm4jfylu2m:
+    resolution: {integrity: sha512-ncVCadhhXqxac13wxSJcxPv8KVW4aSPMn4KvmpXoGI71bFLMz8TN8GwuN7t85WJBXKmhpl3WLoExUcijH1mUwg==}
+    peerDependencies:
+      '@stitches/core': ^1.2.8
+      solid-js: ^1.3.15
+      solid-transition-group: ^0.0.10
+    dependencies:
+      '@floating-ui/dom': 0.4.4
+      '@stitches/core': 1.2.8
+      csstype: 3.0.11
+      focus-trap: 6.7.3
+      lodash.merge: 4.6.2
+      scroll-lock: 2.1.5
+      solid-js: 1.3.17
+      solid-transition-group: 0.0.10_solid-js@1.3.17
+    dev: false
+
   /@iconify-json/majesticons/1.1.1:
     resolution: {integrity: sha512-7QYrUCEY5KFPveE3KI0S0Tr+Zqsp4y07wdwe1TTXn2eaCQCW7aOQVpthrgOVbTH/sMkCoAfdS37Px59kRnnv/A==}
     dependencies:
@@ -1784,6 +1817,10 @@ packages:
       estree-walker: 2.0.2
       picomatch: 2.3.1
     dev: true
+
+  /@stitches/core/1.2.8:
+    resolution: {integrity: sha512-Gfkvwk9o9kE9r9XNBmJRfV8zONvXThnm1tcuojL04Uy5uRyqg93DC83lDebl0rocZCfKSjUv+fWYtMQmEDJldg==}
+    dev: false
 
   /@surma/rollup-plugin-off-main-thread/2.2.3:
     resolution: {integrity: sha512-lR8q/9W7hZpMWweNiAKU7NQerBnzQQLvi8qnTDU/fxItPhtZVMbPV3lbCwjhIlNBe9Bbr5V+KHshvWmVSG9cxQ==}
@@ -2570,6 +2607,10 @@ packages:
   /csstype/2.6.19:
     resolution: {integrity: sha512-ZVxXaNy28/k3kJg0Fou5MiYpp88j7H9hLZp8PDC3jV0WFjfH5E9xHb56L0W59cPbKbcHXeP4qyT8PrHp8t6LcQ==}
     dev: true
+
+  /csstype/3.0.11:
+    resolution: {integrity: sha512-sa6P2wJ+CAbgyy4KFssIb/JNMLxFvKF1pCYCSXS8ZMuqZnMsrxqI2E5sPyoTpxoPU/gVZMzr2zjOfg8GIZOMsw==}
+    dev: false
 
   /debug/2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
@@ -3532,6 +3573,12 @@ packages:
       path-exists: 4.0.0
     dev: true
 
+  /focus-trap/6.7.3:
+    resolution: {integrity: sha512-8xCEKndV4KrseGhFKKKmczVA14yx1/hnmFICPOjcFjToxCJYj/NHH43tPc3YE/PLnLRNZoFug0EcWkGQde/miQ==}
+    dependencies:
+      tabbable: 5.3.2
+    dev: false
+
   /foreach/2.0.5:
     resolution: {integrity: sha1-C+4AUBiusmDQo6865ljdATbsG5k=}
     dev: true
@@ -4213,6 +4260,10 @@ packages:
   /lodash.debounce/4.0.8:
     resolution: {integrity: sha1-gteb/zCmfEAF/9XiUVMArZyk168=}
     dev: true
+
+  /lodash.merge/4.6.2:
+    resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
+    dev: false
 
   /lodash.sortby/4.7.0:
     resolution: {integrity: sha1-7dFMgk4sycHgsKG0K7UhBRakJDg=}
@@ -5338,6 +5389,10 @@ packages:
       object-assign: 4.1.1
     dev: true
 
+  /scroll-lock/2.1.5:
+    resolution: {integrity: sha512-GN8Lp0AzXbkrPFUUNkMUruiiv019UvarNKE/SnXi+AxZRjMnDc2R22VB9RcUtL4P/uub04cKibmpHKIKTyWwYQ==}
+    dev: false
+
   /section-matter/1.0.0:
     resolution: {integrity: sha512-vfD3pmTzGpufjScBh50YHKzEu2lxBWhVEHsNGoEXmCmn2hKGfeNLYMzCJpe8cD7gqX7TJluOVpBkAequ6dgMmA==}
     engines: {node: '>=4'}
@@ -5465,6 +5520,14 @@ packages:
       '@babel/types': 7.17.0
       solid-js: 1.3.17
     dev: true
+
+  /solid-transition-group/0.0.10_solid-js@1.3.17:
+    resolution: {integrity: sha512-b3O9z6BUP60CG1WnTdqFuvHms0reDNYwQF+eAEEaSaoDEmiOu9+Lu7zQgWGySJjaAdSAClhmFCmx/eAjQgfIoA==}
+    peerDependencies:
+      solid-js: ^1.0.0
+    dependencies:
+      solid-js: 1.3.17
+    dev: false
 
   /sorcery/0.10.0:
     resolution: {integrity: sha1-iukK19fLBfxZ8asMY3hF1cFaUrc=}
@@ -5733,6 +5796,10 @@ packages:
     resolution: {integrity: sha512-qKJzw6DpA33CIa+C/rGp4AUdSfii0DOTCzj/2YpSKKayw5WGSS624Et9L1nU1k2OVRS9vaENQXp2CVZNU+xvIg==}
     engines: {node: '>= 8'}
     dev: true
+
+  /tabbable/5.3.2:
+    resolution: {integrity: sha512-6G/8EWRFx8CiSe2++/xHhXkmCRq2rHtDtZbQFHx34cvDfZzIBfvwG9zGUNTWMXWLCYvDj3aQqOzdl3oCxKuBkQ==}
+    dev: false
 
   /temp-dir/2.0.0:
     resolution: {integrity: sha512-aoBAniQmmwtcKp/7BzsH8Cxzv8OL736p7v1ihGb5e9DJ9kTwGWHrQrVB5+lfVDzfGrdRzXch+ig7LHaY1JTOrg==}

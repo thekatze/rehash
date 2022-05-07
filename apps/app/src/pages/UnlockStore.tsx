@@ -1,19 +1,35 @@
+import Card from "@/components/Card";
 import { useI18n } from "@/i18n/I18nProvider";
 import { useRehash } from "@/providers/RehashProvider";
-import { ReButton, ReCard, ReCardHeader, ReForm, ReTextField } from "@/ui";
+import {
+  Button,
+  FormControl,
+  FormErrorMessage,
+  FormHelperText,
+  FormLabel,
+  Heading,
+  HStack,
+  Input,
+  VStack,
+} from "@hope-ui/solid";
 import { useNavigate } from "solid-app-router";
-import { Component, createSignal } from "solid-js";
+import { Component, createSignal, Show, JSX } from "solid-js";
 
 const UnlockStore: Component = () => {
   const [t] = useI18n();
   const [generator, entries, store] = useRehash();
   const navigate = useNavigate();
 
+  const [loading, setLoading] = createSignal(false);
   const [password, setPassword] = createSignal("");
   const [error, setError] = createSignal(false);
 
-  async function unlock() {
+  async function unlock(e: Event) {
+    e.preventDefault();
+
+    setLoading(true);
     await store.initialize(password());
+    setLoading(false);
 
     if (store.unlocked()) {
       navigate("/");
@@ -23,23 +39,33 @@ const UnlockStore: Component = () => {
   }
 
   return (
-    <ReCard>
-      <ReCardHeader>{t("UNLOCK")}</ReCardHeader>
-      {t("UNLOCK_TEXT")}
-      <ReForm onSubmit={unlock}>
-        <ReTextField
-          onInput={(e) => {
-            setPassword(e.currentTarget.value);
-            setError(false);
-          }}
-          label={t("PASSWORD")}
-          password
-          error={error()}
-          autofocus
-        />
-        <ReButton submit>{t("UNLOCK")}</ReButton>
-      </ReForm>
-    </ReCard>
+    <Card>
+      <VStack as="form" onSubmit={unlock} spacing="$4" alignItems="stretch">
+        <Heading size="xl">{t("UNLOCK")}</Heading>
+        <FormControl required invalid={error()}>
+          <FormLabel for="password">{t("PASSWORD")}</FormLabel>
+          <Input
+            id="password"
+            type="password"
+            onInput={(e: any) => {
+              setPassword(e.target.value);
+              setError(false);
+            }}
+          />
+          <Show
+            when={error()}
+            fallback={<FormHelperText>{t("UNLOCK_TEXT")}</FormHelperText>}
+          >
+            <FormErrorMessage>{t("WRONG_PASSWORD")}</FormErrorMessage>
+          </Show>
+        </FormControl>
+        <HStack justifyContent="flex-end">
+          <Button type="submit" loading={loading()}>
+            {t("UNLOCK")}
+          </Button>
+        </HStack>
+      </VStack>
+    </Card>
   );
 };
 
