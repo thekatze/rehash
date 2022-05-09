@@ -19,20 +19,8 @@ const routes: RouteDefinition[] = [
     component: lazy(() => import("@/pages/Settings")),
   },
   {
-    path: "/unlock",
-    component: lazy(() => import("@/pages/UnlockStore")),
-  },
-  {
-    path: "/new",
-    component: lazy(() => import("@/pages/NewStore")),
-  },
-  {
     path: "/contribute",
     component: lazy(() => import("@/pages/Contribute")),
-  },
-  {
-    path: "/about",
-    component: lazy(() => import("@/pages/About")),
   },
   {
     path: "/*all",

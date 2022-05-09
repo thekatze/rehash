@@ -1,5 +1,5 @@
 import { useI18n } from "@/i18n/I18nProvider";
-import { ReButton } from "@/ui";
+import { Button } from "@hope-ui/solid";
 import { Component, Show } from "solid-js";
 import { useRegisterSW } from "virtual:pwa-register/solid";
 
@@ -19,11 +19,9 @@ const PwaUpdateIndicator: Component = () => {
 
   return (
     <Show when={needRefresh()}>
-      <div className="max-w-64">
-        <ReButton small onClick={() => updateServiceWorker(true)}>
-          {t("UPDATE_AVAILABLE")}
-        </ReButton>
-      </div>
+      <Button onClick={() => updateServiceWorker(true)}>
+        {t("UPDATE_AVAILABLE")}
+      </Button>
     </Show>
   );
 };

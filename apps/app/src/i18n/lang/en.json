@@ -40,5 +40,6 @@
   "URL": "URL",
   "USERNAME": "Username",
   "VERSION": "Version: {{ version }}",
+  "WRONG_PASSWORD": "Wrong password, try again.",
   "YES": "Yes"
 }

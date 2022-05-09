@@ -1,50 +1,81 @@
-import { Component } from "solid-js";
-import { ReCard, ReButton, useUiTheme, ReSelect, ReSpacer } from "@/ui";
+import { Component, For } from "solid-js";
 import FileSaver from "file-saver";
 import { useRehash } from "@/providers/RehashProvider";
 import { useI18n } from "@/i18n/I18nProvider";
 import { useNavigate } from "solid-app-router";
-import { useModals } from "@/ui/app/ModalProvider";
-import ConfirmationModal from "@/components/modals/ConfirmationModal";
 
 import MoonIcon from "~icons/majesticons/moon-line";
 import LightbulbIcon from "~icons/majesticons/lightbulb-shine-line";
+import {
+  Button,
+  Select,
+  SelectContent,
+  SelectIcon,
+  SelectListbox,
+  SelectOption,
+  SelectOptionIndicator,
+  SelectOptionText,
+  SelectPlaceholder,
+  SelectTrigger,
+  SelectValue,
+  useColorMode,
+  Text,
+  VStack,
+} from "@hope-ui/solid";
+import Card from "@/components/Card";
 
 const Settings: Component = () => {
   const [t, { currentLocale, setLocale, listLocales }] = useI18n();
-  const [theme, setTheme] = useUiTheme();
-  const [generator, entries, store] = useRehash();
+  const { colorMode, toggleColorMode } = useColorMode();
+  const [, , store] = useRehash();
   const navigate = useNavigate();
-  const [showModal] = useModals();
 
-  const languages = listLocales().map((id) => {
-    const displayName = new Intl.DisplayNames([id], {
-      type: "language",
+  const languages = () =>
+    listLocales().map((id) => {
+      const displayName = new Intl.DisplayNames([id], {
+        type: "language",
+      });
+
+      return { value: id, display: displayName.of(id) };
     });
 
-    return { value: id, display: displayName.of(id) };
-  });
-
   return (
-    <div>
-      <ReCard>
-        <ReButton
-          icon={theme() ? <MoonIcon /> : <LightbulbIcon />}
-          onClick={() => setTheme((theme) => !theme)}
+    <VStack spacing="$4" alignItems="stretch">
+      <Card>
+        <Button
+          leftIcon={colorMode() == "dark" ? <MoonIcon /> : <LightbulbIcon />}
+          onClick={toggleColorMode}
         >
           {t("SWITCH_THEME")}
-        </ReButton>
-      </ReCard>
-      <ReCard>
-        <ReSelect
-          label={t("LANGUAGE")}
-          items={languages}
-          onChange={async (e) => await setLocale(e.currentTarget.value)}
-          selected={currentLocale()}
-        />
-      </ReCard>
-      <ReCard>
-        <ReButton
+        </Button>
+      </Card>
+      <Card>
+        <Text>{t("LANGUAGE")}</Text>
+        <Select
+          value={currentLocale()}
+          onChange={async (e) => await setLocale(e)}
+        >
+          <SelectTrigger>
+            <SelectPlaceholder>{t("LANGUAGE")}</SelectPlaceholder>
+            <SelectValue />
+            <SelectIcon />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectListbox>
+              <For each={languages()}>
+                {(item) => (
+                  <SelectOption value={item.value}>
+                    <SelectOptionText>{item.display}</SelectOptionText>
+                    <SelectOptionIndicator />
+                  </SelectOption>
+                )}
+              </For>
+            </SelectListbox>
+          </SelectContent>
+        </Select>
+      </Card>
+      <Card>
+        <Button
           onClick={async () =>
             FileSaver(
               new Blob([JSON.stringify(await store.export())], {
@@ -55,30 +86,18 @@ const Settings: Component = () => {
           }
         >
           {t("EXPORT_STORE")}
-        </ReButton>
-        <ReButton
-          danger
+        </Button>
+        <Button
+          colorScheme="danger"
           onClick={async () => {
-            await showModal(ConfirmationModal, {
-              text: t("DELETE_STORE_CONFIRMATION"),
-              yes: {
-                label: t("YES"),
-                callback: async () => {
-                  await store.delete();
-                  navigate("/new");
-                },
-                danger: true,
-              },
-              no: {
-                label: t("NO"),
-              },
-            });
+            await store.delete();
+            navigate("/");
           }}
         >
           {t("DELETE_STORE")}
-        </ReButton>
-      </ReCard>
-    </div>
+        </Button>
+      </Card>
+    </VStack>
   );
 };
 
