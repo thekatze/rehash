@@ -65,14 +65,6 @@ const NewStore: Component = () => {
             <FormErrorMessage>{passwordFeedback()}</FormErrorMessage>
           </Show>
         </FormControl>
-        <Accordion>
-          <AccordionItem>
-            <AccordionButton>
-              <Text>Advanced Options</Text> <AccordionIcon />
-            </AccordionButton>
-            <AccordionPanel>//TODO</AccordionPanel>
-          </AccordionItem>
-        </Accordion>
         <HStack justifyContent="flex-end">
           <Button type="submit">{t("CREATE_STORE")}</Button>
         </HStack>
