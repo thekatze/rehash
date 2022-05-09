@@ -2,7 +2,7 @@ import Card from "@/components/Card";
 import { useI18n } from "@/i18n/I18nProvider";
 import { useRehash } from "@/providers/RehashProvider";
 import { useNavigate } from "solid-app-router";
-import { Component, createSignal, For, Show } from "solid-js";
+import { Accessor, Component, createSignal, For, Show } from "solid-js";
 import {
   Accordion,
   AccordionButton,
@@ -18,7 +18,6 @@ import {
   Heading,
   HStack,
   Input,
-  Skeleton,
   Text,
   VStack,
 } from "@hope-ui/solid";
@@ -41,22 +40,6 @@ const NewStore: Component = () => {
   }
 
   const invalid = () => !!passwordFeedback();
-  const colorForIndex = (i: number) => {
-    if ((passwordStrength()?.score ?? 0) <= i) return "gray";
-
-    switch (passwordStrength()?.score) {
-      case 0:
-        return "gray";
-      case 1:
-        return "red";
-      case 2:
-        return "red";
-      case 3:
-        return "yellow";
-      case 4:
-        return "green";
-    }
-  };
 
   return (
     <Card>
@@ -74,17 +57,7 @@ const NewStore: Component = () => {
             onInput={(e: any) => setPassword(e.currentTarget.value)}
             type="password"
           />
-          <HStack alignItems="stretch" spacing="$2" mt="$2">
-            <For each={[...new Array(4).keys()]}>
-              {(i) => (
-                <Box
-                  backgroundColor={colorForIndex(i)}
-                  height="$1"
-                  flexGrow={1}
-                />
-              )}
-            </For>
-          </HStack>
+          <StrengthMeter score={() => passwordStrength()?.score ?? 0} />
           <Show
             when={invalid()}
             fallback={<FormHelperText>{t("NEW_STORE_TEXT")}</FormHelperText>}
@@ -105,6 +78,35 @@ const NewStore: Component = () => {
         </HStack>
       </VStack>
     </Card>
+  );
+};
+
+const StrengthMeter = ({ score }: { score: Accessor<number> }) => {
+  const colorForIndex = (i: number) => {
+    if ((score() ?? 0) <= i) return "gray";
+
+    switch (score()) {
+      case 0:
+        return "gray";
+      case 1:
+        return "red";
+      case 2:
+        return "red";
+      case 3:
+        return "yellow";
+      case 4:
+        return "green";
+    }
+  };
+
+  return (
+    <HStack alignItems="stretch" spacing="$2" mt="$2">
+      <For each={[...new Array(4).keys()]}>
+        {(i) => (
+          <Box backgroundColor={colorForIndex(i)} height="$1" flexGrow={1} />
+        )}
+      </For>
+    </HStack>
   );
 };
 

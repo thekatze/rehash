@@ -91,7 +91,11 @@ export const RehashProvider: Component = (props) => {
         setStore("unlocked", () => unlocked);
       },
       exists: () => store.store.exists(),
-      delete: () => store.store.delete(),
+      delete: async () => {
+        await store.store.delete();
+
+        setStore("unlocked", () => false);
+      },
       import: (encryptedStore) => store.store.import(encryptedStore),
       export: () => store.store.export(),
     },

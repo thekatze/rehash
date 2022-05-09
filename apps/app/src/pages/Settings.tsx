@@ -91,7 +91,7 @@ const Settings: Component = () => {
           colorScheme="danger"
           onClick={async () => {
             await store.delete();
-            navigate("/new");
+            navigate("/");
           }}
         >
           {t("DELETE_STORE")}

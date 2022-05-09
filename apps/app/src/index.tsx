@@ -3,7 +3,6 @@ import { Router } from "solid-app-router";
 import { I18nProvider } from "@/i18n/I18nProvider";
 import { RehashProvider } from "@/providers/RehashProvider";
 
-import "virtual:windi.css";
 import App from "./App";
 import {
   HopeProvider,

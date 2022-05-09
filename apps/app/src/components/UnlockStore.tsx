@@ -1,23 +1,23 @@
-import Card from "@/components/Card";
 import { useI18n } from "@/i18n/I18nProvider";
 import { useRehash } from "@/providers/RehashProvider";
 import {
-  Button,
-  FormControl,
-  FormErrorMessage,
-  FormHelperText,
-  FormLabel,
-  Heading,
-  HStack,
-  Input,
   VStack,
+  Heading,
+  FormControl,
+  FormLabel,
+  Input,
+  FormHelperText,
+  FormErrorMessage,
+  HStack,
+  Button,
 } from "@hope-ui/solid";
 import { useNavigate } from "solid-app-router";
-import { Component, createSignal, Show, JSX } from "solid-js";
+import { Component, createSignal, Show } from "solid-js";
+import Card from "./Card";
 
 const UnlockStore: Component = () => {
   const [t] = useI18n();
-  const [generator, entries, store] = useRehash();
+  const [, , store] = useRehash();
   const navigate = useNavigate();
 
   const [loading, setLoading] = createSignal(false);

@@ -11,12 +11,15 @@ import {
   DrawerBody,
   DrawerCloseButton,
   DrawerContent,
+  DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
   Heading,
   HStack,
+  Icon,
   IconButton,
   Spacer,
+  Text,
   VStack,
 } from "@hope-ui/solid";
 
@@ -26,29 +29,18 @@ import SettingsIcon from "~icons/majesticons/settings-cog-line";
 import ContributeIcon from "~icons/majesticons/git-pull-line";
 import AboutIcon from "~icons/majesticons/info-circle-line";
 import { useI18n } from "./i18n/I18nProvider";
+import AuthGuard from "./components/AuthGuard";
 
 const navigations = [
-  { icon: <HomeIcon />, route: "/", text: "HOME" },
-  { icon: <SettingsIcon />, route: "/settings", text: "SETTINGS" },
-  { icon: <ContributeIcon />, route: "/contribute", text: "CONTRIBUTE" },
-  { icon: <AboutIcon />, route: "/about", text: "ABOUT" },
+  { icon: HomeIcon, route: "/", text: "HOME" },
+  { icon: SettingsIcon, route: "/settings", text: "SETTINGS" },
+  { icon: ContributeIcon, route: "/contribute", text: "CONTRIBUTE" },
 ];
 
 const App: Component = () => {
   const [t] = useI18n();
   const Routes = useRoutes(routes);
-  const navigate = useNavigate();
   const [, , store] = useRehash();
-
-  if (!store.unlocked()) {
-    store.exists().then((exists) => {
-      if (exists) {
-        navigate("/unlock");
-      } else {
-        navigate("/new");
-      }
-    });
-  }
 
   const { isOpen, onOpen, onClose } = createDisclosure();
 
@@ -65,16 +57,29 @@ const App: Component = () => {
           </DrawerHeader>
 
           <DrawerBody>
-            <VStack alignItems="stretch">
+            <VStack alignItems="stretch" spacing="$2">
               <For each={navigations}>
                 {(navigation) => (
-                  <Box as={Link} href={navigation.route}>
+                  <Box
+                    as={Link}
+                    href={navigation.route}
+                    _hover={{ backgroundColor: "$accent4" }}
+                    px="$2"
+                    py="$4"
+                    justifyItems="center"
+                  >
+                    <Icon as={navigation.icon} mb="$1" fontSize="$xl" mr="$4" />
                     {t(navigation.text)}
                   </Box>
                 )}
               </For>
             </VStack>
           </DrawerBody>
+          <DrawerFooter>
+            <Text color="gray">
+              {t("VERSION", { version: __GIT_REVISION__ })}
+            </Text>
+          </DrawerFooter>
         </DrawerContent>
       </Drawer>
 
@@ -94,8 +99,10 @@ const App: Component = () => {
         <Spacer />
         <PwaUpdateIndicator />
       </HStack>
-      <Container maxW="$xl">
-        <Routes />
+      <Container maxW="$xl" px="$4">
+        <AuthGuard>
+          <Routes />
+        </AuthGuard>
       </Container>
     </>
   );

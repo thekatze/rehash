@@ -17,6 +17,7 @@ import {
   InputLeftElement,
   VStack,
 } from "@hope-ui/solid";
+import Card from "@/components/Card";
 
 const Home: Component = () => {
   const [t] = useI18n();
@@ -65,9 +66,9 @@ const Home: Component = () => {
       <Show
         when={filteredList().length > 0}
         fallback={
-          <Box>
+          <Card>
             {filter() !== "" ? t("NO_FILTER_RESULTS") : t("INTRO_TEXT")}
-          </Box>
+          </Card>
         }
       >
         <EntryList entries={filteredList()} />

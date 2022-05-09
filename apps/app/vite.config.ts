@@ -3,7 +3,6 @@ import fs from "fs";
 import Icons from "unplugin-icons/vite";
 import { defineConfig } from "vite";
 import solidPlugin from "vite-plugin-solid";
-import WindiCSS from "vite-plugin-windicss";
 import { VitePWA } from "vite-plugin-pwa";
 
 import { promisify } from "util";
@@ -20,7 +19,6 @@ export default defineConfig(async ({ command, mode }) => {
   return {
     plugins: [
       solidPlugin(),
-      WindiCSS(),
       Icons({
         compiler: "solid",
       }),
@@ -71,11 +69,5 @@ export default defineConfig(async ({ command, mode }) => {
         rosetta: isDev ? "rosetta/debug" : "rosetta",
       },
     },
-    https: isDev
-      ? {
-          key: fs.readFileSync(".cert/key.pem"),
-          cert: fs.readFileSync(".cert/cert.pem"),
-        }
-      : {},
   };
 });
