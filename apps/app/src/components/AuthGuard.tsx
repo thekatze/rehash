@@ -6,17 +6,20 @@ import UnlockStore from "./UnlockStore";
 const AuthGuard: Component = (props) => {
   const [, , store] = useRehash();
 
-  const [exists] = createResource(async () => await store.exists());
+  const [exists] = createResource(
+    store.exists,
+    async () => await store.exists()
+  );
 
   return (
     <Show
       when={store.unlocked()}
       fallback={
-        <Suspense>
+        <Show when={!exists.loading}>
           <Show when={exists()} fallback={<NewStore />}>
             <UnlockStore />
           </Show>
-        </Suspense>
+        </Show>
       }
     >
       {props.children}
