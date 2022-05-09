@@ -23,6 +23,7 @@ import {
   VStack,
 } from "@hope-ui/solid";
 import Card from "@/components/Card";
+import PopoverButton from "@/components/PopoverButton";
 
 const Settings: Component = () => {
   const [t, { currentLocale, setLocale, listLocales }] = useI18n();
@@ -87,15 +88,15 @@ const Settings: Component = () => {
         >
           {t("EXPORT_STORE")}
         </Button>
-        <Button
-          colorScheme="danger"
+        <PopoverButton
+          buttonText={t("DELETE_STORE")}
+          popoverHeader={t("ARE_YOU_SURE")}
+          popoverBody={t("DELETE_STORE_CONFIRMATION")}
           onClick={async () => {
             await store.delete();
             navigate("/");
           }}
-        >
-          {t("DELETE_STORE")}
-        </Button>
+        />
       </Card>
     </VStack>
   );

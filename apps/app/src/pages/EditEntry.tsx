@@ -1,4 +1,5 @@
 import Card from "@/components/Card";
+import PopoverButton from "@/components/PopoverButton";
 import { useI18n } from "@/i18n/I18nProvider";
 import { useRehash } from "@/providers/RehashProvider";
 import {
@@ -117,9 +118,12 @@ const EditEntry: Component = () => {
         </InputGroup>
         <HStack spacing="$4" justifyContent="flex-end">
           <Button type="submit">{t("SAVE_CHANGES")}</Button>
-          <Button colorScheme="danger" onClick={remove}>
-            {t("DELETE_ENTRY")}
-          </Button>
+          <PopoverButton
+            buttonText={t("DELETE_ENTRY")}
+            popoverHeader={t("ARE_YOU_SURE")}
+            popoverBody={t("DELETE_ENTRY_CONFIRMATION")}
+            onClick={remove}
+          />
         </HStack>
       </VStack>
     </Card>
