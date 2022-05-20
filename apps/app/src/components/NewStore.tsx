@@ -4,11 +4,6 @@ import { useRehash } from "@/providers/RehashProvider";
 import { useNavigate } from "solid-app-router";
 import { Accessor, Component, createSignal, For, Show } from "solid-js";
 import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
   Box,
   Button,
   FormControl,
@@ -18,7 +13,6 @@ import {
   Heading,
   HStack,
   Input,
-  Text,
   VStack,
 } from "@hope-ui/solid";
 import usePasswordStrength from "@/hooks/usePasswordStrength";

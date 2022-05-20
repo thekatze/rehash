@@ -18,7 +18,6 @@ import Card from "./Card";
 const UnlockStore: Component = () => {
   const [t] = useI18n();
   const [, , store] = useRehash();
-  const navigate = useNavigate();
 
   const [loading, setLoading] = createSignal(false);
   const [password, setPassword] = createSignal("");
@@ -31,11 +30,7 @@ const UnlockStore: Component = () => {
     await store.initialize(password());
     setLoading(false);
 
-    if (store.unlocked()) {
-      navigate("/");
-    } else {
-      setError(true);
-    }
+    setError(!store.unlocked());
   }
 
   return (

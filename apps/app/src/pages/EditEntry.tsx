@@ -13,8 +13,10 @@ import {
   InputRightElement,
   VStack,
 } from "@hope-ui/solid";
+import { StoreEntryWithId } from "@rehash/logic";
 import { useNavigate, useParams } from "solid-app-router";
 import { Component, createMemo, createResource, createSignal } from "solid-js";
+import { createStore } from "solid-js/store";
 
 import EyeIcon from "~icons/majesticons/eye-line";
 import EyeOffIcon from "~icons/majesticons/eye-off-line";
@@ -28,20 +30,19 @@ const EditEntry: Component = () => {
   const entry = entries.get(params.id);
   if (!entry) navigate("/", {});
 
-  const [url, setUrl] = createSignal(entry!.url);
-  const [username, setUsername] = createSignal(entry!.username);
-  const [displayName, setDisplayName] = createSignal(entry!.displayName);
+  const [store, setStore] = createStore<StoreEntryWithId>(entry!);
 
   const [passwordVisible, setPasswordVisible] = createSignal(false);
 
-  const generatePasswordFunction = createMemo(() =>
+  const generatePasswordFunction = () =>
     generator.generate({
-      url: url(),
-      username: username(),
-      options: { length: 32, iteration: 1 },
-    })
-  );
-
+      url: store.url,
+      username: store.username,
+      options: {
+        length: store.options.length,
+        iteration: store.options.iteration,
+      },
+    });
   const [password] = createResource(
     generatePasswordFunction,
     async () => await generatePasswordFunction()
@@ -50,22 +51,24 @@ const EditEntry: Component = () => {
   async function edit(e: any) {
     e.preventDefault();
 
-    entries.edit({
-      id: entry!.id,
-      displayName: !displayName() ? undefined : displayName(),
-      url: url(),
-      username: username(),
+    const newEntry = {
+      id: store.id,
+      displayName: !store.displayName ? undefined : store.displayName,
+      url: store.url,
+      username: store.username,
       options: {
-        length: 32,
-        iteration: 1,
+        length: store.options.length,
+        iteration: store.options.iteration,
       },
-    });
+    };
+
+    entries.edit(newEntry);
 
     navigate("/", {});
   }
 
   async function remove() {
-    entries.remove(entry!.id);
+    entries.remove(store.id);
 
     navigate("/", {});
   }
@@ -80,24 +83,64 @@ const EditEntry: Component = () => {
           <FormLabel for="displayName">{t("DISPLAY_NAME")}</FormLabel>
           <Input
             id="displayName"
-            value={displayName()}
-            onInput={(e: any) => setDisplayName(e.currentTarget.value)}
+            value={store.displayName}
+            onInput={(e: any) =>
+              setStore("displayName", () => e.currentTarget.value)
+            }
           />
         </FormControl>
         <FormControl>
           <FormLabel for="url">{t("URL")}</FormLabel>
           <Input
             id="url"
-            value={url()}
-            onInput={(e: any) => setUrl(e.currentTarget.value)}
+            value={store.url}
+            onInput={(e: any) => setStore("url", () => e.currentTarget.value)}
           />
         </FormControl>
         <FormControl>
           <FormLabel for="username">{t("USERNAME")}</FormLabel>
           <Input
             id="username"
-            value={username()}
-            onInput={(e: any) => setUsername(e.currentTarget.value)}
+            value={store.username}
+            onInput={(e: any) =>
+              setStore("username", () => e.currentTarget.value)
+            }
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel for="iteration">Iteration</FormLabel>
+          <Input
+            id="iteration"
+            value={store.options.iteration}
+            type="number"
+            onInput={(e: any) =>
+              setStore("options", "iteration", () => {
+                const newValue = parseInt(e.currentTarget.value);
+                if (Number.isNaN(newValue)) {
+                  return 1;
+                }
+
+                return newValue;
+              })
+            }
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel for="length">Length</FormLabel>
+          <Input
+            id="length"
+            value={store.options.length}
+            type="number"
+            onInput={(e: any) =>
+              setStore("options", "length", () => {
+                const newValue = parseInt(e.currentTarget.value);
+                if (Number.isNaN(newValue)) {
+                  return 8;
+                }
+
+                return Math.max(newValue, 8);
+              })
+            }
           />
         </FormControl>
         <InputGroup>

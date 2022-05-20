@@ -86,11 +86,11 @@ export const RehashProvider: Component = (props) => {
       unlocked: () => store.unlocked,
       create: async (options) => {
         await store.store.create(options);
-        const unlocked = await store.store.unlock();
 
+        const unlocked = await store.store.unlock();
         setStore("unlocked", () => unlocked);
       },
-      exists: () => store.store.exists(),
+      exists: store.store.exists,
       delete: async () => {
         await store.store.delete();
 
