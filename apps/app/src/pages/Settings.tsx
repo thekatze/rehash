@@ -1,4 +1,4 @@
-import { Component, For } from "solid-js";
+import { Component, createEffect, For, on } from "solid-js";
 import FileSaver from "file-saver";
 import { useRehash } from "@/providers/RehashProvider";
 import { useI18n } from "@/i18n/I18nProvider";
@@ -24,12 +24,29 @@ import {
 } from "@hope-ui/solid";
 import Card from "@/components/Card";
 import PopoverButton from "@/components/PopoverButton";
+import GeneratorOptionsMenu from "@/components/GeneratorOptionsMenu";
+import { createStore } from "solid-js/store";
+import { GeneratorOptions } from "@rehash/logic";
 
 const Settings: Component = () => {
   const [t, { currentLocale, setLocale, listLocales }] = useI18n();
   const { colorMode, toggleColorMode } = useColorMode();
   const [, , store] = useRehash();
   const navigate = useNavigate();
+
+  const [generatorOptions, setGeneratorOptions] = createStore<GeneratorOptions>(
+    store.getGeneratorOptions()
+  );
+
+  createEffect(
+    async () =>
+      // explicitly reference store children for reactivity
+      await store.setGeneratorOptions({
+        iterations: generatorOptions.iterations,
+        parallelism: generatorOptions.parallelism,
+        memorySize: generatorOptions.memorySize,
+      })
+  );
 
   const languages = () =>
     listLocales().map((id) => {
@@ -74,6 +91,12 @@ const Settings: Component = () => {
             </SelectListbox>
           </SelectContent>
         </Select>
+      </Card>
+      <Card>
+        <GeneratorOptionsMenu
+          generatorOptions={generatorOptions}
+          setGeneratorOptions={setGeneratorOptions}
+        />
       </Card>
       <Card>
         <Button

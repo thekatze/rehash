@@ -42,9 +42,7 @@ interface ContributeCardProps {
 const ContributeCard: Component<ContributeCardProps> = (props) => (
   <Card as="a" href={props.link} target="_blank">
     <HStack justifyContent="space-between">
-      <Heading size="xl" icon={<OpenIcon />}>
-        {props.primary}
-      </Heading>
+      <Heading size="xl">{props.primary}</Heading>
       <Icon fontSize="$2xl" as={OpenIcon} />
     </HStack>
     <Text>{props.secondary}</Text>

@@ -15,7 +15,7 @@ import {
 } from "@hope-ui/solid";
 import { StoreEntryWithId } from "@rehash/logic";
 import { useNavigate, useParams } from "solid-app-router";
-import { Component, createMemo, createResource, createSignal } from "solid-js";
+import { Component, createResource, createSignal } from "solid-js";
 import { createStore } from "solid-js/store";
 
 import EyeIcon from "~icons/majesticons/eye-line";
@@ -108,7 +108,7 @@ const EditEntry: Component = () => {
           />
         </FormControl>
         <FormControl>
-          <FormLabel for="iteration">Iteration</FormLabel>
+          <FormLabel for="iteration">{t("ITERATION")}</FormLabel>
           <Input
             id="iteration"
             value={store.options.iteration}
@@ -126,7 +126,7 @@ const EditEntry: Component = () => {
           />
         </FormControl>
         <FormControl>
-          <FormLabel for="length">Length</FormLabel>
+          <FormLabel for="length">{t("LENGTH")}</FormLabel>
           <Input
             id="length"
             value={store.options.length}

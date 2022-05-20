@@ -1,6 +1,6 @@
 {
   "name": "@rehash/logic",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "The password generation logic for the rehash password manager",
   "main": "src/index.ts",
   "scripts": {

@@ -152,4 +152,19 @@ export class RehashStore {
   public async export(): Promise<EncryptedStore> {
     return (await get(STORE_KEY)) as EncryptedStore;
   }
+
+  public getGeneratorOptions(): GeneratorOptions {
+    if (!this.isUnlocked()) throw new LockedError();
+
+    return this.store!.options;
+  }
+
+  public async setGeneratorOptions(
+    generatorOptions: GeneratorOptions
+  ): Promise<void> {
+    if (!this.isUnlocked()) throw new LockedError();
+
+    this.store!.options = generatorOptions;
+    await this.saveStore();
+  }
 }

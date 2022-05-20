@@ -4,7 +4,13 @@ import { useRehash } from "@/providers/RehashProvider";
 import { useNavigate } from "solid-app-router";
 import { Accessor, Component, createSignal, For, Show } from "solid-js";
 import {
+  Accordion,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
   Box,
+  Text,
   Button,
   FormControl,
   FormErrorMessage,
@@ -16,19 +22,25 @@ import {
   VStack,
 } from "@hope-ui/solid";
 import usePasswordStrength from "@/hooks/usePasswordStrength";
+import { createStore, SetStoreFunction } from "solid-js/store";
+import { GeneratorOptions } from "@rehash/logic";
+import GeneratorOptionsMenu from "./GeneratorOptionsMenu";
 
 const NewStore: Component = () => {
   const [t] = useI18n();
   const [, , store] = useRehash();
   const navigate = useNavigate();
   const [password, setPassword] = createSignal("");
+  const [generatorOptions, setGeneratorOptions] = createStore<GeneratorOptions>(
+    { iterations: 15, memorySize: 2048, parallelism: 2 }
+  );
 
   const [passwordStrength, passwordFeedback] = usePasswordStrength(password);
 
   async function createNewStore(e: any) {
     e.preventDefault();
     await store.initialize(password());
-    await store.create({ iterations: 15, memorySize: 2048, parallelism: 2 });
+    await store.create(generatorOptions);
 
     navigate("/");
   }
@@ -59,6 +71,22 @@ const NewStore: Component = () => {
             <FormErrorMessage>{passwordFeedback()}</FormErrorMessage>
           </Show>
         </FormControl>
+        <Accordion>
+          <AccordionItem>
+            <AccordionButton type="button">
+              <Text flex={1} fontWeight="$medium" textAlign="start">
+                {t("ADVANCED_SETTINGS")}
+              </Text>
+              <AccordionIcon />
+            </AccordionButton>
+            <AccordionPanel>
+              <GeneratorOptionsMenu
+                generatorOptions={generatorOptions}
+                setGeneratorOptions={setGeneratorOptions}
+              />
+            </AccordionPanel>
+          </AccordionItem>
+        </Accordion>
         <HStack justifyContent="flex-end">
           <Button type="submit">{t("CREATE_STORE")}</Button>
         </HStack>

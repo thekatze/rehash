@@ -30,6 +30,8 @@ type StoreActions = {
   delete: () => Promise<void>;
   import: (encryptedStore: EncryptedStore) => Promise<void>;
   export: () => Promise<EncryptedStore>;
+  getGeneratorOptions: () => GeneratorOptions;
+  setGeneratorOptions: (generatorOptions: GeneratorOptions) => Promise<void>;
 };
 
 const RehashContext =
@@ -98,6 +100,9 @@ export const RehashProvider: FlowComponent = (props) => {
       },
       import: (encryptedStore) => store.store.import(encryptedStore),
       export: () => store.store.export(),
+      getGeneratorOptions: () => store.store.getGeneratorOptions(),
+      setGeneratorOptions: (generatorOptions) =>
+        store.store.setGeneratorOptions(generatorOptions),
     },
   ];
 
