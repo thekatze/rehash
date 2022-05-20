@@ -1,5 +1,5 @@
 import { Component, For } from "solid-js";
-import { Link, useNavigate, useRoutes } from "solid-app-router";
+import { Link, useRoutes } from "solid-app-router";
 import routes from "@/routes";
 import { useRehash } from "./providers/RehashProvider";
 import PwaUpdateIndicator from "./components/PwaUpdateIndicator";
@@ -27,7 +27,6 @@ import MenuIcon from "~icons/majesticons/menu-line";
 import HomeIcon from "~icons/majesticons/home-line";
 import SettingsIcon from "~icons/majesticons/settings-cog-line";
 import ContributeIcon from "~icons/majesticons/git-pull-line";
-import AboutIcon from "~icons/majesticons/info-circle-line";
 import { useI18n } from "./i18n/I18nProvider";
 import AuthGuard from "./components/AuthGuard";
 

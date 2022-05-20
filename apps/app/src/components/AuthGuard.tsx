@@ -1,15 +1,17 @@
 import { useRehash } from "@/providers/RehashProvider";
-import { Component, createResource, Show, Suspense } from "solid-js";
+import { createEffect, createResource, FlowComponent, Show } from "solid-js";
 import NewStore from "./NewStore";
 import UnlockStore from "./UnlockStore";
 
-const AuthGuard: Component = (props) => {
+const AuthGuard: FlowComponent = (props) => {
   const [, , store] = useRehash();
 
-  const [exists] = createResource(
-    store.exists,
-    async () => await store.exists()
-  );
+  const [exists, { refetch }] = createResource(() => store.exists());
+
+  createEffect(() => {
+    // check if store still exists after locking, it might have been deleted
+    if (!store.unlocked()) refetch();
+  });
 
   return (
     <Show

@@ -8,7 +8,6 @@ import EntryList from "@/components/EntryList";
 import { useRehash } from "@/providers/RehashProvider";
 import { useNavigate } from "solid-app-router";
 import {
-  Box,
   HStack,
   Icon,
   IconButton,

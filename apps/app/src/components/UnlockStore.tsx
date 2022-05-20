@@ -11,7 +11,6 @@ import {
   HStack,
   Button,
 } from "@hope-ui/solid";
-import { useNavigate } from "solid-app-router";
 import { Component, createSignal, Show } from "solid-js";
 import Card from "./Card";
 

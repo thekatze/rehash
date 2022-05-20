@@ -67,7 +67,11 @@ const NewStore: Component = () => {
   );
 };
 
-const StrengthMeter = ({ score }: { score: Accessor<number> }) => {
+interface StrengthMeterProps {
+  score: Accessor<number>;
+}
+
+const StrengthMeter: Component<StrengthMeterProps> = ({ score }) => {
   const colorForIndex = (i: number) => {
     if ((score() ?? 0) <= i) return "gray";
 

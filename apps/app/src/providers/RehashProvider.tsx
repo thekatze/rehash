@@ -7,7 +7,7 @@ import {
   StoreEntry,
   StoreEntryWithId,
 } from "@rehash/logic";
-import { Component, createContext, useContext } from "solid-js";
+import { createContext, FlowComponent, useContext } from "solid-js";
 import { createStore } from "solid-js/store";
 
 type GeneratorActions = {
@@ -46,7 +46,7 @@ export function useRehash(): [GeneratorActions, EntryActions, StoreActions] {
   return context;
 }
 
-export const RehashProvider: Component = (props) => {
+export const RehashProvider: FlowComponent = (props) => {
   const [store, setStore] = createStore<{
     unlocked: boolean;
     store: RehashStore;
@@ -90,7 +90,7 @@ export const RehashProvider: Component = (props) => {
         const unlocked = await store.store.unlock();
         setStore("unlocked", () => unlocked);
       },
-      exists: store.store.exists,
+      exists: () => store.store.exists(),
       delete: async () => {
         await store.store.delete();
 
