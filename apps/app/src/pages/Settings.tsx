@@ -1,4 +1,4 @@
-import { Component, createEffect, For, on } from "solid-js";
+import { Component, createEffect, For } from "solid-js";
 import FileSaver from "file-saver";
 import { useRehash } from "@/providers/RehashProvider";
 import { useI18n } from "@/i18n/I18nProvider";
@@ -27,6 +27,7 @@ import PopoverButton from "@/components/PopoverButton";
 import GeneratorOptionsMenu from "@/components/GeneratorOptionsMenu";
 import { createStore } from "solid-js/store";
 import { GeneratorOptions } from "@rehash/logic";
+import ImportChoiceButton from "@/components/ImportChoiceButton";
 
 const Settings: Component = () => {
   const [t, { currentLocale, setLocale, listLocales }] = useI18n();
@@ -111,6 +112,9 @@ const Settings: Component = () => {
         >
           {t("EXPORT_STORE")}
         </Button>
+        <ImportChoiceButton />
+      </Card>
+      <Card>
         <PopoverButton
           buttonText={t("DELETE_STORE")}
           popoverHeader={t("ARE_YOU_SURE")}

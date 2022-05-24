@@ -21,6 +21,11 @@ export interface Store {
   entries: { [id: string]: StoreEntry | undefined };
 }
 
+export enum ImportMode {
+  Overwrite = "o",
+  Merge = "m",
+}
+
 class LockedError extends Error {
   constructor() {
     super("This operation requires the store to be unlocked first");
@@ -145,8 +150,32 @@ export class RehashStore {
     return !!(await this.export());
   }
 
-  public async import(encryptedStore: EncryptedStore) {
-    await this.saveStore(encryptedStore);
+  public async import(encryptedStore: EncryptedStore, mode: ImportMode) {
+    switch (mode) {
+      case ImportMode.Merge:
+        return await this.mergeImport(encryptedStore);
+      case ImportMode.Overwrite:
+        await this.saveStore(encryptedStore);
+        return true;
+    }
+  }
+
+  private async mergeImport(encryptedStore: EncryptedStore): Promise<boolean> {
+    if (!this.isUnlocked()) throw new LockedError();
+    let externalStore: Store;
+
+    try {
+      externalStore = await this.storeCryptor.decrypt(encryptedStore);
+    } catch {
+      return false;
+    }
+
+    Object.keys(externalStore.entries).forEach(
+      (e) => (this.store!.entries[e] = externalStore.entries[e])
+    );
+
+    await this.saveStore();
+    return true;
   }
 
   public async export(): Promise<EncryptedStore> {

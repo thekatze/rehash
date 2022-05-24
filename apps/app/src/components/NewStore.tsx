@@ -22,9 +22,10 @@ import {
   VStack,
 } from "@hope-ui/solid";
 import usePasswordStrength from "@/hooks/usePasswordStrength";
-import { createStore, SetStoreFunction } from "solid-js/store";
-import { GeneratorOptions } from "@rehash/logic";
+import { createStore } from "solid-js/store";
+import { GeneratorOptions, ImportMode } from "@rehash/logic";
 import GeneratorOptionsMenu from "./GeneratorOptionsMenu";
+import FileUploadButton from "./FileUploadButton";
 
 const NewStore: Component = () => {
   const [t] = useI18n();
@@ -36,6 +37,16 @@ const NewStore: Component = () => {
   );
 
   const [passwordStrength, passwordFeedback] = usePasswordStrength(password);
+
+  async function importStore(text: string) {
+    const encryptedStore = JSON.parse(text);
+
+    if (!("iv" in encryptedStore) || !("store" in encryptedStore)) {
+      return;
+    }
+
+    await store.import(encryptedStore, ImportMode.Overwrite);
+  }
 
   async function createNewStore(e: any) {
     e.preventDefault();
@@ -73,7 +84,7 @@ const NewStore: Component = () => {
         </FormControl>
         <Accordion>
           <AccordionItem>
-            <AccordionButton type="button">
+            <AccordionButton>
               <Text flex={1} fontWeight="$medium" textAlign="start">
                 {t("ADVANCED_SETTINGS")}
               </Text>
@@ -87,7 +98,10 @@ const NewStore: Component = () => {
             </AccordionPanel>
           </AccordionItem>
         </Accordion>
-        <HStack justifyContent="flex-end">
+        <HStack spacing="$2" justifyContent="flex-end">
+          <FileUploadButton onFileSelected={importStore} variant="ghost">
+            {t("IMPORT")}
+          </FileUploadButton>
           <Button type="submit">{t("CREATE_STORE")}</Button>
         </HStack>
       </VStack>

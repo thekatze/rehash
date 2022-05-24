@@ -2,6 +2,7 @@ import {
   EncryptedStore,
   GeneratorEntry,
   GeneratorOptions,
+  ImportMode,
   RehashGenerator,
   RehashStore,
   StoreEntry,
@@ -28,7 +29,10 @@ type StoreActions = {
   create: (options: GeneratorOptions) => Promise<void>;
   exists: () => Promise<boolean>;
   delete: () => Promise<void>;
-  import: (encryptedStore: EncryptedStore) => Promise<void>;
+  import: (
+    encryptedStore: EncryptedStore,
+    mode: ImportMode
+  ) => Promise<boolean>;
   export: () => Promise<EncryptedStore>;
   getGeneratorOptions: () => GeneratorOptions;
   setGeneratorOptions: (generatorOptions: GeneratorOptions) => Promise<void>;
@@ -98,7 +102,18 @@ export const RehashProvider: FlowComponent = (props) => {
 
         setStore("unlocked", () => false);
       },
-      import: (encryptedStore) => store.store.import(encryptedStore),
+      import: async (encryptedStore, mode) => {
+        const result = await store.store.import(encryptedStore, mode);
+
+        if (result && mode === ImportMode.Overwrite) {
+          // FIXME: on successful complete overwrite reload the page
+          // its a hacky workaround but makes life so much easier
+
+          window.location.reload();
+        }
+
+        return result;
+      },
       export: () => store.store.export(),
       getGeneratorOptions: () => store.store.getGeneratorOptions(),
       setGeneratorOptions: (generatorOptions) =>

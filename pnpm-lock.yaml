@@ -7,7 +7,7 @@ importers:
 
   apps/app:
     specifiers:
-      '@hope-ui/solid': ^0.6.0
+      '@hope-ui/solid': ^0.6.1
       '@iconify-json/majesticons': ^1.1.1
       '@rehash/logic': workspace:*
       '@stitches/core': ^1.2.8
@@ -28,7 +28,7 @@ importers:
       vite-plugin-solid: ^2.2.6
       workbox-window: ^6.5.3
     dependencies:
-      '@hope-ui/solid': 0.6.0_edavwlyd5jabdmps4672dxwe6q
+      '@hope-ui/solid': 0.6.1_edavwlyd5jabdmps4672dxwe6q
       '@rehash/logic': link:../../packages/logic
       '@stitches/core': 1.2.8
       '@zxcvbn-ts/core': 2.0.1
@@ -1626,8 +1626,8 @@ packages:
       '@floating-ui/core': 0.6.2
     dev: false
 
-  /@hope-ui/solid/0.6.0_edavwlyd5jabdmps4672dxwe6q:
-    resolution: {integrity: sha512-y1Vyc6kBBjHEo0+55g2cIbpL02iXAzK7Lw/nWDtHgNg8TOR8jXj19Zvr7yPbg/EEiVljXqpChUVBXPux/G+gUQ==}
+  /@hope-ui/solid/0.6.1_edavwlyd5jabdmps4672dxwe6q:
+    resolution: {integrity: sha512-SslmDBBNmBFGgrTDjLfuP5VvStgS4T3//+LGFgSofKMDpkS9oePorC8k170fSyvlCJY2PR3IbSag57/fhCiVZg==}
     peerDependencies:
       '@stitches/core': ^1.2.8
       solid-js: ^1.4.0

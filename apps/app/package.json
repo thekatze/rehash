@@ -8,7 +8,7 @@
     "build": "tsc --noEmit && vite build"
   },
   "dependencies": {
-    "@hope-ui/solid": "^0.6.0",
+    "@hope-ui/solid": "^0.6.1",
     "@rehash/logic": "workspace:*",
     "@stitches/core": "^1.2.8",
     "@zxcvbn-ts/core": "^2.0.1",
