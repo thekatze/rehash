@@ -27,6 +27,7 @@ export function useI18n(): [TranslateFunction, LocaleOptions] {
 const supportedLanguages: { [locale: string]: () => Promise<any> } = {
   en: async () => await import("./lang/en.json"),
   de: async () => await import("./lang/de.json"),
+  nl: async () => await import("./lang/nl.json"),
 };
 
 async function buildI18nForLocale(lang?: string) {
