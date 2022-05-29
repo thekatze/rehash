@@ -4,7 +4,7 @@ The password manager that does not save your passwords.
 
 [Open App](https://app.rehash.one)
 
-![Demo](./docs/demo.gif)
+![Demo Image - Homescreen](./docs/homescreen.png)
 
 # What is rehash?
 
