@@ -30,7 +30,12 @@ const FileUploadButton: ParentComponent<
 
   return (
     <>
-      <HiddenInput ref={fileInput} type="file" onChange={fileChosen} />
+      <HiddenInput
+        ref={fileInput}
+        type="file"
+        onChange={fileChosen}
+        accept=".json"
+      />
       <Button onClick={onClick} {...props}>
         {props.children}
       </Button>
