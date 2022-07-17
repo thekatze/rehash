@@ -38,6 +38,7 @@
   "NEW_STORE_TEXT": "Set a strong master password for your new store.",
   "NO_FILTER_RESULTS": "No filter results",
   "NO": "No",
+  "NOTES": "Notes",
   "PARALLELISM": "Parallelism",
   "PASSWORD_STRENGTH_DICTIONARY_LOADING": "Loading dictionary, password strength estimate is still inaccurate.",
   "PASSWORD_STRENGTH": "Password strength:",

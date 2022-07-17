@@ -1,11 +1,10 @@
 import Card from "@/components/Card";
+import EntryForm from "@/components/EntryForm";
 import PopoverButton from "@/components/PopoverButton";
 import { useI18n } from "@/i18n/I18nProvider";
 import { useRehash } from "@/providers/RehashProvider";
 import {
   Button,
-  FormControl,
-  FormLabel,
   HStack,
   IconButton,
   Input,
@@ -51,15 +50,9 @@ const EditEntry: Component = () => {
   async function edit(e: any) {
     e.preventDefault();
 
-    const newEntry = {
-      id: store.id,
+    const newEntry: StoreEntryWithId = {
+      ...store,
       displayName: !store.displayName ? undefined : store.displayName,
-      url: store.url,
-      username: store.username,
-      options: {
-        length: store.options.length,
-        iteration: store.options.iteration,
-      },
     };
 
     entries.edit(newEntry);
@@ -79,70 +72,7 @@ const EditEntry: Component = () => {
   return (
     <Card>
       <VStack as="form" onSubmit={edit} alignItems="stretch" spacing="$4">
-        <FormControl>
-          <FormLabel for="displayName">{t("DISPLAY_NAME")}</FormLabel>
-          <Input
-            id="displayName"
-            value={store.displayName}
-            onInput={(e: any) =>
-              setStore("displayName", () => e.currentTarget.value)
-            }
-          />
-        </FormControl>
-        <FormControl>
-          <FormLabel for="url">{t("URL")}</FormLabel>
-          <Input
-            id="url"
-            value={store.url}
-            onInput={(e: any) => setStore("url", () => e.currentTarget.value)}
-          />
-        </FormControl>
-        <FormControl>
-          <FormLabel for="username">{t("USERNAME")}</FormLabel>
-          <Input
-            id="username"
-            value={store.username}
-            onInput={(e: any) =>
-              setStore("username", () => e.currentTarget.value)
-            }
-          />
-        </FormControl>
-        <FormControl>
-          <FormLabel for="iteration">{t("ITERATION")}</FormLabel>
-          <Input
-            id="iteration"
-            value={store.options.iteration}
-            type="number"
-            onInput={(e: any) =>
-              setStore("options", "iteration", () => {
-                const newValue = parseInt(e.currentTarget.value);
-                if (Number.isNaN(newValue)) {
-                  return 1;
-                }
-
-                return newValue;
-              })
-            }
-          />
-        </FormControl>
-        <FormControl>
-          <FormLabel for="length">{t("LENGTH")}</FormLabel>
-          <Input
-            id="length"
-            value={store.options.length}
-            type="number"
-            onInput={(e: any) =>
-              setStore("options", "length", () => {
-                const newValue = parseInt(e.currentTarget.value);
-                if (Number.isNaN(newValue)) {
-                  return 8;
-                }
-
-                return Math.max(newValue, 8);
-              })
-            }
-          />
-        </FormControl>
+        <EntryForm entry={entry!} setEntry={setStore} />
         <InputGroup>
           <Input
             readonly

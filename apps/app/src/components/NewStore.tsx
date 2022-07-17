@@ -24,7 +24,7 @@ import {
 import usePasswordStrength from "@/hooks/usePasswordStrength";
 import { createStore } from "solid-js/store";
 import { GeneratorOptions, ImportMode } from "@rehash/logic";
-import GeneratorOptionsMenu from "./GeneratorOptionsMenu";
+import GeneratorOptionsForm from "./GeneratorOptionsForm";
 import FileUploadButton from "./FileUploadButton";
 
 const NewStore: Component = () => {
@@ -91,7 +91,7 @@ const NewStore: Component = () => {
               <AccordionIcon />
             </AccordionButton>
             <AccordionPanel>
-              <GeneratorOptionsMenu
+              <GeneratorOptionsForm
                 generatorOptions={generatorOptions}
                 setGeneratorOptions={setGeneratorOptions}
               />

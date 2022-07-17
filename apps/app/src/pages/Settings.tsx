@@ -24,7 +24,7 @@ import {
 } from "@hope-ui/solid";
 import Card from "@/components/Card";
 import PopoverButton from "@/components/PopoverButton";
-import GeneratorOptionsMenu from "@/components/GeneratorOptionsMenu";
+import GeneratorOptionsForm from "@/components/GeneratorOptionsForm";
 import { createStore } from "solid-js/store";
 import { GeneratorOptions } from "@rehash/logic";
 import ImportChoiceButton from "@/components/ImportChoiceButton";
@@ -94,7 +94,7 @@ const Settings: Component = () => {
         </Select>
       </Card>
       <Card>
-        <GeneratorOptionsMenu
+        <GeneratorOptionsForm
           generatorOptions={generatorOptions}
           setGeneratorOptions={setGeneratorOptions}
         />

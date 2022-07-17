@@ -5,6 +5,7 @@ import { get, set } from "idb-keyval";
 
 export interface StoreEntry extends GeneratorEntry {
   displayName?: string;
+  notes?: string;
 }
 
 export interface StoreEntryWithId extends StoreEntry {
