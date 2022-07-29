@@ -30,9 +30,9 @@ const Home: Component = () => {
       .filter(
         (entry) =>
           entry.url !== undefined &&
-          (entry.url.includes(filter()) ||
-            entry.username.includes(filter()) ||
-            entry.displayName?.includes(filter()))
+          (entry.url.toLowerCase().includes(filter()) ||
+            entry.username.toLowerCase().includes(filter()) ||
+            entry.displayName?.toLowerCase().includes(filter()))
       )
   );
 
@@ -46,7 +46,10 @@ const Home: Component = () => {
           <Input
             id="filter"
             placeholder={t("FILTER")}
-            onInput={(e: any) => setFilter(e.target.value)}
+            onInput={(e: any) => {
+              const filterInput = e.target.value as string;
+              setFilter(filterInput.toLowerCase());
+            }}
           />
         </InputGroup>
         <HStack spacing="$2">
