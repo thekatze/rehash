@@ -38,7 +38,7 @@ import ImportChoiceButton from "@/components/ImportChoiceButton";
 import PageHeader from "@/components/PageHeader";
 
 const Settings: Component = () => {
-  const [t, { currentLocale, setLocale, listLocales }] = useI18n();
+  const [t, { locale, setLocale, listLocales }] = useI18n();
   const { colorMode, toggleColorMode } = useColorMode();
   const [, , store] = useRehash();
   const navigate = useNavigate();
@@ -82,8 +82,8 @@ const Settings: Component = () => {
           <FormLabel for="languageSelector">{t("LANGUAGE")}</FormLabel>
           <Select
             id="languageSelector"
-            value={currentLocale()}
-            onChange={async (e) => await setLocale(e)}
+            value={locale()}
+            onChange={async (e) => setLocale(e)}
           >
             <SelectTrigger>
               <SelectPlaceholder>{t("LANGUAGE")}</SelectPlaceholder>

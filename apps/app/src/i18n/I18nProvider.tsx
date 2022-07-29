@@ -1,12 +1,11 @@
-import rosetta, { Rosetta } from "rosetta";
-import { createContext, useContext, Accessor, FlowComponent } from "solid-js";
-import { createStore } from "solid-js/store";
+import rosetta from "rosetta";
+import { createContext, useContext, Accessor, FlowComponent, createResource, createSignal, createEffect, Show } from "solid-js";
 
 type TranslateFunction = (key: string, props?: any) => string;
-type SetLocaleFunction = (lang: string) => Promise<void>;
+type SetLocaleFunction = (lang: string) => void;
 
 type LocaleOptions = {
-  currentLocale: Accessor<string>;
+  locale: Accessor<string>;
   setLocale: SetLocaleFunction;
   listLocales: Accessor<string[]>;
 };
@@ -30,7 +29,7 @@ const supportedLanguages: { [locale: string]: () => Promise<any> } = {
   nl: async () => await import("./lang/nl.json"),
 };
 
-async function buildI18nForLocale(lang?: string) {
+async function buildTranslateFunction(lang?: string): Promise<TranslateFunction> {
   const hasLanguage =
     lang !== undefined &&
     Object.keys(supportedLanguages).some((key) => key === lang);
@@ -39,43 +38,36 @@ async function buildI18nForLocale(lang?: string) {
     lang = "en";
   }
 
-  const newI18n = rosetta();
-  newI18n.set(lang!, await supportedLanguages[lang!]());
-  newI18n.locale(lang);
+  const i18n = rosetta();
+  i18n.set(lang!, await supportedLanguages[lang!]());
+  i18n.locale(lang!);
 
-  return newI18n;
+  return i18n.t;
 }
 
-const locale =
-  localStorage.getItem("locale") ??
-  new Intl.Locale(navigator.languages[0]).language;
-
-const defaultI18n = await buildI18nForLocale(locale);
-
-// TODO: enable language switching
-// https://phrase.com/blog/posts/solidjs-localization-i18next/
 export const I18nProvider: FlowComponent = (props) => {
-  const [store, setStore] = createStore<{
-    t: TranslateFunction;
-    i18n: Rosetta<unknown>;
-  }>({ t: defaultI18n.t, i18n: defaultI18n });
+  const [locale, setLocale] = createSignal(localStorage.getItem("locale") ?? new Intl.Locale(navigator.languages[0]).language);
+  const [t] = createResource(locale, () => buildTranslateFunction(locale()));
 
-  const data: [TranslateFunction, LocaleOptions] = [
-    store.t,
-    {
-      currentLocale: () => store.i18n.locale(),
-      setLocale: async (lang: string): Promise<void> => {
-        const newI18n = await buildI18nForLocale(lang);
-        setStore("i18n", () => newI18n);
-        setStore("t", () => newI18n.t);
+  createEffect(() => {
+    localStorage.setItem("locale", locale());
+  });
 
-        localStorage.setItem("locale", lang);
+  const data: Accessor<[TranslateFunction, LocaleOptions]> = () =>
+    [
+      t.latest ? t.latest : () => "",
+      {
+        locale: locale,
+        setLocale,
+        listLocales: () => Object.keys(supportedLanguages),
       },
-      listLocales: () => Object.keys(supportedLanguages),
-    },
-  ];
+    ];
 
   return (
-    <I18nContext.Provider value={data}>{props.children}</I18nContext.Provider>
+    <Show when={t.latest}>
+      <I18nContext.Provider value={data()}>
+        {props.children}
+      </I18nContext.Provider>
+    </Show>
   );
 };

@@ -3,8 +3,10 @@ import { zxcvbnAsync, zxcvbnOptions, ZxcvbnResult } from "@zxcvbn-ts/core";
 import { Accessor, createResource, Resource } from "solid-js";
 
 async function loadOptions(): Promise<void> {
-  const common = await import("@zxcvbn-ts/language-common");
-  const en = await import("@zxcvbn-ts/language-en");
+  const [common, en] = await Promise.all([
+    import("@zxcvbn-ts/language-common"),
+    import("@zxcvbn-ts/language-en")
+  ]);
 
   const options = {
     dictionary: {
