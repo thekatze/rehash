@@ -47,6 +47,7 @@ const EntryForm: Component<EntryFormProps> = ({ entry, setEntry }) => {
         <FormLabel for="notes">{t("NOTES")}</FormLabel>
         <Textarea
           id="notes"
+          style={{ resize: "vertical" }}
           value={entry.notes}
           onInput={(e: any) =>
             setEntry("notes", () => e.currentTarget.value)
