@@ -16,7 +16,7 @@ const EntryForm: Component<EntryFormProps> = ({ entry, setEntry }) => {
   return (
     <VStack spacing="$4" alignItems="stretch">
       <FormControl>
-        <FormLabel for="url">{t("URL")}</FormLabel>
+        <FormLabel for="url">{t()("URL")}</FormLabel>
         <Input
           id="url"
           value={entry.url}
@@ -24,7 +24,7 @@ const EntryForm: Component<EntryFormProps> = ({ entry, setEntry }) => {
         />
       </FormControl>
       <FormControl>
-        <FormLabel for="username">{t("USERNAME")}</FormLabel>
+        <FormLabel for="username">{t()("USERNAME")}</FormLabel>
         <Input
           id="username"
           value={entry.username}
@@ -34,7 +34,7 @@ const EntryForm: Component<EntryFormProps> = ({ entry, setEntry }) => {
         />
       </FormControl>
       <FormControl>
-        <FormLabel for="displayName">{t("DISPLAY_NAME")}</FormLabel>
+        <FormLabel for="displayName">{t()("DISPLAY_NAME")}</FormLabel>
         <Input
           id="displayName"
           value={entry.displayName}
@@ -44,7 +44,7 @@ const EntryForm: Component<EntryFormProps> = ({ entry, setEntry }) => {
         />
       </FormControl>
       <FormControl>
-        <FormLabel for="notes">{t("NOTES")}</FormLabel>
+        <FormLabel for="notes">{t()("NOTES")}</FormLabel>
         <Textarea
           id="notes"
           style={{ resize: "vertical" }}
@@ -55,7 +55,7 @@ const EntryForm: Component<EntryFormProps> = ({ entry, setEntry }) => {
         />
       </FormControl>
       <FormControl>
-        <FormLabel for="iteration">{t("ITERATION")}</FormLabel>
+        <FormLabel for="iteration">{t()("ITERATION")}</FormLabel>
         <Input
           id="iteration"
           value={entry.options?.iteration ?? 1}
@@ -73,7 +73,7 @@ const EntryForm: Component<EntryFormProps> = ({ entry, setEntry }) => {
         />
       </FormControl>
       <FormControl>
-        <FormLabel for="length">{t("LENGTH")}</FormLabel>
+        <FormLabel for="length">{t()("LENGTH")}</FormLabel>
         <Input
           id="length"
           value={entry.options?.length ?? 32}

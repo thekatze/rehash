@@ -54,12 +54,12 @@ const EntryListItem: Component<EntryListItemProps> = (props) => {
     const password = await generator.generate(props.entry);
     copyToClipboard(password);
     setLoading(false);
-    notificationService.show({ title: t("COPIED_PASSWORD") });
+    notificationService.show({ title: t()("COPIED_PASSWORD") });
   }
 
   function copyUsername() {
     copyToClipboard(props.entry.username);
-    notificationService.show({ title: t("COPIED_USERNAME") });
+    notificationService.show({ title: t()("COPIED_USERNAME") });
   }
 
   return (

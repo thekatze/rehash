@@ -45,7 +45,7 @@ const Home: Component = () => {
           </InputLeftElement>
           <Input
             id="filter"
-            placeholder={t("FILTER")}
+            placeholder={t()("FILTER")}
             onInput={(e: any) => {
               const filterInput = e.target.value as string;
               setFilter(filterInput.toLowerCase());
@@ -69,7 +69,7 @@ const Home: Component = () => {
         when={filteredList().length > 0}
         fallback={
           <Card>
-            {filter() !== "" ? t("NO_FILTER_RESULTS") : t("INTRO_TEXT")}
+            {filter() !== "" ? t()("NO_FILTER_RESULTS") : t()("INTRO_TEXT")}
           </Card>
         }
       >

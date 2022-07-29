@@ -40,7 +40,7 @@ export default (
 
   const feedback = () => {
     if (options.loading && password())
-      return t("PASSWORD_STRENGTH_DICTIONARY_LOADING");
+      return t()("PASSWORD_STRENGTH_DICTIONARY_LOADING");
     return result()?.feedback?.warning ?? "";
   };
 

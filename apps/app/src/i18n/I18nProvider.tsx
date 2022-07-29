@@ -10,9 +10,9 @@ type LocaleOptions = {
   listLocales: Accessor<string[]>;
 };
 
-export const I18nContext = createContext<[TranslateFunction, LocaleOptions]>();
+export const I18nContext = createContext<[Accessor<TranslateFunction>, LocaleOptions]>();
 
-export function useI18n(): [TranslateFunction, LocaleOptions] {
+export function useI18n(): [Accessor<TranslateFunction>, LocaleOptions] {
   const context = useContext(I18nContext);
 
   if (!context)
@@ -53,9 +53,9 @@ export const I18nProvider: FlowComponent = (props) => {
     localStorage.setItem("locale", locale());
   });
 
-  const data: Accessor<[TranslateFunction, LocaleOptions]> = () =>
+  const data: Accessor<[Accessor<TranslateFunction>, LocaleOptions]> = () =>
     [
-      t.latest ? t.latest : () => "",
+      () => t.latest ? t.latest : () => "",
       {
         locale: locale,
         setLocale,
@@ -64,10 +64,8 @@ export const I18nProvider: FlowComponent = (props) => {
     ];
 
   return (
-    <Show when={t.latest}>
-      <I18nContext.Provider value={data()}>
-        {props.children}
-      </I18nContext.Provider>
-    </Show>
+    <I18nContext.Provider value={data()}>
+      {props.children}
+    </I18nContext.Provider>
   );
 };

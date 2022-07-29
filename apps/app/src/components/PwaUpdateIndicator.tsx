@@ -20,7 +20,7 @@ const PwaUpdateIndicator: Component = () => {
   return (
     <Show when={needRefresh()}>
       <Button onClick={() => updateServiceWorker(true)}>
-        {t("UPDATE_AVAILABLE")}
+        {t()("UPDATE_AVAILABLE")}
       </Button>
     </Show>
   );

@@ -35,9 +35,9 @@ const UnlockStore: Component = () => {
   return (
     <Card>
       <VStack as="form" onSubmit={unlock} spacing="$4" alignItems="stretch">
-        <Heading size="xl">{t("UNLOCK")}</Heading>
+        <Heading size="xl">{t()("UNLOCK")}</Heading>
         <FormControl required invalid={error()}>
-          <FormLabel for="password">{t("PASSWORD")}</FormLabel>
+          <FormLabel for="password">{t()("PASSWORD")}</FormLabel>
           <Input
             id="password"
             type="password"
@@ -48,14 +48,14 @@ const UnlockStore: Component = () => {
           />
           <Show
             when={error()}
-            fallback={<FormHelperText>{t("UNLOCK_TEXT")}</FormHelperText>}
+            fallback={<FormHelperText>{t()("UNLOCK_TEXT")}</FormHelperText>}
           >
-            <FormErrorMessage>{t("WRONG_PASSWORD")}</FormErrorMessage>
+            <FormErrorMessage>{t()("WRONG_PASSWORD")}</FormErrorMessage>
           </Show>
         </FormControl>
         <HStack justifyContent="flex-end">
           <Button type="submit" loading={loading()}>
-            {t("UNLOCK")}
+            {t()("UNLOCK")}
           </Button>
         </HStack>
       </VStack>

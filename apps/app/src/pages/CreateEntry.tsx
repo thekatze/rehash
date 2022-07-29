@@ -45,11 +45,11 @@ const CreateEntry: Component = () => {
     <Card>
       <VStack as="form" onSubmit={create} spacing="$4" alignItems="stretch">
         <PageHeader>
-          {t("CREATE")}
+          {t()("CREATE")}
         </PageHeader>
         <EntryForm entry={store} setEntry={setStore} />
         <HStack spacing="$4" justifyContent="flex-end">
-          <Button type="submit"> {t("CREATE")} </Button>
+          <Button type="submit"> {t()("CREATE")} </Button>
         </HStack>
       </VStack>
     </Card>

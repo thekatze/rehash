@@ -68,7 +68,7 @@ const App: Component = () => {
                     justifyItems="center"
                   >
                     <Icon as={navigation.icon} mb="$1" fontSize="$xl" mr="$4" />
-                    {t(navigation.text)}
+                    {t()(navigation.text)}
                   </Box>
                 )}
               </For>
@@ -76,7 +76,7 @@ const App: Component = () => {
           </DrawerBody>
           <DrawerFooter>
             <Text color="gray">
-              {t("VERSION", { version: __GIT_REVISION__ })}
+              {t()("VERSION", { version: __GIT_REVISION__ })}
             </Text>
           </DrawerFooter>
         </DrawerContent>

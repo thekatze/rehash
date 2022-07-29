@@ -70,23 +70,23 @@ const Settings: Component = () => {
     <Card>
       <VStack spacing="$4" alignItems="stretch">
         <PageHeader>
-          {t("SETTINGS")}
+          {t()("SETTINGS")}
         </PageHeader>
         <Button
           leftIcon={colorMode() == "dark" ? <MoonIcon /> : <LightbulbIcon />}
           onClick={toggleColorMode}
         >
-          {t("SWITCH_THEME")}
+          {t()("SWITCH_THEME")}
         </Button>
         <FormControl>
-          <FormLabel for="languageSelector">{t("LANGUAGE")}</FormLabel>
+          <FormLabel for="languageSelector">{t()("LANGUAGE")}</FormLabel>
           <Select
             id="languageSelector"
             value={locale()}
             onChange={async (e) => setLocale(e)}
           >
             <SelectTrigger>
-              <SelectPlaceholder>{t("LANGUAGE")}</SelectPlaceholder>
+              <SelectPlaceholder>{t()("LANGUAGE")}</SelectPlaceholder>
               <SelectValue />
               <SelectIcon />
             </SelectTrigger>
@@ -108,7 +108,7 @@ const Settings: Component = () => {
           <AccordionItem>
             <AccordionButton>
               <Text flex={1} fontWeight="$medium" textAlign="start">
-                {t("ADVANCED_SETTINGS")}
+                {t()("ADVANCED_SETTINGS")}
               </Text>
               <AccordionIcon />
             </AccordionButton>
@@ -130,13 +130,13 @@ const Settings: Component = () => {
             )
           }
         >
-          {t("EXPORT_STORE")}
+          {t()("EXPORT_STORE")}
         </Button>
         <ImportChoiceButton />
         <PopoverButton
-          buttonText={t("DELETE_STORE")}
-          popoverHeader={t("ARE_YOU_SURE")}
-          popoverBody={t("DELETE_STORE_CONFIRMATION")}
+          buttonText={t()("DELETE_STORE")}
+          popoverHeader={t()("ARE_YOU_SURE")}
+          popoverBody={t()("DELETE_STORE_CONFIRMATION")}
           onClick={async () => {
             await store.delete();
             navigate("/");
