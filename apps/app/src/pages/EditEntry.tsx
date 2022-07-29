@@ -1,5 +1,6 @@
 import Card from "@/components/Card";
 import EntryForm from "@/components/EntryForm";
+import PageHeader from "@/components/PageHeader";
 import PopoverButton from "@/components/PopoverButton";
 import { useI18n } from "@/i18n/I18nProvider";
 import { useRehash } from "@/providers/RehashProvider";
@@ -72,6 +73,9 @@ const EditEntry: Component = () => {
   return (
     <Card>
       <VStack as="form" onSubmit={edit} alignItems="stretch" spacing="$4">
+        <PageHeader>
+          {store.displayName || store.url}
+        </PageHeader>
         <EntryForm entry={entry!} setEntry={setStore} />
         <InputGroup>
           <Input

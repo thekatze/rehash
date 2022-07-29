@@ -1,10 +1,10 @@
 import Card from "@/components/Card";
 import EntryForm from "@/components/EntryForm";
+import PageHeader from "@/components/PageHeader";
 import { useI18n } from "@/i18n/I18nProvider";
 import { useRehash } from "@/providers/RehashProvider";
 import {
   Button,
-  Heading,
   HStack,
   VStack,
 } from "@hope-ui/solid";
@@ -17,7 +17,7 @@ const CreateEntry: Component = () => {
   const [, entries] = useRehash();
   const [t] = useI18n();
 
-  const [store, setStore] = createStore<Partial<StoreEntry>>({options: {length: 32, iteration: 1}});
+  const [store, setStore] = createStore<Partial<StoreEntry>>({ options: { length: 32, iteration: 1 } });
 
   const navigate = useNavigate();
 
@@ -44,13 +44,12 @@ const CreateEntry: Component = () => {
   return (
     <Card>
       <VStack as="form" onSubmit={create} spacing="$4" alignItems="stretch">
-        <Heading size="xl">{t("CREATE")}</Heading>
+        <PageHeader>
+          {t("CREATE")}
+        </PageHeader>
         <EntryForm entry={store} setEntry={setStore} />
         <HStack spacing="$4" justifyContent="flex-end">
           <Button type="submit"> {t("CREATE")} </Button>
-          <Button colorScheme="danger" onClick={() => navigate("/")}>
-            {t("CANCEL")}
-          </Button>
         </HStack>
       </VStack>
     </Card>

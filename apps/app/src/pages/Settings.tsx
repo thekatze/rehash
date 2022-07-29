@@ -21,6 +21,13 @@ import {
   useColorMode,
   Text,
   VStack,
+  Accordion,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
+  FormControl,
+  FormLabel,
 } from "@hope-ui/solid";
 import Card from "@/components/Card";
 import PopoverButton from "@/components/PopoverButton";
@@ -28,6 +35,7 @@ import GeneratorOptionsForm from "@/components/GeneratorOptionsForm";
 import { createStore } from "solid-js/store";
 import { GeneratorOptions } from "@rehash/logic";
 import ImportChoiceButton from "@/components/ImportChoiceButton";
+import PageHeader from "@/components/PageHeader";
 
 const Settings: Component = () => {
   const [t, { currentLocale, setLocale, listLocales }] = useI18n();
@@ -59,47 +67,59 @@ const Settings: Component = () => {
     });
 
   return (
-    <VStack spacing="$4" alignItems="stretch">
-      <Card>
+    <Card>
+      <VStack spacing="$4" alignItems="stretch">
+        <PageHeader>
+          {t("SETTINGS")}
+        </PageHeader>
         <Button
           leftIcon={colorMode() == "dark" ? <MoonIcon /> : <LightbulbIcon />}
           onClick={toggleColorMode}
         >
           {t("SWITCH_THEME")}
         </Button>
-      </Card>
-      <Card>
-        <Text>{t("LANGUAGE")}</Text>
-        <Select
-          value={currentLocale()}
-          onChange={async (e) => await setLocale(e)}
-        >
-          <SelectTrigger>
-            <SelectPlaceholder>{t("LANGUAGE")}</SelectPlaceholder>
-            <SelectValue />
-            <SelectIcon />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectListbox>
-              <For each={languages()}>
-                {(item) => (
-                  <SelectOption value={item.value}>
-                    <SelectOptionText>{item.display}</SelectOptionText>
-                    <SelectOptionIndicator />
-                  </SelectOption>
-                )}
-              </For>
-            </SelectListbox>
-          </SelectContent>
-        </Select>
-      </Card>
-      <Card>
-        <GeneratorOptionsForm
-          generatorOptions={generatorOptions}
-          setGeneratorOptions={setGeneratorOptions}
-        />
-      </Card>
-      <Card>
+        <FormControl>
+          <FormLabel for="languageSelector">{t("LANGUAGE")}</FormLabel>
+          <Select
+            id="languageSelector"
+            value={currentLocale()}
+            onChange={async (e) => await setLocale(e)}
+          >
+            <SelectTrigger>
+              <SelectPlaceholder>{t("LANGUAGE")}</SelectPlaceholder>
+              <SelectValue />
+              <SelectIcon />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectListbox>
+                <For each={languages()}>
+                  {(item) => (
+                    <SelectOption value={item.value}>
+                      <SelectOptionText>{item.display}</SelectOptionText>
+                      <SelectOptionIndicator />
+                    </SelectOption>
+                  )}
+                </For>
+              </SelectListbox>
+            </SelectContent>
+          </Select>
+        </FormControl>
+        <Accordion>
+          <AccordionItem>
+            <AccordionButton>
+              <Text flex={1} fontWeight="$medium" textAlign="start">
+                {t("ADVANCED_SETTINGS")}
+              </Text>
+              <AccordionIcon />
+            </AccordionButton>
+            <AccordionPanel>
+              <GeneratorOptionsForm
+                generatorOptions={generatorOptions}
+                setGeneratorOptions={setGeneratorOptions}
+              />
+            </AccordionPanel>
+          </AccordionItem>
+        </Accordion>
         <Button
           onClick={async () =>
             FileSaver(
@@ -113,8 +133,6 @@ const Settings: Component = () => {
           {t("EXPORT_STORE")}
         </Button>
         <ImportChoiceButton />
-      </Card>
-      <Card>
         <PopoverButton
           buttonText={t("DELETE_STORE")}
           popoverHeader={t("ARE_YOU_SURE")}
@@ -124,8 +142,8 @@ const Settings: Component = () => {
             navigate("/");
           }}
         />
-      </Card>
-    </VStack>
+      </VStack>
+    </Card>
   );
 };
 

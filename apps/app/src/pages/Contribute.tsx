@@ -1,4 +1,5 @@
 import Card from "@/components/Card";
+import PageHeader from "@/components/PageHeader";
 import { useI18n } from "@/i18n/I18nProvider";
 import { Heading, VStack, Text, HStack, Icon } from "@hope-ui/solid";
 import { Component } from "solid-js";
@@ -11,8 +12,12 @@ const Contribute: Component = () => {
   return (
     <VStack spacing="$2" alignItems="stretch">
       <Card>
-        <Heading size="xl">{t("CONTRIBUTE")}</Heading>
-        {t("CONTRIBUTE_TEXT")}
+        <PageHeader>
+          {t("CONTRIBUTE")}
+        </PageHeader>
+        <p>
+          {t("CONTRIBUTE_TEXT")}
+        </p>
       </Card>
       <ContributeCard
         primary={t("CONTRIBUTE_BUG")}
