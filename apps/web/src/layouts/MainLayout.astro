@@ -1,0 +1,32 @@
+---
+const year = new Date().getFullYear();
+---
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <meta name="description"
+    content="The rehash password manager. Manages your passwords without ever storing them anywhere.">
+  <meta name="generator" content={Astro.generator} />
+  <title>{Astro.props.title ?? "rehash: Offline passwords - accessible anywhere"}</title>
+</head>
+
+<body class="bg-black text-white flex flex-col min-h-screen">
+  <header class="sticky flex top-0 p-3 mb-2 w-full backdrop-blur border-b border-white/10">
+    <h1 class="font-black text-2xl">rehash</h1>
+    <a class="ml-auto bg-primary hover:bg-primary-400 rounded px-4 flex items-center font-bold"
+      href="https://app.rehash.one">
+      Go to App
+    </a>
+  </header>
+  <main class="flex-1">
+    <slot />
+  </main>
+  <footer class="bg-surface border-t p-3 border-white/10">
+    ©️{year} Leo Katzengruber
+  </footer>
+</body>
+
+</html>

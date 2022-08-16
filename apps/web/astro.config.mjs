@@ -1,22 +1,10 @@
-// Full Astro Configuration API Documentation:
-// https://docs.astro.build/reference/configuration-reference
+import { defineConfig } from 'astro/config';
+import solidJs from "@astrojs/solid-js";
+import tailwind from "@astrojs/tailwind";
 
-// @type-check enabled!
-// VSCode and other TypeScript-enabled text editors will provide auto-completion,
-// helpful tooltips, and warnings if your exported object is invalid.
-// You can disable this by removing "@ts-check" and `@type` comments below.
+import sitemap from "@astrojs/sitemap";
 
-import WindiCSS from "vite-plugin-windicss";
-
-// @ts-check
-export default /** @type {import('astro').AstroUserConfig} */ ({
-	// Enable the Solid renderer to support Solid JSX components.
-	buildOptions: {
-		site: "https://www.rehash.one",
-		sitemap: true
-	},
-	renderers: ['@astrojs/renderer-solid'],
-	vite: {
-		plugins: [WindiCSS()]
-	}
+// https://astro.build/config
+export default defineConfig({
+  integrations: [solidJs(), tailwind(), sitemap()]
 });

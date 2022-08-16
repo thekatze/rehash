@@ -1,20 +1,12 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
-import InteractiveDemo from "@/components/InteractiveDemo.tsx";
+import PasswordGenerator from "../components/PasswordGenerator";
+import MainLayout from "../layouts/MainLayout.astro";
 ---
 
-<BaseLayout title="rehash">
-  <div class="mx-auto max-w-prose px-3">
-    <h2 class="md:text-7xl <md:text-4xl font-black">
-      Offline passwords
-    </h2>
-    <h3 class="text-3xl text-right">
-      accessible anywhere.
-    </h3>
-  </div>
-
-  <div class="mx-auto md:w-1/2 mt-24 p-6 md:min-w-prose bg-surface rounded">
-    <h4>Interactive Demo</h4>
-    <InteractiveDemo client:load />
-  </div>
-</BaseLayout>
+<MainLayout>
+  <section>
+    <h2>Offline Passwords</h2>
+    <span>Accessible anywhere.</span>
+  </section>
+  <PasswordGenerator client:idle />
+</MainLayout>
