@@ -4,7 +4,7 @@ const PasswordGenerator: Component = () => {
 
   setInterval(() => setTime((current) => current + 1), 1000);
 
-  return <>PasswordGenerator {time()}</>;
+  return <>Interactivity test: {time()}</>;
 };
 
 export default PasswordGenerator;

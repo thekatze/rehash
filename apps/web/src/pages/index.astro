@@ -4,9 +4,23 @@ import MainLayout from "../layouts/MainLayout.astro";
 ---
 
 <MainLayout>
-  <section>
-    <h2>Offline Passwords</h2>
-    <span>Accessible anywhere.</span>
+  <section class="flex align-stretch">
+    <div class="font-black text-5xl lg:text-6xl px-4 md:mx-12 mt-8">
+      <h2 class="inline">Offline Passwords</h2>
+      <br />
+      <h3
+        class="inline text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-secondary-400"
+      >
+        accessible anywhere
+      </h3>
+    </div>
+    <div class="hidden relative sm:flex flex-1 text-subtle break-all">
+      <div
+        class="absolute top-0 left-0 bottom-0 right-0 bg-gradient-to-r from-black to-transparent z-10"
+      >
+      </div>
+      07123e1f482356c415f684407a3b8723e10b2cbbc0b8fcd6282c49d37c9c1abc13782919996a5e81a2297ba4ed66098a291b5d9e9d7ccb07f61370353b99244f
+    </div>
   </section>
   <PasswordGenerator client:idle />
 </MainLayout>
