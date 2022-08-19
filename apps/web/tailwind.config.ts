@@ -17,6 +17,9 @@ const config: Config = {
       surface: "#1e1f20",
       transparent: "transparent",
     },
+    boxShadow: {
+      DEFAULT: '0 0 0.5em #ecedee0a',
+    },
   },
   plugins: [],
 };
