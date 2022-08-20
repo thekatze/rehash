@@ -3,14 +3,23 @@ import {
   GeneratorOptions,
   RehashGenerator,
 } from "@rehash/logic";
-import { Component, createResource, JSX, Show, VoidComponent } from "solid-js";
+import {
+  Component,
+  createResource,
+  createSignal,
+  JSX,
+  onMount,
+  untrack,
+  VoidComponent,
+} from "solid-js";
 import { createStore } from "solid-js/store";
 
 const PasswordGenerator: Component = () => {
   const [generatorData, setGeneratorData] = createStore<
     GeneratorEntry & { password: string }
   >({
-    password: "hi",
+    // changing something here requires changing the initial generated password below
+    password: "hunter2",
     url: "https://www.example.com",
     username: "johndoe",
     options: {
@@ -25,12 +34,24 @@ const PasswordGenerator: Component = () => {
     parallelism: 2,
   });
 
-  const generatePassword = () =>
-    new RehashGenerator(
-      generatorData.password || " ",
-      generatorOptions
-    ).generate(generatorData);
-  const [password] = createResource(generatePassword, generatePassword);
+  // Don't immediately run a heavy wasm function at page load, we want good web vitals
+  const [firstRun, setFirstRun] = createSignal(true);
+
+  const generatePassword = () => {
+    const password = generatorData.password || "";
+    const options = generatorOptions;
+    const data = generatorData;
+
+    return untrack(firstRun)
+      ? undefined
+      : new RehashGenerator(password, options).generate(data);
+  };
+
+  onMount(() => setFirstRun(false));
+
+  const [password] = createResource(generatePassword, generatePassword, {
+    initialValue: "UQaKv406vuYUUEbIVXmXzYIWixUno48F",
+  });
 
   return (
     <div class="flex gap-4 flex-col">
@@ -51,24 +72,19 @@ const PasswordGenerator: Component = () => {
         onInput={(value) => setGeneratorData("password", value)}
       />
       <div class="flex justify-evenly">
-        <Show
-          when={!password.loading || password.latest}
-          fallback={<>Generating Password...</>}
+        <span class="p-2 text-center select-all flex-1 overflow-scroll font-mono font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-secondary-400">
+          {password.latest}
+        </span>
+        <button
+          onClick={() => navigator.clipboard.writeText(password.latest!)}
+          class="bg-primary hover:bg-primary-400 flex items-center rounded w-10 h-10 justify-center"
         >
-          <span class="p-2 text-center select-all flex-1 overflow-scroll font-mono font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-secondary-400">
-            {password.latest}
-          </span>
-          <button
-            onClick={() => navigator.clipboard.writeText(password.latest!)}
-            class="bg-primary hover:bg-primary-400 flex items-center rounded w-10 h-10 justify-center"
-          >
-            <img
-              src="clipboard-copy-line.svg"
-              alt="Copy password to clipboard"
-              class="w-6 h-6 invert select-none"
-            />
-          </button>
-        </Show>
+          <img
+            src="clipboard-copy-line.svg"
+            alt="Copy password to clipboard"
+            class="w-6 h-6 invert select-none"
+          />
+        </button>
       </div>
     </div>
   );
