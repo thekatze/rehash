@@ -39,8 +39,8 @@ const PasswordGenerator: Component = () => {
 
   const generatePassword = () => {
     const password = generatorData.password || "";
-    const options = generatorOptions;
-    const data = generatorData;
+    const options = { ...generatorOptions };
+    const data = { ...generatorData };
 
     return untrack(firstRun)
       ? undefined
