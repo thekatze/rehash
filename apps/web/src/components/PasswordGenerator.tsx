@@ -71,13 +71,13 @@ const PasswordGenerator: Component = () => {
         value={generatorData.password}
         onInput={(value) => setGeneratorData("password", value)}
       />
-      <div class="flex justify-evenly">
-        <span class="p-2 text-center select-all flex-1 overflow-scroll font-mono font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-secondary-400">
+      <div class="flex gap-4 justify-center">
+        <span class="py-2 text-center select-all overflow-scroll font-mono font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-secondary-400">
           {password.latest}
         </span>
         <button
           onClick={() => navigator.clipboard.writeText(password.latest!)}
-          class="bg-primary hover:bg-primary-400 flex items-center rounded w-10 h-10 justify-center"
+          class="bg-primary hover:bg-primary-400 rounded aspect-square h-10 flex items-center justify-center"
         >
           <img
             src="clipboard-copy-line.svg"
@@ -108,6 +108,7 @@ const Input: VoidComponent<InputProps> = (props) => {
       </label>
       <input
         type={props.type ?? "text"}
+        id={props.label}
         name={props.label}
         class="block w-full border-0 p-0 bg-surface outline-none md:text-sm"
         value={props.value}

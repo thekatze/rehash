@@ -5,7 +5,8 @@ const config: Config = {
   theme: {
     colors: {
       primary: {
-        DEFAULT: "#05a2c2",
+        DEFAULT: "#048da9",
+        500: "#05a2c2",
         400: "#00b1cc",
       },
       secondary: {
@@ -18,7 +19,7 @@ const config: Config = {
       transparent: "transparent",
     },
     boxShadow: {
-      DEFAULT: '0 0 0.5em #ecedee0a',
+      DEFAULT: "0 0 0.5em #ecedee0a",
     },
   },
   plugins: [],
