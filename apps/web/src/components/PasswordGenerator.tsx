@@ -38,7 +38,7 @@ const PasswordGenerator: Component = () => {
   const [firstRun, setFirstRun] = createSignal(true);
 
   const generatePassword = () => {
-    const password = generatorData.password || "";
+    const password = generatorData.password || " ";
     const options = { ...generatorOptions };
     const data = { ...generatorData };
 
