@@ -2,7 +2,14 @@ import Card from "@/components/Card";
 import { useI18n } from "@/i18n/I18nProvider";
 import { useRehash } from "@/providers/RehashProvider";
 import { useNavigate } from "solid-app-router";
-import { Accessor, Component, createSignal, For, Show } from "solid-js";
+import {
+  Accessor,
+  Component,
+  createSignal,
+  For,
+  onMount,
+  Show,
+} from "solid-js";
 import {
   Accordion,
   AccordionButton,
@@ -31,6 +38,10 @@ const NewStore: Component = () => {
   const [t] = useI18n();
   const [, , store] = useRehash();
   const navigate = useNavigate();
+
+  let passwordInput: HTMLInputElement = undefined!;
+  onMount(() => passwordInput.focus());
+
   const [password, setPassword] = createSignal("");
   const [generatorOptions, setGeneratorOptions] = createStore<GeneratorOptions>(
     { iterations: 15, memorySize: 2048, parallelism: 2 }
@@ -71,6 +82,7 @@ const NewStore: Component = () => {
           <FormLabel for="password">{t()("PASSWORD")}</FormLabel>
           <Input
             id="password"
+            ref={passwordInput}
             onInput={(e: any) => setPassword(e.currentTarget.value)}
             type="password"
           />

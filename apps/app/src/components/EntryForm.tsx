@@ -1,9 +1,14 @@
 import { useI18n } from "@/i18n/I18nProvider";
-import { FormControl, FormLabel, Input, Textarea, VStack } from "@hope-ui/solid";
+import {
+  FormControl,
+  FormLabel,
+  Input,
+  Textarea,
+  VStack,
+} from "@hope-ui/solid";
 import { StoreEntry } from "@rehash/logic";
-import { Component } from "solid-js";
+import { Component, onMount } from "solid-js";
 import { SetStoreFunction } from "solid-js/store";
-
 
 interface EntryFormProps {
   entry: Partial<StoreEntry>;
@@ -13,12 +18,16 @@ interface EntryFormProps {
 const EntryForm: Component<EntryFormProps> = ({ entry, setEntry }) => {
   const [t] = useI18n();
 
+  let autofocusInput: HTMLInputElement = undefined!;
+  onMount(() => autofocusInput.focus());
+
   return (
     <VStack spacing="$4" alignItems="stretch">
       <FormControl>
         <FormLabel for="url">{t()("URL")}</FormLabel>
         <Input
           id="url"
+          ref={autofocusInput}
           value={entry.url}
           onInput={(e: any) => setEntry("url", () => e.currentTarget.value)}
         />
@@ -49,9 +58,7 @@ const EntryForm: Component<EntryFormProps> = ({ entry, setEntry }) => {
           id="notes"
           style={{ resize: "vertical" }}
           value={entry.notes}
-          onInput={(e: any) =>
-            setEntry("notes", () => e.currentTarget.value)
-          }
+          onInput={(e: any) => setEntry("notes", () => e.currentTarget.value)}
         />
       </FormControl>
       <FormControl>
@@ -92,7 +99,6 @@ const EntryForm: Component<EntryFormProps> = ({ entry, setEntry }) => {
       </FormControl>
     </VStack>
   );
-
-}
+};
 
 export default EntryForm;

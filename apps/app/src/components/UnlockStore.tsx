@@ -11,12 +11,15 @@ import {
   HStack,
   Button,
 } from "@hope-ui/solid";
-import { Component, createSignal, Show } from "solid-js";
+import { Component, createSignal, onMount, Show } from "solid-js";
 import Card from "./Card";
 
 const UnlockStore: Component = () => {
   const [t] = useI18n();
   const [, , store] = useRehash();
+
+  let passwordInput: HTMLInputElement = undefined!;
+  onMount(() => passwordInput.focus());
 
   const [loading, setLoading] = createSignal(false);
   const [password, setPassword] = createSignal("");
@@ -41,6 +44,7 @@ const UnlockStore: Component = () => {
           <Input
             id="password"
             type="password"
+            ref={passwordInput}
             onInput={(e: any) => {
               setPassword(e.target.value);
               setError(false);
