@@ -12,7 +12,7 @@ importers:
       '@rehash/logic': workspace:*
       '@stitches/core': ^1.2.8
       '@types/file-saver': ^2.0.5
-      '@types/node': ^18.7.6
+      '@types/node': ^18.7.13
       '@zxcvbn-ts/core': ^2.0.4
       '@zxcvbn-ts/language-common': ^2.0.1
       '@zxcvbn-ts/language-en': ^2.0.1
@@ -23,7 +23,7 @@ importers:
       solid-transition-group: ^0.0.10
       typescript: ^4.7.3
       unplugin-icons: ^0.14.8
-      vite: ^3.0.8
+      vite: ^3.0.9
       vite-plugin-pwa: ^0.12.0
       vite-plugin-solid: ^2.2.6
       workbox-window: ^6.5.4
@@ -42,12 +42,12 @@ importers:
     devDependencies:
       '@iconify-json/majesticons': 1.1.3
       '@types/file-saver': 2.0.5
-      '@types/node': 18.7.6
+      '@types/node': 18.7.13
       typescript: 4.7.4
-      unplugin-icons: 0.14.8_vite@3.0.8
-      vite: 3.0.8
-      vite-plugin-pwa: 0.12.3_zz5rv25dunwhhp2yo7fftka3gi
-      vite-plugin-solid: 2.3.0_solid-js@1.4.8+vite@3.0.8
+      unplugin-icons: 0.14.8_vite@3.0.9
+      vite: 3.0.9
+      vite-plugin-pwa: 0.12.3_vite@3.0.9
+      vite-plugin-solid: 2.3.0_solid-js@1.4.8+vite@3.0.9
       workbox-window: 6.5.4
 
   apps/web:
@@ -1811,8 +1811,8 @@ packages:
     resolution: {integrity: sha512-En7tneq+j0qAiVwysBD79y86MT3ModuoIJbe7JXp+sb5UAjInSShmK3nXXMioBzfF7rXC12hv12d4IyCVwN4dA==}
     dev: true
 
-  /@types/node/18.7.6:
-    resolution: {integrity: sha512-EdxgKRXgYsNITy5mjjXjVE/CS8YENSdhiagGrLqjG0pvA2owgJ6i4l7wy/PFZGC0B1/H20lWKN7ONVDNYDZm7A==}
+  /@types/node/18.7.13:
+    resolution: {integrity: sha512-46yIhxSe5xEaJZXWdIBP7GU4HDTG8/eo0qd9atdiL+lFpA03y8KS+lkTN834TWJj5767GbWv4n/P6efyTFt1Dw==}
     dev: true
 
   /@types/parse5/6.0.3:
@@ -1826,7 +1826,7 @@ packages:
   /@types/resolve/1.17.1:
     resolution: {integrity: sha512-yy7HuzQhj0dhGpD8RLXSZWEkLsV9ibvxvi6EiJ3bkqLAO1RGo0WbkWQiwpRlSFymTJRz0d3k5LM3kkx8ArDbLw==}
     dependencies:
-      '@types/node': 18.7.6
+      '@types/node': 18.7.13
     dev: true
 
   /@types/resolve/1.20.2:
@@ -3908,7 +3908,7 @@ packages:
     resolution: {integrity: sha512-KWYVV1c4i+jbMpaBC+U++4Va0cp8OisU185o73T1vo99hqi7w8tSJfUXYswwqqrjzwxa6KpRK54WhPvwf5w6PQ==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 18.7.6
+      '@types/node': 18.7.13
       merge-stream: 2.0.0
       supports-color: 7.2.0
     dev: true
@@ -5246,6 +5246,7 @@ packages:
 
   /solid-js/1.4.8:
     resolution: {integrity: sha512-XErZdnnYYXF7OwGSUAPcua2y5/ELB/c53zFCpWiEGqxTNoH1iQghzI8EsHJXk06sNn+Z/TGhb8bPDNNGSgimag==}
+    dev: false
 
   /solid-refresh/0.4.1_solid-js@1.4.8:
     resolution: {integrity: sha512-v3tD/OXQcUyXLrWjPW1dXZyeWwP7/+GQNs8YTL09GBq+5FguA6IejJWUvJDrLIA4M0ho9/5zK2e9n+uy+4488g==}
@@ -5756,7 +5757,7 @@ packages:
     engines: {node: '>= 10.0.0'}
     dev: true
 
-  /unplugin-icons/0.14.8_vite@3.0.8:
+  /unplugin-icons/0.14.8_vite@3.0.9:
     resolution: {integrity: sha512-YxLC0Uxec+ayl8ju3CXmRX4Jg7IF8Tu2cRyq/okXwMK6fM140SPae332ByTlul1E/I7I0PXYSVVn8SlGunM/2g==}
     peerDependencies:
       '@svgr/core': '>=5.5.0'
@@ -5779,7 +5780,7 @@ packages:
       debug: 4.3.4
       kolorist: 1.5.1
       local-pkg: 0.4.2
-      unplugin: 0.8.0_vite@3.0.8
+      unplugin: 0.8.0_vite@3.0.9
     transitivePeerDependencies:
       - esbuild
       - rollup
@@ -5788,7 +5789,7 @@ packages:
       - webpack
     dev: true
 
-  /unplugin/0.8.0_vite@3.0.8:
+  /unplugin/0.8.0_vite@3.0.9:
     resolution: {integrity: sha512-OzOkJ9XOPlD1Cph6qy/p4i/KSUbs76GToXjH/STHpfo6D7y+EqpfAL6G6HaoOw5QLkt9+KWwcxYUmPFkDf1upQ==}
     peerDependencies:
       esbuild: '>=0.13'
@@ -5807,7 +5808,7 @@ packages:
     dependencies:
       acorn: 8.8.0
       chokidar: 3.5.3
-      vite: 3.0.8
+      vite: 3.0.9
       webpack-sources: 3.2.3
       webpack-virtual-modules: 0.4.4
     dev: true
@@ -5879,17 +5880,16 @@ packages:
       vfile-message: 3.1.2
     dev: true
 
-  /vite-plugin-pwa/0.12.3_zz5rv25dunwhhp2yo7fftka3gi:
+  /vite-plugin-pwa/0.12.3_vite@3.0.9:
     resolution: {integrity: sha512-gmYdIVXpmBuNjzbJFPZFzxWYrX4lHqwMAlOtjmXBbxApiHjx9QPXKQPJjSpeTeosLKvVbNcKSAAhfxMda0QVNQ==}
     peerDependencies:
       vite: ^2.0.0 || ^3.0.0-0
-      workbox-window: ^6.4.0
     dependencies:
       debug: 4.3.4
       fast-glob: 3.2.11
       pretty-bytes: 6.0.0
       rollup: 2.77.0
-      vite: 3.0.8
+      vite: 3.0.9
       workbox-build: 6.5.3
       workbox-window: 6.5.4
     transitivePeerDependencies:
@@ -5897,7 +5897,7 @@ packages:
       - supports-color
     dev: true
 
-  /vite-plugin-solid/2.3.0_solid-js@1.4.8+vite@3.0.8:
+  /vite-plugin-solid/2.3.0_solid-js@1.4.8+vite@3.0.9:
     resolution: {integrity: sha512-N2sa54C3UZC2nN5vpj5o6YP+XdIAZW6n6xv8OasxNAcAJPFeZT7EOVvumL0V4c8hBz1yuYniMWdESY8807fVSg==}
     peerDependencies:
       solid-js: ^1.3.17
@@ -5909,7 +5909,7 @@ packages:
       merge-anything: 5.0.2
       solid-js: 1.4.8
       solid-refresh: 0.4.1_solid-js@1.4.8
-      vite: 3.0.8
+      vite: 3.0.9
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -5951,8 +5951,8 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vite/3.0.8:
-    resolution: {integrity: sha512-AOZ4eN7mrkJiOLuw8IA7piS4IdOQyQCA81GxGsAQvAZzMRi9ZwGB3TOaYsj4uLAWK46T5L4AfQ6InNGlxX30IQ==}
+  /vite/3.0.9:
+    resolution: {integrity: sha512-waYABTM+G6DBTCpYAxvevpG50UOlZuynR0ckTK5PawNVt7ebX6X7wNXHaGIO6wYYFXSM7/WcuFuO2QzhBB6aMw==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
