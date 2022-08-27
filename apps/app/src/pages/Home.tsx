@@ -1,5 +1,5 @@
 import { useI18n } from "@/i18n/I18nProvider";
-import { Component, createMemo, createSignal, Show } from "solid-js";
+import { Component, createMemo, createSignal, onMount, Show } from "solid-js";
 import SettingsIcon from "~icons/majesticons/settings-cog-line";
 import CreateIcon from "~icons/majesticons/plus-line";
 import FilterIcon from "~icons/majesticons/filter-line";
@@ -24,6 +24,9 @@ const Home: Component = () => {
   const [filter, setFilter] = createSignal("");
   const navigate = useNavigate();
 
+  let autofocusInput: HTMLInputElement = undefined!;
+  onMount(() => autofocusInput.focus());
+
   const filteredList = createMemo(() =>
     entries
       .list()
@@ -45,6 +48,7 @@ const Home: Component = () => {
           </InputLeftElement>
           <Input
             id="filter"
+            ref={autofocusInput}
             placeholder={t()("FILTER")}
             onInput={(e: any) => {
               const filterInput = e.target.value as string;
