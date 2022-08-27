@@ -13,12 +13,12 @@
   },
   "devDependencies": {
     "@astrojs/sitemap": "^1.0.0",
-    "@astrojs/solid-js": "^1.0.0",
+    "@astrojs/solid-js": "^1.1.0",
     "@astrojs/tailwind": "^1.0.0",
-    "astro": "^1.0.9",
+    "astro": "^1.1.1",
     "cssnano": "^5.1.13",
     "cssnano-preset-advanced": "^5.3.8",
     "postcss": "^8.4.16",
-    "solid-js": "^1.4.3"
+    "solid-js": "^1.5.1"
   }
 }
