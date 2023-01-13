@@ -33,7 +33,7 @@ rehash uses the [Argon2id](https://github.com/P-H-C/phc-winner-argon2) function 
 
 # Is rehash for me?
 
-Probably not. It caters to a niche audience. A normal password manager is the way to go for most intents and purposes. I would highly recommend [Bitwarden](https://bitwarden.com/).
+A normal password manager is the way to go for most intents and purposes. I would highly recommend [Bitwarden](https://bitwarden.com/).
 
 The major drawbacks of rehash are:
 
