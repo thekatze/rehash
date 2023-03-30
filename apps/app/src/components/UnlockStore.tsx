@@ -24,6 +24,17 @@ const UnlockStore: Component = () => {
   const [loading, setLoading] = createSignal(false);
   const [password, setPassword] = createSignal("");
   const [error, setError] = createSignal(false);
+  const [copySuccess, setCopySuccess] = createSignal('');
+
+  const copyToClipBoard = async (copyMe: string) => {
+     try {
+         await navigator.clipboard.writeText(copyMe);
+         setCopySuccess('Copied!');
+     } 
+     catch (err) {
+         setCopySuccess('Failed to copy!');
+     }
+  };
 
   async function unlock(e: Event) {
     e.preventDefault();
@@ -34,6 +45,7 @@ const UnlockStore: Component = () => {
 
     setError(!store.unlocked());
   }
+  
 
   return (
     <Card>
@@ -48,8 +60,7 @@ const UnlockStore: Component = () => {
             onInput={(e: any) => {
               setPassword(e.target.value);
               setError(false);
-            }}
-          />
+            } } />
           <Show
             when={error()}
             fallback={<FormHelperText>{t()("UNLOCK_TEXT")}</FormHelperText>}
@@ -57,14 +68,24 @@ const UnlockStore: Component = () => {
             <FormErrorMessage>{t()("WRONG_PASSWORD")}</FormErrorMessage>
           </Show>
         </FormControl>
-        <HStack justifyContent="flex-end">
+        <HStack  spacing="24px" justifyContent="flex-end">
           <Button type="submit" loading={loading()}>
             {t()("UNLOCK")}
           </Button>
+          <Button  onClick={() => copyToClipBoard(password())} loading={loading()}>
+              {("Copy")}
+          </Button>
+          {copySuccess} 
         </HStack>
       </VStack>
     </Card>
+   
+     
   );
 };
 
 export default UnlockStore;
+function useState(arg0: string): [any, any] {
+  throw new Error("Function not implemented.");
+}
+
