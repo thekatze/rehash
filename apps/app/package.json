@@ -18,7 +18,7 @@
     "rosetta": "^1.1.0",
     "solid-app-router": "^0.4.2",
     "solid-js": "^1.6.9",
-    "solid-transition-group": "^0.0.12"
+    "solid-transition-group": "^0.2.0"
   },
   "devDependencies": {
     "@iconify-json/majesticons": "^1.1.6",
