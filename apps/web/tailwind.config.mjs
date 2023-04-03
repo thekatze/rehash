@@ -1,6 +1,4 @@
-import type { Config } from "tailwindcss";
-
-const config: Config = {
+export default {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   theme: {
     colors: {
@@ -24,5 +22,3 @@ const config: Config = {
   },
   plugins: [],
 };
-
-export default config;
