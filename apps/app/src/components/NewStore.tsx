@@ -1,7 +1,7 @@
 import Card from "@/components/Card";
-import { useI18n } from "@/i18n/I18nProvider";
+import { useI18n } from "@solid-primitives/i18n";
 import { useRehash } from "@/providers/RehashProvider";
-import { useNavigate } from "solid-app-router";
+import { useNavigate } from "@solidjs/router";
 import {
   Accessor,
   Component,
@@ -77,9 +77,9 @@ const NewStore: Component = () => {
         alignItems="stretch"
         onSubmit={createNewStore}
       >
-        <Heading size="xl">{t()("NEW_STORE_HEADER")}</Heading>
+        <Heading size="xl">{t("NEW_STORE_HEADER")}</Heading>
         <FormControl required invalid={invalid()}>
-          <FormLabel for="password">{t()("PASSWORD")}</FormLabel>
+          <FormLabel for="password">{t("PASSWORD")}</FormLabel>
           <Input
             id="password"
             ref={passwordInput}
@@ -89,7 +89,7 @@ const NewStore: Component = () => {
           <StrengthMeter score={() => passwordStrength()?.score ?? 0} />
           <Show
             when={invalid()}
-            fallback={<FormHelperText>{t()("NEW_STORE_TEXT")}</FormHelperText>}
+            fallback={<FormHelperText>{t("NEW_STORE_TEXT")}</FormHelperText>}
           >
             <FormErrorMessage>{passwordFeedback()}</FormErrorMessage>
           </Show>
@@ -98,7 +98,7 @@ const NewStore: Component = () => {
           <AccordionItem>
             <AccordionButton>
               <Text flex={1} fontWeight="$medium" textAlign="start">
-                {t()("ADVANCED_SETTINGS")}
+                {t("ADVANCED_SETTINGS")}
               </Text>
               <AccordionIcon />
             </AccordionButton>
@@ -112,9 +112,9 @@ const NewStore: Component = () => {
         </Accordion>
         <HStack spacing="$2" justifyContent="flex-end">
           <FileUploadButton onFileSelected={importStore} variant="ghost">
-            {t()("IMPORT")}
+            {t("IMPORT")}
           </FileUploadButton>
-          <Button type="submit">{t()("CREATE_STORE")}</Button>
+          <Button type="submit">{t("CREATE_STORE")}</Button>
         </HStack>
       </VStack>
     </Card>

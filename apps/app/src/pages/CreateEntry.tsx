@@ -1,7 +1,7 @@
 import Card from "@/components/Card";
 import EntryForm from "@/components/EntryForm";
 import PageHeader from "@/components/PageHeader";
-import { useI18n } from "@/i18n/I18nProvider";
+import { useI18n } from "@solid-primitives/i18n";
 import { useRehash } from "@/providers/RehashProvider";
 import {
   Button,
@@ -9,7 +9,7 @@ import {
   VStack,
 } from "@hope-ui/solid";
 import { StoreEntry } from "@rehash/logic";
-import { useNavigate } from "solid-app-router";
+import { useNavigate } from "@solidjs/router";
 import { Component } from "solid-js";
 import { createStore } from "solid-js/store";
 
@@ -45,11 +45,11 @@ const CreateEntry: Component = () => {
     <Card>
       <VStack as="form" onSubmit={create} spacing="$4" alignItems="stretch">
         <PageHeader>
-          {t()("CREATE")}
+          {t("CREATE")}
         </PageHeader>
         <EntryForm entry={store} setEntry={setStore} />
         <HStack spacing="$4" justifyContent="flex-end">
-          <Button type="submit"> {t()("CREATE")} </Button>
+          <Button type="submit"> {t("CREATE")} </Button>
         </HStack>
       </VStack>
     </Card>

@@ -10,25 +10,25 @@
   "dependencies": {
     "@hope-ui/solid": "^0.6.7",
     "@rehash/logic": "workspace:*",
+    "@solid-primitives/i18n": "^1.2.4",
+    "@solidjs/router": "^0.8.2",
     "@stitches/core": "^1.2.8",
-    "@zxcvbn-ts/core": "^2.1.0",
+    "@zxcvbn-ts/core": "^2.2.1",
     "@zxcvbn-ts/language-common": "^2.0.1",
     "@zxcvbn-ts/language-en": "^2.1.0",
     "file-saver": "^2.0.5",
-    "rosetta": "^1.1.0",
-    "solid-app-router": "^0.4.2",
-    "solid-js": "^1.6.9",
-    "solid-transition-group": "^0.0.12"
+    "solid-js": "^1.7.1",
+    "solid-transition-group": "^0.2.2"
   },
   "devDependencies": {
-    "@iconify-json/majesticons": "^1.1.6",
+    "@iconify-json/majesticons": "^1.1.7",
     "@types/file-saver": "^2.0.5",
-    "@types/node": "^18.11.18",
-    "typescript": "^4.9.4",
-    "unplugin-icons": "^0.15.1",
-    "vite": "^4.0.4",
-    "vite-plugin-pwa": "^0.14.1",
-    "vite-plugin-solid": "^2.5.0",
+    "@types/node": "^18.15.11",
+    "typescript": "^5.0.3",
+    "unplugin-icons": "^0.16.1",
+    "vite": "^4.2.1",
+    "vite-plugin-pwa": "^0.14.7",
+    "vite-plugin-solid": "^2.6.1",
     "workbox-window": "^6.5.4"
   },
   "license": "MIT"

@@ -38,7 +38,7 @@ A normal password manager is the way to go for most intents and purposes. I woul
 The major drawbacks of rehash are:
 
 - Changing the master password changes all your passwords.
-- Changing a single password is difficult (there is support for password iterations, but it is only an alleviation, not a solution)
+- Changing a single password is difficult (there is support for password iterations, but it is only workaround, not a solution)
 - It is not as secure as a password manager with truly randomly generated passwords.
 
 The type of person rehash is for could be described like this:

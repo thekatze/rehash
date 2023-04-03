@@ -1,5 +1,5 @@
 import { IconButton } from "@hope-ui/solid";
-import { useNavigate } from "solid-app-router";
+import { useNavigate } from "@solidjs/router";
 import { Component } from "solid-js";
 import ArrowLeftLineIcon from "~icons/majesticons/arrow-left-line"
 

@@ -1,28 +1,13 @@
 ---
-import Base64Wall from "../components/Base64Wall";
 import PasswordGenerator from "../components/PasswordGenerator";
 import MainLayout from "../layouts/MainLayout.astro";
 ---
 
 <MainLayout>
   <section class="flex relative">
-    <div
-      class="absolute top-0 left-0 bottom-0 right-0 text-subtle break-all p-1 text-right overflow-hidden select-none -z-10 font-mono leading-snug"
-      aria-hidden="true"
-    >
+    <div class="px-4 mx-auto md:mx-12 my-32">
       <div
-        class="absolute top-0 left-0 bottom-0 right-0 bg-gradient-to-r from-black to-black/70 md:to-black/50"
-      >
-        <div
-          class="absolute top-0 left-0 bottom-0 right-0 bg-gradient-to-t from-black to-black/50 md:to-black/40"
-        >
-        </div>
-      </div>
-      <Base64Wall />
-    </div>
-    <div class="px-4 mx-auto md:mx-12 my-16">
-      <div
-        class="font-black text-5xl md:text-7xl mb-8 text-center md:text-left"
+        class="font-black text-5xl md:text-7xl mb-12 text-center md:text-left"
       >
         <h2 class="inline">Offline Passwords</h2>
         <br />
@@ -37,13 +22,13 @@ import MainLayout from "../layouts/MainLayout.astro";
       </span>
     </div>
   </section>
-  <section class="mt-8 md:mt-24 bg-surface shadow py-16">
+  <section class="mt-24 bg-surface shadow py-16">
     <div class="md:mx-12 flex gap-8 justify-evenly flex-col md:flex-row px-4">
       <div class="md:min-w-[24rem]">
-        <h3 class="text-2xl font-bold mb-6">Demo</h3>
+        <h3 class="text-2xl font-bold mb-6">Interactive Demo</h3>
         <PasswordGenerator client:idle />
       </div>
-      <div class="flex flex-col gap-8">
+      <div class="flex flex-col gap-16">
         <div>
           <h3 class="text-2xl font-bold mb-2">What is rehash?</h3>
           <p>
@@ -73,7 +58,7 @@ import MainLayout from "../layouts/MainLayout.astro";
     </div>
   </section>
   <section
-    class="flex gap-4 items-stretch md:items-start md:justify-around mt-12 md:mt-24 flex-col md:flex-row px-4"
+    class="flex gap-8 items-stretch md:items-start md:justify-around mt-32 flex-col md:flex-row px-4"
   >
     {
       [
@@ -93,8 +78,8 @@ import MainLayout from "../layouts/MainLayout.astro";
           text: `Free forever, open for inspection and maintained by the community.`,
         },
       ].map((card) => (
-        <div class="flex-1 md:max-w-lg border rounded-lg p-4 border-white/10 shadow">
-          <div class="flex items-center mb-2">
+        <div class="flex-1 md:max-w-lg rounded-lg p-4 bg-surface">
+          <div class="flex items-center mb-4">
             {card.icon && (
               <img
                 src={card.icon}
@@ -109,21 +94,7 @@ import MainLayout from "../layouts/MainLayout.astro";
       ))
     }
   </section>
-  <section class="relative flex py-12">
-    <div
-      class="absolute top-0 left-0 bottom-0 right-0 text-subtle break-all p-1 text-right overflow-hidden select-none -z-10 font-mono leading-snug"
-      aria-hidden="true"
-    >
-      <div
-        class="absolute top-0 left-0 bottom-0 right-0 bg-gradient-to-l from-black to-black/70 md:to-black/50"
-      >
-        <div
-          class="absolute top-0 left-0 bottom-0 right-0 bg-gradient-to-b from-black to-black/60 md:to-black/40"
-        >
-        </div>
-      </div>
-      <Base64Wall length={225} />
-    </div>
+  <section class="relative flex py-32">
     <div class="px-4 mx-auto text-center my-12">
       <div class="font-black text-4xl md:text-5xl mb-6">
         <h2>No more password reuse</h2>
