@@ -24,17 +24,6 @@ const UnlockStore: Component = () => {
   const [loading, setLoading] = createSignal(false);
   const [password, setPassword] = createSignal("");
   const [error, setError] = createSignal(false);
-  const [copySuccess, setCopySuccess] = createSignal('');
-
-  const copyToClipBoard = async (copyMe: string) => {
-     try {
-         await navigator.clipboard.writeText(copyMe);
-         setCopySuccess('Copied!');
-     } 
-     catch (err) {
-         setCopySuccess('Failed to copy!');
-     }
-  };
 
   async function unlock(e: Event) {
     e.preventDefault();
@@ -72,10 +61,6 @@ const UnlockStore: Component = () => {
           <Button type="submit" loading={loading()}>
             {t()("UNLOCK")}
           </Button>
-          <Button  onClick={() => copyToClipBoard(password())} loading={loading()}>
-              {("Copy")}
-          </Button>
-          {copySuccess} 
         </HStack>
       </VStack>
     </Card>

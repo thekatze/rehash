@@ -53,5 +53,6 @@
   "USERNAME": "Username",
   "VERSION": "Version: {{ version }}",
   "WRONG_PASSWORD": "Wrong password, try again.",
-  "YES": "Yes"
+  "YES": "Yes",
+  "NOT_COPY": "Something went wrong!!"
 }
