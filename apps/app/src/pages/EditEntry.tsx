@@ -2,7 +2,7 @@ import Card from "@/components/Card";
 import EntryForm from "@/components/EntryForm";
 import PageHeader from "@/components/PageHeader";
 import PopoverButton from "@/components/PopoverButton";
-import { useI18n } from "@/i18n/I18nProvider";
+import { useI18n } from "@solid-primitives/i18n";
 import { useRehash } from "@/providers/RehashProvider";
 import {
   Button,
@@ -68,7 +68,7 @@ const EditEntry: Component = () => {
   }
 
   const shownPassword = () =>
-    password.loading ? t()("GENERATING_PASSWORD") : password();
+    password.loading ? t("GENERATING_PASSWORD") : password();
 
   return (
     <Card>
@@ -94,11 +94,11 @@ const EditEntry: Component = () => {
           </InputRightElement>
         </InputGroup>
         <HStack spacing="$4" justifyContent="flex-end">
-          <Button type="submit">{t()("SAVE_CHANGES")}</Button>
+          <Button type="submit">{t("SAVE_CHANGES")}</Button>
           <PopoverButton
-            buttonText={t()("DELETE_ENTRY")}
-            popoverHeader={t()("ARE_YOU_SURE")}
-            popoverBody={t()("DELETE_ENTRY_CONFIRMATION")}
+            buttonText={t("DELETE_ENTRY")}
+            popoverHeader={t("ARE_YOU_SURE")}
+            popoverBody={t("DELETE_ENTRY_CONFIRMATION")}
             onClick={remove}
           />
         </HStack>

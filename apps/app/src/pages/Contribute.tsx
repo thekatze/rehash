@@ -1,6 +1,6 @@
 import Card from "@/components/Card";
 import PageHeader from "@/components/PageHeader";
-import { useI18n } from "@/i18n/I18nProvider";
+import { useI18n } from "@solid-primitives/i18n";
 import { Heading, VStack, Text, HStack, Icon } from "@hope-ui/solid";
 import { Component } from "solid-js";
 
@@ -13,25 +13,25 @@ const Contribute: Component = () => {
     <VStack spacing="$2" alignItems="stretch">
       <Card>
         <PageHeader>
-          {t()("CONTRIBUTE")}
+          {t("CONTRIBUTE")}
         </PageHeader>
         <p>
-          {t()("CONTRIBUTE_TEXT")}
+          {t("CONTRIBUTE_TEXT")}
         </p>
       </Card>
       <ContributeCard
-        primary={t()("CONTRIBUTE_BUG")}
-        secondary={t()("CONTRIBUTE_BUG_TEXT")}
+        primary={t("CONTRIBUTE_BUG")}
+        secondary={t("CONTRIBUTE_BUG_TEXT")}
         link="https://github.com/TheKatze/rehash/issues/new"
       />
       <ContributeCard
-        primary={t()("CONTRIBUTE_FEATURE")}
-        secondary={t()("CONTRIBUTE_FEATURE_TEXT")}
+        primary={t("CONTRIBUTE_FEATURE")}
+        secondary={t("CONTRIBUTE_FEATURE_TEXT")}
         link="https://github.com/TheKatze/rehash/issues/new"
       />
       <ContributeCard
-        primary={t()("CONTRIBUTE_PULL_REQUEST")}
-        secondary={t()("CONTRIBUTE_PULL_REQUEST_TEXT")}
+        primary={t("CONTRIBUTE_PULL_REQUEST")}
+        secondary={t("CONTRIBUTE_PULL_REQUEST_TEXT")}
         link="https://github.com/TheKatze/rehash"
       />
     </VStack>

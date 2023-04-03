@@ -27,7 +27,7 @@ import MenuIcon from "~icons/majesticons/menu-line";
 import HomeIcon from "~icons/majesticons/home-line";
 import SettingsIcon from "~icons/majesticons/settings-cog-line";
 import ContributeIcon from "~icons/majesticons/git-pull-line";
-import { useI18n } from "./i18n/I18nProvider";
+import { useI18n } from "@solid-primitives/i18n";
 import AuthGuard from "./components/AuthGuard";
 
 const navigations = [
@@ -68,7 +68,7 @@ const App: Component = () => {
                     justifyItems="center"
                   >
                     <Icon as={navigation.icon} mb="$1" fontSize="$xl" mr="$4" />
-                    {t()(navigation.text)}
+                    {t(navigation.text)}
                   </Box>
                 )}
               </For>
@@ -76,7 +76,7 @@ const App: Component = () => {
           </DrawerBody>
           <DrawerFooter>
             <Text color="gray">
-              {t()("VERSION", { version: __GIT_REVISION__ })}
+              {t("VERSION", { version: __GIT_REVISION__ })}
             </Text>
           </DrawerFooter>
         </DrawerContent>

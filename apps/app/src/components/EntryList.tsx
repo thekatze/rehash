@@ -2,7 +2,7 @@ import { StoreEntryWithId } from "@rehash/logic";
 import { Component, For } from "solid-js";
 import { createSignal } from "solid-js";
 
-import { useI18n } from "@/i18n/I18nProvider";
+import { useI18n } from "@solid-primitives/i18n";
 import { useRehash } from "@/providers/RehashProvider";
 import {
   Heading,
@@ -50,7 +50,7 @@ const EntryListItem: Component<EntryListItemProps> = (props) => {
       await navigator.clipboard.writeText(text);
       return true;
     } catch {
-      notificationService.show({ title: t()("CLIPBOARD_ERROR"), status: "danger" })
+      notificationService.show({ title: t("CLIPBOARD_ERROR"), status: "danger" })
       return false;
     }
   }
@@ -58,13 +58,13 @@ const EntryListItem: Component<EntryListItemProps> = (props) => {
   async function copyPassword() {
     setLoading(true);
     const password = await generator.generate(props.entry);
-    await copyToClipboard(password) && notificationService.show({ title: t()("COPIED_PASSWORD") });
+    await copyToClipboard(password) && notificationService.show({ title: t("COPIED_PASSWORD") });
     
     setLoading(false);
   }
 
   async function copyUsername() {
-    await copyToClipboard(props.entry.username) && notificationService.show({ title: t()("COPIED_USERNAME") });
+    await copyToClipboard(props.entry.username) && notificationService.show({ title: t("COPIED_USERNAME") });
   }
 
   return (

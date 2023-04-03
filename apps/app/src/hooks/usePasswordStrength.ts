@@ -1,4 +1,4 @@
-import { useI18n } from "@/i18n/I18nProvider";
+import { useI18n } from "@solid-primitives/i18n";
 import { zxcvbnAsync, zxcvbnOptions, ZxcvbnResult } from "@zxcvbn-ts/core";
 import { Accessor, createResource, Resource } from "solid-js";
 
@@ -40,7 +40,7 @@ export default (
 
   const feedback = () => {
     if (options.loading && password())
-      return t()("PASSWORD_STRENGTH_DICTIONARY_LOADING");
+      return t("PASSWORD_STRENGTH_DICTIONARY_LOADING");
     return result()?.feedback?.warning ?? "";
   };
 

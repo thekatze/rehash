@@ -1,4 +1,4 @@
-import { useI18n } from "@/i18n/I18nProvider";
+import { useI18n } from "@solid-primitives/i18n";
 import { useRehash } from "@/providers/RehashProvider";
 import {
   Popover,
@@ -40,13 +40,13 @@ const ImportChoiceButton = () => {
         return (
           <>
             <PopoverTrigger as={Button} variant="outline">
-              {t()("IMPORT")}
+              {t("IMPORT")}
             </PopoverTrigger>
             <PopoverContent>
               <PopoverArrow />
               <PopoverCloseButton />
-              <PopoverHeader>{t()("IMPORT")}</PopoverHeader>
-              <PopoverBody>{t()("IMPORT_DESCRIPTION")}</PopoverBody>
+              <PopoverHeader>{t("IMPORT")}</PopoverHeader>
+              <PopoverBody>{t("IMPORT_DESCRIPTION")}</PopoverBody>
               <PopoverFooter as={HStack} justifyContent="flex-end">
                 <ButtonGroup size="sm" spacing="$2">
                   <FileUploadButton
@@ -54,7 +54,7 @@ const ImportChoiceButton = () => {
                       fileSelected(text, ImportMode.Merge)
                     }
                   >
-                    {t()("IMPORT_MERGE")}
+                    {t("IMPORT_MERGE")}
                   </FileUploadButton>
                   <FileUploadButton
                     colorScheme="danger"
@@ -62,7 +62,7 @@ const ImportChoiceButton = () => {
                       fileSelected(text, ImportMode.Overwrite)
                     }
                   >
-                    {t()("IMPORT_OVERWRITE")}
+                    {t("IMPORT_OVERWRITE")}
                   </FileUploadButton>
                 </ButtonGroup>
               </PopoverFooter>

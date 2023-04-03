@@ -1,4 +1,4 @@
-import { useI18n } from "@/i18n/I18nProvider";
+import { useI18n } from "@solid-primitives/i18n";
 import { Component, createMemo, createSignal, onMount, Show } from "solid-js";
 import SettingsIcon from "~icons/majesticons/settings-cog-line";
 import CreateIcon from "~icons/majesticons/plus-line";
@@ -49,7 +49,7 @@ const Home: Component = () => {
           <Input
             id="filter"
             ref={autofocusInput}
-            placeholder={t()("FILTER")}
+            placeholder={t("FILTER")}
             onInput={(e: any) => {
               const filterInput = e.target.value as string;
               setFilter(filterInput.toLowerCase());
@@ -73,7 +73,7 @@ const Home: Component = () => {
         when={filteredList().length > 0}
         fallback={
           <Card>
-            {filter() !== "" ? t()("NO_FILTER_RESULTS") : t()("INTRO_TEXT")}
+            {filter() !== "" ? t("NO_FILTER_RESULTS") : t("INTRO_TEXT")}
           </Card>
         }
       >
