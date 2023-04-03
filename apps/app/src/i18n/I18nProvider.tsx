@@ -8,9 +8,17 @@ import { I18nContext, createI18nContext } from "@solid-primitives/i18n";
 import { FlowComponent } from "solid-js";
 
 const I18nProvider: FlowComponent = (props) => {
-  const [translate, {add, dict, locale}] = createI18nContext();
+  const [translate, {add, dict, locale: innerLocale}] = createI18nContext();
   
-  // Initialize language
+  const locale = (lang?: string) => {
+    if (lang) {
+      localStorage.setItem("locale", lang);
+    }
+
+    return innerLocale(lang);
+  };
+  
+  // Initialize language asynchronously
   (async () => {
     const savedLocale = localStorage.getItem("locale") ?? new Intl.Locale(navigator.languages[0]).language;
     const localeToLoad = savedLocale in supportedLanguages ? savedLocale : "en";
@@ -18,7 +26,7 @@ const I18nProvider: FlowComponent = (props) => {
     add(localeToLoad, await supportedLanguages[localeToLoad]());
     locale(localeToLoad);
   })();
-
+  
   return <I18nContext.Provider value={[translate, {add, dict, locale}]}>{props.children}</I18nContext.Provider>;
 };
 
