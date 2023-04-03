@@ -14,7 +14,7 @@ import {
   VStack,
 } from "@hope-ui/solid";
 import { StoreEntryWithId } from "@rehash/logic";
-import { useNavigate, useParams } from "solid-app-router";
+import { useNavigate, useParams } from "@solidjs/router";
 import { Component, createResource, createSignal } from "solid-js";
 import { createStore } from "solid-js/store";
 

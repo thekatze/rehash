@@ -2,7 +2,7 @@ import { Component, createEffect, For } from "solid-js";
 import FileSaver from "file-saver";
 import { useRehash } from "@/providers/RehashProvider";
 import { useI18n } from "@/i18n/I18nProvider";
-import { useNavigate } from "solid-app-router";
+import { useNavigate } from "@solidjs/router";
 
 import MoonIcon from "~icons/majesticons/moon-line";
 import LightbulbIcon from "~icons/majesticons/lightbulb-shine-line";

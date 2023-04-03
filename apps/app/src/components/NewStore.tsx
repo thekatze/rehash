@@ -1,7 +1,7 @@
 import Card from "@/components/Card";
 import { useI18n } from "@/i18n/I18nProvider";
 import { useRehash } from "@/providers/RehashProvider";
-import { useNavigate } from "solid-app-router";
+import { useNavigate } from "@solidjs/router";
 import {
   Accessor,
   Component,

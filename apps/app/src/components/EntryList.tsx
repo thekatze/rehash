@@ -12,7 +12,7 @@ import {
   Text,
   VStack,
 } from "@hope-ui/solid";
-import { Link } from "solid-app-router";
+import { Link } from "@solidjs/router";
 
 import IconClipboard from "~icons/majesticons/clipboard-copy-line";
 import IconUser from "~icons/majesticons/user-line";
@@ -45,21 +45,26 @@ const EntryListItem: Component<EntryListItemProps> = (props) => {
   const title = props.entry.displayName ?? props.entry.url;
   const [loading, setLoading] = createSignal(false);
 
-  function copyToClipboard(text: string) {
-    navigator.clipboard.writeText(text);
+  async function copyToClipboard(text: string): Promise<boolean> {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch {
+      notificationService.show({ title: t()("CLIPBOARD_ERROR"), status: "danger" })
+      return false;
+    }
   }
 
   async function copyPassword() {
     setLoading(true);
     const password = await generator.generate(props.entry);
-    copyToClipboard(password);
+    await copyToClipboard(password) && notificationService.show({ title: t()("COPIED_PASSWORD") });
+    
     setLoading(false);
-    notificationService.show({ title: t()("COPIED_PASSWORD") });
   }
 
-  function copyUsername() {
-    copyToClipboard(props.entry.username);
-    notificationService.show({ title: t()("COPIED_USERNAME") });
+  async function copyUsername() {
+    await copyToClipboard(props.entry.username) && notificationService.show({ title: t()("COPIED_USERNAME") });
   }
 
   return (

@@ -9,7 +9,7 @@ import {
   VStack,
 } from "@hope-ui/solid";
 import { StoreEntry } from "@rehash/logic";
-import { useNavigate } from "solid-app-router";
+import { useNavigate } from "@solidjs/router";
 import { Component } from "solid-js";
 import { createStore } from "solid-js/store";
 

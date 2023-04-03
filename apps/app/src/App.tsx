@@ -1,5 +1,5 @@
 import { Component, For } from "solid-js";
-import { Link, useRoutes } from "solid-app-router";
+import { Link, useRoutes } from "@solidjs/router";
 import routes from "@/routes";
 import { useRehash } from "./providers/RehashProvider";
 import PwaUpdateIndicator from "./components/PwaUpdateIndicator";
