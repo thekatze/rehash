@@ -13,8 +13,7 @@ const HiddenInput = hope("input", {
 
 const FileUploadButton: ParentComponent<
   FileUploadButtonProps & Omit<ButtonProps, "onClick">
-> = (_props) => {
-  const [props, props] = splitProps(_props, ["onFileSelected"]);
+> = (props) => {
   let fileInput: HTMLInputElement | undefined;
 
   const fileChosen = async (
@@ -37,9 +36,7 @@ const FileUploadButton: ParentComponent<
         onChange={fileChosen}
         accept=".json"
       />
-      <Button onClick={onClick} {...props}>
-        {props.children}
-      </Button>
+      <Button onClick={onClick} {...props} />
     </>
   );
 };
