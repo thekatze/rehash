@@ -6,11 +6,11 @@ interface PageHeaderProps {
     children: JSX.Element
 }
 
-const PageHeader: Component<PageHeaderProps> = ({ children }) => {
+const PageHeader: Component<PageHeaderProps> = (props) => {
     return (
         <HStack alignItems="center" spacing="$2">
             <BackButton />
-            <Heading size="2xl">{children}</Heading>
+            <Heading size="2xl">{props.children}</Heading>
         </HStack>
     );
 }

@@ -39,7 +39,7 @@ const NewStore: Component = () => {
   const [, , store] = useRehash();
   const navigate = useNavigate();
 
-  let passwordInput: HTMLInputElement = undefined!;
+  const passwordInput: HTMLInputElement = undefined!;
   onMount(() => passwordInput.focus());
 
   const [password, setPassword] = createSignal("");
@@ -125,11 +125,11 @@ interface StrengthMeterProps {
   score: Accessor<number>;
 }
 
-const StrengthMeter: Component<StrengthMeterProps> = ({ score }) => {
+const StrengthMeter: Component<StrengthMeterProps> = (props) => {
   const colorForIndex = (i: number) => {
-    if ((score() ?? 0) <= i) return "gray";
+    if ((props.score() ?? 0) <= i) return "gray";
 
-    switch (score()) {
+    switch (props.score()) {
       case 0:
         return "gray";
       case 1:

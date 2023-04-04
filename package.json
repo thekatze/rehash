@@ -17,6 +17,18 @@
     "web:start": "pnpm -C apps/web run start",
     "web:build": "pnpm -C apps/web run build"
   },
-  "keywords": ["solidhack", "best_app"],
-  "license": "MIT"
+  "keywords": [
+    "solidhack",
+    "best_app"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/parser": "^5.57.1",
+    "eslint": "^8.37.0",
+    "eslint-plugin-astro": "^0.26.1",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-solid": "^0.12.0",
+    "typescript": "^5.0.3"
+  }
 }

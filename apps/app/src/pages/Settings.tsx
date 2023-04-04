@@ -91,7 +91,7 @@ const Settings: Component = () => {
           <Select
             id="languageSelector"
             value={locale()}
-            onChange={async (e) => changeLocale(e)}
+            onChange={changeLocale}
           >
             <SelectTrigger>
               <SelectPlaceholder>{t("LANGUAGE")}</SelectPlaceholder>

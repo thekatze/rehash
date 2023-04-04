@@ -18,7 +18,7 @@ const UnlockStore: Component = () => {
   const [t] = useI18n();
   const [, , store] = useRehash();
 
-  let passwordInput: HTMLInputElement = undefined!;
+  const passwordInput: HTMLInputElement = undefined!;
   onMount(() => passwordInput.focus());
 
   const [loading, setLoading] = createSignal(false);

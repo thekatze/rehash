@@ -9,10 +9,7 @@ interface GeneratorOptionsForm {
   setGeneratorOptions: SetStoreFunction<GeneratorOptions>;
 }
 
-const GeneratorOptionsForm: Component<GeneratorOptionsForm> = ({
-  generatorOptions,
-  setGeneratorOptions,
-}) => {
+const GeneratorOptionsForm: Component<GeneratorOptionsForm> = (props) => {
   const [t] = useI18n();
 
   return (
@@ -21,10 +18,10 @@ const GeneratorOptionsForm: Component<GeneratorOptionsForm> = ({
         <FormLabel for="iterations">{t("ITERATIONS")}</FormLabel>
         <Input
           id="iterations"
-          value={generatorOptions.iterations}
+          value={props.generatorOptions.iterations}
           type="number"
           onInput={(e: any) =>
-            setGeneratorOptions("iterations", () => {
+            props.setGeneratorOptions("iterations", () => {
               const newValue = parseInt(e.currentTarget.value);
               if (Number.isNaN(newValue)) {
                 return 1;
@@ -39,10 +36,10 @@ const GeneratorOptionsForm: Component<GeneratorOptionsForm> = ({
         <FormLabel for="parallelism">{t("PARALLELISM")}</FormLabel>
         <Input
           id="parallelism"
-          value={generatorOptions.parallelism}
+          value={props.generatorOptions.parallelism}
           type="number"
           onInput={(e: any) =>
-            setGeneratorOptions("parallelism", () => {
+            props.setGeneratorOptions("parallelism", () => {
               const newValue = parseInt(e.currentTarget.value);
               if (Number.isNaN(newValue)) {
                 return 1;
@@ -57,10 +54,10 @@ const GeneratorOptionsForm: Component<GeneratorOptionsForm> = ({
         <FormLabel for="memorySize">{t("MEMORY_SIZE")}</FormLabel>
         <Input
           id="memorySize"
-          value={generatorOptions.memorySize}
+          value={props.generatorOptions.memorySize}
           type="number"
           onInput={(e: any) =>
-            setGeneratorOptions("memorySize", () => {
+            props.setGeneratorOptions("memorySize", () => {
               const newValue = parseInt(e.currentTarget.value);
               if (Number.isNaN(newValue)) {
                 return 128;
