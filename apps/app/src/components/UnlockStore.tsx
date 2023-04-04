@@ -57,7 +57,7 @@ const UnlockStore: Component = () => {
             <FormErrorMessage>{t("WRONG_PASSWORD")}</FormErrorMessage>
           </Show>
         </FormControl>
-        <HStack  spacing="24px" justifyContent="flex-end">
+        <HStack justifyContent="flex-end">
           <Button type="submit" loading={loading()}>
             {t("UNLOCK")}
           </Button>

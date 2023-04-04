@@ -24,8 +24,7 @@ import { createStore } from "solid-js/store";
 
 import EyeIcon from "~icons/majesticons/eye-line";
 import EyeOffIcon from "~icons/majesticons/eye-off-line";
-import ClipOffIcon from "~icons/majesticons/clipboard-line";
-import ClipOnIcon from "~icons/majesticons/clipboard-check-line";
+import IconClipboard from "~icons/majesticons/clipboard-copy-line";
 
 const EditEntry: Component = () => {
   const [t] = useI18n();
@@ -82,7 +81,6 @@ const EditEntry: Component = () => {
       try {
           await navigator.clipboard.writeText(copyMe);
           notificationService.show({ title: t("COPIED_PASSWORD") });
-          setCopySuccess((v) => !v)
       } 
       catch (err) {
         notificationService.show({ title: t("NOT_COPY") });
@@ -113,11 +111,11 @@ const EditEntry: Component = () => {
             />
             <Divider orientation="vertical" h={8} borderColor="darkgray" />
             <IconButton
-              aria-label="Show Password"
+              aria-label="Copy Password"
               variant="ghost"
               loading={password.loading}
-              icon={copySuccess() ? <ClipOffIcon /> : <ClipOnIcon />}
-              onClick={() => copyToClipBoard(password()!!)}
+              icon={<IconClipboard />}
+              onClick={() => copyToClipBoard(password()!)}
             />
             </HStack>
           }
