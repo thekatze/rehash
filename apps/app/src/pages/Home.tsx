@@ -24,8 +24,8 @@ const Home: Component = () => {
   const [filter, setFilter] = createSignal("");
   const navigate = useNavigate();
 
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const autofocusInput: HTMLInputElement = undefined!;
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, prefer-const
+  let autofocusInput: HTMLInputElement = undefined!;
   onMount(() => autofocusInput?.focus());
 
   const filteredList = createMemo(() =>

@@ -39,7 +39,8 @@ const NewStore: Component = () => {
   const [, , store] = useRehash();
   const navigate = useNavigate();
 
-  const passwordInput: HTMLInputElement = undefined!;
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, prefer-const
+  let passwordInput: HTMLInputElement = undefined!;
   onMount(() => passwordInput.focus());
 
   const [password, setPassword] = createSignal("");

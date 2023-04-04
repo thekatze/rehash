@@ -18,9 +18,9 @@ interface EntryFormProps {
 const EntryForm: Component<EntryFormProps> = (props) => {
   const [t] = useI18n();
 
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const autofocusInput: HTMLInputElement = undefined!;
-  onMount(() => autofocusInput.focus());
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, prefer-const
+  let autofocusInput: HTMLInputElement = undefined!;
+  onMount(() => autofocusInput?.focus());
 
   return (
     <VStack spacing="$4" alignItems="stretch">

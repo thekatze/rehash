@@ -42,7 +42,8 @@ const EntryListItem: Component<EntryListItemProps> = (props) => {
   const [generator] = useRehash();
   const [t] = useI18n();
 
-  const title = props.entry.displayName ?? props.entry.url;
+  const id = () => props.entry.id;
+  const title = () => props.entry.displayName ?? props.entry.url;
   const [loading, setLoading] = createSignal(false);
 
   async function copyToClipboard(text: string): Promise<boolean> {
@@ -79,9 +80,9 @@ const EntryListItem: Component<EntryListItemProps> = (props) => {
           alignItems="start"
           flexGrow={1}
           as={Link}
-          href={`/entry/${props.entry.id}`}
+          href={`/entry/${id()}`}
         >
-          <Heading size="xl">{title}</Heading>
+          <Heading size="xl">{title()}</Heading>
           <Text>{props.entry.username}</Text>
         </VStack>
         <HStack spacing="$2">
