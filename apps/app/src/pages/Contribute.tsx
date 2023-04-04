@@ -12,12 +12,8 @@ const Contribute: Component = () => {
   return (
     <VStack spacing="$2" alignItems="stretch">
       <Card>
-        <PageHeader>
-          {t("CONTRIBUTE")}
-        </PageHeader>
-        <p>
-          {t("CONTRIBUTE_TEXT")}
-        </p>
+        <PageHeader>{t("CONTRIBUTE")}</PageHeader>
+        <p>{t("CONTRIBUTE_TEXT")}</p>
       </Card>
       <ContributeCard
         primary={t("CONTRIBUTE_BUG")}

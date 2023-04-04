@@ -7,17 +7,21 @@ importers:
       '@typescript-eslint/eslint-plugin': ^5.57.1
       '@typescript-eslint/parser': ^5.57.1
       eslint: ^8.37.0
+      eslint-config-prettier: ^8.8.0
       eslint-plugin-astro: ^0.26.1
       eslint-plugin-jsx-a11y: ^6.7.1
       eslint-plugin-solid: ^0.12.0
+      prettier: 2.8.7
       typescript: ^5.0.3
     devDependencies:
       '@typescript-eslint/eslint-plugin': 5.57.1_jwd5v5vphzanfmajybkjq25ld4
       '@typescript-eslint/parser': 5.57.1_vwh6htx42aidho2qgfca5u5rwm
       eslint: 8.37.0
+      eslint-config-prettier: 8.8.0_eslint@8.37.0
       eslint-plugin-astro: 0.26.1_eslint@8.37.0
       eslint-plugin-jsx-a11y: 6.7.1_eslint@8.37.0
       eslint-plugin-solid: 0.12.0_vwh6htx42aidho2qgfca5u5rwm
+      prettier: 2.8.7
       typescript: 5.0.3
 
   apps/app:
@@ -3227,6 +3231,15 @@ packages:
   /escape-string-regexp/5.0.0:
     resolution: {integrity: sha512-/veY75JbMK4j1yjvuUxuVsiS/hr/4iHs9FTT6cgTexxdE0Ly/glccBAkloH/DofkjRbZU3bnoj38mOmhkZ0lHw==}
     engines: {node: '>=12'}
+    dev: true
+
+  /eslint-config-prettier/8.8.0_eslint@8.37.0:
+    resolution: {integrity: sha512-wLbQiFre3tdGgpDv67NQKnJuTlcUVYHas3k+DZCc2U2BadthoEY4B7hLPvAxaqdyOGCzuLfii2fqGph10va7oA==}
+    hasBin: true
+    peerDependencies:
+      eslint: '>=7.0.0'
+    dependencies:
+      eslint: 8.37.0
     dev: true
 
   /eslint-plugin-astro/0.26.1_eslint@8.37.0:

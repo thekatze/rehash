@@ -7,7 +7,8 @@
     "plugin:astro/jsx-a11y-recommended",
     "plugin:solid/typescript",
     "eslint:recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
   ],
   "plugins": ["solid", "@typescript-eslint"],
   "parser": "@typescript-eslint/parser",

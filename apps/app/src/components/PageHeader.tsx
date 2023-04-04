@@ -3,16 +3,16 @@ import { Component, JSX } from "solid-js";
 import BackButton from "./BackButton";
 
 interface PageHeaderProps {
-    children: JSX.Element
+  children: JSX.Element;
 }
 
 const PageHeader: Component<PageHeaderProps> = (props) => {
-    return (
-        <HStack alignItems="center" spacing="$2">
-            <BackButton />
-            <Heading size="2xl">{props.children}</Heading>
-        </HStack>
-    );
-}
+  return (
+    <HStack alignItems="center" spacing="$2">
+      <BackButton />
+      <Heading size="2xl">{props.children}</Heading>
+    </HStack>
+  );
+};
 
 export default PageHeader;

@@ -76,7 +76,9 @@ const PasswordGenerator: Component = () => {
           {password.latest}
         </span>
         <button
-          onClick={() => password.latest && navigator.clipboard.writeText(password.latest)}
+          onClick={() =>
+            password.latest && navigator.clipboard.writeText(password.latest)
+          }
           class="bg-primary hover:bg-primary-400 rounded aspect-square h-10 flex items-center justify-center"
         >
           <img
