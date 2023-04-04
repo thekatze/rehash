@@ -81,11 +81,11 @@ const EditEntry: Component = () => {
   const copyToClipBoard = async (copyMe: string) => {
       try {
           await navigator.clipboard.writeText(copyMe);
-          notificationService.show({ title: t()("COPIED_PASSWORD") });
+          notificationService.show({ title: t("COPIED_PASSWORD") });
           setCopySuccess((v) => !v)
       } 
       catch (err) {
-        notificationService.show({ title: t()("NOT_COPY") });
+        notificationService.show({ title: t("NOT_COPY") });
       }
    };
   return (
