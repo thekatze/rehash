@@ -27,8 +27,5 @@ jobs:
     - name: Install dependencies
       run: pnpm install --frozen-lockfile
 
-    - name: Lint Action
-      uses: wearerequired/lint-action@v2.3.0
-      with:
-        eslint: true
-        prettier: true
+    - name: Check code style
+      run: pnpm lint
