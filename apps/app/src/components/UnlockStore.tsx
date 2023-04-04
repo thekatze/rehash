@@ -70,7 +70,4 @@ const UnlockStore: Component = () => {
 };
 
 export default UnlockStore;
-function useState(arg0: string): [any, any] {
-  throw new Error("Function not implemented.");
-}
 
