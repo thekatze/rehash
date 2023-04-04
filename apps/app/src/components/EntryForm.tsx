@@ -15,11 +15,12 @@ interface EntryFormProps {
   setEntry: SetStoreFunction<Partial<StoreEntry>>;
 }
 
-const EntryForm: Component<EntryFormProps> = ({ entry, setEntry }) => {
+const EntryForm: Component<EntryFormProps> = (props) => {
   const [t] = useI18n();
 
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, prefer-const
   let autofocusInput: HTMLInputElement = undefined!;
-  onMount(() => autofocusInput.focus());
+  onMount(() => autofocusInput?.focus());
 
   return (
     <VStack spacing="$4" alignItems="stretch">
@@ -28,17 +29,17 @@ const EntryForm: Component<EntryFormProps> = ({ entry, setEntry }) => {
         <Input
           id="url"
           ref={autofocusInput}
-          value={entry.url}
-          onInput={(e: any) => setEntry("url", () => e.currentTarget.value)}
+          value={props.entry.url}
+          onInput={(e) => props.setEntry("url", () => e.currentTarget.value)}
         />
       </FormControl>
       <FormControl>
         <FormLabel for="username">{t("USERNAME")}</FormLabel>
         <Input
           id="username"
-          value={entry.username}
-          onInput={(e: any) =>
-            setEntry("username", () => e.currentTarget.value)
+          value={props.entry.username}
+          onInput={(e) =>
+            props.setEntry("username", () => e.currentTarget.value)
           }
         />
       </FormControl>
@@ -46,9 +47,9 @@ const EntryForm: Component<EntryFormProps> = ({ entry, setEntry }) => {
         <FormLabel for="displayName">{t("DISPLAY_NAME")}</FormLabel>
         <Input
           id="displayName"
-          value={entry.displayName}
-          onInput={(e: any) =>
-            setEntry("displayName", () => e.currentTarget.value)
+          value={props.entry.displayName}
+          onInput={(e) =>
+            props.setEntry("displayName", () => e.currentTarget.value)
           }
         />
       </FormControl>
@@ -57,18 +58,18 @@ const EntryForm: Component<EntryFormProps> = ({ entry, setEntry }) => {
         <Textarea
           id="notes"
           style={{ resize: "vertical" }}
-          value={entry.notes}
-          onInput={(e: any) => setEntry("notes", () => e.currentTarget.value)}
+          value={props.entry.notes}
+          onInput={(e) => props.setEntry("notes", () => e.currentTarget.value)}
         />
       </FormControl>
       <FormControl>
         <FormLabel for="iteration">{t("ITERATION")}</FormLabel>
         <Input
           id="iteration"
-          value={entry.options?.iteration ?? 1}
+          value={props.entry.options?.iteration ?? 1}
           type="number"
-          onInput={(e: any) =>
-            setEntry("options", "iteration", () => {
+          onInput={(e) =>
+            props.setEntry("options", "iteration", () => {
               const newValue = parseInt(e.currentTarget.value);
               if (Number.isNaN(newValue)) {
                 return 1;
@@ -83,10 +84,10 @@ const EntryForm: Component<EntryFormProps> = ({ entry, setEntry }) => {
         <FormLabel for="length">{t("LENGTH")}</FormLabel>
         <Input
           id="length"
-          value={entry.options?.length ?? 32}
+          value={props.entry.options?.length ?? 32}
           type="number"
-          onInput={(e: any) =>
-            setEntry("options", "length", () => {
+          onInput={(e) =>
+            props.setEntry("options", "length", () => {
               const newValue = parseInt(e.currentTarget.value);
               if (Number.isNaN(newValue)) {
                 return 8;

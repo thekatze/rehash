@@ -72,14 +72,12 @@ const Settings: Component = () => {
 
     add(newLanguage, await supportedLanguages[newLanguage]());
     locale(newLanguage);
-  }
+  };
 
   return (
     <Card>
       <VStack spacing="$4" alignItems="stretch">
-        <PageHeader>
-          {t("SETTINGS")}
-        </PageHeader>
+        <PageHeader>{t("SETTINGS")}</PageHeader>
         <Button
           leftIcon={colorMode() == "dark" ? <MoonIcon /> : <LightbulbIcon />}
           onClick={toggleColorMode}
@@ -91,7 +89,7 @@ const Settings: Component = () => {
           <Select
             id="languageSelector"
             value={locale()}
-            onChange={async (e) => changeLocale(e)}
+            onChange={changeLocale}
           >
             <SelectTrigger>
               <SelectPlaceholder>{t("LANGUAGE")}</SelectPlaceholder>

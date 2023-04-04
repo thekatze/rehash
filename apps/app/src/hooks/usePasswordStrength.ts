@@ -5,7 +5,7 @@ import { Accessor, createResource, Resource } from "solid-js";
 async function loadOptions(): Promise<void> {
   const [common, en] = await Promise.all([
     import("@zxcvbn-ts/language-common"),
-    import("@zxcvbn-ts/language-en")
+    import("@zxcvbn-ts/language-en"),
   ]);
 
   const options = {

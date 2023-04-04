@@ -15,8 +15,23 @@
     "app:start": "pnpm -C apps/app run start",
     "app:build": "pnpm -C apps/app run build",
     "web:start": "pnpm -C apps/web run start",
-    "web:build": "pnpm -C apps/web run build"
+    "web:build": "pnpm -C apps/web run build",
+    "lint": "prettier apps/* packages/* --check && eslint apps/* packages/*"
   },
-  "keywords": ["solidhack", "best_app"],
-  "license": "MIT"
+  "keywords": [
+    "solidhack",
+    "best_app"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/parser": "^5.57.1",
+    "eslint": "^8.37.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-astro": "^0.26.1",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-solid": "^0.12.0",
+    "prettier": "2.8.7",
+    "typescript": "^5.0.3"
+  }
 }

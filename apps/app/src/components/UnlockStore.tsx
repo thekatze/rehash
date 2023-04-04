@@ -18,8 +18,9 @@ const UnlockStore: Component = () => {
   const [t] = useI18n();
   const [, , store] = useRehash();
 
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, prefer-const
   let passwordInput: HTMLInputElement = undefined!;
-  onMount(() => passwordInput.focus());
+  onMount(() => passwordInput?.focus());
 
   const [loading, setLoading] = createSignal(false);
   const [password, setPassword] = createSignal("");
@@ -45,7 +46,7 @@ const UnlockStore: Component = () => {
             id="password"
             type="password"
             ref={passwordInput}
-            onInput={(e: any) => {
+            onInput={(e) => {
               setPassword(e.target.value);
               setError(false);
             }}

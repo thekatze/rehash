@@ -24,8 +24,9 @@ const Home: Component = () => {
   const [filter, setFilter] = createSignal("");
   const navigate = useNavigate();
 
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, prefer-const
   let autofocusInput: HTMLInputElement = undefined!;
-  onMount(() => autofocusInput.focus());
+  onMount(() => autofocusInput?.focus());
 
   const filteredList = createMemo(() =>
     entries
@@ -50,7 +51,7 @@ const Home: Component = () => {
             id="filter"
             ref={autofocusInput}
             placeholder={t("FILTER")}
-            onInput={(e: any) => {
+            onInput={(e) => {
               const filterInput = e.target.value as string;
               setFilter(filterInput.toLowerCase());
             }}
