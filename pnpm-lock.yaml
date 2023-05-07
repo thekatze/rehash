@@ -53,8 +53,8 @@ importers:
         specifier: ^2.2.1
         version: 2.2.1
       '@zxcvbn-ts/language-common':
-        specifier: ^2.0.1
-        version: 2.0.1
+        specifier: ^3.0.0
+        version: 3.0.0
       '@zxcvbn-ts/language-en':
         specifier: ^2.1.0
         version: 2.1.0
@@ -2323,8 +2323,8 @@ packages:
       fastest-levenshtein: 1.0.16
     dev: false
 
-  /@zxcvbn-ts/language-common@2.0.1:
-    resolution: {integrity: sha512-P+v5MA/UNc9nb3FEOEoDgTyIGQc2vLc6m04pdf5YyuNOzrL0iNANhECk2TUp62JbrjouJVodqhMH0j1a8/24Bg==}
+  /@zxcvbn-ts/language-common@3.0.0:
+    resolution: {integrity: sha512-zt21o9BIi76LiPI4GNsMC7pgUjOi0hzKO1RGOnNr2eXurTYs8obbZp5lM3vs2gJbGVC0efqJST3FoIaNlkm07Q==}
     dev: false
 
   /@zxcvbn-ts/language-en@2.1.0:
