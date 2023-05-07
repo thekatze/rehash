@@ -15,7 +15,7 @@
     "@stitches/core": "^1.2.8",
     "@zxcvbn-ts/core": "^2.2.1",
     "@zxcvbn-ts/language-common": "^2.0.1",
-    "@zxcvbn-ts/language-en": "^2.1.0",
+    "@zxcvbn-ts/language-en": "^3.0.0",
     "file-saver": "^2.0.5",
     "solid-js": "^1.7.1",
     "solid-transition-group": "^0.2.2"

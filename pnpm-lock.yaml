@@ -56,8 +56,8 @@ importers:
         specifier: ^2.0.1
         version: 2.0.1
       '@zxcvbn-ts/language-en':
-        specifier: ^2.1.0
-        version: 2.1.0
+        specifier: ^3.0.0
+        version: 3.0.0
       file-saver:
         specifier: ^2.0.5
         version: 2.0.5
@@ -2327,8 +2327,8 @@ packages:
     resolution: {integrity: sha512-P+v5MA/UNc9nb3FEOEoDgTyIGQc2vLc6m04pdf5YyuNOzrL0iNANhECk2TUp62JbrjouJVodqhMH0j1a8/24Bg==}
     dev: false
 
-  /@zxcvbn-ts/language-en@2.1.0:
-    resolution: {integrity: sha512-I3n4AAbArjPAZtwCrk9MQnSrcj5+9rq8sic2rUU44fP5QaR17Vk8zDt61+R9dnP9ZRsj09aAUYML4Ash05qZjQ==}
+  /@zxcvbn-ts/language-en@3.0.0:
+    resolution: {integrity: sha512-JJ0H3ovVIO4EEpYXk5qq6NbxyZ8b3/qkpwEFIOu0m8bb54vXtRy2EbdfzUm0XKdtw9gfx15MaHAn0pWv0hTzYg==}
     dev: false
 
   /acorn-jsx@5.3.2(acorn@8.8.2):
