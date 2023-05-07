@@ -50,8 +50,8 @@ importers:
         specifier: ^1.2.8
         version: 1.2.8
       '@zxcvbn-ts/core':
-        specifier: ^2.2.1
-        version: 2.2.1
+        specifier: ^3.0.0
+        version: 3.0.0
       '@zxcvbn-ts/language-common':
         specifier: ^2.0.1
         version: 2.0.1
@@ -2317,8 +2317,8 @@ packages:
     resolution: {integrity: sha512-ukOMWnCg1tCvT7WnDfsUKQOFDQGsyR5tNgRpwmqi+5/vzU3ghdDXzvIM4IOPdSb3OeSsBNvmSL8nxIVOqi2WXA==}
     dev: true
 
-  /@zxcvbn-ts/core@2.2.1:
-    resolution: {integrity: sha512-Cg1JyRpCDIF+Dh3nauqygmmCYxogNVZDxSn+9PgkPD1HZ2QiJe4elruVJrGmYRS7muGmZ1hNJq8ySQdPv6GHaw==}
+  /@zxcvbn-ts/core@3.0.0:
+    resolution: {integrity: sha512-AuuYc66+5csSLd/mJ1CXuTUsjLdYw4X0zh8WvDCLztTOye0b+HrKCu8WzAEmq6Ja1u+cSbCNrKLW7m4ZCeg0FA==}
     dependencies:
       fastest-levenshtein: 1.0.16
     dev: false

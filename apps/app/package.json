@@ -13,7 +13,7 @@
     "@solid-primitives/i18n": "^1.2.4",
     "@solidjs/router": "^0.8.2",
     "@stitches/core": "^1.2.8",
-    "@zxcvbn-ts/core": "^2.2.1",
+    "@zxcvbn-ts/core": "^3.0.0",
     "@zxcvbn-ts/language-common": "^2.0.1",
     "@zxcvbn-ts/language-en": "^2.1.0",
     "file-saver": "^2.0.5",
