@@ -17,8 +17,8 @@ importers:
         specifier: ^8.8.0
         version: 8.8.0(eslint@8.37.0)
       eslint-plugin-astro:
-        specifier: ^0.26.1
-        version: 0.26.1(eslint@8.37.0)
+        specifier: ^0.27.0
+        version: 0.27.0(eslint@8.37.0)
       eslint-plugin-jsx-a11y:
         specifier: ^6.7.1
         version: 6.7.1(eslint@8.37.0)
@@ -2471,8 +2471,8 @@ packages:
     resolution: {integrity: sha512-eBvWn1lvIApYMhzQMsu9ciLfkBY499mFZlNqG+/9WR7PVlroQw0vG30cOQQbaKz3sCEc44TAOu2ykzqXSNnwag==}
     dev: true
 
-  /astro-eslint-parser@0.13.2:
-    resolution: {integrity: sha512-hLCfc4IfeR550tCxEQDOnoDbf+B7CtU3he0foNQ+XxfYyx+8qKwcEIvigrU1PzfwAfAvT83RFA1Q6TWHDj82GA==}
+  /astro-eslint-parser@0.14.0:
+    resolution: {integrity: sha512-3F8l1h7+5MNxzDg1cSQxEloalG7fj64K6vOERChUVG7RLnAzSoafADnPQlU8DpMM3WRNfRHSC4NwUCORk/aPrA==}
     engines: {node: ^14.18.0 || >=16.0.0}
     dependencies:
       '@astrojs/compiler': 1.3.0
@@ -3247,8 +3247,8 @@ packages:
       eslint: 8.37.0
     dev: true
 
-  /eslint-plugin-astro@0.26.1(eslint@8.37.0):
-    resolution: {integrity: sha512-FEZOrOQ5ahenbwjKz5LYJpeOZUggDM54idrq5bTJdL4GsXy1xx2eyKy5UjGhh8NwddowCCPqfDHFfDz9oNj/ew==}
+  /eslint-plugin-astro@0.27.0(eslint@8.37.0):
+    resolution: {integrity: sha512-r3PizFY+xwQMRWcEvRKCWQkfHNl2Q+7ANN1ZIpnvJZP97KUX8F2WUnTvPuk2jJGqnRa+zQ5NgoJ9aenFKcGP9A==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       eslint: '>=7.0.0'
@@ -3256,7 +3256,7 @@ packages:
       '@eslint-community/eslint-utils': 4.4.0(eslint@8.37.0)
       '@jridgewell/sourcemap-codec': 1.4.14
       '@typescript-eslint/types': 5.57.1
-      astro-eslint-parser: 0.13.2
+      astro-eslint-parser: 0.14.0
       eslint: 8.37.0
       postcss: 8.4.21
       postcss-selector-parser: 6.0.11
