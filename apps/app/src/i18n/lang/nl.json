@@ -54,6 +54,5 @@
   "USERNAME": "Gebruikersnaam",
   "VERSION": "Versie: {{ version }}",
   "WRONG_PASSWORD": "Incorrect wachtwoord, probeer opnieuw.",
-  "YES": "Ja",
-  "NOT_COPY": "Er is iets misgegaan!!"
+  "YES": "Ja"
 }

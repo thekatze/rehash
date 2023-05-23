@@ -77,15 +77,20 @@ const EditEntry: Component = () => {
   const shownPassword = () =>
     password.loading ? t("GENERATING_PASSWORD") : password();
 
-  const copyToClipBoard = async (copyMe: string) => {
+  async function copyToClipboard(text?: string) {
+    if (!text) return;
+
     try {
-      await navigator.clipboard.writeText(copyMe);
+      await navigator.clipboard.writeText(text);
       notificationService.show({ title: t("COPIED_PASSWORD") });
+    } catch {
+      notificationService.show({
+        title: t("CLIPBOARD_ERROR"),
+        status: "danger",
+      });
     }
-    catch (err) {
-      notificationService.show({ title: t("NOT_COPY") });
-    }
-  };
+  }
+
   return (
     <Card>
       <VStack as="form" onSubmit={edit} alignItems="stretch" spacing="$4">
@@ -113,7 +118,7 @@ const EditEntry: Component = () => {
                   variant="ghost"
                   loading={password.loading}
                   icon={<IconClipboard />}
-                  onClick={() => copyToClipBoard(password()!)}
+                  onClick={() => copyToClipboard(password())}
                 />
               </HStack>
             }
