@@ -78,14 +78,14 @@ const EditEntry: Component = () => {
     password.loading ? t("GENERATING_PASSWORD") : password();
 
   const copyToClipBoard = async (copyMe: string) => {
-      try {
-          await navigator.clipboard.writeText(copyMe);
-          notificationService.show({ title: t("COPIED_PASSWORD") });
-      } 
-      catch (err) {
-        notificationService.show({ title: t("NOT_COPY") });
-      }
-   };
+    try {
+      await navigator.clipboard.writeText(copyMe);
+      notificationService.show({ title: t("COPIED_PASSWORD") });
+    }
+    catch (err) {
+      notificationService.show({ title: t("NOT_COPY") });
+    }
+  };
   return (
     <Card>
       <VStack as="form" onSubmit={edit} alignItems="stretch" spacing="$4">
@@ -100,25 +100,25 @@ const EditEntry: Component = () => {
             type={passwordVisible() ? "text" : "password"}
           />
           <InputRightAddon
-          children={
-            <HStack>
-            <IconButton
-              aria-label="Show Password"
-              variant="ghost"
-              loading={password.loading}
-              icon={passwordVisible() ? <EyeOffIcon /> : <EyeIcon />}
-              onClick={() => setPasswordVisible((v) => !v)}
-            />
-            <Divider orientation="vertical" h={8} borderColor="darkgray" />
-            <IconButton
-              aria-label="Copy Password"
-              variant="ghost"
-              loading={password.loading}
-              icon={<IconClipboard />}
-              onClick={() => copyToClipBoard(password()!)}
-            />
-            </HStack>
-          }
+            children={
+              <HStack>
+                <IconButton
+                  aria-label="Show Password"
+                  variant="ghost"
+                  loading={password.loading}
+                  icon={passwordVisible() ? <EyeOffIcon /> : <EyeIcon />}
+                  onClick={() => setPasswordVisible((v) => !v)}
+                />
+                <Divider orientation="vertical" h={8} borderColor="darkgray" />
+                <IconButton
+                  aria-label="Copy Password"
+                  variant="ghost"
+                  loading={password.loading}
+                  icon={<IconClipboard />}
+                  onClick={() => copyToClipBoard(password()!)}
+                />
+              </HStack>
+            }
           />
         </InputGroup>
         <HStack spacing="$4" justifyContent="flex-end">
