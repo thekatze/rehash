@@ -10,10 +10,8 @@ import {
   HStack,
   IconButton,
   Input,
-  InputElement,
   InputGroup,
   InputRightAddon,
-  InputRightElement,
   VStack,
   notificationService,
 } from "@hope-ui/solid";
@@ -31,7 +29,6 @@ const EditEntry: Component = () => {
   const params = useParams();
   const navigate = useNavigate();
   const [generator, entries] = useRehash();
-  const [copySuccess, setCopySuccess] = createSignal(false);
 
   const entry = entries.get(params.id);
   if (!entry) navigate("/", {});
@@ -39,7 +36,6 @@ const EditEntry: Component = () => {
   const [store, setStore] = createStore<StoreEntryWithId>(entry!);
 
   const [passwordVisible, setPasswordVisible] = createSignal(false);
-
 
   const generatePasswordFunction = () =>
     generator.generate({
