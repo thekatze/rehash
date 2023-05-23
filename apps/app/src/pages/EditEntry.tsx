@@ -10,8 +10,9 @@ import {
   IconButton,
   Input,
   InputGroup,
-  InputRightElement,
+  InputRightAddon,
   VStack,
+  notificationService,
 } from "@hope-ui/solid";
 import { StoreEntryWithId } from "@rehash/logic";
 import { useNavigate, useParams } from "@solidjs/router";
@@ -20,6 +21,7 @@ import { createStore } from "solid-js/store";
 
 import EyeIcon from "~icons/majesticons/eye-line";
 import EyeOffIcon from "~icons/majesticons/eye-off-line";
+import IconClipboard from "~icons/majesticons/clipboard-copy-line";
 
 const EditEntry: Component = () => {
   const [t] = useI18n();
@@ -70,6 +72,20 @@ const EditEntry: Component = () => {
   const shownPassword = () =>
     password.loading ? t("GENERATING_PASSWORD") : password();
 
+  async function copyToClipboard(text?: string) {
+    if (!text) return;
+
+    try {
+      await navigator.clipboard.writeText(text);
+      notificationService.show({ title: t("COPIED_PASSWORD") });
+    } catch {
+      notificationService.show({
+        title: t("CLIPBOARD_ERROR"),
+        status: "danger",
+      });
+    }
+  }
+
   return (
     <Card>
       <VStack as="form" onSubmit={edit} alignItems="stretch" spacing="$4">
@@ -81,15 +97,24 @@ const EditEntry: Component = () => {
             value={shownPassword()}
             type={passwordVisible() ? "text" : "password"}
           />
-          <InputRightElement>
-            <IconButton
-              aria-label="Show Password"
-              variant="ghost"
-              loading={password.loading}
-              icon={passwordVisible() ? <EyeOffIcon /> : <EyeIcon />}
-              onClick={() => setPasswordVisible((v) => !v)}
-            />
-          </InputRightElement>
+          <InputRightAddon px="0">
+            <HStack>
+              <IconButton
+                aria-label="Show Password"
+                variant="ghost"
+                loading={password.loading}
+                icon={passwordVisible() ? <EyeOffIcon /> : <EyeIcon />}
+                onClick={() => setPasswordVisible((v) => !v)}
+              />
+              <IconButton
+                aria-label="Copy Password"
+                variant="ghost"
+                loading={password.loading}
+                icon={<IconClipboard />}
+                onClick={() => copyToClipboard(password())}
+              />
+            </HStack>
+          </InputRightAddon>
         </InputGroup>
         <HStack spacing="$4" justifyContent="flex-end">
           <Button type="submit">{t("SAVE_CHANGES")}</Button>
