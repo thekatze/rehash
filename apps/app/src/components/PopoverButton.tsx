@@ -20,31 +20,26 @@ interface PopoverButtonProps {
   onClick: () => Promise<void>;
 }
 
-const PopoverButton: Component<PopoverButtonProps> = ({
-  buttonText,
-  popoverHeader,
-  popoverBody,
-  onClick,
-}) => {
+const PopoverButton: Component<PopoverButtonProps> = (props) => {
   return (
     <Popover>
       {({ onClose }) => (
         <>
           <PopoverTrigger as={Button} variant="outline" colorScheme="danger">
-            {buttonText}
+            {props.buttonText}
           </PopoverTrigger>
           <PopoverContent>
             <PopoverArrow />
             <PopoverCloseButton />
-            <PopoverHeader>{popoverHeader}</PopoverHeader>
-            <PopoverBody>{popoverBody}</PopoverBody>
+            <PopoverHeader>{props.popoverHeader}</PopoverHeader>
+            <PopoverBody>{props.popoverBody}</PopoverBody>
             <PopoverFooter as={HStack} justifyContent="flex-end">
               <ButtonGroup size="sm" spacing="$2">
                 <Button variant="subtle" onClick={onClose}>
                   Cancel
                 </Button>
-                <Button colorScheme="danger" onClick={onClick}>
-                  {buttonText}
+                <Button colorScheme="danger" onClick={props.onClick}>
+                  {props.buttonText}
                 </Button>
               </ButtonGroup>
             </PopoverFooter>

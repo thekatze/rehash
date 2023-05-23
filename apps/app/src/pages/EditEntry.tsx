@@ -89,9 +89,7 @@ const EditEntry: Component = () => {
   return (
     <Card>
       <VStack as="form" onSubmit={edit} alignItems="stretch" spacing="$4">
-        <PageHeader>
-          {store.displayName || store.url}
-        </PageHeader>
+        <PageHeader>{store.displayName || store.url}</PageHeader>
         <EntryForm entry={entry!} setEntry={setStore} />
         <InputGroup>
           <Input

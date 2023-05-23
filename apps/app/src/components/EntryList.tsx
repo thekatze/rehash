@@ -42,7 +42,8 @@ const EntryListItem: Component<EntryListItemProps> = (props) => {
   const [generator] = useRehash();
   const [t] = useI18n();
 
-  const title = props.entry.displayName ?? props.entry.url;
+  const id = () => props.entry.id;
+  const title = () => props.entry.displayName ?? props.entry.url;
   const [loading, setLoading] = createSignal(false);
 
   async function copyToClipboard(text: string): Promise<boolean> {
@@ -50,7 +51,10 @@ const EntryListItem: Component<EntryListItemProps> = (props) => {
       await navigator.clipboard.writeText(text);
       return true;
     } catch {
-      notificationService.show({ title: t("CLIPBOARD_ERROR"), status: "danger" })
+      notificationService.show({
+        title: t("CLIPBOARD_ERROR"),
+        status: "danger",
+      });
       return false;
     }
   }
@@ -58,13 +62,15 @@ const EntryListItem: Component<EntryListItemProps> = (props) => {
   async function copyPassword() {
     setLoading(true);
     const password = await generator.generate(props.entry);
-    await copyToClipboard(password) && notificationService.show({ title: t("COPIED_PASSWORD") });
-    
+    (await copyToClipboard(password)) &&
+      notificationService.show({ title: t("COPIED_PASSWORD") });
+
     setLoading(false);
   }
 
   async function copyUsername() {
-    await copyToClipboard(props.entry.username) && notificationService.show({ title: t("COPIED_USERNAME") });
+    (await copyToClipboard(props.entry.username)) &&
+      notificationService.show({ title: t("COPIED_USERNAME") });
   }
 
   return (
@@ -74,9 +80,9 @@ const EntryListItem: Component<EntryListItemProps> = (props) => {
           alignItems="start"
           flexGrow={1}
           as={Link}
-          href={`/entry/${props.entry.id}`}
+          href={`/entry/${id()}`}
         >
-          <Heading size="xl">{title}</Heading>
+          <Heading size="xl">{title()}</Heading>
           <Text>{props.entry.username}</Text>
         </VStack>
         <HStack spacing="$2">

@@ -39,6 +39,7 @@ const NewStore: Component = () => {
   const [, , store] = useRehash();
   const navigate = useNavigate();
 
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, prefer-const
   let passwordInput: HTMLInputElement = undefined!;
   onMount(() => passwordInput.focus());
 
@@ -125,11 +126,11 @@ interface StrengthMeterProps {
   score: Accessor<number>;
 }
 
-const StrengthMeter: Component<StrengthMeterProps> = ({ score }) => {
+const StrengthMeter: Component<StrengthMeterProps> = (props) => {
   const colorForIndex = (i: number) => {
-    if ((score() ?? 0) <= i) return "gray";
+    if ((props.score() ?? 0) <= i) return "gray";
 
-    switch (score()) {
+    switch (props.score()) {
       case 0:
         return "gray";
       case 1:

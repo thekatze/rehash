@@ -1,16 +1,16 @@
 import {
-  GeneratorEntry,
-  GeneratorOptions,
+  type GeneratorEntry,
+  type GeneratorOptions,
   RehashGenerator,
 } from "@rehash/logic";
 import {
-  Component,
+  type Component,
   createResource,
   createSignal,
-  JSX,
+  type JSX,
   onMount,
   untrack,
-  VoidComponent,
+  type VoidComponent,
 } from "solid-js";
 import { createStore } from "solid-js/store";
 
@@ -76,7 +76,9 @@ const PasswordGenerator: Component = () => {
           {password.latest}
         </span>
         <button
-          onClick={() => navigator.clipboard.writeText(password.latest!)}
+          onClick={() =>
+            password.latest && navigator.clipboard.writeText(password.latest)
+          }
           class="bg-primary hover:bg-primary-400 rounded aspect-square h-10 flex items-center justify-center"
         >
           <img
