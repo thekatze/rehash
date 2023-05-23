@@ -69,4 +69,3 @@ const UnlockStore: Component = () => {
 };
 
 export default UnlockStore;
-
