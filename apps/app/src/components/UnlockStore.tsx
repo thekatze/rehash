@@ -36,7 +36,6 @@ const UnlockStore: Component = () => {
     setError(!store.unlocked());
   }
 
-
   return (
     <Card>
       <VStack as="form" onSubmit={unlock} spacing="$4" alignItems="stretch">
@@ -50,7 +49,8 @@ const UnlockStore: Component = () => {
             onInput={(e) => {
               setPassword(e.target.value);
               setError(false);
-            }} />
+            }}
+          />
           <Show
             when={error()}
             fallback={<FormHelperText>{t("UNLOCK_TEXT")}</FormHelperText>}
@@ -65,8 +65,6 @@ const UnlockStore: Component = () => {
         </HStack>
       </VStack>
     </Card>
-
-
   );
 };
 
