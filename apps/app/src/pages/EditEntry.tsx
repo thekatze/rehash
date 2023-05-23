@@ -6,7 +6,6 @@ import { useI18n } from "@solid-primitives/i18n";
 import { useRehash } from "@/providers/RehashProvider";
 import {
   Button,
-  Divider,
   HStack,
   IconButton,
   Input,
@@ -98,27 +97,24 @@ const EditEntry: Component = () => {
             value={shownPassword()}
             type={passwordVisible() ? "text" : "password"}
           />
-          <InputRightAddon
-            children={
-              <HStack>
-                <IconButton
-                  aria-label="Show Password"
-                  variant="ghost"
-                  loading={password.loading}
-                  icon={passwordVisible() ? <EyeOffIcon /> : <EyeIcon />}
-                  onClick={() => setPasswordVisible((v) => !v)}
-                />
-                <Divider orientation="vertical" h={8} borderColor="darkgray" />
-                <IconButton
-                  aria-label="Copy Password"
-                  variant="ghost"
-                  loading={password.loading}
-                  icon={<IconClipboard />}
-                  onClick={() => copyToClipboard(password())}
-                />
-              </HStack>
-            }
-          />
+          <InputRightAddon px="0">
+            <HStack>
+              <IconButton
+                aria-label="Show Password"
+                variant="ghost"
+                loading={password.loading}
+                icon={passwordVisible() ? <EyeOffIcon /> : <EyeIcon />}
+                onClick={() => setPasswordVisible((v) => !v)}
+              />
+              <IconButton
+                aria-label="Copy Password"
+                variant="ghost"
+                loading={password.loading}
+                icon={<IconClipboard />}
+                onClick={() => copyToClipboard(password())}
+              />
+            </HStack>
+          </InputRightAddon>
         </InputGroup>
         <HStack spacing="$4" justifyContent="flex-end">
           <Button type="submit">{t("SAVE_CHANGES")}</Button>
