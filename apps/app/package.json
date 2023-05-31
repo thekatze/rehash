@@ -29,7 +29,7 @@
     "vite": "^4.2.1",
     "vite-plugin-pwa": "^0.14.7",
     "vite-plugin-solid": "^2.6.1",
-    "workbox-window": "^6.5.4"
+    "workbox-window": "^7.0.0"
   },
   "license": "MIT"
 }

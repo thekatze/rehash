@@ -1,4 +1,8 @@
-lockfileVersion: '6.0'
+lockfileVersion: '6.1'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
 
 importers:
 
@@ -88,13 +92,13 @@ importers:
         version: 4.2.1(@types/node@18.15.11)
       vite-plugin-pwa:
         specifier: ^0.14.7
-        version: 0.14.7(vite@4.2.1)(workbox-build@6.5.4)(workbox-window@6.5.4)
+        version: 0.14.7(vite@4.2.1)(workbox-build@6.5.4)(workbox-window@7.0.0)
       vite-plugin-solid:
         specifier: ^2.6.1
         version: 2.6.1(solid-js@1.7.1)(vite@4.2.1)
       workbox-window:
-        specifier: ^6.5.4
-        version: 6.5.4
+        specifier: ^7.0.0
+        version: 7.0.0
 
   apps/web:
     dependencies:
@@ -6447,7 +6451,7 @@ packages:
       vfile-message: 3.1.4
     dev: true
 
-  /vite-plugin-pwa@0.14.7(vite@4.2.1)(workbox-build@6.5.4)(workbox-window@6.5.4):
+  /vite-plugin-pwa@0.14.7(vite@4.2.1)(workbox-build@6.5.4)(workbox-window@7.0.0):
     resolution: {integrity: sha512-dNJaf0fYOWncmjxv9HiSa2xrSjipjff7IkYE5oIUJ2x5HKu3cXgA8LRgzOwTc5MhwyFYRSU0xyN0Phbx3NsQYw==}
     peerDependencies:
       vite: ^3.1.0 || ^4.0.0
@@ -6461,7 +6465,7 @@ packages:
       rollup: 3.20.2
       vite: 4.2.1(@types/node@18.15.11)
       workbox-build: 6.5.4
-      workbox-window: 6.5.4
+      workbox-window: 7.0.0
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -6755,6 +6759,10 @@ packages:
     resolution: {integrity: sha512-OXYb+m9wZm8GrORlV2vBbE5EC1FKu71GGp0H4rjmxmF4/HLbMCoTFws87M3dFwgpmg0v00K++PImpNQ6J5NQ6Q==}
     dev: true
 
+  /workbox-core@7.0.0:
+    resolution: {integrity: sha512-81JkAAZtfVP8darBpfRTovHg8DGAVrKFgHpOArZbdFd78VqHr5Iw65f2guwjE2NlCFbPFDoez3D3/6ZvhI/rwQ==}
+    dev: true
+
   /workbox-expiration@6.5.4:
     resolution: {integrity: sha512-jUP5qPOpH1nXtjGGh1fRBa1wJL2QlIb5mGpct3NzepjGG2uFFBn4iiEBiI9GUmfAFR2ApuRhDydjcRmYXddiEQ==}
     dependencies:
@@ -6830,6 +6838,13 @@ packages:
     dependencies:
       '@types/trusted-types': 2.0.2
       workbox-core: 6.5.4
+    dev: true
+
+  /workbox-window@7.0.0:
+    resolution: {integrity: sha512-j7P/bsAWE/a7sxqTzXo3P2ALb1reTfZdvVp6OJ/uLr/C2kZAMvjeWGm8V4htQhor7DOvYg0sSbFN2+flT5U0qA==}
+    dependencies:
+      '@types/trusted-types': 2.0.2
+      workbox-core: 7.0.0
     dev: true
 
   /wrap-ansi@8.1.0:
