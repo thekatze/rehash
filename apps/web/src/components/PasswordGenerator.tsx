@@ -23,7 +23,7 @@ const PasswordGenerator: Component = () => {
     url: "https://www.example.com",
     username: "johndoe",
     options: {
-      iteration: 0,
+      iteration: 1,
       length: 32,
     },
   });
@@ -50,7 +50,7 @@ const PasswordGenerator: Component = () => {
   onMount(() => setFirstRun(false));
 
   const [password] = createResource(generatePassword, generatePassword, {
-    initialValue: "UQaKv406vuYUUEbIVXmXzYIWixUno48F",
+    initialValue: "r+L27FcK0NGvy2GB1HXay9YJz1zL5hN3",
   });
 
   return (
