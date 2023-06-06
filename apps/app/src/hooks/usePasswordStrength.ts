@@ -10,11 +10,11 @@ async function loadOptions(): Promise<void> {
 
   const options = {
     dictionary: {
-      ...common.default.dictionary,
-      ...en.default.dictionary,
+      ...common.dictionary,
+      ...en.dictionary,
     },
-    graphs: common.default.adjacencyGraphs,
-    translations: en.default.translations,
+    graphs: common.adjacencyGraphs,
+    translations: en.translations,
   };
 
   zxcvbnOptions.setOptions(options);
@@ -41,6 +41,7 @@ export default (
   const feedback = () => {
     if (options.loading && password())
       return t("PASSWORD_STRENGTH_DICTIONARY_LOADING");
+
     return result()?.feedback?.warning ?? "";
   };
 
