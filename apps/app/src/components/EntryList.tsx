@@ -1,108 +1,80 @@
-import { StoreEntryWithId } from "@rehash/logic";
-import { Component, For } from "solid-js";
-import { createSignal } from "solid-js";
-
-import { useI18n } from "@solid-primitives/i18n";
 import { useRehash } from "@/providers/RehashProvider";
-import {
-  Heading,
-  HStack,
-  IconButton,
-  notificationService,
-  Text,
-  VStack,
-} from "@hope-ui/solid";
-import { Link } from "@solidjs/router";
+import { A } from "@solidjs/router";
+import { For, VoidComponent, createSignal } from "solid-js";
+import { sortBy } from "lodash-es";
+import { StoreEntry, generate } from "@rehash/logic";
 
-import IconClipboard from "~icons/majesticons/clipboard-copy-line";
-import IconUser from "~icons/majesticons/user-line";
-import Card from "./Card";
+const EntryListItem: VoidComponent<{ id: string, entry: StoreEntry }> = (props) => {
+  const [store] = useRehash();
+  const [userState, setUserState] = createSignal<number>(0);
+  const [generationState, setGenerationState] = createSignal<"idle" | "loading" | number>("idle");
 
-interface EntryListProps {
-  entries: StoreEntryWithId[];
+  const copy = (text: string) => {
+    navigator.clipboard.writeText(text);
+  };
+
+  const copyUsername = () => {
+    copy(props.entry.username);
+    setUserState(setTimeout(() => setUserState(0), 3000) as any as number);
+  };
+  const copyPassword = async () => {
+    if (typeof (generationState()) === "number") {
+      clearTimeout(generationState());
+    }
+
+    if (generationState() === "loading") return;
+
+    setGenerationState("loading");
+    copy(await generate(store().password, store().options, props.entry));
+    setGenerationState(setTimeout(() => setGenerationState("idle"), 3000) as any as number);
+  };
+
+  return (
+    <li class="w-full flex flex-row gap-4">
+      <A href={`/entry/${props.id}`} class="flex flex-col flex-1">
+        <strong class="text-lg">{props.entry.displayName ?? props.entry.url}</strong>
+        <em>{props.entry.username}</em>
+      </A>
+      <div class="flex items-center gap-2">
+        <button onClick={copyUsername}>{userState() === 0 ? "CU" : "SC"}</button>
+        <button onClick={copyPassword}>
+          {{ "idle": "CP", "loading": "LD" }[generationState()] ?? "SC"}
+        </button>
+      </div>
+    </li>
+  );
 }
 
-const EntryList: Component<EntryListProps> = (props) => {
+const EntryList: VoidComponent = () => {
+  const [store] = useRehash();
+
+  const [filter, setFilter] = createSignal("");
+
+  const allEntries = () => Object.entries(store().entries);
+  const filteredEntries = () => filter() === ""
+    ? allEntries()
+    : allEntries().filter(([, e]) =>
+      e.displayName?.toLowerCase().includes(filter()) ||
+      e.url?.toLowerCase().includes(filter()) ||
+      e.username?.toLowerCase().includes(filter()));
+
+  const sortedEntries = () => sortBy(filteredEntries(), [([, e]) => e.displayName?.toLowerCase() ?? e.url.toLowerCase()]);
+
   return (
-    <VStack alignItems="stretch" spacing="$2">
-      <For each={props.entries}>
-        {(entry) => <EntryListItem entry={entry} />}
-      </For>
-    </VStack>
+    <div class="flex flex-col h-full relative">
+      <input placeholder="Search..." type="text" value={filter()} onInput={(e) => setFilter(e.target.value.toLowerCase())} />
+      <ol class="flex-1 overflow-y-auto flex flex-col gap-1">
+        <For each={sortedEntries()}>
+          {([id, entry]) => (
+            <EntryListItem id={id} entry={entry} />
+          )}
+        </For>
+      </ol>
+      <div class="h-16 flex justify-center items-center">
+        <A href="/new">Add +</A>
+      </div>
+    </div>
   );
 };
 
 export default EntryList;
-
-interface EntryListItemProps {
-  entry: StoreEntryWithId;
-}
-
-const EntryListItem: Component<EntryListItemProps> = (props) => {
-  const [generator] = useRehash();
-  const [t] = useI18n();
-
-  const id = () => props.entry.id;
-  const title = () => props.entry.displayName ?? props.entry.url;
-  const [loading, setLoading] = createSignal(false);
-
-  async function copyToClipboard(text: string): Promise<boolean> {
-    try {
-      await navigator.clipboard.writeText(text);
-      return true;
-    } catch {
-      notificationService.show({
-        title: t("CLIPBOARD_ERROR"),
-        status: "danger",
-      });
-      return false;
-    }
-  }
-
-  async function copyPassword() {
-    setLoading(true);
-    const password = await generator.generate(props.entry);
-    (await copyToClipboard(password)) &&
-      notificationService.show({ title: t("COPIED_PASSWORD") });
-
-    setLoading(false);
-  }
-
-  async function copyUsername() {
-    (await copyToClipboard(props.entry.username)) &&
-      notificationService.show({ title: t("COPIED_USERNAME") });
-  }
-
-  return (
-    <Card py="$3">
-      <HStack>
-        <VStack
-          alignItems="start"
-          flexGrow={1}
-          as={Link}
-          href={`/entry/${id()}`}
-        >
-          <Heading size="xl">{title()}</Heading>
-          <Text>{props.entry.username}</Text>
-        </VStack>
-        <HStack spacing="$2">
-          <IconButton
-            aria-label="Copy Username"
-            icon={<IconUser />}
-            onClick={copyUsername}
-            variant="ghost"
-            size="lg"
-          />
-          <IconButton
-            loading={loading()}
-            aria-label="Copy Password"
-            icon={<IconClipboard />}
-            onClick={copyPassword}
-            variant="ghost"
-            size="lg"
-          />
-        </HStack>
-      </HStack>
-    </Card>
-  );
-};

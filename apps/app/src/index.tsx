@@ -3,30 +3,20 @@ import { Router } from "@solidjs/router";
 import I18nProvider from "@/i18n/I18nProvider";
 import { RehashProvider } from "@/providers/RehashProvider";
 
-import App from "./App";
-import {
-  HopeProvider,
-  HopeThemeConfig,
-  NotificationsProvider,
-} from "@hope-ui/solid";
+import "@unocss/reset/tailwind.css";
+import "virtual:uno.css";
 
-const config: HopeThemeConfig = {
-  initialColorMode: "system",
-};
+import App from "./App";
 
 render(
   () => (
-    <HopeProvider config={config}>
-      <NotificationsProvider>
-        <I18nProvider>
-          <RehashProvider>
-            <Router>
-              <App />
-            </Router>
-          </RehashProvider>
-        </I18nProvider>
-      </NotificationsProvider>
-    </HopeProvider>
+    <I18nProvider>
+      <RehashProvider>
+        <Router>
+          <App />
+        </Router>
+      </RehashProvider>
+    </I18nProvider>
   ),
   document.getElementById("app") as HTMLElement
 );

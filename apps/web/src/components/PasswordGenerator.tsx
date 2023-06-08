@@ -1,7 +1,7 @@
 import {
   type GeneratorEntry,
   type GeneratorOptions,
-  RehashGenerator,
+  generate,
 } from "@rehash/logic";
 import {
   type Component,
@@ -44,7 +44,7 @@ const PasswordGenerator: Component = () => {
 
     return untrack(firstRun)
       ? undefined
-      : new RehashGenerator(password, options).generate(data);
+      : generate(password, options, data);
   };
 
   onMount(() => setFirstRun(false));

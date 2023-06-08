@@ -1,57 +1,29 @@
-import Card from "@/components/Card";
-import EntryForm from "@/components/EntryForm";
-import PageHeader from "@/components/PageHeader";
-import { useI18n } from "@solid-primitives/i18n";
-import { useRehash } from "@/providers/RehashProvider";
-import { Button, HStack, VStack } from "@hope-ui/solid";
+import { VoidComponent } from "solid-js";
 import { StoreEntry } from "@rehash/logic";
+import { useRehash } from "@/providers/RehashProvider";
+import EntryForm from "@/components/EntryForm";
 import { useNavigate } from "@solidjs/router";
-import { Component } from "solid-js";
-import { createStore } from "solid-js/store";
 
-const CreateEntry: Component = () => {
-  const [, entries] = useRehash();
-  const [t] = useI18n();
-
-  const [store, setStore] = createStore<Partial<StoreEntry>>({
-    options: { length: 32, iteration: 1 },
-  });
-
+const CreateEntry: VoidComponent = () => {
+  const [store, setStore] = useRehash();
   const navigate = useNavigate();
 
-  async function create(e: any) {
-    e.preventDefault();
-    // TODO: Validation, url formatting and settable options
+  const addEntry = (entry: StoreEntry) => {
+    entry.created = new Date().toISOString();
+    let id = crypto.randomUUID();
 
-    if (!store.url || !store.username) return;
+    while (store().entries[id]) {
+      id = crypto.randomUUID();
+    }
 
-    const entry: StoreEntry = {
-      displayName: !store.displayName?.trim() ? undefined : store.displayName,
-      url: store.url,
-      username: store.username,
-      notes: store.notes,
-      options: {
-        length: store.options?.length ?? 32,
-        iteration: store.options?.iteration ?? 1,
-      },
-    };
-
-    const id = await entries.add(entry);
+    setStore((s) => (
+      { ...s, entries: { ...s.entries, [id]: entry } }
+    ));
 
     navigate(`/entry/${id}`);
-  }
+  };
 
-  return (
-    <Card>
-      <VStack as="form" onSubmit={create} spacing="$4" alignItems="stretch">
-        <PageHeader>{t("CREATE")}</PageHeader>
-        <EntryForm entry={store} setEntry={setStore} />
-        <HStack spacing="$4" justifyContent="flex-end">
-          <Button type="submit"> {t("CREATE")} </Button>
-        </HStack>
-      </VStack>
-    </Card>
-  );
+  return <EntryForm onSubmit={addEntry} />;
 };
 
 export default CreateEntry;

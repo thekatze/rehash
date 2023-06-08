@@ -1,47 +1,53 @@
+import { get, set } from "idb-keyval";
 import {
-  EncryptedStore,
-  GeneratorEntry,
+  Store as RehashStore,
+  EncryptedStore as RehashEncryptedStore,
   GeneratorOptions,
-  ImportMode,
-  RehashGenerator,
-  RehashStore,
-  StoreEntry,
-  StoreEntryWithId,
 } from "@rehash/logic";
-import { createContext, FlowComponent, useContext } from "solid-js";
-import { createStore } from "solid-js/store";
+import {
+  Accessor,
+  createContext,
+  createResource,
+  createSignal,
+  FlowComponent,
+  Match,
+  Setter,
+  Show,
+  Switch,
+  useContext,
+} from "solid-js";
+import CreateNewStoreForm from "@/components/CreateNewStoreForm";
+import UnlockStoreForm from "@/components/UnlockStoreForm";
 
-type GeneratorActions = {
-  generate: (entry: GeneratorEntry) => Promise<string>;
+export enum StoreState {
+  Uninitialized,
+  Encrypted,
+  Locked,
+  Unlocked,
+}
+
+export type UninitializedStore = {
+  state: StoreState.Uninitialized;
 };
 
-type EntryActions = {
-  list: () => StoreEntryWithId[];
-  get: (uuid: string) => StoreEntryWithId | undefined;
-  add: (entry: StoreEntry) => Promise<string>;
-  edit: (entry: StoreEntryWithId) => Promise<void>;
-  remove: (uuid: string) => Promise<void>;
-};
+export type EncryptedStore = {
+  state: StoreState.Encrypted;
+} & RehashEncryptedStore;
 
-type StoreActions = {
-  initialize: (password: string) => Promise<void>;
-  unlocked: () => boolean;
-  create: (options: GeneratorOptions) => Promise<void>;
-  exists: () => Promise<boolean>;
-  delete: () => Promise<void>;
-  import: (
-    encryptedStore: EncryptedStore,
-    mode: ImportMode
-  ) => Promise<boolean>;
-  export: () => Promise<EncryptedStore>;
-  getGeneratorOptions: () => GeneratorOptions;
-  setGeneratorOptions: (generatorOptions: GeneratorOptions) => Promise<void>;
-};
+export type LockedStore = {
+  state: StoreState.Locked;
+} & RehashStore;
 
-const RehashContext =
-  createContext<[GeneratorActions, EntryActions, StoreActions]>();
+export type UnlockedStore = {
+  state: StoreState.Unlocked;
+  password: string;
+} & RehashStore;
 
-export function useRehash(): [GeneratorActions, EntryActions, StoreActions] {
+type RehashContextData = [Accessor<UnlockedStore>, Setter<UnlockedStore>];
+
+const RehashContext = createContext<RehashContextData>();
+
+export function useRehash(): RehashContextData {
   const context = useContext(RehashContext);
 
   if (!context)
@@ -52,78 +58,69 @@ export function useRehash(): [GeneratorActions, EntryActions, StoreActions] {
   return context;
 }
 
+export type Store = Extract<
+  UninitializedStore | EncryptedStore | LockedStore | UnlockedStore,
+  { state: StoreState }
+>;
+
 export const RehashProvider: FlowComponent = (props) => {
-  const [store, setStore] = createStore<{
-    unlocked: boolean;
-    store: RehashStore;
-    generator?: RehashGenerator;
-  }>({
-    unlocked: false,
-    store: new RehashStore(""),
+  const [store, setStore] = createSignal<Store>({
+    state: StoreState.Uninitialized,
   });
 
-  const data: [GeneratorActions, EntryActions, StoreActions] = [
-    {
-      generate: async (entry) => {
-        if (!store.generator) {
-          setStore("generator", () => {
-            return store.store.createGenerator();
-          });
-        }
+  // try to load store from idb
+  const [resource] = createResource(async () => {
+    const value = await get("rehash_store");
 
-        return await store.generator!.generate(entry);
-      },
-    },
-    {
-      list: () => store.store.list(),
-      get: (id) => store.store.get(id),
-      add: (entry) => store.store.add(entry),
-      edit: (entry) => store.store.edit(entry),
-      remove: (uuid) => store.store.remove(uuid),
-    },
-    {
-      initialize: async (password) => {
-        setStore("store", () => new RehashStore(password));
-        setStore("generator", () => undefined);
+    if ("iv" in value && "store" in value) {
+      setStore({ ...value, state: StoreState.Encrypted });
+    } else if ("options" in value && "entries" in value) {
+      setStore({ ...value, state: StoreState.Locked });
+    }
+  });
 
-        const unlocked = await store.store.unlock();
-        setStore("unlocked", () => unlocked);
-      },
-      unlocked: () => store.unlocked,
-      create: async (options) => {
-        await store.store.create(options);
+  // persist changes to idb if unlocked
+  createResource(store, async () => {
+    if (store().state === StoreState.Unlocked) {
+      // TODO: check options.encrypt
+      await set("rehash_store", {
+        ...store(),
+        state: undefined,
+        password: undefined,
+      });
+    }
+  });
 
-        const unlocked = await store.store.unlock();
-        setStore("unlocked", () => unlocked);
-      },
-      exists: () => store.store.exists(),
-      delete: async () => {
-        await store.store.delete();
-
-        setStore("unlocked", () => false);
-      },
-      import: async (encryptedStore, mode) => {
-        const result = await store.store.import(encryptedStore, mode);
-
-        if (result && mode === ImportMode.Overwrite) {
-          // FIXME: on successful complete overwrite reload the page
-          // its a hacky workaround but makes life so much easier
-
-          window.location.reload();
-        }
-
-        return result;
-      },
-      export: () => store.store.export(),
-      getGeneratorOptions: () => store.store.getGeneratorOptions(),
-      setGeneratorOptions: (generatorOptions) =>
-        store.store.setGeneratorOptions(generatorOptions),
-    },
-  ];
+  const createNewStore = (password: string, options: GeneratorOptions) => {
+    setStore({ state: StoreState.Unlocked, entries: {}, options, password });
+  };
 
   return (
-    <RehashContext.Provider value={data}>
-      {props.children}
-    </RehashContext.Provider>
+    <Show when={!resource.loading}>
+      <Switch>
+        <Match when={store().state === StoreState.Uninitialized}>
+          <CreateNewStoreForm onSubmit={createNewStore} />
+        </Match>
+        <Match when={store().state === StoreState.Encrypted}>
+          <UnlockStoreForm
+            onSubmit={setStore}
+            store={store() as EncryptedStore}
+          />
+        </Match>
+        <Match when={store().state === StoreState.Locked}>
+          <UnlockStoreForm onSubmit={setStore} store={store() as LockedStore} />
+        </Match>
+        <Match when={store().state === StoreState.Unlocked}>
+          <RehashContext.Provider
+            value={[
+              store as Accessor<UnlockedStore>,
+              setStore as Setter<UnlockedStore>,
+            ]}
+          >
+            {props.children}
+          </RehashContext.Provider>
+        </Match>
+      </Switch>
+    </Show>
   );
 };

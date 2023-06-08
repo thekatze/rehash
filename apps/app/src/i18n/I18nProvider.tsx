@@ -5,7 +5,7 @@ export const supportedLanguages: { [locale: string]: () => Promise<any> } = {
 };
 
 import { I18nContext, createI18nContext } from "@solid-primitives/i18n";
-import { FlowComponent } from "solid-js";
+import { FlowComponent, Show, createResource } from "solid-js";
 
 const I18nProvider: FlowComponent = (props) => {
   const [translate, { add, dict, locale: innerLocale }] = createI18nContext();
@@ -18,8 +18,7 @@ const I18nProvider: FlowComponent = (props) => {
     return innerLocale(lang);
   };
 
-  // Initialize language asynchronously
-  (async () => {
+  const [resource] = createResource(async () => {
     const savedLocale =
       localStorage.getItem("locale") ??
       new Intl.Locale(navigator.languages[0]).language;
@@ -27,12 +26,14 @@ const I18nProvider: FlowComponent = (props) => {
 
     add(localeToLoad, await supportedLanguages[localeToLoad]());
     locale(localeToLoad);
-  })();
+  });
 
   return (
-    <I18nContext.Provider value={[translate, { add, dict, locale }]}>
-      {props.children}
-    </I18nContext.Provider>
+    <Show when={!resource.loading}>
+      <I18nContext.Provider value={[translate, { add, dict, locale }]}>
+        {props.children}
+      </I18nContext.Provider>
+    </Show>
   );
 };
 

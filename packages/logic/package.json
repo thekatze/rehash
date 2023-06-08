@@ -1,6 +1,6 @@
 {
   "name": "@rehash/logic",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "The password generation logic for the rehash password manager",
   "main": "src/index.ts",
   "scripts": {
@@ -9,7 +9,9 @@
   "author": "TheKatze",
   "license": "MIT",
   "dependencies": {
-    "hash-wasm": "^4.9.0",
-    "idb-keyval": "^6.2.1"
+    "hash-wasm": "^4.9.0"
+  },
+  "devDependencies": {
+    "vitest": "^0.32.0"
   }
 }

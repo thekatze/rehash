@@ -3,6 +3,7 @@ import Icons from "unplugin-icons/vite";
 import { defineConfig } from "vite";
 import solidPlugin from "vite-plugin-solid";
 import { VitePWA } from "vite-plugin-pwa";
+import UnoCSS from "unocss/vite";
 
 import { promisify } from "util";
 import { exec } from "child_process";
@@ -17,6 +18,7 @@ export default defineConfig(async ({ command, mode }) => {
 
   return {
     plugins: [
+      UnoCSS(),
       solidPlugin(),
       Icons({
         compiler: "solid",
