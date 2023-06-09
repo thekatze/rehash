@@ -1,4 +1,4 @@
-import { decodeBase64, encodeBase64 } from "hash-wasm/lib/util";
+import { decodeBase64, encodeBase64 } from "./utils";
 import { Store } from "./store";
 
 export interface EncryptedStore {
@@ -6,19 +6,23 @@ export interface EncryptedStore {
   store: string;
 }
 
-export async function decrypt(password: string, store: EncryptedStore): Promise<Store> {
+export async function decrypt(password: string, store: EncryptedStore): Promise<Store | null> {
   const iv = decodeBase64(store.iv);
   const key = await deriveKey(password, iv);
 
-  const data = await crypto.subtle.decrypt(
-    getAesParams(iv),
-    key,
-    decodeBase64(store.store)
-  );
+  try {
+    const data = await crypto.subtle.decrypt(
+      getAesParams(iv),
+      key,
+      decodeBase64(store.store)
+    );
 
-  const decrypted = JSON.parse(new TextDecoder().decode(data));
+    const decrypted = JSON.parse(new TextDecoder().decode(data));
 
-  return decrypted as Store;
+    return decrypted as Store;
+  } catch {
+    return null;
+  }
 }
 
 export async function encrypt(password: string, store: Store): Promise<EncryptedStore> {

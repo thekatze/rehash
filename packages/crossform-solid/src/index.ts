@@ -18,6 +18,12 @@ type CreateFormParameters<TFormData extends object> = Parameters<typeof createFo
 
 type HandlerType = "text" | "number";
 
+export type RegisterHandlersFunction<TFormData extends object, TField extends DeepKeyOf<TFormData> = DeepKeyOf<TFormData>> = (field: TField, type: HandlerType) => {
+  onInput: JSX.EventHandler<HTMLInputElement | HTMLTextAreaElement, InputEvent>;
+  onBlur: JSX.EventHandler<HTMLInputElement | HTMLTextAreaElement, FocusEvent>;
+  value: EvaluateKey<TFormData, TField>;
+};
+
 export const createForm = <TFormData extends object>(params: CreateFormParameters<TFormData>) => {
   const [context, setContext] = createSignal(createFormInternal<TFormData>(params));
   const [errors, setErrorsInternal] = createSignal<ValidationErrors<TFormData>>({});
@@ -46,7 +52,7 @@ export const createForm = <TFormData extends object>(params: CreateFormParameter
   });
 
   const registerHandlers = (field: DeepKeyOf<TFormData>, type: HandlerType = "text") => {
-    const onInput: JSX.EventHandler<HTMLInputElement | HTMLTextAreaElement, Event> = (event) => {
+    const onInput: JSX.EventHandler<HTMLInputElement | HTMLTextAreaElement, InputEvent> = (event) => {
       setContext((context) => {
         const data = context.data;
         const value = ({ text: (v) => v, number: (v) => +v } satisfies Record<HandlerType, (v: string) => unknown>)[type](event.currentTarget.value);

@@ -13,8 +13,8 @@ const Layout: VoidComponent<{ left: JSXElement; right: JSXElement }> = (
   const onRoot = () => location.pathname === "/";
 
   return (
-    <main class="flex flex-col-reverse md:flex-row h-screen bg-background text-text">
-      <nav class="w-16 flex flex-row md:flex-col">
+    <main class="flex flex-col-reverse md:flex-row h-screen">
+      <nav class="md:w-16 flex flex-row md:flex-col">
         <For
           each={[
             {
@@ -28,7 +28,7 @@ const Layout: VoidComponent<{ left: JSXElement; right: JSXElement }> = (
           ]}
         >
           {(item) => (
-            <A class="w-16 h-16" href={item.href}>
+            <A class="w-16 h-16 hover:bg-line" href={item.href}>
               {item.icon}
             </A>
           )}

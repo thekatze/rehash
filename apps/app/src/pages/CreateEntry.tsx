@@ -16,14 +16,17 @@ const CreateEntry: VoidComponent = () => {
       id = crypto.randomUUID();
     }
 
-    setStore((s) => (
-      { ...s, entries: { ...s.entries, [id]: entry } }
-    ));
+    setStore((s) => ({ ...s, entries: { ...s.entries, [id]: entry } }));
 
     navigate(`/entry/${id}`);
   };
 
-  return <EntryForm onSubmit={addEntry} />;
+  return (
+    <EntryForm
+      onSubmit={addEntry}
+      initialData={{ options: { length: 32, iteration: 1 } }}
+    />
+  );
 };
 
 export default CreateEntry;
