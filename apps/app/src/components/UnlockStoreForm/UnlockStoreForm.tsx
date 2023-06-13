@@ -4,6 +4,10 @@ import {
   StoreState,
   UnlockedStore,
 } from "@/providers/RehashProvider";
+
+import { autofocus } from "@solid-primitives/autofocus";
+autofocus;
+
 import { VoidComponent } from "solid-js";
 import { createForm, required } from "@crossform/solid";
 import { decrypt } from "@rehash/logic";
@@ -44,6 +48,8 @@ const UnlockStoreForm: VoidComponent<{
       <p>{t("UNLOCK_TEXT")}</p>
       <form onSubmit={unlock} class="flex flex-col gap-2">
         <Input
+          use:autofocus
+          autofocus
           label={t("PASSWORD")}
           required
           error={errors().password}

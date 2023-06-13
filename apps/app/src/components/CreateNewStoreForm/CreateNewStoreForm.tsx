@@ -7,6 +7,9 @@ import Input from "@/ui/Input";
 import Button from "@/ui/Button";
 import Disclosure from "@/ui/Disclosure";
 
+import { autofocus } from "@solid-primitives/autofocus";
+autofocus;
+
 const CreateNewStoreForm: VoidComponent<{
   onSubmit: (password: string, options: GeneratorOptions) => void;
 }> = (props) => {
@@ -37,6 +40,8 @@ const CreateNewStoreForm: VoidComponent<{
         class="flex flex-col gap-2"
       >
         <Input
+          use:autofocus
+          autofocus
           label={t("PASSWORD")}
           required
           type="password"

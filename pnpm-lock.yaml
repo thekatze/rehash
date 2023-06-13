@@ -40,6 +40,9 @@ importers:
       '@rehash/logic':
         specifier: workspace:*
         version: link:../../packages/logic
+      '@solid-primitives/autofocus':
+        specifier: ^0.0.107
+        version: 0.0.107(solid-js@1.7.6)
       '@solid-primitives/i18n':
         specifier: ^1.4.0
         version: 1.4.0(solid-js@1.7.6)
@@ -2088,6 +2091,15 @@ packages:
       rollup: 2.79.1
     dev: true
 
+  /@solid-primitives/autofocus@0.0.107(solid-js@1.7.6):
+    resolution: {integrity: sha512-CWa87WQA5McII2uOb74aMYdQq9oNVtKDEdzFKXHHwUY1yXQKXzoXE+yBu4jtqG81IVkJCDpEdaal7PvdSOMhag==}
+    peerDependencies:
+      solid-js: ^1.6.12
+    dependencies:
+      '@solid-primitives/utils': 6.2.0(solid-js@1.7.6)
+      solid-js: 1.7.6
+    dev: false
+
   /@solid-primitives/context@0.2.1(solid-js@1.7.6):
     resolution: {integrity: sha512-XIIwCOWpRKDersgkR9LNFXaJHIV8QlCFo/tq5bV0cAOZklcwOFcqi2bN+uWgEIQSWGjWXU2kc1H1/TzgYzVDlg==}
     peerDependencies:
@@ -2102,6 +2114,14 @@ packages:
       solid-js: ^1.6.12
     dependencies:
       '@solid-primitives/context': 0.2.1(solid-js@1.7.6)
+      solid-js: 1.7.6
+    dev: false
+
+  /@solid-primitives/utils@6.2.0(solid-js@1.7.6):
+    resolution: {integrity: sha512-T62WlLwKkbmicsw/xpwMQyv9MmZRSaVyutXfS5icc9v0cb8qGMUxRxr5LVvZHYQCZ9DEFboZB0r711xsbVBbeA==}
+    peerDependencies:
+      solid-js: ^1.6.12
+    dependencies:
       solid-js: 1.7.6
     dev: false
 

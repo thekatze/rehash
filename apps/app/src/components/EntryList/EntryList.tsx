@@ -4,8 +4,8 @@ import { For, VoidComponent, createSignal } from "solid-js";
 import { sortBy } from "lodash-es";
 import { StoreEntry, generate } from "@rehash/logic";
 import Input from "@/ui/Input";
-
 import SettingsIcon from "~icons/majesticons/settings-cog-line";
+import { useI18n } from "@solid-primitives/i18n";
 
 const EntryListItem: VoidComponent<{ id: string; entry: StoreEntry }> = (
   props
@@ -60,6 +60,7 @@ const EntryListItem: VoidComponent<{ id: string; entry: StoreEntry }> = (
 
 const EntryList: VoidComponent = () => {
   const [store] = useRehash();
+  const [t] = useI18n();
 
   const [filter, setFilter] = createSignal("");
 
@@ -83,7 +84,7 @@ const EntryList: VoidComponent = () => {
     <div class="flex flex-col h-full relative">
       <div class="flex flex-row items-center gap-4">
         <Input
-          label="Search..."
+          label={t("FILTER")}
           type="text"
           value={filter()}
           onInput={(e) => setFilter(e.target.value.toLowerCase())}

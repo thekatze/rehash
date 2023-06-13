@@ -10,6 +10,7 @@
   "dependencies": {
     "@crossform/solid": "workspace:*",
     "@rehash/logic": "workspace:*",
+    "@solid-primitives/autofocus": "^0.0.107",
     "@solid-primitives/i18n": "^1.4.0",
     "@solidjs/router": "^0.8.2",
     "@unocss/reset": "^0.53.1",
