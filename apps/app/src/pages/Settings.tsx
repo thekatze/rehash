@@ -55,7 +55,7 @@ const DeleteStoreButton: VoidComponent = () => {
   const navigate = useNavigate();
 
   const deleteStore = () => {
-    setStore(() => ({ state: StoreState.Uninitialized }) as any);
+    setStore(() => ({ state: StoreState.Uninitialized } as any));
     set("rehash_store", undefined);
     navigate("/");
   };
@@ -87,7 +87,6 @@ const StoreSettingsForm: VoidComponent = () => {
           <Button>Save changes</Button>
         </form>
       </Disclosure.Content>
-
     </Disclosure>
   );
 };
@@ -101,7 +100,9 @@ const Settings: VoidComponent = () => {
       <StoreSettingsForm />
       <DeleteStoreButton />
 
-      <span class="mt-auto text-grayscale-400">{t("VERSION", { version: __GIT_REVISION__ })}</span>
+      <span class="mt-auto text-grayscale-400">
+        {t("VERSION", { version: __GIT_REVISION__ })}
+      </span>
     </div>
   );
 };

@@ -68,11 +68,11 @@ const EntryList: VoidComponent = () => {
     filter() === ""
       ? allEntries()
       : allEntries().filter(
-        ([, e]) =>
-          e.displayName?.toLowerCase().includes(filter()) ||
-          e.url?.toLowerCase().includes(filter()) ||
-          e.username?.toLowerCase().includes(filter())
-      );
+          ([, e]) =>
+            e.displayName?.toLowerCase().includes(filter()) ||
+            e.url?.toLowerCase().includes(filter()) ||
+            e.username?.toLowerCase().includes(filter())
+        );
 
   const sortedEntries = () =>
     sortBy(filteredEntries(), [

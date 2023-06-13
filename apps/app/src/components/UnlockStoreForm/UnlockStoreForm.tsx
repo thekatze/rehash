@@ -43,7 +43,13 @@ const UnlockStoreForm: VoidComponent<{
       <h1 class="text-xl font-bold">{t("UNLOCK")}</h1>
       <p>{t("UNLOCK_TEXT")}</p>
       <form onSubmit={unlock} class="flex flex-col gap-2">
-        <Input label={t("PASSWORD")} required error={errors().password} type="password" {...registerHandlers("password")} />
+        <Input
+          label={t("PASSWORD")}
+          required
+          error={errors().password}
+          type="password"
+          {...registerHandlers("password")}
+        />
         <Button>Unlock</Button>
       </form>
     </div>

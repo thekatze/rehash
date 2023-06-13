@@ -1,7 +1,7 @@
 import { RegisterHandlersFunction } from "@crossform/solid";
 import { GeneratorOptions } from "@rehash/logic";
 import { VoidComponent } from "solid-js";
-import Input from "@/ui/Input"
+import Input from "@/ui/Input";
 import { useI18n } from "@solid-primitives/i18n";
 
 const StoreSettingsFields: VoidComponent<{

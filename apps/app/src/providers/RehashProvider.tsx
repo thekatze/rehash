@@ -103,7 +103,12 @@ export const RehashProvider: FlowComponent = (props) => {
             <CreateNewStoreForm onSubmit={createNewStore} />
           </main>
         </Match>
-        <Match when={store().state === StoreState.Encrypted || store().state === StoreState.Locked}>
+        <Match
+          when={
+            store().state === StoreState.Encrypted ||
+            store().state === StoreState.Locked
+          }
+        >
           <main class="max-w-sm h-full m-auto mt-8">
             <UnlockStoreForm
               onSubmit={setStore}
