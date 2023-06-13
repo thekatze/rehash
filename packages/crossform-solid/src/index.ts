@@ -68,7 +68,7 @@ export const createForm = <TFormData extends object>(params: CreateFormParameter
       setErrors(field, validationErrors);
     }
 
-    return { onInput, onBlur, value: deepGetProperty(context().data, field) ?? null };
+    return { onInput, onBlur, name: field, value: deepGetProperty(context().data, field) ?? null };
   }
 
 

@@ -1,10 +1,14 @@
 import EntryForm from "@/components/EntryForm";
 import { useRehash } from "@/providers/RehashProvider";
+import Input from "@/ui/Input";
 import { StoreEntry, generate } from "@rehash/logic";
+import { useI18n } from "@solid-primitives/i18n";
 import { useParams } from "@solidjs/router";
 import { Show, VoidComponent, createResource, createSignal } from "solid-js";
 
 const EditEntry: VoidComponent = () => {
+  const [t] = useI18n();
+
   const params = useParams<{ id: string }>();
   const [store, setStore] = useRehash();
   const [visible, setVisible] = createSignal(false);
@@ -24,9 +28,9 @@ const EditEntry: VoidComponent = () => {
       {(entry) => (
         <>
           <EntryForm onSubmit={updateEntry} initialData={{ ...entry }} />
-          <div class="flex flex-row gap-2">
-            <input
-              class="flex-1"
+          <div class="flex flex-row gap-4">
+            <Input
+              label={t("PASSWORD")}
               type={visible() ? "text" : "password"}
               value={password()}
             />

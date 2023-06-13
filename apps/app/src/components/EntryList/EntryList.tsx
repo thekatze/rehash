@@ -3,6 +3,9 @@ import { A } from "@solidjs/router";
 import { For, VoidComponent, createSignal } from "solid-js";
 import { sortBy } from "lodash-es";
 import { StoreEntry, generate } from "@rehash/logic";
+import Input from "@/ui/Input";
+
+import SettingsIcon from "~icons/majesticons/settings-cog-line";
 
 const EntryListItem: VoidComponent<{ id: string; entry: StoreEntry }> = (
   props
@@ -65,11 +68,11 @@ const EntryList: VoidComponent = () => {
     filter() === ""
       ? allEntries()
       : allEntries().filter(
-          ([, e]) =>
-            e.displayName?.toLowerCase().includes(filter()) ||
-            e.url?.toLowerCase().includes(filter()) ||
-            e.username?.toLowerCase().includes(filter())
-        );
+        ([, e]) =>
+          e.displayName?.toLowerCase().includes(filter()) ||
+          e.url?.toLowerCase().includes(filter()) ||
+          e.username?.toLowerCase().includes(filter())
+      );
 
   const sortedEntries = () =>
     sortBy(filteredEntries(), [
@@ -78,12 +81,17 @@ const EntryList: VoidComponent = () => {
 
   return (
     <div class="flex flex-col h-full relative">
-      <input
-        placeholder="Search..."
-        type="text"
-        value={filter()}
-        onInput={(e) => setFilter(e.target.value.toLowerCase())}
-      />
+      <div class="flex flex-row items-center gap-4">
+        <Input
+          label="Search..."
+          type="text"
+          value={filter()}
+          onInput={(e) => setFilter(e.target.value.toLowerCase())}
+        />
+        <A href="/settings">
+          <SettingsIcon />
+        </A>
+      </div>
       <ol class="flex-1 overflow-y-auto flex flex-col gap-1">
         <For each={sortedEntries()}>
           {([id, entry]) => <EntryListItem id={id} entry={entry} />}

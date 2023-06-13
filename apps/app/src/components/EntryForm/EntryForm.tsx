@@ -1,11 +1,16 @@
+import Button from "@/ui/Button";
+import Input from "@/ui/Input";
 import { createForm, min, required } from "@crossform/solid";
 import { StoreEntry } from "@rehash/logic";
+import { useI18n } from "@solid-primitives/i18n";
 import { VoidComponent } from "solid-js";
 
 const EntryForm: VoidComponent<{
   onSubmit: (entry: StoreEntry) => void;
   initialData?: Partial<StoreEntry>;
 }> = (props) => {
+  const [t] = useI18n();
+
   const { registerHandlers, handleSubmit } = createForm<StoreEntry>({
     validation: {
       url: [required("REQUIRED")],
@@ -22,29 +27,29 @@ const EntryForm: VoidComponent<{
 
   return (
     <form onSubmit={submit} class="flex flex-col">
-      <input
+      <Input
         type="text"
-        placeholder="displayName"
+        label={t("DISPLAY_NAME")}
         {...registerHandlers("displayName")}
       />
-      <input type="text" placeholder="url" {...registerHandlers("url")} />
-      <input
+      <Input type="text" label="url" {...registerHandlers("url")} />
+      <Input
         type="text"
-        placeholder="username"
+        label={t("USERNAME")}
         {...registerHandlers("username")}
       />
       <textarea placeholder="notes" {...registerHandlers("notes")} />
-      <input
-        type="number"
-        placeholder="length"
+      <Input
+        type="text"
+        label={t("LENGTH")}
         {...registerHandlers("options.length", "number")}
       />
-      <input
+      <Input
         type="number"
-        placeholder="iteration"
+        label={t("ITERATION")}
         {...registerHandlers("options.iteration", "number")}
       />
-      <button>Save</button>
+      <Button>{t("SAVE_CHANGES")}</Button>
     </form>
   );
 };

@@ -4,17 +4,22 @@ import {
   StoreState,
   UnlockedStore,
 } from "@/providers/RehashProvider";
-import { VoidComponent, createSignal } from "solid-js";
+import { VoidComponent } from "solid-js";
 import { createForm, required } from "@crossform/solid";
 import { decrypt } from "@rehash/logic";
+import { useI18n } from "@solid-primitives/i18n";
+import Input from "@/ui/Input";
+import Button from "@/ui/Button";
 
 const UnlockStoreForm: VoidComponent<{
   onSubmit: (store: UnlockedStore) => void;
   store: Extract<EncryptedStore | LockedStore, { state: StoreState }>;
 }> = (props) => {
+  const [t] = useI18n();
+
   const { registerHandlers, handleSubmit, errors, setErrors } = createForm<{
     password: string;
-  }>({ validation: { password: [required("")] } });
+  }>({ validation: { password: [required("PASSWORD_REQUIRED")] } });
 
   const unlock = handleSubmit(async ({ password }) => {
     if (props.store.state == StoreState.Locked) {
@@ -34,11 +39,14 @@ const UnlockStoreForm: VoidComponent<{
   });
 
   return (
-    <form onSubmit={unlock}>
-      <input type="password" {...registerHandlers("password")} />
-      <button>Unlock</button>
-      <pre>{JSON.stringify(errors(), null, 2)}</pre>
-    </form>
+    <div class="flex flex-col gap-2">
+      <h1 class="text-xl font-bold">{t("UNLOCK")}</h1>
+      <p>{t("UNLOCK_TEXT")}</p>
+      <form onSubmit={unlock} class="flex flex-col gap-2">
+        <Input label={t("PASSWORD")} required error={errors().password} type="password" {...registerHandlers("password")} />
+        <Button>Unlock</Button>
+      </form>
+    </div>
   );
 };
 

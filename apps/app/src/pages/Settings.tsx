@@ -1,9 +1,13 @@
+import StoreSettingsFields from "@/components/StoreSettingsFields";
 import { supportedLanguages } from "@/i18n/I18nProvider";
 import { StoreState, useRehash } from "@/providers/RehashProvider";
-import { RegisterHandlersFunction, createForm } from "@crossform/solid";
+import Button from "@/ui/Button";
+import Disclosure from "@/ui/Disclosure";
+import { createForm } from "@crossform/solid";
 import { GeneratorOptions } from "@rehash/logic";
 import { useI18n } from "@solid-primitives/i18n";
 import { useNavigate } from "@solidjs/router";
+import { set } from "idb-keyval";
 import { For, VoidComponent } from "solid-js";
 
 const LanguageSwitcher: VoidComponent = () => {
@@ -29,7 +33,7 @@ const LanguageSwitcher: VoidComponent = () => {
     <>
       <label>{t("LANGUAGE")}</label>
       <select
-        class="bg-background"
+        class="bg-grayscale-900"
         value={locale()}
         onChange={(e) => changeLocale(e.target.value)}
       >
@@ -51,18 +55,20 @@ const DeleteStoreButton: VoidComponent = () => {
   const navigate = useNavigate();
 
   const deleteStore = () => {
-    setStore(() => ({ state: StoreState.Uninitialized } as any));
+    setStore(() => ({ state: StoreState.Uninitialized }) as any);
+    set("rehash_store", undefined);
     navigate("/");
   };
 
   return (
-    <button type="button" onClick={deleteStore}>
+    <Button type="button" onClick={deleteStore}>
       {t("DELETE_STORE")}
-    </button>
+    </Button>
   );
 };
 
 const StoreSettingsForm: VoidComponent = () => {
+  const [t] = useI18n();
   const [store, setStore] = useRehash();
 
   const { registerHandlers, errors, handleSubmit } =
@@ -73,53 +79,29 @@ const StoreSettingsForm: VoidComponent = () => {
   });
 
   return (
-    <form onSubmit={submit} class="flex flex-col gap-2">
-      <StoreSettingsFields registerHandlers={registerHandlers} />
-      <button>Save changes</button>
-    </form>
-  );
-};
+    <Disclosure>
+      <Disclosure.Button>{t("ADVANCED_SETTINGS")}</Disclosure.Button>
+      <Disclosure.Content>
+        <form onSubmit={submit} class="flex flex-col gap-2">
+          <StoreSettingsFields registerHandlers={registerHandlers} />
+          <Button>Save changes</Button>
+        </form>
+      </Disclosure.Content>
 
-const StoreSettingsFields: VoidComponent<{
-  registerHandlers: RegisterHandlersFunction<GeneratorOptions>;
-}> = (props) => {
-  return (
-    <>
-      <label class="block">
-        Encrypt
-        <input
-          type="checkbox"
-          checked={true}
-          onChange={(e) => e.target.value}
-        />
-      </label>
-      <input
-        placeholder="iterations"
-        type="number"
-        {...props.registerHandlers("iterations", "number")}
-      />
-      <input
-        placeholder="memorySize"
-        type="number"
-        {...props.registerHandlers("memorySize", "number")}
-      />
-      <input
-        placeholder="parallelism"
-        type="number"
-        {...props.registerHandlers("parallelism", "number")}
-      />
-    </>
+    </Disclosure>
   );
 };
 
 const Settings: VoidComponent = () => {
   const [t] = useI18n();
   return (
-    <div class="flex flex-col gap-2">
+    <div class="h-full flex flex-col gap-2">
       <h1>{t("SETTINGS")}</h1>
       <LanguageSwitcher />
       <StoreSettingsForm />
       <DeleteStoreButton />
+
+      <span class="mt-auto text-grayscale-400">{t("VERSION", { version: __GIT_REVISION__ })}</span>
     </div>
   );
 };
