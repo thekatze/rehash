@@ -7,7 +7,7 @@ export interface StoreEntry {
   options: {
     length: number;
     iteration: number;
-  },
+  };
   displayName?: string;
   notes?: string;
 }
@@ -16,4 +16,3 @@ export interface Store {
   options: GeneratorOptions;
   entries: Record<string, StoreEntry>;
 }
-

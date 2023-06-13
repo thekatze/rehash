@@ -9,12 +9,14 @@ export interface GeneratorOptions {
 
 export type GeneratorEntry = Pick<StoreEntry, "url" | "username" | "options">;
 
-export async function generate(password: string, options: GeneratorOptions, entry: GeneratorEntry): Promise<string> {
+export async function generate(
+  password: string,
+  options: GeneratorOptions,
+  entry: GeneratorEntry
+): Promise<string> {
   const result = await argon2id({
     password: password,
-    salt: (entry.username + `${entry.options.iteration}` + entry.url).padEnd(
-      8
-    ),
+    salt: (entry.username + `${entry.options.iteration}` + entry.url).padEnd(8),
     outputType: "encoded",
     hashLength: entry.options.length,
     iterations: options.iterations,

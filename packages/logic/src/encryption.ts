@@ -6,7 +6,10 @@ export interface EncryptedStore {
   store: string;
 }
 
-export async function decrypt(password: string, store: EncryptedStore): Promise<Store | null> {
+export async function decrypt(
+  password: string,
+  store: EncryptedStore
+): Promise<Store | null> {
   const iv = decodeBase64(store.iv);
   const key = await deriveKey(password, iv);
 
@@ -25,7 +28,10 @@ export async function decrypt(password: string, store: EncryptedStore): Promise<
   }
 }
 
-export async function encrypt(password: string, store: Store): Promise<EncryptedStore> {
+export async function encrypt(
+  password: string,
+  store: Store
+): Promise<EncryptedStore> {
   const aesParams = getAesParams(crypto.getRandomValues(new Uint8Array(32)));
   const key = await deriveKey(password, aesParams.iv);
 
@@ -44,11 +50,14 @@ export async function encrypt(password: string, store: Store): Promise<Encrypted
 function getAesParams(iv: Uint8Array): AesGcmParams {
   return {
     name: "AES-GCM",
-    iv
+    iv,
   };
 }
 
-async function deriveKey(password: string, salt: BufferSource): Promise<CryptoKey> {
+async function deriveKey(
+  password: string,
+  salt: BufferSource
+): Promise<CryptoKey> {
   const derived = await crypto.subtle.importKey(
     "raw",
     new TextEncoder().encode(password),

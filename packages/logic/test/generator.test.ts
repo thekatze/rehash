@@ -62,11 +62,11 @@ describe.concurrent("RehashGenerator", () => {
   ])(
     "should reliably generate passwords",
     async (password, generatorOptions, entry, expected) => {
-      const generated = await generate(
-        password,
-        generatorOptions,
-        entry);
-      expect(generated, `password [${password}] for entry [${entry.username}, ${entry.url}]`).toBe(expected);
+      const generated = await generate(password, generatorOptions, entry);
+      expect(
+        generated,
+        `password [${password}] for entry [${entry.username}, ${entry.url}]`
+      ).toBe(expected);
     }
   );
 });

@@ -1,5 +1,5 @@
 export const deepSetProperty = (object: any, path: string, value: any) => {
-  const parts = path.split('.');
+  const parts = path.split(".");
   // navigate n-1 deep into the object
   for (let i = 0; i < parts.length - 1; i++) {
     const key = parts[i];
@@ -10,4 +10,5 @@ export const deepSetProperty = (object: any, path: string, value: any) => {
   object[key] = value;
 };
 
-export const deepGetProperty = (object: any, path: string) => path.split('.').reduce((value, part) => value?.[part], object);
+export const deepGetProperty = (object: any, path: string) =>
+  path.split(".").reduce((value, part) => value?.[part], object);

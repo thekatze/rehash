@@ -42,9 +42,7 @@ const PasswordGenerator: Component = () => {
     const options = { ...generatorOptions };
     const data = { ...generatorData };
 
-    return untrack(firstRun)
-      ? undefined
-      : generate(password, options, data);
+    return untrack(firstRun) ? undefined : generate(password, options, data);
   };
 
   onMount(() => setFirstRun(false));

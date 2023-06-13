@@ -21,7 +21,7 @@ export type Traversable = object;
  * IsTuple<number[]> = false
  * ```
  */
-export type IsTuple<T extends ReadonlyArray<any>> = number extends T['length']
+export type IsTuple<T extends ReadonlyArray<any>> = number extends T["length"]
   ? false
   : true;
 
@@ -86,7 +86,7 @@ export type UnionToIntersection<U> = (
  * AppendNonBlankKey<['foo'], ''> = ['foo']
  * ```
  */
-type AppendNonBlankKey<PT extends PathTuple, K extends Key> = K extends ''
+type AppendNonBlankKey<PT extends PathTuple, K extends Key> = K extends ""
   ? PT
   : [...PT, K];
 
@@ -99,7 +99,7 @@ type AppendNonBlankKey<PT extends PathTuple, K extends Key> = K extends ''
  */
 type SplitPathStringImpl<
   PS extends PathString,
-  PT extends PathTuple,
+  PT extends PathTuple
 > = PS extends `${infer K}.${infer R}`
   ? SplitPathStringImpl<R, AppendNonBlankKey<PT, K>>
   : AppendNonBlankKey<PT, PS>;
@@ -128,7 +128,7 @@ export type SplitPathString<PS extends PathString> = SplitPathStringImpl<
  */
 type JoinPathTupleImpl<
   PT extends PathTuple,
-  PS extends PathString,
+  PS extends PathString
 > = PT extends [infer K, ...infer R]
   ? JoinPathTupleImpl<AsPathTuple<R>, `${PS}.${AsKey<K>}`>
   : PS;
@@ -145,7 +145,7 @@ type JoinPathTupleImpl<
  */
 export type JoinPathTuple<PT extends PathTuple> = PT extends [
   infer K,
-  ...infer R,
+  ...infer R
 ]
   ? JoinPathTupleImpl<AsPathTuple<R>, AsKey<K>>
   : never;
@@ -192,7 +192,7 @@ type TryAccess<T, K> = K extends keyof T
  */
 type TryAccessArray<
   T extends ReadonlyArray<any>,
-  K extends Key,
+  K extends Key
 > = K extends `${ArrayKey}` ? T[number] : TryAccess<T, K>;
 
 /**
@@ -208,8 +208,8 @@ type TryAccessArray<
  */
 export type EvaluateKey<T, K extends Key> = T extends ReadonlyArray<any>
   ? IsTuple<T> extends true
-  ? TryAccess<T, K>
-  : TryAccessArray<T, K>
+    ? TryAccess<T, K>
+    : TryAccessArray<T, K>
   : TryAccess<MapKeys<T>, K>;
 
 /**
@@ -226,7 +226,7 @@ export type EvaluateKey<T, K extends Key> = T extends ReadonlyArray<any>
  */
 export type EvaluatePath<T, PT extends PathTuple> = PT extends [
   infer K,
-  ...infer R,
+  ...infer R
 ]
   ? EvaluatePath<EvaluateKey<T, AsKey<K>>, AsPathTuple<R>>
   : T;
