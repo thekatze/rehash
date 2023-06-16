@@ -7,6 +7,7 @@ import {
   validateField,
   ValidationErrors,
   validateForm,
+  reduceErrors as reduceErrorsInternal,
 } from "@crossform/core";
 import { deepGetProperty, deepSetProperty } from "@crossform/core/src/utils";
 import { EvaluateKey } from "@crossform/core/src/utilTypes";
@@ -108,13 +109,15 @@ export const createForm = <TFormData extends object>(
 
   const watch =
     <TField extends DeepKeyOf<TFormData>>(field: TField) =>
-    (): EvaluateKey<TFormData, TField> =>
-      deepGetProperty(context().data, field);
+      (): EvaluateKey<TFormData, TField> =>
+        deepGetProperty(context().data, field);
 
   const reset = (data?: Partial<TFormData>) => {
     setContext((context) => resetInternal(context, data));
     setErrorsInternal({});
   };
+
+  const reduceErrors = (field: DeepKeyOf<TFormData>, map: (s: string) => string, separator: string = ", ") => reduceErrorsInternal(errors(), field, map, separator);
 
   return {
     handleSubmit,
@@ -124,5 +127,6 @@ export const createForm = <TFormData extends object>(
     isDirty,
     watch,
     reset,
+    reduceErrors
   };
 };

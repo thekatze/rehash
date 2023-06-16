@@ -1,14 +1,25 @@
-import { ComponentProps, FlowComponent, splitProps } from "solid-js";
+import { ComponentProps, FlowComponent } from "solid-js";
 
-const Button: FlowComponent<{ variant?: "" } & ComponentProps<"button">> = (
+export const buttonColors = `
+  bg-grayscale-100
+  enabled:hover:bg-grayscale-200
+  enabled:active:bg-grayscale-300
+  enabled:focus-visible:bg-grayscale-300
+  disabled:bg-grayscale-400
+  text-grayscale-900
+  disabled:text-grayscale-700
+  focus:outline-none
+`;
+
+export const buttonStyle = `w-full h-10 ${buttonColors}`;
+
+const Button: FlowComponent<ComponentProps<"button">> = (
   props
 ) => {
-  const [componentProps, buttonProps] = splitProps(props, ["variant"]);
-
   return (
     <button
-      {...buttonProps}
-      class="w-full p-4 bg-grayscale-100 hover:bg-grayscale-200 active:bg-grayscale-300 focus-visible:bg-grayscale-300 text-grayscale-900 focus:outline-none"
+      {...props}
+      class={buttonStyle}
     >
       {props.children}
     </button>

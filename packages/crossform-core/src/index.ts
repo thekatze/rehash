@@ -82,4 +82,10 @@ export const validateForm = <TFormData extends object>(
   }, {} as ValidationErrors<TFormData>);
 };
 
+export const reduceErrors = <TFormData extends object>(errors: ValidationErrors<TFormData>, field: DeepKeyOf<TFormData>, map: (s: string) => string, join = ", "): string | undefined => {
+  const fieldErrors: string[] = deepGetProperty(errors, field);
+  return fieldErrors ? fieldErrors.map(map).join(join) : undefined;
+}
+
+
 export * from "./validators";

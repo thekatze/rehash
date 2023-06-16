@@ -1,13 +1,13 @@
 import { VoidComponent } from "solid-js";
 import { GeneratorOptions } from "@rehash/logic";
 import { createForm, required } from "@crossform/solid";
-import StoreSettingsFields from "../StoreSettingsFields";
 import { useI18n } from "@solid-primitives/i18n";
 import Input from "@/ui/Input";
 import Button from "@/ui/Button";
 import Disclosure from "@/ui/Disclosure";
 
 import { autofocus } from "@solid-primitives/autofocus";
+import GeneratorSettingsFields from "../GeneratorSettingsFields";
 autofocus;
 
 const CreateNewStoreForm: VoidComponent<{
@@ -19,7 +19,7 @@ const CreateNewStoreForm: VoidComponent<{
     password: string;
     options: GeneratorOptions;
   }>({
-    validation: { password: [required("Common.PasswordRequired")] },
+    validation: { password: [required("PASSWORD_REQUIRED")] },
     initialData: {
       options: {
         parallelism: 4,
@@ -43,6 +43,7 @@ const CreateNewStoreForm: VoidComponent<{
           use:autofocus
           autofocus
           label={t("PASSWORD")}
+          error
           required
           type="password"
           {...registerHandlers("password")}
@@ -51,7 +52,7 @@ const CreateNewStoreForm: VoidComponent<{
         <Disclosure>
           <Disclosure.Button>Advanced Settings</Disclosure.Button>
           <Disclosure.Content>
-            <StoreSettingsFields
+            <GeneratorSettingsFields
               registerHandlers={(field, type) =>
                 registerHandlers(`options.${field}`, type)
               }

@@ -1,4 +1,4 @@
-import StoreSettingsFields from "@/components/StoreSettingsFields";
+import GeneratorSettingsFields from "@/components/GeneratorSettingsFields";
 import { supportedLanguages } from "@/i18n/I18nProvider";
 import { StoreState, useRehash } from "@/providers/RehashProvider";
 import Button from "@/ui/Button";
@@ -83,7 +83,7 @@ const StoreSettingsForm: VoidComponent = () => {
       <Disclosure.Button>{t("ADVANCED_SETTINGS")}</Disclosure.Button>
       <Disclosure.Content>
         <form onSubmit={submit} class="flex flex-col gap-2">
-          <StoreSettingsFields registerHandlers={registerHandlers} />
+          <GeneratorSettingsFields registerHandlers={registerHandlers} />
           <Button>Save changes</Button>
         </form>
       </Disclosure.Content>

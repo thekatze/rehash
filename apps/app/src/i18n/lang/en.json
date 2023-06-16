@@ -41,6 +41,7 @@
   "NO": "No",
   "NOTES": "Notes",
   "PARALLELISM": "Parallelism",
+  "PASSWORD_REQUIRED": "Password required.",
   "PASSWORD_STRENGTH_DICTIONARY_LOADING": "Loading dictionary, password strength estimate is still inaccurate.",
   "PASSWORD_STRENGTH": "Password strength:",
   "PASSWORD": "Password",

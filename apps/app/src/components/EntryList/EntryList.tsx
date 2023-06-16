@@ -6,6 +6,8 @@ import { StoreEntry, generate } from "@rehash/logic";
 import Input from "@/ui/Input";
 import SettingsIcon from "~icons/majesticons/settings-cog-line";
 import { useI18n } from "@solid-primitives/i18n";
+import { buttonStyle } from "@/ui/Button";
+import { iconButtonStyle } from "@/ui/IconButton";
 
 const EntryListItem: VoidComponent<{ id: string; entry: StoreEntry }> = (
   props
@@ -89,7 +91,7 @@ const EntryList: VoidComponent = () => {
           value={filter()}
           onInput={(e) => setFilter(e.target.value.toLowerCase())}
         />
-        <A href="/settings">
+        <A class={iconButtonStyle} href="/settings">
           <SettingsIcon />
         </A>
       </div>

@@ -41,6 +41,7 @@
   "NO": "Nein",
   "NOTES": "Notizen",
   "PARALLELISM": "Parallelismus",
+  "PASSWORD_REQUIRED": "Passwort erforderlich.",
   "PASSWORD_STRENGTH_DICTIONARY_LOADING": "Lädt Wörterbuch, Passwortsicherheitsschätzung ist noch ungenau.",
   "PASSWORD_STRENGTH": "Passwortsicherheit:",
   "PASSWORD": "Passwort",

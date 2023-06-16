@@ -21,7 +21,7 @@ const UnlockStoreForm: VoidComponent<{
 }> = (props) => {
   const [t] = useI18n();
 
-  const { registerHandlers, handleSubmit, errors, setErrors } = createForm<{
+  const { registerHandlers, handleSubmit, setErrors, reduceErrors } = createForm<{
     password: string;
   }>({ validation: { password: [required("PASSWORD_REQUIRED")] } });
 
@@ -42,6 +42,7 @@ const UnlockStoreForm: VoidComponent<{
     }
   });
 
+
   return (
     <div class="flex flex-col gap-2">
       <h1 class="text-xl font-bold">{t("UNLOCK")}</h1>
@@ -52,7 +53,7 @@ const UnlockStoreForm: VoidComponent<{
           autofocus
           label={t("PASSWORD")}
           required
-          error={errors().password}
+          error={reduceErrors("password", t)}
           type="password"
           {...registerHandlers("password")}
         />

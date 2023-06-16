@@ -11,7 +11,7 @@ const Input: VoidComponent<
   const [componentProps, inputProps] = splitProps(props, ["label", "error"]);
 
   return (
-    <div class="relative w-full mt-6">
+    <div class="relative w-full mt-3.5">
       <input
         id={inputProps.name}
         class="
@@ -23,10 +23,12 @@ const Input: VoidComponent<
         px-1
         border-b-2
         border-b-grayscale-700
+        placeholder-transparent
         focus:outline-none
         focus:border-b-grayscale-300
         invalid:border-b-red-500
-        placeholder-transparent
+        disabled:border-b-grayscale-800
+        disabled:text-grayscale-500
       "
         placeholder={componentProps.label}
         {...inputProps}
@@ -40,14 +42,16 @@ const Input: VoidComponent<
         peer-placeholder-shown:pointer-events-none
         peer-placeholder-shown:text-base
         peer-placeholder-shown:text-grayscale-600
+        peer-placeholder-shown:peer-invalid:text-red-500
         left-1
         -top-3.5
         text-sm
         text-grayscale-100
-        peer-focus:!left-1
-        peer-focus:!-top-3.5
-        peer-focus:!text-sm
-        peer-focus:!text-grayscale-100
+        peer-placeholder-shown:peer-focus:left-1
+        peer-placeholder-shown:peer-focus:-top-3.5
+        peer-placeholder-shown:peer-focus:text-sm
+        peer-placeholder-shown:peer-focus:peer-invalid:text-grayscale-100
+        peer-disabled:text-grayscale-500
       "
       >
         {componentProps.label}

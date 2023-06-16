@@ -10,8 +10,8 @@ const Layout: VoidComponent<{ left: JSXElement; right: JSXElement }> = (
   const onRoot = () => location.pathname === "/";
 
   return (
-    <main class="flex flex-col-reverse md:flex-row h-screen">
-      <section class="flex-1 px-1" classList={{ "hidden md:block": !onRoot() }}>
+    <main class="flex flex-col-reverse md:flex-row h-screen md:px-4">
+      <section class="flex-1 px-4 md:border-grayscale-700 md:border-r-2" classList={{ "hidden md:block": !onRoot() }}>
         {props.left}
       </section>
       <section class="flex-1 px-4" classList={{ "hidden md:block": onRoot() }}>

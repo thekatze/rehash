@@ -11,7 +11,7 @@ const EntryForm: VoidComponent<{
 }> = (props) => {
   const [t] = useI18n();
 
-  const { registerHandlers, handleSubmit } = createForm<StoreEntry>({
+  const { registerHandlers, handleSubmit, errors } = createForm<StoreEntry>({
     validation: {
       url: [required("REQUIRED")],
       username: [required("REQUIRED")],
@@ -21,31 +21,37 @@ const EntryForm: VoidComponent<{
     initialData: { ...props.initialData },
   });
 
-  const submit = handleSubmit((entry) => {
-    props.onSubmit(entry);
-  });
-
   return (
-    <form onSubmit={submit} class="flex flex-col">
+    <form onSubmit={handleSubmit(props.onSubmit)} class="flex flex-col">
       <Input
         type="text"
         label={t("DISPLAY_NAME")}
+        error={errors()["displayName"]}
         {...registerHandlers("displayName")}
       />
-      <Input type="text" label="url" {...registerHandlers("url")} />
+      <Input type="text" required
+        error={errors()["url"]}
+        label={t("URL")}{...registerHandlers("url")} />
       <Input
         type="text"
+        required
+        error={errors()["username"]}
         label={t("USERNAME")}
+
         {...registerHandlers("username")}
       />
       <textarea placeholder="notes" {...registerHandlers("notes")} />
       <Input
-        type="text"
+        type="number"
+        required
+        error={errors()["options.length"]}
         label={t("LENGTH")}
         {...registerHandlers("options.length", "number")}
       />
       <Input
         type="number"
+        required
+        error={errors()["options.iteration"]}
         label={t("ITERATION")}
         {...registerHandlers("options.iteration", "number")}
       />
