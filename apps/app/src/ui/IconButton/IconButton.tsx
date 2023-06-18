@@ -1,15 +1,22 @@
 import { ComponentProps, FlowComponent } from "solid-js";
-import { buttonColors } from "../Button";
+import { buttonIntents } from "../Button";
+import { VariantProps, cva } from "cva";
 
-export const iconButtonStyle = `w-10 h-10 aspect-square flex justify-center items-center ${buttonColors}`;
+export const iconButton = cva("w-10 h-10 aspect-square flex justify-center items-center", {
+  variants: {
+    intent: buttonIntents
+  }
+});
 
-const IconButton: FlowComponent<ComponentProps<"button">> = (
+type IconButtonParameters = VariantProps<typeof iconButton>;
+
+const IconButton: FlowComponent<ComponentProps<"button"> & { "aria-label": string } & IconButtonParameters> = (
   props
 ) => {
   return (
     <button
       {...props}
-      class={iconButtonStyle}
+      class={iconButton({ class: props.class, intent: props.intent })}
     >
       {props.children}
     </button>

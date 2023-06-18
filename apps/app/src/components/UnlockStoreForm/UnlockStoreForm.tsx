@@ -57,7 +57,7 @@ const UnlockStoreForm: VoidComponent<{
           type="password"
           {...registerHandlers("password")}
         />
-        <Button>Unlock</Button>
+        <Button intent="primary">Unlock</Button>
       </form>
     </div>
   );

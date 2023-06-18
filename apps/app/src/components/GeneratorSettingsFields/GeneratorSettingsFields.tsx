@@ -18,7 +18,7 @@ const GeneratorSettingsFields: VoidComponent<{
         These settings change the way all passwords are generated, they have to match on every device.
         Stores can only be merged if these settings match between them.
       </p>
-      <Button type="button" disabled={understood()} onClick={() => setUnderstood(true)}>I Understand</Button>
+      <Button intent="primary" type="button" disabled={understood()} onClick={() => setUnderstood(true)}>I Understand</Button>
       <Input
         label={t("ITERATIONS")}
         disabled={!understood()}

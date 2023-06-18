@@ -7,6 +7,7 @@ import {
 import {
   Accessor,
   createContext,
+  createEffect,
   createResource,
   createSignal,
   FlowComponent,
@@ -80,7 +81,7 @@ export const RehashProvider: FlowComponent = (props) => {
   });
 
   // persist changes to idb if unlocked
-  createResource(store, async () => {
+  createEffect(async () => {
     if (store().state === StoreState.Unlocked) {
       // TODO: check options.encrypt
       await set("rehash_store", {

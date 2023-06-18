@@ -4,14 +4,22 @@ import { For, VoidComponent, createSignal } from "solid-js";
 import { sortBy } from "lodash-es";
 import { StoreEntry, generate } from "@rehash/logic";
 import Input from "@/ui/Input";
-import SettingsIcon from "~icons/majesticons/settings-cog-line";
 import { useI18n } from "@solid-primitives/i18n";
-import { buttonStyle } from "@/ui/Button";
-import { iconButtonStyle } from "@/ui/IconButton";
+import IconButton, { iconButton } from "@/ui/IconButton";
+import { button } from "@/ui/Button";
+
+import SettingsIcon from "~icons/majesticons/settings-cog-line";
+import UserIcon from "~icons/majesticons/user-line";
+
+import CopyToClipboardIcon from "~icons/majesticons/clipboard-copy-line";
+import CopyToClipboardLoadingIcon from "~icons/majesticons/clipboard-line";
+import CopyToClipboardSuccessIcon from "~icons/majesticons/clipboard-check-line";
 
 const EntryListItem: VoidComponent<{ id: string; entry: StoreEntry }> = (
   props
 ) => {
+  const [t] = useI18n();
+
   const [store] = useRehash();
   const [userState, setUserState] = createSignal<number>(0);
   const [generationState, setGenerationState] = createSignal<
@@ -42,19 +50,19 @@ const EntryListItem: VoidComponent<{ id: string; entry: StoreEntry }> = (
 
   return (
     <li class="w-full flex flex-row gap-4">
-      <A href={`/entry/${props.id}`} class="flex flex-col flex-1">
+      <A href={`/entry/${props.id}`} class={button({ intent: "transparent", class: "flex flex-col flex-1 focus:outline-none" })}>
         <strong class="text-lg">
           {props.entry.displayName ?? props.entry.url}
         </strong>
         <em>{props.entry.username}</em>
       </A>
       <div class="flex items-center gap-2">
-        <button onClick={copyUsername}>
-          {userState() === 0 ? "CU" : "SC"}
-        </button>
-        <button onClick={copyPassword}>
-          {{ idle: "CP", loading: "LD" }[generationState()] ?? "SC"}
-        </button>
+        <IconButton aria-label={t("COPY_USERNAME")} intent="transparent" onClick={copyUsername}>
+          {userState() === 0 ? <UserIcon /> : <CopyToClipboardSuccessIcon class="text-green-500" />}
+        </IconButton>
+        <IconButton aria-label={t("COPY_PASSWORD")} intent="transparent" onClick={copyPassword} disabled={generationState() === "loading"}>
+          {{ idle: <CopyToClipboardIcon />, loading: <CopyToClipboardLoadingIcon /> }[generationState()] ?? <CopyToClipboardSuccessIcon class="text-green-500" />}
+        </IconButton>
       </div>
     </li>
   );
@@ -71,11 +79,11 @@ const EntryList: VoidComponent = () => {
     filter() === ""
       ? allEntries()
       : allEntries().filter(
-          ([, e]) =>
-            e.displayName?.toLowerCase().includes(filter()) ||
-            e.url?.toLowerCase().includes(filter()) ||
-            e.username?.toLowerCase().includes(filter())
-        );
+        ([, e]) =>
+          e.displayName?.toLowerCase().includes(filter()) ||
+          e.url?.toLowerCase().includes(filter()) ||
+          e.username?.toLowerCase().includes(filter())
+      );
 
   const sortedEntries = () =>
     sortBy(filteredEntries(), [
@@ -91,7 +99,7 @@ const EntryList: VoidComponent = () => {
           value={filter()}
           onInput={(e) => setFilter(e.target.value.toLowerCase())}
         />
-        <A class={iconButtonStyle} href="/settings">
+        <A class={iconButton({ intent: "transparent" })} href="/settings">
           <SettingsIcon />
         </A>
       </div>
@@ -101,7 +109,7 @@ const EntryList: VoidComponent = () => {
         </For>
       </ol>
       <div class="h-16 flex justify-center items-center">
-        <A href="/new">Add +</A>
+        <A class={button({ intent: "transparent", class: "flex justify-center items-center py-2 w-full" })} href="/new">Add +</A>
       </div>
     </div>
   );

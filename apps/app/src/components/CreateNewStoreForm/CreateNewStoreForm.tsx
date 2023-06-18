@@ -60,7 +60,7 @@ const CreateNewStoreForm: VoidComponent<{
           </Disclosure.Content>
         </Disclosure>
 
-        <Button>{t("CREATE_STORE")}</Button>
+        <Button intent="primary">{t("CREATE_STORE")}</Button>
       </form>
     </div>
   );

@@ -3,7 +3,7 @@ import Input from "@/ui/Input";
 import { createForm, min, required } from "@crossform/solid";
 import { StoreEntry } from "@rehash/logic";
 import { useI18n } from "@solid-primitives/i18n";
-import { VoidComponent } from "solid-js";
+import { VoidComponent, createEffect } from "solid-js";
 
 const EntryForm: VoidComponent<{
   onSubmit: (entry: StoreEntry) => void;
@@ -11,12 +11,12 @@ const EntryForm: VoidComponent<{
 }> = (props) => {
   const [t] = useI18n();
 
-  const { registerHandlers, handleSubmit, errors } = createForm<StoreEntry>({
+  const { registerHandlers, handleSubmit, reduceErrors, errors } = createForm<StoreEntry>({
     validation: {
-      url: [required("REQUIRED")],
-      username: [required("REQUIRED")],
-      "options.length": [required("REQUIRED"), min(4, "MINIMUM_LENGTH")],
-      "options.iteration": [required("REQUIRED")],
+      url: [required("FIELD_REQUIRED")],
+      username: [required("FIELD_REQUIRED")],
+      "options.length": [required("FIELD_REQUIRED"), min(4, "MINIMUM_GENERATED_PASSWORD_LENGTH_NOT_MET")],
+      "options.iteration": [required("FIELD_REQUIRED")],
     },
     initialData: { ...props.initialData },
   });
@@ -26,16 +26,16 @@ const EntryForm: VoidComponent<{
       <Input
         type="text"
         label={t("DISPLAY_NAME")}
-        error={errors()["displayName"]}
+        error={reduceErrors("displayName", t)}
         {...registerHandlers("displayName")}
       />
       <Input type="text" required
-        error={errors()["url"]}
+        error={reduceErrors("url", t)}
         label={t("URL")}{...registerHandlers("url")} />
       <Input
         type="text"
         required
-        error={errors()["username"]}
+        error={reduceErrors("username", t)}
         label={t("USERNAME")}
 
         {...registerHandlers("username")}
@@ -44,18 +44,19 @@ const EntryForm: VoidComponent<{
       <Input
         type="number"
         required
-        error={errors()["options.length"]}
+        error={reduceErrors("options.length", t)}
+        min={4}
         label={t("LENGTH")}
         {...registerHandlers("options.length", "number")}
       />
       <Input
         type="number"
         required
-        error={errors()["options.iteration"]}
+        error={reduceErrors("options.iteration", t)}
         label={t("ITERATION")}
         {...registerHandlers("options.iteration", "number")}
       />
-      <Button>{t("SAVE_CHANGES")}</Button>
+      <Button intent="primary">{t("SAVE_CHANGES")}</Button>
     </form>
   );
 };

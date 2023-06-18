@@ -61,7 +61,7 @@ const DeleteStoreButton: VoidComponent = () => {
   };
 
   return (
-    <Button type="button" onClick={deleteStore}>
+    <Button intent="primary" type="button" onClick={deleteStore}>
       {t("DELETE_STORE")}
     </Button>
   );

@@ -5,10 +5,10 @@ import deepEquals from "fast-deep-equal";
 // https://stackoverflow.com/a/65333050
 export type DeepKeyOf<TObj extends object> = {
   [TKey in keyof TObj & (string | number)]: TObj[TKey] extends any[]
-    ? `${TKey}`
-    : TObj[TKey] extends object
-    ? `${TKey}` | `${TKey}.${DeepKeyOf<TObj[TKey]>}`
-    : `${TKey}`;
+  ? `${TKey}`
+  : TObj[TKey] extends object
+  ? `${TKey}` | `${TKey}.${DeepKeyOf<TObj[TKey]>}`
+  : `${TKey}`;
 }[keyof TObj & (string | number)];
 
 export interface CreateFormProps<TFormData extends object> {
@@ -82,10 +82,9 @@ export const validateForm = <TFormData extends object>(
   }, {} as ValidationErrors<TFormData>);
 };
 
-export const reduceErrors = <TFormData extends object>(errors: ValidationErrors<TFormData>, field: DeepKeyOf<TFormData>, map: (s: string) => string, join = ", "): string | undefined => {
-  const fieldErrors: string[] = deepGetProperty(errors, field);
-  return fieldErrors ? fieldErrors.map(map).join(join) : undefined;
+export const reduceErrors = <TFormData extends object>(errors: ValidationErrors<TFormData>, field: DeepKeyOf<TFormData>, map: (s: string) => string, separator = ", "): string | undefined => {
+  const fieldErrors = errors[field];
+  return fieldErrors ? fieldErrors.map(map).join(separator) : undefined;
 }
-
 
 export * from "./validators";
