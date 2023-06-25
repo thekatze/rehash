@@ -1,4 +1,3 @@
-
 export * from "./GeneratorSettingsFields";
 
 import GeneratorSettingsFields from "./GeneratorSettingsFields";

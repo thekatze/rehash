@@ -100,7 +100,7 @@ export const RehashProvider: FlowComponent = (props) => {
     <Show when={!resource.loading}>
       <Switch>
         <Match when={store().state === StoreState.Uninitialized}>
-          <main class="max-w-sm h-full m-auto mt-8">
+          <main class="max-w-sm h-full px-4 py-2 m-auto mt-8">
             <CreateNewStoreForm onSubmit={createNewStore} />
           </main>
         </Match>
@@ -110,7 +110,7 @@ export const RehashProvider: FlowComponent = (props) => {
             store().state === StoreState.Locked
           }
         >
-          <main class="max-w-sm h-full m-auto mt-8">
+          <main class="max-w-sm h-full px-4 py-2 m-auto mt-8">
             <UnlockStoreForm
               onSubmit={setStore}
               store={store() as EncryptedStore | LockedStore}

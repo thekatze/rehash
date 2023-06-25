@@ -39,7 +39,7 @@ const EditEntry: VoidComponent = () => {
     setCopySuccess(true);
 
     setTimeout(() => setCopySuccess(false), 3000);
-  }
+  };
 
   return (
     <Show when={entry()} keyed fallback={"Oops, this password doesnt exist"}>
@@ -57,7 +57,8 @@ const EditEntry: VoidComponent = () => {
               aria-label={t("SHOW_PASSWORD")}
               class="mb-2"
               intent="transparent"
-              onClick={() => setVisible((v) => !v)}>
+              onClick={() => setVisible((v) => !v)}
+            >
               {visible() ? <InvisibleIcon /> : <VisibleIcon />}
             </IconButton>
             <IconButton
@@ -67,7 +68,11 @@ const EditEntry: VoidComponent = () => {
               disabled={password.loading}
               onClick={() => copyPassword(password())}
             >
-              {copySuccess() ? <CopyToClipboardSuccessIcon class="text-green-500" /> : <CopyToClipboardIcon />}
+              {copySuccess() ? (
+                <CopyToClipboardSuccessIcon class="text-green-500" />
+              ) : (
+                <CopyToClipboardIcon />
+              )}
             </IconButton>
           </div>
         </>

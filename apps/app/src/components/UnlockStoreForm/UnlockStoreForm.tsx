@@ -21,9 +21,10 @@ const UnlockStoreForm: VoidComponent<{
 }> = (props) => {
   const [t] = useI18n();
 
-  const { registerHandlers, handleSubmit, setErrors, reduceErrors } = createForm<{
-    password: string;
-  }>({ validation: { password: [required("PASSWORD_REQUIRED")] } });
+  const { registerHandlers, handleSubmit, setErrors, reduceErrors } =
+    createForm<{
+      password: string;
+    }>({ validation: { password: [required("PASSWORD_REQUIRED")] } });
 
   const unlock = handleSubmit(async ({ password }) => {
     if (props.store.state == StoreState.Locked) {
@@ -41,7 +42,6 @@ const UnlockStoreForm: VoidComponent<{
       props.onSubmit({ ...decrypted, state: StoreState.Unlocked, password });
     }
   });
-
 
   return (
     <div class="flex flex-col gap-2">

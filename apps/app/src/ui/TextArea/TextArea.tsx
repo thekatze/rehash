@@ -5,15 +5,15 @@ import {
   splitProps,
 } from "solid-js";
 
-const Input: VoidComponent<
-  { label: string; error?: JSXElement } & ComponentProps<"input">
+const TextArea: VoidComponent<
+  { label: string; error?: JSXElement } & ComponentProps<"textarea">
 > = (props) => {
-  const [componentProps, inputProps] = splitProps(props, ["label", "error"]);
+  const [componentProps, textAreaProps] = splitProps(props, ["label", "error"]);
 
   return (
     <div class="relative w-full mt-3.5">
-      <input
-        id={inputProps.name}
+      <textarea
+        id={textAreaProps.name}
         class="
         transition-[border-color]
         w-full
@@ -31,10 +31,10 @@ const Input: VoidComponent<
         disabled:text-grayscale-500
       "
         placeholder={componentProps.label}
-        {...inputProps}
+        {...textAreaProps}
       />
       <label
-        for={inputProps.name}
+        for={textAreaProps.name}
         class="
         transition-all
         absolute
@@ -45,18 +45,18 @@ const Input: VoidComponent<
         peer-placeholder-shown:peer-focus:text-grayscale-100
         peer-placeholder-shown:peer-invalid:text-red-500
         left-1
-        -top-3.5
+        -top-5
         text-sm
         text-grayscale-100
         peer-placeholder-shown:peer-focus:left-1
-        peer-placeholder-shown:peer-focus:-top-3.5
+        peer-placeholder-shown:peer-focus:-top-5
         peer-placeholder-shown:peer-focus:text-sm
         peer-placeholder-shown:peer-focus:peer-invalid:text-grayscale-100
         peer-disabled:text-grayscale-500
       "
       >
         {componentProps.label}
-        {inputProps.required && <span class="text-red-500 ml-px">*</span>}
+        {textAreaProps.required && <span class="text-red-500 ml-px">*</span>}
       </label>
       <span class="invisible peer-invalid:visible text-sm text-red-500 px-1">
         {componentProps.error}
@@ -65,4 +65,4 @@ const Input: VoidComponent<
   );
 };
 
-export default Input;
+export default TextArea;

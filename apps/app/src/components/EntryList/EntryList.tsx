@@ -1,6 +1,6 @@
 import { useRehash } from "@/providers/RehashProvider";
 import { A } from "@solidjs/router";
-import { For, VoidComponent, createSignal } from "solid-js";
+import { For, Show, VoidComponent, createSignal } from "solid-js";
 import { sortBy } from "lodash-es";
 import { StoreEntry, generate } from "@rehash/logic";
 import Input from "@/ui/Input";
@@ -50,18 +50,42 @@ const EntryListItem: VoidComponent<{ id: string; entry: StoreEntry }> = (
 
   return (
     <li class="w-full flex flex-row gap-4">
-      <A href={`/entry/${props.id}`} class={button({ intent: "transparent", class: "flex flex-col flex-1 focus:outline-none" })}>
+      <A
+        href={`/entry/${props.id}`}
+        class={button({
+          intent: "transparent",
+          class: "flex flex-col flex-1 focus:outline-none",
+        })}
+      >
         <strong class="text-lg">
           {props.entry.displayName ?? props.entry.url}
         </strong>
         <em>{props.entry.username}</em>
       </A>
       <div class="flex items-center gap-2">
-        <IconButton aria-label={t("COPY_USERNAME")} intent="transparent" onClick={copyUsername}>
-          {userState() === 0 ? <UserIcon /> : <CopyToClipboardSuccessIcon class="text-green-500" />}
+        <IconButton
+          aria-label={t("COPY_USERNAME")}
+          intent="transparent"
+          onClick={copyUsername}
+        >
+          {userState() === 0 ? (
+            <UserIcon />
+          ) : (
+            <CopyToClipboardSuccessIcon class="text-green-500" />
+          )}
         </IconButton>
-        <IconButton aria-label={t("COPY_PASSWORD")} intent="transparent" onClick={copyPassword} disabled={generationState() === "loading"}>
-          {{ idle: <CopyToClipboardIcon />, loading: <CopyToClipboardLoadingIcon /> }[generationState()] ?? <CopyToClipboardSuccessIcon class="text-green-500" />}
+        <IconButton
+          aria-label={t("COPY_PASSWORD")}
+          intent="transparent"
+          onClick={copyPassword}
+          disabled={generationState() === "loading"}
+        >
+          {{
+            idle: <CopyToClipboardIcon />,
+            loading: <CopyToClipboardLoadingIcon />,
+          }[generationState()] ?? (
+            <CopyToClipboardSuccessIcon class="text-green-500" />
+          )}
         </IconButton>
       </div>
     </li>
@@ -79,11 +103,11 @@ const EntryList: VoidComponent = () => {
     filter() === ""
       ? allEntries()
       : allEntries().filter(
-        ([, e]) =>
-          e.displayName?.toLowerCase().includes(filter()) ||
-          e.url?.toLowerCase().includes(filter()) ||
-          e.username?.toLowerCase().includes(filter())
-      );
+          ([, e]) =>
+            e.displayName?.toLowerCase().includes(filter()) ||
+            e.url?.toLowerCase().includes(filter()) ||
+            e.username?.toLowerCase().includes(filter())
+        );
 
   const sortedEntries = () =>
     sortBy(filteredEntries(), [
@@ -94,6 +118,7 @@ const EntryList: VoidComponent = () => {
     <div class="flex flex-col h-full relative">
       <div class="flex flex-row items-center gap-4">
         <Input
+          autocomplete="off"
           label={t("FILTER")}
           type="text"
           value={filter()}
@@ -104,12 +129,22 @@ const EntryList: VoidComponent = () => {
         </A>
       </div>
       <ol class="flex-1 overflow-y-auto flex flex-col gap-1">
-        <For each={sortedEntries()}>
-          {([id, entry]) => <EntryListItem id={id} entry={entry} />}
-        </For>
+        <Show when={allEntries().length > 0} fallback={t("INTRO_TEXT")}>
+          <For each={sortedEntries()}>
+            {([id, entry]) => <EntryListItem id={id} entry={entry} />}
+          </For>
+        </Show>
       </ol>
-      <div class="h-16 flex justify-center items-center">
-        <A class={button({ intent: "transparent", class: "flex justify-center items-center py-2 w-full" })} href="/new">Add +</A>
+      <div class="pt-2 flex justify-center items-center">
+        <A
+          class={button({
+            intent: "primary",
+            class: "flex justify-center items-center py-2 w-full",
+          })}
+          href="/new"
+        >
+          Add +
+        </A>
       </div>
     </div>
   );
