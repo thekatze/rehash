@@ -12,7 +12,7 @@
     "@rehash/logic": "workspace:*"
   },
   "devDependencies": {
-    "@astrojs/sitemap": "^1.3.3",
+    "@astrojs/sitemap": "^2.0.0",
     "@astrojs/solid-js": "^2.2.0",
     "@astrojs/tailwind": "^3.1.3",
     "astro": "^2.6.0",
