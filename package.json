@@ -30,7 +30,7 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-astro": "^0.27.1",
     "eslint-plugin-jsx-a11y": "^6.7.1",
-    "eslint-plugin-solid": "^0.12.1",
+    "eslint-plugin-solid": "^0.13.0",
     "prettier": "2.8.8",
     "typescript": "^5.1.3"
   }
