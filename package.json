@@ -1,7 +1,7 @@
 {
   "name": "rehash",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "The rehash.one password manager",
   "info": "An offline password manager that does not store your passwords.",
   "homepage": "https://www.rehash.one",
@@ -12,15 +12,18 @@
     }
   ],
   "scripts": {
-    "app:start": "pnpm -C apps/app run start",
+    "app:dev": "pnpm -C apps/app run dev",
     "app:build": "pnpm -C apps/app run build",
     "web:start": "pnpm -C apps/web run start",
     "web:build": "pnpm -C apps/web run build",
-    "lint": "prettier apps/* packages/* --check && eslint apps/* packages/*"
+    "lint": "prettier apps/* packages/* --check && eslint apps/* packages/*",
+    "lint:fix": "prettier apps/* packages/* --write"
   },
   "keywords": [
     "solidhack",
-    "best_app"
+    "best_app",
+    "password_manager",
+    "solid-js"
   ],
   "license": "MIT",
   "devDependencies": {

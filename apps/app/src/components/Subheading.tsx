@@ -7,4 +7,3 @@ export const Subheading: FlowComponent<{ class?: string }> = (props) => (
     {props.children}
   </h1>
 );
-

@@ -7,5 +7,4 @@ export const Placeholder: VoidComponent = () => {
       <Logo class="text-primary-700" />
     </div>
   );
-}
-
+};

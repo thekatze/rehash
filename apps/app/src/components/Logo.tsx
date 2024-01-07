@@ -4,11 +4,9 @@ import { Heading } from "./Heading";
 
 import { cx } from "cva";
 
-export const Logo: VoidComponent<{ class?: string }> = (props) =>
-(
+export const Logo: VoidComponent<{ class?: string }> = (props) => (
   <span class={cx("inline flex flex-row items-center gap-4", props.class)}>
-    < Icon />
+    <Icon />
     <Heading>rehash</Heading>
-  </span >
+  </span>
 );
-
