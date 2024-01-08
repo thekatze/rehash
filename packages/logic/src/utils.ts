@@ -1,95 +1,17 @@
-import { EncryptedStore, Store } from "./RehashStore";
+// MIT License
 
-export class StoreCryptor {
-  private password: Uint8Array;
+// Copyright (c) 2020 Dani Biró
 
-  constructor(password: string) {
-    this.password = new TextEncoder().encode(password);
-  }
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
 
-  public async decrypt(store: EncryptedStore): Promise<Store> {
-    const iv = decodeBase64(store.iv);
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
 
-    const key = await this.passwordToKey(iv);
-
-    const data = await crypto.subtle.decrypt(
-      this.getAesParams(iv),
-      key,
-      decodeBase64(store.store)
-    );
-
-    const decrypted = JSON.parse(new TextDecoder().decode(data));
-
-    return decrypted as Store;
-  }
-
-  public async encrypt(store: Store): Promise<EncryptedStore> {
-    const aesParams = this.getAesParams();
-    const key = await this.passwordToKey(aesParams.iv);
-
-    const data = await crypto.subtle.encrypt(
-      aesParams,
-      key,
-      new TextEncoder().encode(JSON.stringify(store))
-    );
-
-    const iv = encodeBase64(aesParams.iv as Uint8Array);
-    const encryptedStore = encodeBase64(new Uint8Array(data));
-
-    return { iv, store: encryptedStore };
-  }
-
-  private getAesParams(iv?: Uint8Array): AesGcmParams {
-    return {
-      name: "AES-GCM",
-      iv: iv ?? crypto.getRandomValues(new Uint8Array(32)),
-    };
-  }
-
-  private async passwordToKey(salt: BufferSource): Promise<CryptoKey> {
-    const derived = await crypto.subtle.importKey(
-      "raw",
-      this.password,
-      { name: "PBKDF2" },
-      false,
-      ["deriveKey"]
-    );
-
-    const keyType = { name: "AES-GCM", length: 256 };
-
-    // TODO: Investigate if this can be implemented in a simpler manner
-    try {
-      const key = await crypto.subtle.importKey(
-        "raw",
-        await crypto.subtle.exportKey(
-          "raw",
-          await crypto.subtle.deriveKey(
-            {
-              name: "PBKDF2",
-              salt,
-              iterations: 100000,
-              hash: "SHA-512",
-            },
-            derived,
-            keyType,
-            true,
-            ["encrypt", "decrypt"]
-          )
-        ),
-        keyType,
-        false,
-        ["encrypt", "decrypt"]
-      );
-      return key;
-    } catch (e) {
-      console.error(e);
-
-      return null!;
-    }
-  }
-}
-
-// Shamelessly copied from hash-wasm
 const base64Chars =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 const base64Lookup = new Uint8Array(256);
@@ -141,7 +63,7 @@ export function encodeBase64(data: Uint8Array, pad = true): string {
   return parts.join("");
 }
 
-function getDecodeBase64Length(data: string): number {
+export function getDecodeBase64Length(data: string): number {
   let bufferLength = Math.floor(data.length * 0.75);
   const len = data.length;
 

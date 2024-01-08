@@ -1,4 +1,7 @@
 {
+  "common": {
+    "password": "Password"
+  },
   "onboarding": {
     "continue": "Continue",
     "step_1": {
@@ -10,6 +13,18 @@
       "import_vault": "Import Vault",
       "or": "or",
       "skip_introduction": "Skip Introduction"
+    },
+    "step_4": {
+      "create_your_vault": "Create your vault",
+      "set_password": "Set your password",
+      "set_password_text": "Choose a strong password for your vault.",
+      "create_vault": "Create vault"
     }
+  },
+  "password_prompt": {
+    "welcome_back": "Welcome back",
+    "unlock_your_vault": "Unlock your vault",
+    "unlock_your_vault_text": "Enter your password to unlock your vault.",
+    "unlock_vault": "Unlock vault"
   }
 }

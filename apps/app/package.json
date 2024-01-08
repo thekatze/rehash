@@ -12,8 +12,10 @@
     "@solid-primitives/i18n": "^2.0.0",
     "@unocss/reset": "^0.58.3",
     "cva": "1.0.0-beta.1",
+    "idb-keyval": "^6.2.1",
     "solid-js": "^1.8.7",
-    "solid-transition-group": "^0.2.3"
+    "solid-transition-group": "^0.2.3",
+    "@rehash/logic": "workspace:*"
   },
   "devDependencies": {
     "@unocss/preset-web-fonts": "^0.58.3",

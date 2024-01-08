@@ -1,21 +1,17 @@
-import {
-  Component,
-  For,
-  Setter,
-  Show,
-  VoidComponent,
-  createSignal,
-} from "solid-js";
+import { For, Setter, Show, VoidComponent, createSignal } from "solid-js";
 import { Stack } from "./Stack";
 import { Heading } from "./Heading";
 import { Subheading } from "./Subheading";
 import { Paragraph } from "./Paragraph";
-import { Placeholder } from "./Placeholder";
 import { Button } from "./Button";
 import { useI18n } from "../I18nProvider";
 import { cx } from "cva";
 import { Dynamic } from "solid-js/web";
 import { Transition } from "solid-transition-group";
+import { Form } from "./Form";
+import { PasswordInput } from "./PasswordInput";
+import { RehashStore, StoreState } from "../RehashProvider";
+import { SplitLayout } from "./SplitLayout";
 
 const Stepper: VoidComponent<{ steps: number; current: number }> = (props) => {
   return (
@@ -40,7 +36,10 @@ const Stepper: VoidComponent<{ steps: number; current: number }> = (props) => {
   );
 };
 
-type OnboardingStep = VoidComponent<{ setStep: Setter<number> }>;
+type OnboardingStep = VoidComponent<{
+  setStep: Setter<number>;
+  setStore: Setter<RehashStore>;
+}>;
 
 const OnboardingStep1: OnboardingStep = (props) => {
   const [t] = useI18n();
@@ -114,36 +113,81 @@ const OnboardingStep3: OnboardingStep = (props) => {
   );
 };
 
-const onboardingSteps = [OnboardingStep1, OnboardingStep2, OnboardingStep3];
+const OnboardingStep4: OnboardingStep = (props) => {
+  const [t] = useI18n();
+  const [password, setPassword] = createSignal("");
 
-export const Onboarding: Component = () => {
+  const initializeStore = () => {
+    props.setStore({
+      state: StoreState.Unlocked,
+      options: {
+        iterations: 15,
+        parallelism: 2,
+        memorySize: 2048,
+      },
+      entries: {},
+      password: password(),
+    });
+  };
+
+  return (
+    <>
+      <Heading>{t("onboarding.step_4.create_your_vault")}</Heading>
+      <Subheading>{t("onboarding.step_4.set_password")}</Subheading>
+      <Paragraph>{t("onboarding.step_4.set_password_text")}</Paragraph>
+      <Form onSubmit={initializeStore}>
+        <PasswordInput
+          value={password()}
+          onInput={(e) => setPassword(e.target.value)}
+          label={t("common.password")}
+        />
+        <Button variant="primary" class="ml-auto" type="submit">
+          {t("onboarding.step_4.create_vault")}
+        </Button>
+      </Form>
+    </>
+  );
+};
+
+const onboardingSteps = [
+  OnboardingStep1,
+  OnboardingStep2,
+  OnboardingStep3,
+  OnboardingStep4,
+];
+
+export const Onboarding: VoidComponent<{ setStore: Setter<RehashStore> }> = (
+  props
+) => {
   const [step, setStep] = createSignal(0);
 
   return (
-    <Stack direction="row" class="min-h-screen">
-      <Stack as="main" direction="column" class="gap-3 w-full md:w-120 p-8">
-        <Stepper steps={onboardingSteps.length} current={step() + 1} />
-        <div class="relative h-full">
-          <Transition
-            enterClass="invisible translate-x-4 opacity-0"
-            enterActiveClass="absolute transition duration-250 delay-100 ease-out"
-            enterToClass="translate-x-0 opacity-100"
-            exitClass="translate-x-0 opacity-100"
-            exitActiveClass="absolute transition duration-100 ease-in"
-            exitToClass="-translate-x-4"
-          >
-            <Show when={step() + 1} keyed>
-              <Stack direction="column" class="gap-3 w-full h-full">
-                <Dynamic
-                  component={onboardingSteps[step()]}
-                  setStep={setStep}
-                />
-              </Stack>
-            </Show>
-          </Transition>
-        </div>
-      </Stack>
-      <Placeholder />
-    </Stack>
+    <SplitLayout
+      left={
+        <Stack as="main" direction="column" class="gap-3 p-8 h-full">
+          <Stepper steps={onboardingSteps.length} current={step() + 1} />
+          <div class="relative h-full">
+            <Transition
+              enterClass="invisible translate-x-4 opacity-0"
+              enterActiveClass="absolute transition duration-250 delay-100 ease-out"
+              enterToClass="translate-x-0 opacity-100"
+              exitClass="translate-x-0 opacity-100"
+              exitActiveClass="absolute transition duration-100 ease-in"
+              exitToClass="-translate-x-4"
+            >
+              <Show when={step() + 1} keyed>
+                <Stack direction="column" class="gap-3 w-full h-full">
+                  <Dynamic
+                    component={onboardingSteps[step()]}
+                    setStep={setStep}
+                    setStore={props.setStore}
+                  />
+                </Stack>
+              </Show>
+            </Transition>
+          </div>
+        </Stack>
+      }
+    />
   );
 };
