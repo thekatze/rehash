@@ -2,7 +2,7 @@ import { VoidComponent } from "solid-js";
 import { Stack } from "./Stack";
 import { Logo } from "./Logo";
 import { LockButton } from "./LockButton";
-import { SettingsButton } from "./SettingsIcon";
+import { SettingsButton } from "./SettingsButton";
 
 export const Header: VoidComponent = () => {
   return (

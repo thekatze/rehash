@@ -11,7 +11,6 @@ import { Transition } from "solid-transition-group";
 import { Form } from "./Form";
 import { PasswordInput } from "./PasswordInput";
 import { RehashStore, StoreState } from "../RehashProvider";
-import { SplitLayout } from "./SplitLayout";
 
 const Stepper: VoidComponent<{ steps: number; current: number }> = (props) => {
   return (
@@ -162,32 +161,28 @@ export const Onboarding: VoidComponent<{ setStore: Setter<RehashStore> }> = (
   const [step, setStep] = createSignal(0);
 
   return (
-    <SplitLayout
-      left={
-        <Stack as="main" direction="column" class="gap-3 p-8 h-full">
-          <Stepper steps={onboardingSteps.length} current={step() + 1} />
-          <div class="relative h-full">
-            <Transition
-              enterClass="invisible translate-x-4 opacity-0"
-              enterActiveClass="absolute transition duration-250 delay-100 ease-out"
-              enterToClass="translate-x-0 opacity-100"
-              exitClass="translate-x-0 opacity-100"
-              exitActiveClass="absolute transition duration-100 ease-in"
-              exitToClass="-translate-x-4"
-            >
-              <Show when={step() + 1} keyed>
-                <Stack direction="column" class="gap-3 w-full h-full">
-                  <Dynamic
-                    component={onboardingSteps[step()]}
-                    setStep={setStep}
-                    setStore={props.setStore}
-                  />
-                </Stack>
-              </Show>
-            </Transition>
-          </div>
-        </Stack>
-      }
-    />
+    <Stack as="main" direction="column" class="gap-3 p-8 h-full">
+      <Stepper steps={onboardingSteps.length} current={step() + 1} />
+      <div class="relative h-full">
+        <Transition
+          enterClass="invisible translate-x-4 opacity-0"
+          enterActiveClass="absolute transition duration-250 delay-100 ease-out"
+          enterToClass="translate-x-0 opacity-100"
+          exitClass="translate-x-0 opacity-100"
+          exitActiveClass="absolute transition duration-100 ease-in"
+          exitToClass="-translate-x-4"
+        >
+          <Show when={step() + 1} keyed>
+            <Stack direction="column" class="gap-3 w-full h-full">
+              <Dynamic
+                component={onboardingSteps[step()]}
+                setStep={setStep}
+                setStore={props.setStore}
+              />
+            </Stack>
+          </Show>
+        </Transition>
+      </div>
+    </Stack>
   );
 };

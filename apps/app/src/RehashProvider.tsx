@@ -1,17 +1,18 @@
 import {
   Accessor,
   Component,
-  FlowComponent,
   Match,
   Setter,
   Show,
   Switch,
+  VoidComponent,
   createContext,
   createEffect,
   createResource,
   createSignal,
   useContext,
 } from "solid-js";
+import { Logo } from "./components/Logo";
 
 import { get, set } from "idb-keyval";
 import {
@@ -19,8 +20,22 @@ import {
   EncryptedStore as InternalEncryptedStore,
   decrypt,
 } from "@rehash/logic";
-import { Dynamic } from "solid-js/web";
+import { SplitLayout } from "./components/SplitLayout";
+import { Transition } from "solid-transition-group";
+import {
+  Route,
+  RouteLoadFunc,
+  RouteSectionProps,
+  Router,
+} from "@solidjs/router";
 
+import { StoreEntry } from "@rehash/logic";
+import { Onboarding } from "./components/Onboarding";
+import { PasswordPrompt } from "./components/PasswordPrompt";
+import { UnlockedVault } from "./components/UnlockedVault";
+import { Heading } from "./components/Heading";
+import { Subheading } from "./components/Subheading";
+import { Stack } from "./components/Stack";
 const STORE_KEY = "rehash_store";
 
 export enum StoreState {
@@ -66,11 +81,6 @@ const loadStoreFromIdb = async (): Promise<RehashStore> => {
   }
 };
 
-type StoreSettingComponent = Component<{ setStore: Setter<RehashStore> }>;
-type PasswordPromptComponent = Component<{
-  submitPassword: (password: string) => Promise<boolean>;
-}>;
-
 const returnNarrowedOrNull = <T extends StoreState>(
   store: RehashStore,
   type: T
@@ -95,10 +105,13 @@ export const useRehash = () => {
   return context;
 };
 
-export const RehashProvider: FlowComponent<{
-  onboarding: StoreSettingComponent;
-  passwordPrompt: PasswordPromptComponent;
-}> = (props) => {
+const Placeholder: VoidComponent = () => (
+  <div class="hidden md:flex flex-1 bg-primary-900 justify-center items-center">
+    <Logo class="text-primary-700" />
+  </div>
+);
+
+export const RehashProvider: VoidComponent = () => {
   const [store, setStore] = createSignal<RehashStore>({
     state: StoreState.Empty,
   });
@@ -115,54 +128,123 @@ export const RehashProvider: FlowComponent<{
   );
 
   return (
-    <Show when={!loadingStorePromise.loading}>
-      <Switch>
-        <Match when={returnNarrowedOrNull(store(), StoreState.Empty)}>
-          {(_) => <Dynamic component={props.onboarding} setStore={setStore} />}
-        </Match>
-        <Match when={returnNarrowedOrNull(store(), StoreState.Encrypted)}>
-          {(encryptedStore) => {
-            const tryDecrypt = async (password: string) => {
-              const store = await decrypt(password, encryptedStore());
-              if (!store) {
-                return false;
-              }
+    <SplitLayout
+      left={
+        <Transition
+          appear
+          enterClass="invisible -translate-y-4 opacity-0"
+          enterActiveClass="w-full md:w-120 absolute transition duration-250 delay-100 ease-out"
+          enterToClass="translate-y-0 opacity-100"
+          exitClass="translate-y-0 opacity-100"
+          exitActiveClass="w-full md:w-120 absolute transition duration-100 ease-in"
+          exitToClass="translate-y-4"
+        >
+          <Show when={!loadingStorePromise.loading}>
+            <Switch>
+              <Match when={returnNarrowedOrNull(store(), StoreState.Empty)}>
+                {(_) => <Onboarding setStore={setStore} />}
+              </Match>
+              <Match when={returnNarrowedOrNull(store(), StoreState.Encrypted)}>
+                {(encryptedStore) => {
+                  const tryDecrypt = async (password: string) => {
+                    const store = await decrypt(password, encryptedStore());
+                    if (!store) {
+                      return false;
+                    }
 
-              setStore({ ...store, state: StoreState.Unlocked, password });
+                    setStore({
+                      ...store,
+                      state: StoreState.Unlocked,
+                      password,
+                    });
 
-              return true;
-            };
-            return (
-              <Dynamic
-                component={props.passwordPrompt}
-                submitPassword={tryDecrypt}
-              />
-            );
-          }}
-        </Match>
-        <Match when={returnNarrowedOrNull(store(), StoreState.Locked)}>
-          {(lockedStore) => (
-            <Dynamic
-              component={props.passwordPrompt}
-              submitPassword={(password: string) => {
-                setStore({
-                  ...lockedStore(),
-                  state: StoreState.Unlocked,
-                  password,
-                });
-                return Promise.resolve(true);
-              }}
-            />
-          )}
-        </Match>
-        <Match when={returnNarrowedOrNull(store(), StoreState.Unlocked)}>
-          {(unlockedStore) => (
-            <RehashContext.Provider value={[unlockedStore, setStore]}>
-              {props.children}
-            </RehashContext.Provider>
-          )}
-        </Match>
-      </Switch>
+                    return true;
+                  };
+                  return <PasswordPrompt submitPassword={tryDecrypt} />;
+                }}
+              </Match>
+              <Match when={returnNarrowedOrNull(store(), StoreState.Locked)}>
+                {(lockedStore) => (
+                  <PasswordPrompt
+                    submitPassword={(password: string) => {
+                      setStore({
+                        ...lockedStore(),
+                        state: StoreState.Unlocked,
+                        password,
+                      });
+                      return Promise.resolve(true);
+                    }}
+                  />
+                )}
+              </Match>
+              <Match when={returnNarrowedOrNull(store(), StoreState.Unlocked)}>
+                {(unlockedStore) => (
+                  <RehashContext.Provider value={[unlockedStore, setStore]}>
+                    <UnlockedVault />
+                  </RehashContext.Provider>
+                )}
+              </Match>
+            </Switch>
+          </Show>
+        </Transition>
+      }
+      right={
+        <Transition
+          enterClass="invisible -translate-y-4 opacity-0"
+          enterActiveClass="h-full w-full absolute transition duration-250 ease-out"
+          enterToClass="translate-y-0 opacity-100"
+          exitClass="translate-y-0 opacity-100"
+          exitActiveClass="h-full w-full absolute transition duration-100 ease-in"
+          exitToClass="translate-y-4"
+        >
+          <Router>
+            <Route path="*" component={Placeholder as Component} />
+            <Show when={returnNarrowedOrNull(store(), StoreState.Unlocked)}>
+              {(unlockedStore) => (
+                <RehashContext.Provider value={[unlockedStore, setStore]}>
+                  <Route
+                    path="/account/:id"
+                    load={loadAccountForStore(unlockedStore)}
+                    component={AccountDetail}
+                  />
+                  <Route
+                    path="/settings"
+                    component={(props) => <span>Unlocked</span>}
+                  />
+                </RehashContext.Provider>
+              )}
+            </Show>
+          </Router>
+        </Transition>
+      }
+    />
+  );
+};
+
+const loadAccountForStore: (
+  store: Accessor<UnlockedStore>
+) => RouteLoadFunc<StoreEntry> =
+  (store) =>
+  ({ params }) => {
+    return store().entries[params.id];
+  };
+
+const AccountDetail: Component<RouteSectionProps<StoreEntry>> = (props) => {
+  createEffect(() => console.log(!!props.data));
+  return (
+    <Show
+      when={props.data}
+      fallback={
+        <Stack
+          direction="column"
+          class="flex-1 h-full gap-3 items-center justify-center"
+        >
+          <Heading>Oops :(</Heading>
+          <Subheading>This account does not exist.</Subheading>
+        </Stack>
+      }
+    >
+      {(account) => <div>Account! {account().username}</div>}
     </Show>
   );
 };

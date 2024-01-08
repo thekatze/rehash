@@ -44,6 +44,9 @@ importers:
       '@solid-primitives/i18n':
         specifier: ^2.0.0
         version: 2.0.0(solid-js@1.8.8)
+      '@solidjs/router':
+        specifier: ^0.10.6
+        version: 0.10.6(solid-js@1.8.8)
       '@unocss/reset':
         specifier: ^0.58.3
         version: 0.58.3
@@ -1621,6 +1624,14 @@ packages:
     resolution: {integrity: sha512-TsecNzxiO5bLfzqb4OOuzfUmdOROcssuGqgh5rXMMaasoFZ3GoveUgdY1wcf17frMJM7kCNGNuK34EjErneZkg==}
     peerDependencies:
       solid-js: ^1.6.12
+    dependencies:
+      solid-js: 1.8.8
+    dev: false
+
+  /@solidjs/router@0.10.6(solid-js@1.8.8):
+    resolution: {integrity: sha512-PiJO/wsAh0+0mmAIw/+gGgZa0xeMzKGrITWvBfNQ0wiAwNzOF/T0Bm10uhyaWdxPu9td0xK2LuMnC//4CXqnyA==}
+    peerDependencies:
+      solid-js: ^1.8.6
     dependencies:
       solid-js: 1.8.8
     dev: false
