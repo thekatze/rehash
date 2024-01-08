@@ -104,8 +104,8 @@ export const RehashProvider: FlowComponent<{
   });
 
   createEffect(() => {
-    // save store on change
-    if (store().state !== StoreState.Empty) {
+    // save store on change if unlocked
+    if (store().state === StoreState.Unlocked) {
       set(STORE_KEY, { ...store(), password: undefined, state: undefined });
     }
   });

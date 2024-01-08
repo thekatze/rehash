@@ -9,18 +9,20 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@rehash/logic": "workspace:*",
     "@solid-primitives/i18n": "^2.0.0",
     "@unocss/reset": "^0.58.3",
     "cva": "1.0.0-beta.1",
     "idb-keyval": "^6.2.1",
     "solid-js": "^1.8.7",
-    "solid-transition-group": "^0.2.3",
-    "@rehash/logic": "workspace:*"
+    "solid-transition-group": "^0.2.3"
   },
   "devDependencies": {
+    "@iconify-json/solar": "^1.1.9",
     "@unocss/preset-web-fonts": "^0.58.3",
     "typescript": "^5.2.2",
     "unocss": "^0.58.3",
+    "unplugin-icons": "^0.18.1",
     "vite": "^5.0.8",
     "vite-plugin-solid": "^2.8.0"
   }

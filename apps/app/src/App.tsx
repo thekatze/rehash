@@ -5,9 +5,7 @@ import { PasswordPrompt } from "./components/PasswordPrompt";
 import { Stack } from "./components/Stack";
 import { RehashProvider, useRehash } from "./RehashProvider";
 import { SplitLayout } from "./components/SplitLayout";
-import { Logo } from "./components/Logo";
-import { IconButton } from "./components/Button";
-import { LockButton } from "./components/LockButton";
+import { Header } from "./components/Header";
 
 const App: Component = () => {
   return (
@@ -16,22 +14,6 @@ const App: Component = () => {
         <UnlockedVault />
       </RehashProvider>
     </I18nProvider>
-  );
-};
-
-const Header: VoidComponent = () => {
-  return (
-    <Stack
-      as="header"
-      direction="row"
-      class="p-6 gap-8 justify-between items-center h-18 bg-primary-900 text-white"
-    >
-      <Logo />
-      <Stack direction="row" class="gap-2">
-        <LockButton />
-        <IconButton variant="primary">S</IconButton>
-      </Stack>
-    </Stack>
   );
 };
 

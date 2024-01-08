@@ -26,14 +26,14 @@ export const Button: FlowComponent<
 );
 
 const iconButtonStyle = cva({
-  base: "h-10 min-w-10 w-10 font-black rounded-md",
+  base: "inline-flex items-center justify-center h-10 min-w-10 w-10 font-black rounded-md",
   variants,
 });
 
 export const IconButton: FlowComponent<
   ComponentProps<"button"> & VariantProps<typeof iconButtonStyle>
 > = (props) => (
-  <button type="button" {...props} class={iconButtonStyle(props)}>
+  <button type="button" {...props} class={iconButtonStyle({ ...props })}>
     {props.children}
   </button>
 );

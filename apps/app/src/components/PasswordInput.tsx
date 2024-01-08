@@ -3,6 +3,9 @@ import { Input, InputProps } from "./Input";
 import { IconButton } from "./Button";
 import { cx } from "cva";
 
+import EyeClosedIcon from "~icons/solar/eye-closed-linear";
+import EyeIcon from "~icons/solar/eye-linear";
+
 export const PasswordInput: VoidComponent<InputProps> = (props) => {
   const [visible, setVisible] = createSignal(false);
 
@@ -19,7 +22,7 @@ export const PasswordInput: VoidComponent<InputProps> = (props) => {
         class="mt-0.5 rounded-l-0"
         onClick={() => setVisible((v) => !v)}
       >
-        {visible() ? "o" : "O"}
+        {visible() ? <EyeIcon /> : <EyeClosedIcon />}
       </IconButton>
     </div>
   );
