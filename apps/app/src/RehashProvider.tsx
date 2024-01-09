@@ -22,20 +22,16 @@ import {
 } from "@rehash/logic";
 import { SplitLayout } from "./components/SplitLayout";
 import { Transition } from "solid-transition-group";
-import {
-  Route,
-  RouteLoadFunc,
-  RouteSectionProps,
-  Router,
-} from "@solidjs/router";
+import { Route, Router } from "@solidjs/router";
 
-import { StoreEntry } from "@rehash/logic";
 import { Onboarding } from "./components/Onboarding";
 import { PasswordPrompt } from "./components/PasswordPrompt";
 import { UnlockedVault } from "./components/UnlockedVault";
-import { Heading } from "./components/Heading";
-import { Subheading } from "./components/Subheading";
-import { Stack } from "./components/Stack";
+import {
+  AccountDetail,
+  loadAccountFromStore,
+} from "./components/AccountDetail";
+import { Settings } from "./components/Settings";
 const STORE_KEY = "rehash_store";
 
 export enum StoreState {
@@ -106,7 +102,7 @@ export const useRehash = () => {
 };
 
 const Placeholder: VoidComponent = () => (
-  <div class="hidden md:flex flex-1 bg-primary-900 justify-center items-center">
+  <div class="hidden lg:flex flex-1 bg-primary-900 justify-center items-center">
     <Logo class="text-primary-700" />
   </div>
 );
@@ -133,10 +129,10 @@ export const RehashProvider: VoidComponent = () => {
         <Transition
           appear
           enterClass="invisible -translate-y-4 opacity-0"
-          enterActiveClass="w-full md:w-120 absolute transition duration-250 delay-100 ease-out"
+          enterActiveClass="w-full lg:w-120 absolute transition duration-250 delay-100 ease-out"
           enterToClass="translate-y-0 opacity-100"
           exitClass="translate-y-0 opacity-100"
-          exitActiveClass="w-full md:w-120 absolute transition duration-100 ease-in"
+          exitActiveClass="w-full lg:w-120 absolute transition duration-100 ease-in"
           exitToClass="translate-y-4"
         >
           <Show when={!loadingStorePromise.loading}>
@@ -191,10 +187,10 @@ export const RehashProvider: VoidComponent = () => {
       right={
         <Transition
           enterClass="invisible -translate-y-4 opacity-0"
-          enterActiveClass="h-full w-full absolute transition duration-250 ease-out"
+          enterActiveClass="h-full lg:right-section-width absolute transition duration-250 ease-out"
           enterToClass="translate-y-0 opacity-100"
           exitClass="translate-y-0 opacity-100"
-          exitActiveClass="h-full w-full absolute transition duration-100 ease-in"
+          exitActiveClass="h-full lg:right-section-width absolute transition duration-100 ease-in"
           exitToClass="translate-y-4"
         >
           <Router>
@@ -204,13 +200,10 @@ export const RehashProvider: VoidComponent = () => {
                 <RehashContext.Provider value={[unlockedStore, setStore]}>
                   <Route
                     path="/account/:id"
-                    load={loadAccountForStore(unlockedStore)}
+                    load={loadAccountFromStore(unlockedStore)}
                     component={AccountDetail}
                   />
-                  <Route
-                    path="/settings"
-                    component={(props) => <span>Unlocked</span>}
-                  />
+                  <Route path="/settings" component={Settings} />
                 </RehashContext.Provider>
               )}
             </Show>
@@ -218,33 +211,5 @@ export const RehashProvider: VoidComponent = () => {
         </Transition>
       }
     />
-  );
-};
-
-const loadAccountForStore: (
-  store: Accessor<UnlockedStore>
-) => RouteLoadFunc<StoreEntry> =
-  (store) =>
-  ({ params }) => {
-    return store().entries[params.id];
-  };
-
-const AccountDetail: Component<RouteSectionProps<StoreEntry>> = (props) => {
-  createEffect(() => console.log(!!props.data));
-  return (
-    <Show
-      when={props.data}
-      fallback={
-        <Stack
-          direction="column"
-          class="flex-1 h-full gap-3 items-center justify-center"
-        >
-          <Heading>Oops :(</Heading>
-          <Subheading>This account does not exist.</Subheading>
-        </Stack>
-      }
-    >
-      {(account) => <div>Account! {account().username}</div>}
-    </Show>
   );
 };

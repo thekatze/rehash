@@ -1,20 +1,14 @@
 import { VoidComponent } from "solid-js";
 import { Stack } from "./Stack";
 import { Header } from "./Header";
-import { useRehash } from "../RehashProvider";
+import { AccountList } from "./AccountList";
 
 export const UnlockedVault: VoidComponent = () => {
   return (
-    <Stack as="main" direction="column">
+    <Stack as="main" direction="column" class="h-full">
       <Header />
-      <PasswordList />
+      <AccountList />
     </Stack>
   );
 };
 
-const PasswordList: VoidComponent = () => {
-  const [store] = useRehash();
-
-  const count = () => Object.keys(store().entries).length;
-  return <div>list has {count()} passwords</div>;
-};

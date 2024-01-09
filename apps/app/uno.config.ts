@@ -2,6 +2,9 @@ import { defineConfig, presetUno } from "unocss";
 import presetWebFonts from "@unocss/preset-web-fonts";
 
 export default defineConfig({
+  rules: [
+    ["right-section-width", { width: "calc(100vw - 480px)" }]
+  ],
   presets: [
     presetUno(),
     presetWebFonts({

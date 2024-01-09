@@ -18,7 +18,7 @@ export const Input: VoidComponent<InputProps> = (mixedProps) => {
   const [props, inputProps] = splitProps(mixedProps, ["label", "info"]);
 
   return (
-    <div class="relative w-full mt-0.5">
+    <div class="relative w-full">
       <input
         placeholder={props.label}
         {...inputProps}
@@ -49,7 +49,7 @@ export const Input: VoidComponent<InputProps> = (mixedProps) => {
         text-xs
         text-primary-800
         peer-placeholder-shown:text-primary-500
-        peer-placeholder-shown:top-1.5
+        peer-placeholder-shown:top-2
         peer-placeholder-shown:left-4
         peer-placeholder-shown:pointer-events-none
         peer-placeholder-shown:text-base

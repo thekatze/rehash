@@ -1,5 +1,4 @@
 import { VoidComponent, createSignal } from "solid-js";
-import { SplitLayout } from "./SplitLayout";
 import { Form } from "./Form";
 import { Button } from "./Button";
 import { PasswordInput } from "./PasswordInput";
@@ -16,28 +15,25 @@ export const PasswordPrompt: VoidComponent<{
   const [password, setPassword] = createSignal("");
 
   return (
-    <SplitLayout
-      left={
-        <Stack as="main" direction="column" class="p-8 gap-3">
-          <Heading>{t("password_prompt.welcome_back")}</Heading>
-          <Subheading>{t("password_prompt.unlock_your_vault")}</Subheading>
-          <Paragraph>{t("password_prompt.unlock_your_vault_text")}</Paragraph>
-          <Form
-            onSubmit={() => {
-              props.submitPassword(password());
-            }}
-          >
-            <PasswordInput
-              value={password()}
-              onInput={(e) => setPassword(e.target.value)}
-              label={t("common.password")}
-            />
-            <Button variant="primary" type="submit" class="ml-auto">
-              {t("password_prompt.unlock_vault")}
-            </Button>
-          </Form>
-        </Stack>
-      }
-    />
+    <Stack as="main" direction="column" class="p-8 gap-3">
+      <Heading>{t("password_prompt.welcome_back")}</Heading>
+      <Subheading>{t("password_prompt.unlock_your_vault")}</Subheading>
+      <Paragraph>{t("password_prompt.unlock_your_vault_text")}</Paragraph>
+      <Form
+        onSubmit={() => {
+          props.submitPassword(password());
+        }}
+      >
+        <PasswordInput
+          autofocus
+          value={password()}
+          onInput={(e) => setPassword(e.target.value)}
+          label={t("common.password")}
+        />
+        <Button variant="primary" type="submit" class="ml-auto">
+          {t("password_prompt.unlock_vault")}
+        </Button>
+      </Form>
+    </Stack>
   );
 };

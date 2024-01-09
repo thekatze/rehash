@@ -19,10 +19,10 @@ export const PasswordInput: VoidComponent<InputProps> = (props) => {
       />
       <IconButton
         variant="secondary"
-        class="mt-0.5 rounded-l-0"
+        class="rounded-l-0"
         onClick={() => setVisible((v) => !v)}
       >
-        {visible() ? <EyeIcon /> : <EyeClosedIcon />}
+        {visible() ? <EyeIcon /> : <EyeClosedIcon class="mt-1" />}
       </IconButton>
     </div>
   );

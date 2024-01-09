@@ -7,7 +7,7 @@ export const SplitLayout: VoidComponent<{
 }> = (props) => {
   return (
     <Stack direction="row" class="h-screen">
-      <Stack direction="column" class="w-full md:w-120">
+      <Stack direction="column" class="w-full lg:w-120">
         {props.left}
       </Stack>
       <Stack direction="column" class="flex-1">
