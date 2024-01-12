@@ -4,13 +4,15 @@ import {
   Setter,
   Show,
   Switch,
-  FlowComponent,
   createContext,
   createEffect,
   createResource,
   createSignal,
   useContext,
   VoidComponent,
+  Component,
+  children,
+  JSXElement,
 } from "solid-js";
 
 import { get, set } from "idb-keyval";
@@ -19,13 +21,16 @@ import {
   EncryptedStore as InternalEncryptedStore,
   decrypt,
 } from "@rehash/logic";
-import { SplitLayout } from "./components/SplitLayout";
 import { Transition } from "solid-transition-group";
 import { PasswordPrompt } from "./components/PasswordPrompt";
 import { UnlockedVault } from "./components/UnlockedVault";
 
 import { Onboarding } from "./components/Onboarding";
 import { Logo } from "./components/Logo";
+import { RouteSectionProps, useMatch } from "@solidjs/router";
+import { Stack } from "./components/Stack";
+import { cx } from "cva";
+import { createMediaQuery } from "@solid-primitives/media";
 const STORE_KEY = "rehash_store";
 
 export enum StoreState {
@@ -102,7 +107,30 @@ export const useRehash = () => {
   return context;
 };
 
-export const RehashProvider: FlowComponent = (props) => {
+export const SplitLayout: VoidComponent<{
+  left: JSXElement;
+  right: JSXElement;
+  focus: "left" | "right"
+}> = (props) => {
+  // fully rerender on breakpoint change, because its weird
+  // unlocking the vault in mobile view and then resizing triggers a
+  // graphical error without this
+  const mobileView = createMediaQuery("(min-width: 1024px)");
+  return (
+    <Show when={mobileView() ? 2 : 3} keyed>
+      <Stack direction="row" class="h-screen">
+        <section class={cx("flex-col w-full lg:w-120", props.focus === "left" ? "flex" : "hidden lg:flex")}>
+          {props.left}
+        </section>
+        <section class={cx("flex-col flex-1", props.focus === "right" ? "flex" : "hidden lg:flex")}>
+          {props.right}
+        </section>
+      </Stack >
+    </Show>
+  );
+};
+
+export const RehashProvider: Component<RouteSectionProps> = (props) => {
   const [store, setStore] = createSignal<RehashStore>({
     state: StoreState.Empty,
   });
@@ -118,8 +146,12 @@ export const RehashProvider: FlowComponent = (props) => {
     setStore(await loadStoreFromIdb())
   );
 
+  const isOnRoot = useMatch(() => "/");
+  const focus = () => store().state === StoreState.Unlocked && !isOnRoot() ? "right" : "left";
+
   return (
     <SplitLayout
+      focus={focus()}
       left={
         <Transition
           appear
@@ -133,7 +165,7 @@ export const RehashProvider: FlowComponent = (props) => {
           <Show when={!loadingStorePromise.loading}>
             <Switch>
               <Match when={returnNarrowedOrNull(store(), StoreState.Empty)}>
-                {(_) => <Onboarding setStore={setStore} />}
+                <Onboarding setStore={setStore} />
               </Match>
               <Match when={returnNarrowedOrNull(store(), StoreState.Encrypted)}>
                 {(encryptedStore) => {
@@ -189,7 +221,7 @@ export const RehashProvider: FlowComponent = (props) => {
           exitToClass="translate-y-4"
         >
           <Show when={returnNarrowedOrNull(store(), StoreState.Unlocked)} fallback={<LockedPlaceholder />} >
-            {(unlockedStore) => (      
+            {(unlockedStore) => (
               <RehashContext.Provider value={[unlockedStore, setStore]}>
                 {props.children}
               </RehashContext.Provider>
