@@ -8,7 +8,7 @@ import { Logo } from "./components/Logo";
 
 const UnlockedPlaceholder: VoidComponent = () => (
   <div class="hidden lg:flex flex-1 bg-primary-100 justify-center items-center">
-    <Logo class="text-primary-300" />
+    <Logo class="text-primary-200" />
   </div>
 );
 

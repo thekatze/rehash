@@ -1,15 +1,15 @@
 import { VoidComponent } from "solid-js";
-import SettingsIcon from "~icons/solar/settings-linear";
+import AddIcon from "~icons/solar/add-circle-linear";
 import { IconButton } from "./Button";
 import { useNavigate } from "@solidjs/router";
 
-export const SettingsButton: VoidComponent = () => {
+export const AddAccountButton: VoidComponent = () => {
   const navigate = useNavigate();
   return (
     <IconButton
-      onClick={() => navigate("/settings")}
-      variant="primary">
-      <SettingsIcon />
+      onClick={() => navigate("/new")}
+      variant="secondary">
+      <AddIcon />
     </IconButton>
   );
 };
