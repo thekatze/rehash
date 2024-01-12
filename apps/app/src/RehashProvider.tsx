@@ -1,18 +1,17 @@
 import {
   Accessor,
-  Component,
   Match,
   Setter,
   Show,
   Switch,
-  VoidComponent,
+  FlowComponent,
   createContext,
   createEffect,
   createResource,
   createSignal,
   useContext,
+  VoidComponent,
 } from "solid-js";
-import { Logo } from "./components/Logo";
 
 import { get, set } from "idb-keyval";
 import {
@@ -22,16 +21,11 @@ import {
 } from "@rehash/logic";
 import { SplitLayout } from "./components/SplitLayout";
 import { Transition } from "solid-transition-group";
-import { Route, Router } from "@solidjs/router";
-
-import { Onboarding } from "./components/Onboarding";
 import { PasswordPrompt } from "./components/PasswordPrompt";
 import { UnlockedVault } from "./components/UnlockedVault";
-import {
-  AccountDetail,
-  loadAccountFromStore,
-} from "./components/AccountDetail";
-import { Settings } from "./components/Settings";
+
+import { Onboarding } from "./components/Onboarding";
+import { Logo } from "./components/Logo";
 const STORE_KEY = "rehash_store";
 
 export enum StoreState {
@@ -40,6 +34,13 @@ export enum StoreState {
   Locked,
   Unlocked,
 }
+
+const LockedPlaceholder: VoidComponent = () => (
+  <div class="hidden lg:flex flex-1 bg-primary-900 justify-center items-center">
+    <Logo class="text-primary-700" />
+  </div>
+);
+
 
 type EmptyStore = {
   state: StoreState.Empty;
@@ -101,13 +102,7 @@ export const useRehash = () => {
   return context;
 };
 
-const Placeholder: VoidComponent = () => (
-  <div class="hidden lg:flex flex-1 bg-primary-900 justify-center items-center">
-    <Logo class="text-primary-700" />
-  </div>
-);
-
-export const RehashProvider: VoidComponent = () => {
+export const RehashProvider: FlowComponent = (props) => {
   const [store, setStore] = createSignal<RehashStore>({
     state: StoreState.Empty,
   });
@@ -193,21 +188,13 @@ export const RehashProvider: VoidComponent = () => {
           exitActiveClass="h-full lg:right-section-width absolute transition duration-100 ease-in"
           exitToClass="translate-y-4"
         >
-          <Router>
-            <Route path="*" component={Placeholder as Component} />
-            <Show when={returnNarrowedOrNull(store(), StoreState.Unlocked)}>
-              {(unlockedStore) => (
-                <RehashContext.Provider value={[unlockedStore, setStore]}>
-                  <Route
-                    path="/account/:id"
-                    load={loadAccountFromStore(unlockedStore)}
-                    component={AccountDetail}
-                  />
-                  <Route path="/settings" component={Settings} />
-                </RehashContext.Provider>
-              )}
-            </Show>
-          </Router>
+          <Show when={returnNarrowedOrNull(store(), StoreState.Unlocked)} fallback={<LockedPlaceholder />} >
+            {(unlockedStore) => (      
+              <RehashContext.Provider value={[unlockedStore, setStore]}>
+                {props.children}
+              </RehashContext.Provider>
+            )}
+          </Show>
         </Transition>
       }
     />
