@@ -42,6 +42,7 @@ export const Input: VoidComponent<InputProps> = (mixedProps) => {
       <label
         for={labelFor}
         class="
+        truncate
         transition-all
         absolute 
         -top-2
@@ -50,7 +51,7 @@ export const Input: VoidComponent<InputProps> = (mixedProps) => {
         text-primary-800
         peer-placeholder-shown:text-primary-500
         peer-placeholder-shown:top-2
-        peer-placeholder-shown:left-4
+        peer-placeholder-shown:inset-x-4
         peer-placeholder-shown:pointer-events-none
         peer-placeholder-shown:text-base
         "

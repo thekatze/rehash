@@ -119,10 +119,8 @@ const OnboardingStep4: OnboardingStep = (props) => {
   const initializeStore = () => {
     props.setStore({
       state: StoreState.Unlocked,
-      options: {
-        iterations: 15,
-        parallelism: 2,
-        memorySize: 2048,
+      settings: {
+        encrypt: true,
       },
       entries: {},
       password: password(),

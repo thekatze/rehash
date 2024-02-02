@@ -1,40 +1,27 @@
 import { argon2id } from "hash-wasm";
-import { StoreEntry } from "./store";
+import { StoreEntry, recommendedGeneratorOptions } from "./store";
+import { encodeBase64 } from "./utils";
 
-export interface GeneratorOptions {
-  iterations: number;
-  parallelism: number;
-  memorySize: number;
-}
-
-export type GeneratorEntry = Pick<StoreEntry, "url" | "username" | "options">;
+export type GeneratorEntry = Pick<StoreEntry, "url" | "username" | "options" | "generatorOptions">;
 
 export async function generate(
   password: string,
-  options: GeneratorOptions,
   entry: GeneratorEntry
 ): Promise<string> {
+  const resolvedOptions = typeof entry.generatorOptions === "string"
+    ? recommendedGeneratorOptions[entry.generatorOptions]
+    : entry.generatorOptions;
+
   const result = await argon2id({
     password: password,
-    salt: (entry.username + `${entry.options.iteration}` + entry.url).padEnd(8),
-    outputType: "encoded",
+    salt: `${entry.username}${entry.options.iteration}${entry.url}`.padEnd(8),
+    outputType: "binary",
     hashLength: entry.options.length,
-    iterations: options.iterations,
-    parallelism: options.parallelism,
-    memorySize: options.memorySize,
+    iterations: resolvedOptions.iterations,
+    parallelism: resolvedOptions.parallelism,
+    memorySize: resolvedOptions.memorySize,
   });
 
-  // encoded argon2 hashes begin with their generator options
-  const generatedPassword = result.split("$")[5];
-
-  return postProcess(generatedPassword, entry.options);
+  return encodeBase64(result).substring(0, entry.options.length);
 }
 
-function postProcess(
-  password: string,
-  options: GeneratorEntry["options"]
-): string {
-  const processed = password.substring(0, options.length);
-
-  return processed;
-}

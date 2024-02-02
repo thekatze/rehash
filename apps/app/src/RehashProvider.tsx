@@ -11,7 +11,6 @@ import {
   useContext,
   VoidComponent,
   Component,
-  children,
   JSXElement,
 } from "solid-js";
 
@@ -20,6 +19,8 @@ import {
   Store,
   EncryptedStore as InternalEncryptedStore,
   decrypt,
+  migrateLegacyStore,
+  LegacyStore,
 } from "@rehash/logic";
 import { Transition } from "solid-transition-group";
 import { PasswordPrompt } from "./components/PasswordPrompt";
@@ -74,7 +75,7 @@ const loadStoreFromIdb = async (): Promise<RehashStore> => {
 
   if ("iv" in value && "store" in value) {
     return { ...value, state: StoreState.Encrypted };
-  } else if ("options" in value && "entries" in value) {
+  } else if ("settings" in value && "entries" in value) {
     return { ...value, state: StoreState.Locked };
   } else {
     return {
@@ -170,9 +171,14 @@ export const RehashProvider: Component<RouteSectionProps> = (props) => {
               <Match when={returnNarrowedOrNull(store(), StoreState.Encrypted)}>
                 {(encryptedStore) => {
                   const tryDecrypt = async (password: string) => {
-                    const store = await decrypt(password, encryptedStore());
+                    let store = await decrypt(password, encryptedStore());
                     if (!store) {
                       return false;
+                    }
+
+                    // if we have an old store with "options" instead of "settings", migrate
+                    if ("options" in store && "entries" in store) {
+                      store = migrateLegacyStore(store as LegacyStore);
                     }
 
                     setStore({
