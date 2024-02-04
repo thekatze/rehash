@@ -2,6 +2,24 @@
   "common": {
     "password": "Password"
   },
+  "account": {
+    "display_name": "Display Name",
+    "url": "URL",
+    "username": "Username",
+    "notes": "Notes",
+    "generator_settings": "Generator Settings",
+    "iteration": "Iteration",
+    "length": "Length",
+    "create": "Create Account",
+    "difficulty_label": "Difficulty",
+    "difficulty": {
+      "recommended": "Recommended",
+      "custom": "Custom",
+      "iterations": "Iterations",
+      "memory_size": "Memory Size",
+      "parallelism": "Parallelism"
+    }
+  },
   "onboarding": {
     "continue": "Continue",
     "step_1": {

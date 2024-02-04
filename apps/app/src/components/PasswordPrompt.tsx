@@ -1,5 +1,4 @@
 import { VoidComponent, createSignal } from "solid-js";
-import { Form } from "./Form";
 import { Button } from "./Button";
 import { PasswordInput } from "./PasswordInput";
 import { useI18n } from "../I18nProvider";
@@ -19,8 +18,9 @@ export const PasswordPrompt: VoidComponent<{
       <Heading>{t("password_prompt.welcome_back")}</Heading>
       <Subheading>{t("password_prompt.unlock_your_vault")}</Subheading>
       <Paragraph>{t("password_prompt.unlock_your_vault_text")}</Paragraph>
-      <Form
-        onSubmit={() => {
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
           props.submitPassword(password());
         }}
       >
@@ -33,7 +33,7 @@ export const PasswordPrompt: VoidComponent<{
         <Button variant="primary" type="submit" class="ml-auto">
           {t("password_prompt.unlock_vault")}
         </Button>
-      </Form>
+      </form>
     </Stack>
   );
 };

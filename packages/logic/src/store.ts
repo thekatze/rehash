@@ -6,15 +6,19 @@ export const recommendedGeneratorOptions = {
   }
 } satisfies Record<string, CustomGeneratorOptions>;
 
+export type RecommendedDifficulty = keyof typeof recommendedGeneratorOptions;
+
+export const recommendedDifficulty: RecommendedDifficulty = "2024";
+
 export interface CustomGeneratorOptions {
   iterations: number;
   parallelism: number;
   memorySize: number;
 }
 
-export type GeneratorOptions = CustomGeneratorOptions | keyof typeof recommendedGeneratorOptions;
+export type GeneratorOptions = CustomGeneratorOptions | RecommendedDifficulty;
 
-export interface StoreEntry {
+export type StoreEntry = {
   url: string;
   username: string;
   created: string;

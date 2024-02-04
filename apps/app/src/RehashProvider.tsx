@@ -28,7 +28,7 @@ import { UnlockedVault } from "./components/UnlockedVault";
 
 import { Onboarding } from "./components/Onboarding";
 import { Logo } from "./components/Logo";
-import { RouteSectionProps, useMatch } from "@solidjs/router";
+import { RouteSectionProps, useLocation, useMatch } from "@solidjs/router";
 import { Stack } from "./components/Stack";
 import { cx } from "cva";
 import { createMediaQuery } from "@solid-primitives/media";
@@ -113,12 +113,14 @@ export const SplitLayout: VoidComponent<{
   right: JSXElement;
   focus: "left" | "right"
 }> = (props) => {
-  // fully rerender on breakpoint change, because its weird
-  // unlocking the vault in mobile view and then resizing triggers a
-  // graphical error without this
+  // HACK: id love to fix this but i dont know how
+  // fully rerender on breakpoint change and on mobile navigation, because its behaving weirdly
+  // unlocking the vault in mobile view and then resizing or just navigating on mobile triggers outdated
+  // componets to be rendered
   const mobileView = createMediaQuery("(min-width: 1024px)");
+  const onRoot = useMatch(() => "/");
   return (
-    <Show when={mobileView() ? 2 : 3} keyed>
+    <Show when={(mobileView() || onRoot()) ? 2 : 3} keyed>
       <Stack direction="row" class="h-screen">
         <section class={cx("flex-col w-full lg:w-120", props.focus === "left" ? "flex" : "hidden lg:flex")}>
           {props.left}

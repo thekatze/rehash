@@ -8,7 +8,6 @@ import { useI18n } from "../I18nProvider";
 import { cx } from "cva";
 import { Dynamic } from "solid-js/web";
 import { Transition } from "solid-transition-group";
-import { Form } from "./Form";
 import { PasswordInput } from "./PasswordInput";
 import { RehashStore, StoreState } from "../RehashProvider";
 
@@ -116,7 +115,8 @@ const OnboardingStep4: OnboardingStep = (props) => {
   const [t] = useI18n();
   const [password, setPassword] = createSignal("");
 
-  const initializeStore = () => {
+  const initializeStore = (e: Event) => {
+    e.preventDefault();
     props.setStore({
       state: StoreState.Unlocked,
       settings: {
@@ -132,7 +132,7 @@ const OnboardingStep4: OnboardingStep = (props) => {
       <Heading>{t("onboarding.step_4.create_your_vault")}</Heading>
       <Subheading>{t("onboarding.step_4.set_password")}</Subheading>
       <Paragraph>{t("onboarding.step_4.set_password_text")}</Paragraph>
-      <Form onSubmit={initializeStore}>
+      <form onSubmit={initializeStore}>
         <PasswordInput
           value={password()}
           onInput={(e) => setPassword(e.target.value)}
@@ -141,7 +141,7 @@ const OnboardingStep4: OnboardingStep = (props) => {
         <Button variant="primary" class="ml-auto" type="submit">
           {t("onboarding.step_4.create_vault")}
         </Button>
-      </Form>
+      </form>
     </>
   );
 };
