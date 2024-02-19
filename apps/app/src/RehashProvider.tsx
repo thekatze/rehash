@@ -28,7 +28,7 @@ import { UnlockedVault } from "./components/UnlockedVault";
 
 import { Onboarding } from "./components/Onboarding";
 import { Logo } from "./components/Logo";
-import { RouteSectionProps, useLocation, useMatch } from "@solidjs/router";
+import { RouteSectionProps, useMatch } from "@solidjs/router";
 import { Stack } from "./components/Stack";
 import { cx } from "cva";
 import { createMediaQuery } from "@solid-primitives/media";
@@ -46,7 +46,6 @@ const LockedPlaceholder: VoidComponent = () => (
     <Logo class="text-primary-700" />
   </div>
 );
-
 
 type EmptyStore = {
   state: StoreState.Empty;
@@ -86,7 +85,7 @@ const loadStoreFromIdb = async (): Promise<RehashStore> => {
 
 const returnNarrowedOrNull = <T extends StoreState>(
   store: RehashStore,
-  type: T
+  type: T,
 ): Extract<RehashStore, { state: T }> | null => {
   if (store.state === type) {
     // @ts-ignore -- TODO: fix typing, logic works
@@ -111,7 +110,7 @@ export const useRehash = () => {
 export const SplitLayout: VoidComponent<{
   left: JSXElement;
   right: JSXElement;
-  focus: "left" | "right"
+  focus: "left" | "right";
 }> = (props) => {
   // HACK: id love to fix this but i dont know how
   // fully rerender on breakpoint change and on mobile navigation, because its behaving weirdly
@@ -120,15 +119,25 @@ export const SplitLayout: VoidComponent<{
   const mobileView = createMediaQuery("(min-width: 1024px)");
   const onRoot = useMatch(() => "/");
   return (
-    <Show when={(mobileView() || onRoot()) ? 2 : 3} keyed>
+    <Show when={mobileView() || onRoot() ? 2 : 3} keyed>
       <Stack direction="row" class="h-screen">
-        <section class={cx("flex-col w-full lg:w-120", props.focus === "left" ? "flex" : "hidden lg:flex")}>
+        <section
+          class={cx(
+            "flex-col w-full lg:w-120",
+            props.focus === "left" ? "flex" : "hidden lg:flex",
+          )}
+        >
           {props.left}
         </section>
-        <section class={cx("flex-col flex-1", props.focus === "right" ? "flex" : "hidden lg:flex")}>
+        <section
+          class={cx(
+            "flex-col flex-1",
+            props.focus === "right" ? "flex" : "hidden lg:flex",
+          )}
+        >
           {props.right}
         </section>
-      </Stack >
+      </Stack>
     </Show>
   );
 };
@@ -146,11 +155,12 @@ export const RehashProvider: Component<RouteSectionProps> = (props) => {
   });
 
   const [loadingStorePromise] = createResource(async () =>
-    setStore(await loadStoreFromIdb())
+    setStore(await loadStoreFromIdb()),
   );
 
   const isOnRoot = useMatch(() => "/");
-  const focus = () => store().state === StoreState.Unlocked && !isOnRoot() ? "right" : "left";
+  const focus = () =>
+    store().state === StoreState.Unlocked && !isOnRoot() ? "right" : "left";
 
   return (
     <SplitLayout
@@ -226,9 +236,12 @@ export const RehashProvider: Component<RouteSectionProps> = (props) => {
           enterToClass="translate-y-0 opacity-100"
           exitClass="translate-y-0 opacity-100"
           exitActiveClass="h-full lg:right-section-width absolute transition duration-100 ease-in"
-          exitToClass="translate-y-4"
+          exitToClass="translate-y-4 opacity-0"
         >
-          <Show when={returnNarrowedOrNull(store(), StoreState.Unlocked)} fallback={<LockedPlaceholder />} >
+          <Show
+            when={returnNarrowedOrNull(store(), StoreState.Unlocked)}
+            fallback={<LockedPlaceholder />}
+          >
             {(unlockedStore) => (
               <RehashContext.Provider value={[unlockedStore, setStore]}>
                 {props.children}

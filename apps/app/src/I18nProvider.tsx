@@ -29,7 +29,7 @@ type I18nContext = [
   {
     locale: Accessor<Locale>;
     setLocale: Setter<Locale>;
-  }
+  },
 ];
 
 const I18nContext = createContext<I18nContext>();
@@ -51,7 +51,7 @@ export const I18nProvider: FlowComponent = (props) => {
     <Suspense>
       <Show when={dictionary()}>
         {(dictionary) => {
-          const t = i18n.translator(dictionary);
+          const t = i18n.translator(dictionary, i18n.resolveTemplate);
           return (
             <I18nContext.Provider value={[t, { locale, setLocale }]}>
               {props.children}

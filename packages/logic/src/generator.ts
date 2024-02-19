@@ -2,15 +2,19 @@ import { argon2id } from "hash-wasm";
 import { StoreEntry, recommendedGeneratorOptions } from "./store";
 import { encodeBase64 } from "./utils";
 
-export type GeneratorEntry = Pick<StoreEntry, "url" | "username" | "options" | "generatorOptions">;
+export type GeneratorEntry = Pick<
+  StoreEntry,
+  "url" | "username" | "options" | "generatorOptions"
+>;
 
 export async function generate(
   password: string,
-  entry: GeneratorEntry
+  entry: GeneratorEntry,
 ): Promise<string> {
-  const resolvedOptions = typeof entry.generatorOptions === "string"
-    ? recommendedGeneratorOptions[entry.generatorOptions]
-    : entry.generatorOptions;
+  const resolvedOptions =
+    typeof entry.generatorOptions === "string"
+      ? recommendedGeneratorOptions[entry.generatorOptions]
+      : entry.generatorOptions;
 
   const result = await argon2id({
     password: password,
@@ -24,4 +28,3 @@ export async function generate(
 
   return encodeBase64(result).substring(0, entry.options.length);
 }
-

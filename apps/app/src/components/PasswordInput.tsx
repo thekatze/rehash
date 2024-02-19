@@ -10,7 +10,7 @@ export const PasswordInput: VoidComponent<InputProps> = (props) => {
   const [visible, setVisible] = createSignal(false);
 
   return (
-    <div class="flex items-center">
+    <div class="w-full flex items-center">
       <Input
         type={visible() ? "text" : "password"}
         autocomplete="off"

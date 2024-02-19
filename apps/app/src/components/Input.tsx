@@ -9,13 +9,18 @@ import {
 export type InputProps = {
   label: string;
   info?: string;
+  error?: string;
 } & ComponentProps<"input">;
 
 export const Input: VoidComponent<InputProps> = (mixedProps) => {
   const id = createUniqueId();
   const labelFor = `input-${id}`;
 
-  const [props, inputProps] = splitProps(mixedProps, ["label", "info"]);
+  const [props, inputProps] = splitProps(mixedProps, [
+    "label",
+    "error",
+    "info",
+  ]);
 
   return (
     <div class="relative w-full">
@@ -30,36 +35,34 @@ export const Input: VoidComponent<InputProps> = (mixedProps) => {
         w-full 
         peer 
         placeholder-transparent
-        bg-primary-100
-        text-primary-800
         focus:outline-none
-        focus:bg-primary-200
         rounded-md
+        transition-background-color
         `,
-          inputProps.class
+          inputProps.class,
+          props.error
+            ? "bg-error-100 text-error-800 focus:bg-error-200"
+            : "bg-primary-100 text-primary-800 focus:bg-primary-200",
         )}
       />
       <label
         for={labelFor}
-        class="
-        truncate
-        transition-all
-        absolute 
-        -top-2
-        left-3
-        text-xs
-        text-primary-800
-        peer-placeholder-shown:text-primary-500
-        peer-placeholder-shown:top-2
-        peer-placeholder-shown:inset-x-4
-        peer-placeholder-shown:pointer-events-none
-        peer-placeholder-shown:text-base
-        "
+        class={cx(
+          "truncate transition-all absolute -top-2 left-3 text-xs peer-placeholder-shown:top-2 peer-placeholder-shown:inset-x-4 peer-placeholder-shown:pointer-events-none peer-placeholder-shown:text-base",
+          props.error
+            ? "text-error-800 peer-placeholder-shown:text-error-500"
+            : "text-primary-800 peer-placeholder-shown:text-primary-500",
+        )}
       >
         {props.label}
       </label>
-      <span class="absolute -bottom-4.5 left-3 text-xs text-primary-500">
-        {props.info}
+      <span
+        class={cx(
+          "transition-color absolute -bottom-4 left-3 text-xs",
+          props.error ? "text-error-600" : "text-primary-600",
+        )}
+      >
+        {props.error || props.info}
       </span>
     </div>
   );

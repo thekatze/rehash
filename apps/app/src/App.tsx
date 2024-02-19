@@ -19,10 +19,7 @@ const App: Component = () => {
       <Router root={RehashProvider}>
         <Route path="*" component={UnlockedPlaceholder as Component} />
         <Route path="/new" component={NewAccount as Component} />
-        <Route
-          path="/account/:id"
-          component={AccountDetail}
-        />
+        <Route path="/account/:id" component={AccountDetail} />
         <Route path="/settings" component={Settings} />
       </Router>
     </I18nProvider>

@@ -8,9 +8,11 @@ export const BackButton: VoidComponent = () => {
   const navigate = useNavigate();
 
   return (
-    <IconButton variant="ghost" class="lg:hidden" onClick={() => navigate("/")}>B</IconButton>
+    <IconButton variant="ghost" class="lg:hidden" onClick={() => navigate("/")}>
+      B
+    </IconButton>
   );
-}
+};
 
 export const DetailPageLayout: FlowComponent<{ header: string }> = (props) => (
   <Stack as="section" direction="column" class="px-4">
@@ -21,4 +23,3 @@ export const DetailPageLayout: FlowComponent<{ header: string }> = (props) => (
     <div class="py-2">{props.children}</div>
   </Stack>
 );
-

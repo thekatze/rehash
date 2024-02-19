@@ -6,9 +6,7 @@ import { useNavigate } from "@solidjs/router";
 export const SettingsButton: VoidComponent = () => {
   const navigate = useNavigate();
   return (
-    <IconButton
-      onClick={() => navigate("/settings")}
-      variant="primary">
+    <IconButton onClick={() => navigate("/settings")} variant="primary">
       <SettingsIcon />
     </IconButton>
   );

@@ -8,7 +8,7 @@ export interface EncryptedStore {
 
 export async function decrypt(
   password: string,
-  store: EncryptedStore
+  store: EncryptedStore,
 ): Promise<Store | null> {
   const iv = decodeBase64(store.iv);
   const key = await deriveKey(password, iv);
@@ -17,7 +17,7 @@ export async function decrypt(
     const data = await crypto.subtle.decrypt(
       getAesParams(iv),
       key,
-      decodeBase64(store.store)
+      decodeBase64(store.store),
     );
 
     const decrypted = JSON.parse(new TextDecoder().decode(data));
@@ -30,7 +30,7 @@ export async function decrypt(
 
 export async function encrypt(
   password: string,
-  store: Store
+  store: Store,
 ): Promise<EncryptedStore> {
   const aesParams = getAesParams(crypto.getRandomValues(new Uint8Array(32)));
   const key = await deriveKey(password, aesParams.iv);
@@ -38,7 +38,7 @@ export async function encrypt(
   const data = await crypto.subtle.encrypt(
     aesParams,
     key,
-    new TextEncoder().encode(JSON.stringify(store))
+    new TextEncoder().encode(JSON.stringify(store)),
   );
 
   const iv = encodeBase64(aesParams.iv as Uint8Array);
@@ -56,14 +56,14 @@ function getAesParams(iv: Uint8Array): AesGcmParams {
 
 async function deriveKey(
   password: string,
-  salt: BufferSource
+  salt: BufferSource,
 ): Promise<CryptoKey> {
   const derived = await crypto.subtle.importKey(
     "raw",
     new TextEncoder().encode(password),
     { name: "PBKDF2" },
     false,
-    ["deriveKey"]
+    ["deriveKey"],
   );
 
   const keyType = { name: "AES-GCM", length: 256 };
@@ -84,12 +84,12 @@ async function deriveKey(
           derived,
           keyType,
           true,
-          ["encrypt", "decrypt"]
-        )
+          ["encrypt", "decrypt"],
+        ),
       ),
       keyType,
       false,
-      ["encrypt", "decrypt"]
+      ["encrypt", "decrypt"],
     );
     return key;
   } catch (e) {

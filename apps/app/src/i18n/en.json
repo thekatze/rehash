@@ -1,6 +1,22 @@
 {
   "common": {
-    "password": "Password"
+    "password": "Password",
+    "save_changes": "Save changes"
+  },
+  "validation": {
+    "required": "This field is required",
+    "wrong_password": "Wrong password. Try again"
+  },
+  "new_account": {
+    "heading": "New account",
+    "create": "Create Account"
+  },
+  "account_detail": {
+    "heading": "Account: {{ name }}",
+    "error": {
+      "oops": "Oops!",
+      "account_does_not_exist": "This account does not exist anymore."
+    }
   },
   "account": {
     "display_name": "Display Name",
@@ -10,7 +26,6 @@
     "generator_settings": "Generator Settings",
     "iteration": "Iteration",
     "length": "Length",
-    "create": "Create Account",
     "difficulty_label": "Difficulty",
     "difficulty": {
       "recommended": "Recommended",

@@ -6,9 +6,7 @@ import { useNavigate } from "@solidjs/router";
 export const AddAccountButton: VoidComponent = () => {
   const navigate = useNavigate();
   return (
-    <IconButton
-      onClick={() => navigate("/new")}
-      variant="secondary">
+    <IconButton onClick={() => navigate("/new")} variant="secondary">
       <AddIcon />
     </IconButton>
   );

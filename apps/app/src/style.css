@@ -1,8 +1,7 @@
 form {
-    /* On all forms: w-full flex flex-col gap-7 */
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 1.75rem;
+  /* On all forms: w-full flex flex-col gap-7 */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
 }
-

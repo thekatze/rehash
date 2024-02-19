@@ -25,7 +25,7 @@ const Stepper: VoidComponent<{ steps: number; current: number }> = (props) => {
               "z-10 h-3 w-3 rounded-full",
               props.current > i
                 ? "bg-primary-700"
-                : "bg-white border-3 border-primary-300"
+                : "bg-white border-3 border-primary-300",
             )}
           />
         )}
@@ -154,7 +154,7 @@ const onboardingSteps = [
 ];
 
 export const Onboarding: VoidComponent<{ setStore: Setter<RehashStore> }> = (
-  props
+  props,
 ) => {
   const [step, setStep] = createSignal(0);
 
