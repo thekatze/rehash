@@ -1,15 +1,15 @@
+import { createForm } from "@modular-forms/solid";
 import { RouteSectionProps } from "@solidjs/router";
 import {
   Component,
   Match,
   Show,
-  Suspense,
   Switch,
   VoidComponent,
   createResource,
 } from "solid-js";
-import { useRehash } from "../RehashProvider";
-import { StoreEntry, generate } from "@rehash/logic";
+import { generateInWorkerThread, useRehash } from "../RehashProvider";
+import { StoreEntry } from "@rehash/logic";
 import { Stack } from "./Stack";
 import { Heading } from "./Heading";
 import { Subheading } from "./Subheading";
@@ -19,6 +19,9 @@ import { AccountForm } from "./AccountForm";
 import { PasswordInput } from "./PasswordInput";
 import { IconButton } from "./Button";
 import { AsyncActionStatus, createAsyncAction } from "../createAsyncAction";
+import ClipboardIcon from "~icons/solar/clipboard-text-linear";
+import ClipboardCheckIcon from "~icons/solar/clipboard-check-linear";
+import ClipboardErrorIcon from "~icons/solar/clipboard-remove-linear";
 
 export const AccountDetail: Component<RouteSectionProps<StoreEntry>> = (
   props,
@@ -64,16 +67,19 @@ const Inner: VoidComponent<{ id: string; account: StoreEntry }> = (props) => {
   const [store, setStore] = useRehash();
   const [t] = useI18n();
 
+  const [form] = createForm<StoreEntry>({ initialValues: props.account });
+
   const [generatedPassword] = createResource(
-    () => props.account,
-    (account) => generate(store().password, account),
+    () => ([store().password, props.account] satisfies [string, StoreEntry]),
+    // TODO: performance: find out why this gets called 4 times
+    (generatorParameters) => generateInWorkerThread(...generatorParameters)
   );
 
   return (
     <>
       <AccountForm
         submitText={t("common.save_changes")}
-        initialValues={props.account}
+        form={form}
         onSubmit={(updatedAccount) => {
           const updatedStore = store();
           updatedStore.entries[props.id] = updatedAccount;
@@ -81,29 +87,28 @@ const Inner: VoidComponent<{ id: string; account: StoreEntry }> = (props) => {
         }}
       />
       <Stack class="mt-7 gap-2" direction="row">
-        <Suspense
-          fallback={
-            <div class="w-full bg-primary-100 h-10 rounded-md animate-pulse" />
+        <Show when={!generatedPassword.loading && generatedPassword()} fallback={
+          <div class="w-full bg-primary-100 h-10 rounded-md animate-pulse" />
+        }>
+          {(password) =>
+            <>
+              <PasswordInput
+                label={t("account_detail.generated_password")}
+                readonly
+                info={form.dirty ? t("account_detail.save_changes_to_regenerate") : undefined}
+                value={password()}
+              />
+              <CopyPasswordButton password={password()} />
+            </>
           }
-        >
-          <PasswordInput
-            label="Generated Password"
-            readonly
-            info="Save changes to regenerate"
-            value={generatedPassword()}
-          />
-        </Suspense>
+        </Show>
       </Stack>
     </>
   );
 };
 
-import ClipboardIcon from "~icons/solar/clipboard-text-linear";
-import ClipboardCheckIcon from "~icons/solar/clipboard-check-linear";
-import ClipboardErrorIcon from "~icons/solar/clipboard-remove-linear";
-
 const CopyPasswordButton: VoidComponent<{ password?: string }> = (props) => {
-  const [copyPassword, status] = createAsyncAction(
+  const [status, copyPassword] = createAsyncAction(
     () => {
       const password = props.password;
       if (!password) throw new Error("password not generated");
@@ -117,16 +122,16 @@ const CopyPasswordButton: VoidComponent<{ password?: string }> = (props) => {
       <Switch>
         <Match
           when={
-            status() == AsyncActionStatus.Idle ||
-            status() == AsyncActionStatus.Pending
+            status() === AsyncActionStatus.Idle ||
+            status() === AsyncActionStatus.Pending
           }
         >
           <ClipboardIcon />
         </Match>
-        <Match when={status() == AsyncActionStatus.Success}>
+        <Match when={status() === AsyncActionStatus.Success}>
           <ClipboardCheckIcon />
         </Match>
-        <Match when={status() == AsyncActionStatus.Error}>
+        <Match when={status() === AsyncActionStatus.Error}>
           <ClipboardErrorIcon />
         </Match>
       </Switch>

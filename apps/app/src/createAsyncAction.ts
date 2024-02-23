@@ -1,4 +1,4 @@
-import { createSignal } from "solid-js";
+import { Accessor, createSignal } from "solid-js";
 
 export enum AsyncActionStatus {
   Idle,
@@ -40,5 +40,5 @@ export const createAsyncAction = <T>(
     }
   };
 
-  return [status, runAction];
+  return [status, runAction] satisfies [Accessor<AsyncActionStatus>, () => Promise<void>];
 };

@@ -3,16 +3,20 @@ import { useRehash } from "../RehashProvider";
 import { DetailPageLayout } from "./DetailPageLayout";
 import { useI18n } from "../I18nProvider";
 import { AccountForm } from "./AccountForm";
+import { createForm } from "@modular-forms/solid";
+import { StoreEntry } from "@rehash/logic";
 
 export const NewAccount: VoidComponent = () => {
   const [store, setStore] = useRehash();
   const [t] = useI18n();
 
+  const [form] = createForm<StoreEntry>({ initialValues: { options: { length: 32, iteration: 1 } } });
+
   return (
     <DetailPageLayout header={t("new_account.heading")}>
       <AccountForm
         submitText={t("new_account.create")}
-        initialValues={{ options: { length: 32, iteration: 1 } }}
+        form={form}
         onSubmit={(account) => {
           const updatedStore = store();
 

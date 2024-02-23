@@ -1,6 +1,6 @@
-import { useRehash } from "../RehashProvider";
+import { generateInWorkerThread, useRehash } from "../RehashProvider";
 import { sortBy } from "lodash-es";
-import { StoreEntry, generate } from "@rehash/logic";
+import { StoreEntry } from "@rehash/logic";
 import { IconButton } from "./Button";
 import { Input } from "./Input";
 import { For, Match, Switch, VoidComponent, createSignal } from "solid-js";
@@ -76,7 +76,7 @@ const AccountListItem: VoidComponent<{ account: AccountWithId }> = (props) => {
 
   const [passwordStatus, copyPassword] = createAsyncAction(
     async () => {
-      const password = await generate(store().password, props.account);
+      const password = await generateInWorkerThread(store().password, props.account);
       await navigator.clipboard.writeText(password);
     },
     { reset: 3000 },

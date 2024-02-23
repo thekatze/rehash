@@ -1,7 +1,7 @@
 // TODO: test these options
 export const recommendedGeneratorOptions = {
   "2024": {
-    iterations: 8,
+    iterations: 16,
     parallelism: 2,
     memorySize: 16384,
   },
@@ -60,3 +60,4 @@ export const migrateLegacyStore = (store: LegacyStore): Store => {
     },
   };
 };
+

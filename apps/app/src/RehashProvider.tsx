@@ -21,6 +21,8 @@ import {
   decrypt,
   migrateLegacyStore,
   LegacyStore,
+  generate,
+  encrypt,
 } from "@rehash/logic";
 import { Transition } from "solid-transition-group";
 import { PasswordPrompt } from "./components/PasswordPrompt";
@@ -32,7 +34,19 @@ import { RouteSectionProps, useMatch } from "@solidjs/router";
 import { Stack } from "./components/Stack";
 import { cx } from "cva";
 import { createMediaQuery } from "@solid-primitives/media";
+
 const STORE_KEY = "rehash_store";
+
+import PasswordWorker from "./rehashGeneratorWorker?worker";
+
+export const generateInWorkerThread = (...params: Parameters<typeof generate>): Promise<string> =>
+  new Promise((resolve) => {
+    const worker = new PasswordWorker();
+
+    worker.onmessage = (e) => resolve(e.data);
+
+    worker.postMessage(params);
+  });
 
 export enum StoreState {
   Empty,
@@ -88,8 +102,8 @@ const returnNarrowedOrNull = <T extends StoreState>(
   type: T,
 ): Extract<RehashStore, { state: T }> | null => {
   if (store.state === type) {
-    // @ts-ignore -- TODO: fix typing, logic works
-    return store;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- the logic works, but i dont know how to express it in typescript
+    return store as any;
   }
 
   return null;
@@ -149,8 +163,14 @@ export const RehashProvider: Component<RouteSectionProps> = (props) => {
 
   createEffect(() => {
     // save store on change if unlocked
-    if (store().state === StoreState.Unlocked) {
-      set(STORE_KEY, { ...store(), password: undefined, state: undefined });
+    const s = store();
+    if (s.state === StoreState.Unlocked) {
+      const serializableStore = { ...s, password: undefined, state: undefined };
+      if (s.settings.encrypt) {
+        encrypt(s.password, serializableStore).then((encrypted) => { set(STORE_KEY, encrypted) });
+      } else {
+        set(STORE_KEY, serializableStore);
+      }
     }
   });
 

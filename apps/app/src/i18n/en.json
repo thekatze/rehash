@@ -13,6 +13,8 @@
   },
   "account_detail": {
     "heading": "Account: {{ name }}",
+    "generated_password": "Generated Password",
+    "save_changes_to_regenerate": "Save changes to regenerate",
     "error": {
       "oops": "Oops!",
       "account_does_not_exist": "This account does not exist anymore."
