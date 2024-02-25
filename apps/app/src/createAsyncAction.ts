@@ -40,5 +40,8 @@ export const createAsyncAction = <T>(
     }
   };
 
-  return [status, runAction] satisfies [Accessor<AsyncActionStatus>, () => Promise<void>];
+  return [status, runAction] satisfies [
+    Accessor<AsyncActionStatus>,
+    () => Promise<void>,
+  ];
 };

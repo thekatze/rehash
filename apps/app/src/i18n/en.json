@@ -61,5 +61,20 @@
     "unlock_your_vault": "Unlock your vault",
     "unlock_your_vault_text": "Enter your password to unlock your vault.",
     "unlock_vault": "Unlock vault"
+  },
+  "settings": {
+    "heading": "Settings",
+    "general": {
+      "heading": "General",
+      "language": "Language"
+    },
+    "vault": {
+      "heading": "Vault Settings",
+      "default_generator_settings": "Default Generator Settings",
+      "encrypt": "Encrypt",
+      "import": "Import Vault",
+      "export": "Export Vault",
+      "delete": "Delete Vault"
+    }
   }
 }

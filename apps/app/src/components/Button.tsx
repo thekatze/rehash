@@ -9,6 +9,8 @@ const variants = {
       "enabled:bg-primary-100 enabled:hover:bg-primary-200 enabled:focus:bg-primary-200 enabled:active:bg-primary-300 enabled:text-primary-600 enabled:active:text-primary-700",
     ghost:
       "enabled:bg-primary-50 enabled:hover:bg-primary-100 enabled:focus:bg-primary-100 enabled:active:bg-primary-200 enabled:text-primary-500 enabled:active:text-primary-600",
+    "ghost-danger":
+      "enabled:bg-transparent enabled:hover:bg-error-50 enabled:focus:bg-error-50 enabled:active:bg-error-100 enabled:text-error-600 enabled:active:text-error-700",
   },
 };
 

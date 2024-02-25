@@ -4,13 +4,20 @@ import { DetailPageLayout } from "./DetailPageLayout";
 import { useI18n } from "../I18nProvider";
 import { AccountForm } from "./AccountForm";
 import { createForm } from "@modular-forms/solid";
-import { StoreEntry } from "@rehash/logic";
+import { StoreEntry, recommendedDifficulty } from "@rehash/logic";
+import { useNavigate } from "@solidjs/router";
 
 export const NewAccount: VoidComponent = () => {
   const [store, setStore] = useRehash();
   const [t] = useI18n();
+  const navigate = useNavigate();
 
-  const [form] = createForm<StoreEntry>({ initialValues: { options: { length: 32, iteration: 1 } } });
+  const [form] = createForm<StoreEntry>({
+    initialValues: {
+      options: { length: 32, iteration: 1 },
+      generatorOptions: recommendedDifficulty,
+    },
+  });
 
   return (
     <DetailPageLayout header={t("new_account.heading")}>
@@ -29,6 +36,8 @@ export const NewAccount: VoidComponent = () => {
 
           updatedStore.entries[id] = account;
           setStore({ ...updatedStore });
+
+          navigate(`/account/${id}`);
         }}
       />
     </DetailPageLayout>

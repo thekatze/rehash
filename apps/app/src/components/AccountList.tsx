@@ -16,6 +16,7 @@ export const AccountList: VoidComponent = () => {
       id: key,
       ...account,
     }));
+
   const filteredAccounts = () =>
     withId().filter(
       (a) =>
@@ -23,6 +24,7 @@ export const AccountList: VoidComponent = () => {
         a.username.toLowerCase().includes(lowerCaseSearch()) ||
         (a.displayName?.toLowerCase().includes(lowerCaseSearch()) ?? false),
     );
+
   const sortedAccounts = () =>
     sortBy(filteredAccounts(), (u) => u.displayName ?? u.url);
 
@@ -76,7 +78,10 @@ const AccountListItem: VoidComponent<{ account: AccountWithId }> = (props) => {
 
   const [passwordStatus, copyPassword] = createAsyncAction(
     async () => {
-      const password = await generateInWorkerThread(store().password, props.account);
+      const password = await generateInWorkerThread(
+        store().password,
+        props.account,
+      );
       await navigator.clipboard.writeText(password);
     },
     { reset: 3000 },

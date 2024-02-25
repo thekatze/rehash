@@ -1,5 +1,5 @@
 import { createForm } from "@modular-forms/solid";
-import { RouteSectionProps } from "@solidjs/router";
+import { RouteSectionProps, useNavigate } from "@solidjs/router";
 import {
   Component,
   Match,
@@ -17,7 +17,7 @@ import { DetailPageLayout } from "./DetailPageLayout";
 import { useI18n } from "../I18nProvider";
 import { AccountForm } from "./AccountForm";
 import { PasswordInput } from "./PasswordInput";
-import { IconButton } from "./Button";
+import { Button, IconButton } from "./Button";
 import { AsyncActionStatus, createAsyncAction } from "../createAsyncAction";
 import ClipboardIcon from "~icons/solar/clipboard-text-linear";
 import ClipboardCheckIcon from "~icons/solar/clipboard-check-linear";
@@ -66,13 +66,14 @@ export const AccountDetail: Component<RouteSectionProps<StoreEntry>> = (
 const Inner: VoidComponent<{ id: string; account: StoreEntry }> = (props) => {
   const [store, setStore] = useRehash();
   const [t] = useI18n();
+  const navigate = useNavigate();
 
   const [form] = createForm<StoreEntry>({ initialValues: props.account });
 
   const [generatedPassword] = createResource(
-    () => ([store().password, props.account] satisfies [string, StoreEntry]),
+    () => [store().password, props.account] satisfies [string, StoreEntry],
     // TODO: performance: find out why this gets called 4 times
-    (generatorParameters) => generateInWorkerThread(...generatorParameters)
+    (generatorParameters) => generateInWorkerThread(...generatorParameters),
   );
 
   return (
@@ -86,22 +87,42 @@ const Inner: VoidComponent<{ id: string; account: StoreEntry }> = (props) => {
           setStore({ ...updatedStore });
         }}
       />
-      <Stack class="mt-7 gap-2" direction="row">
-        <Show when={!generatedPassword.loading && generatedPassword()} fallback={
-          <div class="w-full bg-primary-100 h-10 rounded-md animate-pulse" />
-        }>
-          {(password) =>
-            <>
-              <PasswordInput
-                label={t("account_detail.generated_password")}
-                readonly
-                info={form.dirty ? t("account_detail.save_changes_to_regenerate") : undefined}
-                value={password()}
-              />
-              <CopyPasswordButton password={password()} />
-            </>
-          }
-        </Show>
+      <Stack direction="column" class="mt-7 gap-7">
+        <Stack class="gap-2" direction="row">
+          <Show
+            when={!generatedPassword.loading && generatedPassword()}
+            fallback={
+              <div class="w-full bg-primary-100 h-10 rounded-md animate-pulse" />
+            }
+          >
+            {(password) => (
+              <>
+                <PasswordInput
+                  label={t("account_detail.generated_password")}
+                  readonly
+                  info={
+                    form.dirty
+                      ? t("account_detail.save_changes_to_regenerate")
+                      : undefined
+                  }
+                  value={password()}
+                />
+                <CopyPasswordButton password={password()} />
+              </>
+            )}
+          </Show>
+        </Stack>
+        <Button
+          variant="ghost-danger"
+          onClick={() => {
+            const s = store();
+            delete s.entries[props.id];
+            setStore({ ...s });
+            navigate("/");
+          }}
+        >
+          Delete
+        </Button>
       </Stack>
     </>
   );

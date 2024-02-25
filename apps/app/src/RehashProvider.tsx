@@ -35,11 +35,13 @@ import { Stack } from "./components/Stack";
 import { cx } from "cva";
 import { createMediaQuery } from "@solid-primitives/media";
 
-const STORE_KEY = "rehash_store";
+export const STORE_KEY = "rehash_store";
 
 import PasswordWorker from "./rehashGeneratorWorker?worker";
 
-export const generateInWorkerThread = (...params: Parameters<typeof generate>): Promise<string> =>
+export const generateInWorkerThread = (
+  ...params: Parameters<typeof generate>
+): Promise<string> =>
   new Promise((resolve) => {
     const worker = new PasswordWorker();
 
@@ -167,7 +169,9 @@ export const RehashProvider: Component<RouteSectionProps> = (props) => {
     if (s.state === StoreState.Unlocked) {
       const serializableStore = { ...s, password: undefined, state: undefined };
       if (s.settings.encrypt) {
-        encrypt(s.password, serializableStore).then((encrypted) => { set(STORE_KEY, encrypted) });
+        encrypt(s.password, serializableStore).then((encrypted) => {
+          set(STORE_KEY, encrypted);
+        });
       } else {
         set(STORE_KEY, serializableStore);
       }

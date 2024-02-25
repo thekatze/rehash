@@ -3,13 +3,14 @@ import { IconButton } from "./Button";
 import { Stack } from "./Stack";
 import { Heading } from "./Heading";
 import { useNavigate } from "@solidjs/router";
+import BackArrowIcon from "~icons/solar/alt-arrow-left-outline";
 
 export const BackButton: VoidComponent = () => {
   const navigate = useNavigate();
 
   return (
     <IconButton variant="ghost" class="lg:hidden" onClick={() => navigate("/")}>
-      B
+      <BackArrowIcon />
     </IconButton>
   );
 };
