@@ -11,7 +11,7 @@
     "@hope-ui/solid": "^0.6.7",
     "@rehash/logic": "workspace:*",
     "@solid-primitives/i18n": "^1.4.0",
-    "@solidjs/router": "^0.8.2",
+    "@solidjs/router": "^0.13.0",
     "@stitches/core": "^1.2.8",
     "@zxcvbn-ts/core": "^3.0.2",
     "@zxcvbn-ts/language-common": "^3.0.3",
