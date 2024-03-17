@@ -40,10 +40,10 @@
   "onboarding": {
     "continue": "Continue",
     "go_back": "Go back",
-    "step_1": {
+    "welcome": {
       "welcome": "Welcome to rehash",
       "get_started": "Get Started",
-      "get_started_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "get_started_text": "Hi there! Welcome to rehash: the password manager that does not save your passwords. Before we create your vault, let's go through a few introductory steps to ensure you have the best possible experience. If you already know about rehash, feel free to skip this introduction using the options at the very bottom.",
       "im_already_familiar": "I'm already familiar",
       "im_already_familiar_text": "Great! Then let's get straight to creating your new vault.",
       "import_vault": "Import Vault",
@@ -53,9 +53,25 @@
     "language": {
       "language": "Language",
       "set_your_preferred_language": "Set your preferred language",
-      "set_your_preferred_language_text": "We tried to automatically detect your preferred language. If that did not work out to be the right one, you can change it here."
+      "set_your_preferred_language_text": "We tried to automatically detect your preferred language. If that did not turn out to be the right one, you can change it here."
     },
-    "step_4": {
+    "what_is_rehash": {
+      "what_is_rehash": "What is rehash?",
+      "how_does_it_work": "And how does it work?",
+      "how_does_it_work_text": "rehash generates your password from your vault password, the URL of the website and your username on that website. To ensure that there is no way to guess your vault password from the generated password, rehash uses a cryptographic hash function (argon2id) to generate your password. To get a feeling for how this works, try it out here!",
+      "cross_device_generation": "This process of generating your password works the same across different devices. This means, that by entering the same URL and username in a vault with the same password, you will always get the same password. This way you can easily access your passwords across devices without having to upload your vault to a cloud service.",
+      "vault_password": "Vault password"
+    },
+    "encrypt_vault": {
+      "encrypt_vault": "Encrypt Vault",
+      "encrypt_vault_text": "This setting controls if your vault gets encrypted when saving. You should probably leave this enabled. Disabling it will allow an attacker to see all your websites and usernames in plain text if your vault should become accessible to them. Your passwords will not be visible, as they require your vault password to be generated."
+    },
+    "vault_settings": {
+      "vault_settings": "Vault Settings",
+      "configure_your_vault": "Configure the generator",
+      "configure_your_vault_text": "Configure your vault"
+    },
+    "create_your_vault": {
       "create_your_vault": "Create your vault",
       "set_password": "Set your password",
       "set_password_text": "Choose a strong password for your vault.",

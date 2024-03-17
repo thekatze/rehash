@@ -1,4 +1,4 @@
-import { Component, VoidComponent } from "solid-js";
+import { Component, ComponentProps, VoidComponent } from "solid-js";
 import { DetailPageLayout } from "./DetailPageLayout";
 import { useI18n } from "../I18nProvider";
 import { Stack } from "./Stack";
@@ -99,17 +99,25 @@ const MergeImportButton: VoidComponent = () => {
   );
 };
 
+const Toggle: VoidComponent<{ label: string } & Omit<ComponentProps<"input">, "type" | "class">> = (props) => {
+  return (
+    <label class="inline-flex items-center gap-2">
+      <input type="checkbox" class="accent-primary-600 w-6 h-6 rounded-md" {...props} />
+      {props.label}
+    </label>
+  );
+}
+
 const EncryptToggle: VoidComponent = () => {
   const [t] = useI18n();
   const [store, setStore] = useRehash();
   return (
-    <label class="inline-flex items-center gap-2">
-      <input type="checkbox" class="accent-primary-600 w-6 h-6 rounded-md" checked={store().settings.encrypt} onChange={() => {
+    <Toggle
+      label={t("settings.vault.encrypt")}
+      checked={store().settings.encrypt} onChange={() => {
         const s = store();
         setStore({ ...s, settings: { ...s.settings, encrypt: !s.settings.encrypt } })
       }} />
-      {t("settings.vault.encrypt")}
-    </label>
   );
 };
 

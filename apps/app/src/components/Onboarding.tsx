@@ -1,4 +1,4 @@
-import { For, Setter, Show, VoidComponent, createSignal } from "solid-js";
+import { Accessor, For, Setter, Show, VoidComponent, createSignal } from "solid-js";
 import { Stack } from "./Stack";
 import { Heading } from "./Heading";
 import { Subheading } from "./Subheading";
@@ -13,6 +13,9 @@ import { RehashStore, STORE_KEY, StoreState } from "../RehashProvider";
 import { FileUploadButton } from "./FileUploadButton";
 import { set } from "idb-keyval";
 import { LanguageSelect } from "./LanguageSelect";
+import { Input } from "./Input";
+import { Toggle } from "./Toggle";
+import { GeneratorOptions, recommendedDifficulty } from "@rehash/logic";
 
 const Stepper: VoidComponent<{ steps: number; current: number }> = (props) => {
   return (
@@ -62,7 +65,7 @@ const OnboardingNavigation: VoidComponent<{ setStep: Setter<number> }> = (props)
   );
 }
 
-const OnboardingStep1: OnboardingStep = (props) => {
+const OnboardingWelcome: OnboardingStep = (props) => {
   const [t] = useI18n();
 
   const importFile = (text: string) => {
@@ -73,9 +76,9 @@ const OnboardingStep1: OnboardingStep = (props) => {
 
   return (
     <>
-      <Heading>{t("onboarding.step_1.welcome")}</Heading>
-      <Subheading>{t("onboarding.step_1.get_started")}</Subheading>
-      <Paragraph>{t("onboarding.step_1.get_started_text")}</Paragraph>
+      <Heading>{t("onboarding.welcome.welcome")}</Heading>
+      <Subheading>{t("onboarding.welcome.get_started")}</Subheading>
+      <Paragraph>{t("onboarding.welcome.get_started_text")}</Paragraph>
       <Button
         variant="primary"
         class="ml-auto mt-4"
@@ -85,24 +88,24 @@ const OnboardingStep1: OnboardingStep = (props) => {
       </Button>
 
       <Subheading class="mt-auto">
-        {t("onboarding.step_1.im_already_familiar")}
+        {t("onboarding.welcome.im_already_familiar")}
       </Subheading>
-      <Paragraph>{t("onboarding.step_1.im_already_familiar_text")}</Paragraph>
+      <Paragraph>{t("onboarding.welcome.im_already_familiar_text")}</Paragraph>
       <Stack direction="row" class="gap-3 ml-auto items-center">
-        <FileUploadButton variant="ghost" onFileUploaded={importFile}>{t("onboarding.step_1.import_vault")}</FileUploadButton>
-        {t("onboarding.step_1.or")}
+        <FileUploadButton variant="ghost" onFileUploaded={importFile}>{t("onboarding.welcome.import_vault")}</FileUploadButton>
+        {t("onboarding.welcome.or")}
         <Button
           variant="ghost"
           onClick={() => props.setStep(onboardingSteps.length - 1)}
         >
-          {t("onboarding.step_1.skip_introduction")}
+          {t("onboarding.welcome.skip_introduction")}
         </Button>
       </Stack>
     </>
   );
 };
 
-const OnboardingStep2: OnboardingStep = (props) => {
+const OnboardingLanguage: OnboardingStep = (props) => {
   const [t] = useI18n();
 
   return (
@@ -116,20 +119,117 @@ const OnboardingStep2: OnboardingStep = (props) => {
   );
 };
 
-const OnboardingStep3: OnboardingStep = (props) => {
+type GetInnerType<S> = S extends Accessor<infer T> ? T : never;
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- getting proper typing here is not worth it
+const pregeneratedPasswords: any = {
+  "hunter2": {
+    "google.com": {
+      "johndoe": "TCcOgTYwWutmk1MjrivXVfYXUydxO6Zy",
+      "alice": "GQDjHcUCMybfRINaFEkaAAvp/66HJ8hY"
+    },
+    "spotify.com": {
+      "johndoe": "FhEqWmiGT9tPunkeTOqFZ517luMp+ddn",
+      "alice": "DbW9s8VveGWpBtmMhVSkbX9UE6R4kE+H"
+    }
+  },
+  "pas5w0rd": {
+    "google.com": {
+      "johndoe": "IegbyNfDQGswkPgLvzyxcS2PcK0V9XM2",
+      "alice": "pDvF3/UUAIdbVld7T26QptK8NCO/sZpB"
+    },
+    "spotify.com": {
+      "johndoe": "/94VdwGJQlfOr+c/3qIDB4TOgzAWxaSm",
+      "alice": "NFwaPwFzMhdq0F6xHUc2zsdSNLv4dRSu"
+    }
+  }
+};
+
+const OnboardingWhatIsRehash: OnboardingStep = (props) => {
   const [t] = useI18n();
+
+  const [selection, setSelection] = createSignal(
+    {
+      password: "hunter2",
+      url: "google.com",
+      username: "johndoe",
+    }
+  );
+
+  const RowSelectButton: VoidComponent<{ value: string, field: keyof GetInnerType<typeof selection> }> = (props) =>
+  (
+    <td><Button class="w-full" variant={selection()[props.field] === props.value ? "primary" : "secondary"} onClick={() => setSelection((s) => ({ ...s, [props.field]: props.value }))}>{props.value}</Button></td>
+  );
 
   return (
     <>
-      <Heading>Step 3</Heading>
-      <Subheading>Please do not resist</Subheading>
-      <Paragraph>:)</Paragraph>
+      <Heading>{t("onboarding.what_is_rehash.what_is_rehash")}</Heading>
+      <Subheading>{t("onboarding.what_is_rehash.how_does_it_work")}</Subheading>
+      <Paragraph>{t("onboarding.what_is_rehash.how_does_it_work_text")}</Paragraph>
+      <Paragraph>
+        <table class="w-full">
+          <tbody>
+            <tr>
+              <td class="font-bold text-primary-700">{t("onboarding.what_is_rehash.vault_password")}</td>
+              <RowSelectButton value="hunter2" field="password" />
+              <RowSelectButton value="pas5w0rd" field="password" />
+            </tr>
+            <tr>
+              <td class="font-bold text-primary-700">{t("account.url")}</td>
+              <RowSelectButton value="google.com" field="url" />
+              <RowSelectButton value="spotify.com" field="url" />
+            </tr>
+            <tr>
+              <td class="font-bold text-primary-700">{t("account.username")}</td>
+              <RowSelectButton value="johndoe" field="username" />
+              <RowSelectButton value="alice" field="username" />
+            </tr>
+          </tbody>
+        </table>
+      </Paragraph>
+      <Paragraph>
+        <Input label={t("common.password")} readonly value={pregeneratedPasswords[selection().password][selection().url][selection().username]} />
+      </Paragraph>
+      <Paragraph>{t("onboarding.what_is_rehash.cross_device_generation")}</Paragraph>
       <OnboardingNavigation setStep={props.setStep} />
     </>
   );
 };
 
-const OnboardingStep4: OnboardingStep = (props) => {
+const [encryptVault, setEncryptVault] = createSignal(true);
+
+const OnboardingEncryptVault: OnboardingStep = (props) => {
+  const [t] = useI18n();
+
+  return (
+    <>
+      <Heading>{t("onboarding.vault_settings.vault_settings")}</Heading>
+      <Subheading>{t("onboarding.encrypt_vault.encrypt_vault")}</Subheading>
+      <Paragraph>{t("onboarding.encrypt_vault.encrypt_vault_text")}</Paragraph>
+      <Paragraph>
+        <Toggle label={t("settings.vault.encrypt")} checked={encryptVault()} onChange={() => setEncryptVault((e) => !e)} />
+      </Paragraph>
+      <OnboardingNavigation setStep={props.setStep} />
+    </>
+  );
+};
+
+const [generatorSettings, setGeneratorSettings] = createSignal<GeneratorOptions>(recommendedDifficulty);
+
+const OnboardingVaultSettings: OnboardingStep = (props) => {
+  const [t] = useI18n();
+
+  return (
+    <>
+      <Heading>{t("onboarding.vault_settings.vault_settings")}</Heading>
+      <Subheading>{t("onboarding.vault_settings.configure_your_vault")}</Subheading>
+      <Paragraph>{t("onboarding.vault_settings.configure_your_vault_text")}</Paragraph>
+      <OnboardingNavigation setStep={props.setStep} />
+    </>
+  );
+};
+
+const OnboardingCreateVault: OnboardingStep = (props) => {
   const [t] = useI18n();
   const [password, setPassword] = createSignal("");
 
@@ -139,6 +239,7 @@ const OnboardingStep4: OnboardingStep = (props) => {
       state: StoreState.Unlocked,
       settings: {
         encrypt: true,
+        defaultGeneratorOptions: generatorSettings(),
       },
       entries: {},
       password: password(),
@@ -147,34 +248,46 @@ const OnboardingStep4: OnboardingStep = (props) => {
 
   return (
     <>
-      <Heading>{t("onboarding.step_4.create_your_vault")}</Heading>
-      <Subheading>{t("onboarding.step_4.set_password")}</Subheading>
-      <Paragraph>{t("onboarding.step_4.set_password_text")}</Paragraph>
+      <Heading>{t("onboarding.create_your_vault.create_your_vault")}</Heading>
+      <Subheading>{t("onboarding.create_your_vault.set_password")}</Subheading>
+      <Paragraph>{t("onboarding.create_your_vault.set_password_text")}</Paragraph>
       <form onSubmit={initializeStore}>
         <PasswordInput
           value={password()}
           onInput={(e) => setPassword(e.target.value)}
           label={t("common.password")}
+          required
         />
-        <Button variant="primary" class="ml-auto" type="submit">
-          {t("onboarding.step_4.create_vault")}
-        </Button>
+        <div class="flex justify-end gap-2 w-full">
+          <Button
+            variant="ghost"
+            type="button"
+            onClick={() => props.setStep((s) => s - 1)}
+          >
+            {t("onboarding.go_back")}
+          </Button>
+          <Button variant="primary" type="submit">
+            {t("onboarding.create_your_vault.create_vault")}
+          </Button>
+        </div>
       </form>
     </>
   );
 };
 
-const onboardingSteps = [
-  OnboardingStep1,
-  OnboardingStep2,
-  OnboardingStep3,
-  OnboardingStep4,
+const onboardingSteps: OnboardingStep[] = [
+  OnboardingWelcome,
+  OnboardingLanguage,
+  OnboardingWhatIsRehash,
+  OnboardingEncryptVault,
+  OnboardingVaultSettings,
+  OnboardingCreateVault,
 ];
 
 export const Onboarding: VoidComponent<{ setStore: Setter<RehashStore> }> = (
   props,
 ) => {
-  const [step, setStep] = createSignal(1);
+  const [step, setStep] = createSignal(0);
 
   return (
     <Stack as="main" direction="column" class="gap-3 p-8 h-full">

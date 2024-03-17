@@ -1,4 +1,3 @@
-// TODO: test these options
 export const recommendedGeneratorOptions = {
   "2024": {
     iterations: 16,
@@ -34,14 +33,14 @@ export type StoreEntry = {
 
 export interface Store {
   settings: {
-    defaultGeneratorOptions?: GeneratorOptions;
+    defaultGeneratorOptions: GeneratorOptions;
     encrypt: boolean;
   };
   entries: Record<string, StoreEntry>;
 }
 
 export interface LegacyStore {
-  options: GeneratorOptions;
+  options: CustomGeneratorOptions;
   entries: Record<string, Omit<StoreEntry, "generatorOptions">>;
 }
 
