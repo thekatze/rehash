@@ -5,6 +5,7 @@ import {
   Show,
   Suspense,
   createContext,
+  createEffect,
   createResource,
   createSignal,
   useContext,
@@ -43,9 +44,20 @@ export const useI18n = () => {
 // TODO: use transition when switching locale
 // https://primitives.solidjs.community/package/i18n#with-transitions
 
+const LOCALE_KEY = "rehash_locale";
+
 export const I18nProvider: FlowComponent = (props) => {
-  const [locale, setLocale] = createSignal<Locale>("en");
+  let lang = localStorage.getItem(LOCALE_KEY)
+    ?? new Intl.Locale(navigator.languages[0]).language;
+
+  if (!locales.includes(lang as Locale)) lang = "en";
+
+  const [locale, setLocale] = createSignal<Locale>(lang as Locale);
   const [dictionary] = createResource(locale, fetchDictionary);
+
+  createEffect(() => {
+    localStorage.setItem(LOCALE_KEY, locale());
+  });
 
   return (
     <Suspense>
