@@ -15,7 +15,7 @@ import {
   setValues,
 } from "@modular-forms/solid";
 import { useI18n } from "../I18nProvider";
-import { Input } from "./Input";
+import { Input, NumberInput } from "./Input";
 import { Stack } from "./Stack";
 import { Button } from "./Button";
 import { useRehash } from "../RehashProvider";
@@ -92,7 +92,7 @@ export const AccountForm: VoidComponent<{
             validate={[required(t("validation.required"))]}
           >
             {(field, fieldProps) => (
-              <Input
+              <NumberInput
                 label={t("account.length")}
                 {...fieldProps}
                 value={field.value}
@@ -107,7 +107,7 @@ export const AccountForm: VoidComponent<{
             validate={[required(t("validation.required"))]}
           >
             {(field, fieldProps) => (
-              <Input
+              <NumberInput
                 label={t("account.iteration")}
                 {...fieldProps}
                 value={field.value}
@@ -173,7 +173,7 @@ export const AccountForm: VoidComponent<{
                     name="generatorOptions.iterations"
                   >
                     {(field, fieldProps) => (
-                      <Input
+                      <NumberInput
                         label={t("account.difficulty.iterations")}
                         {...fieldProps}
                         value={field.value}
@@ -186,7 +186,7 @@ export const AccountForm: VoidComponent<{
                     name="generatorOptions.memorySize"
                   >
                     {(field, fieldProps) => (
-                      <Input
+                      <NumberInput
                         label={t("account.difficulty.memory_size")}
                         {...fieldProps}
                         value={field.value}
@@ -199,7 +199,7 @@ export const AccountForm: VoidComponent<{
                     name="generatorOptions.parallelism"
                   >
                     {(field, fieldProps) => (
-                      <Input
+                      <NumberInput
                         label={t("account.difficulty.parallelism")}
                         {...fieldProps}
                         value={field.value}

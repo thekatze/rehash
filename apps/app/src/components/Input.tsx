@@ -2,6 +2,7 @@ import { cx } from "cva";
 import {
   ComponentProps,
   VoidComponent,
+  createMemo,
   createUniqueId,
   splitProps,
 } from "solid-js";
@@ -67,3 +68,10 @@ export const Input: VoidComponent<InputProps> = (mixedProps) => {
     </div>
   );
 };
+
+// see https://modularforms.dev/solid/guides/controlled-fields#numbers-and-dates
+export const NumberInput: VoidComponent<Omit<ComponentProps<typeof Input>, "type">> = (props) => {
+  const getValue = createMemo<string | number | string[] | undefined>((previous) => !Number.isNaN(props.value) ? props.value : previous);
+  return <Input {...props} type="number" value={getValue()} />
+}
+
