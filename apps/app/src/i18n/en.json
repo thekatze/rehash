@@ -39,6 +39,7 @@
   },
   "onboarding": {
     "continue": "Continue",
+    "go_back": "Go back",
     "step_1": {
       "welcome": "Welcome to rehash",
       "get_started": "Get Started",

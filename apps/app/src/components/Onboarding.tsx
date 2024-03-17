@@ -42,6 +42,26 @@ type OnboardingStep = VoidComponent<{
   setStore: Setter<RehashStore>;
 }>;
 
+const OnboardingNavigation: VoidComponent<{ setStep: Setter<number> }> = (props) => {
+  const [t] = useI18n();
+  return (
+    <div class="flex gap-2 ml-auto mt-4">
+      <Button
+        variant="ghost"
+        onClick={() => props.setStep((s) => s - 1)}
+      >
+        {t("onboarding.go_back")}
+      </Button>
+      <Button
+        variant="primary"
+        onClick={() => props.setStep((s) => s + 1)}
+      >
+        {t("onboarding.continue")}
+      </Button>
+    </div>
+  );
+}
+
 const OnboardingStep1: OnboardingStep = (props) => {
   const [t] = useI18n();
 
@@ -91,13 +111,7 @@ const OnboardingStep2: OnboardingStep = (props) => {
       <Subheading>{t("onboarding.language.set_your_preferred_language")}</Subheading>
       <Paragraph>{t("onboarding.language.set_your_preferred_language_text")}</Paragraph>
       <LanguageSelect />
-      <Button
-        variant="primary"
-        class="ml-auto mt-4"
-        onClick={() => props.setStep((s) => s + 1)}
-      >
-        {t("onboarding.continue")}
-      </Button>
+      <OnboardingNavigation setStep={props.setStep} />
     </>
   );
 };
@@ -110,13 +124,7 @@ const OnboardingStep3: OnboardingStep = (props) => {
       <Heading>Step 3</Heading>
       <Subheading>Please do not resist</Subheading>
       <Paragraph>:)</Paragraph>
-      <Button
-        variant="primary"
-        class="ml-auto mt-4"
-        onClick={() => props.setStep((s) => s + 1)}
-      >
-        {t("onboarding.continue")}
-      </Button>
+      <OnboardingNavigation setStep={props.setStep} />
     </>
   );
 };
