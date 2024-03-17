@@ -12,6 +12,7 @@ import { PasswordInput } from "./PasswordInput";
 import { RehashStore, STORE_KEY, StoreState } from "../RehashProvider";
 import { FileUploadButton } from "./FileUploadButton";
 import { set } from "idb-keyval";
+import { LanguageSelect } from "./LanguageSelect";
 
 const Stepper: VoidComponent<{ steps: number; current: number }> = (props) => {
   return (
@@ -86,9 +87,10 @@ const OnboardingStep2: OnboardingStep = (props) => {
 
   return (
     <>
-      <Heading>Step 2</Heading>
-      <Subheading>You're currently being onboarded</Subheading>
-      <Paragraph>Hi mom!</Paragraph>
+      <Heading>{t("onboarding.language.language")}</Heading>
+      <Subheading>{t("onboarding.language.set_your_preferred_language")}</Subheading>
+      <Paragraph>{t("onboarding.language.set_your_preferred_language_text")}</Paragraph>
+      <LanguageSelect />
       <Button
         variant="primary"
         class="ml-auto mt-4"
@@ -164,7 +166,7 @@ const onboardingSteps = [
 export const Onboarding: VoidComponent<{ setStore: Setter<RehashStore> }> = (
   props,
 ) => {
-  const [step, setStep] = createSignal(0);
+  const [step, setStep] = createSignal(1);
 
   return (
     <Stack as="main" direction="column" class="gap-3 p-8 h-full">

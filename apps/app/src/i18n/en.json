@@ -49,6 +49,11 @@
       "or": "or",
       "skip_introduction": "Skip Introduction"
     },
+    "language": {
+      "language": "Language",
+      "set_your_preferred_language": "Set your preferred language",
+      "set_your_preferred_language_text": "We tried to automatically detect your preferred language. If that did not work out to be the right one, you can change it here."
+    },
     "step_4": {
       "create_your_vault": "Create your vault",
       "set_password": "Set your password",
