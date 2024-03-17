@@ -1,7 +1,7 @@
 import {
   type GeneratorEntry,
-  type GeneratorOptions,
-  RehashGenerator,
+  recommendedDifficulty,
+  generate,
 } from "@rehash/logic";
 import {
   type Component,
@@ -12,10 +12,9 @@ import {
   untrack,
   type VoidComponent,
 } from "solid-js";
-import { createStore } from "solid-js/store";
 
 const PasswordGenerator: Component = () => {
-  const [generatorData, setGeneratorData] = createStore<
+  const [generatorData, setGeneratorData] = createSignal<
     GeneratorEntry & { password: string }
   >({
     // changing something here requires changing the initial generated password below
@@ -26,30 +25,19 @@ const PasswordGenerator: Component = () => {
       iteration: 1,
       length: 32,
     },
-  });
-
-  const [generatorOptions] = createStore<GeneratorOptions>({
-    iterations: 15,
-    memorySize: 2048,
-    parallelism: 2,
+    generatorOptions: recommendedDifficulty,
   });
 
   // Don't immediately run a heavy wasm function at page load, we want good web vitals
   const [firstRun, setFirstRun] = createSignal(true);
 
-  const generatePassword = () => {
-    const password = generatorData.password || " ";
-    const options = { ...generatorOptions };
-    const data = { ...generatorData };
-
-    return untrack(firstRun)
-      ? undefined
-      : new RehashGenerator(password, options).generate(data);
-  };
-
   onMount(() => setFirstRun(false));
 
-  const [password] = createResource(generatePassword, generatePassword, {
+  const [password] = createResource(generatorData, (data) => {
+    return untrack(firstRun)
+      ? undefined
+      : generate(data.password, data);
+  }, {
     initialValue: "r+L27FcK0NGvy2GB1HXay9YJz1zL5hN3",
   });
 
@@ -57,19 +45,19 @@ const PasswordGenerator: Component = () => {
     <div class="flex gap-4 flex-col">
       <Input
         label="URL"
-        value={generatorData.url}
-        onInput={(value) => setGeneratorData("url", value)}
+        value={generatorData().url}
+        onInput={(value) => setGeneratorData((data) => ({ ...data, url: value }))}
       />
       <Input
         label="Username"
-        value={generatorData.username}
-        onInput={(value) => setGeneratorData("username", value)}
+        value={generatorData().username}
+        onInput={(value) => setGeneratorData((data) => ({ ...data, username: value }))}
       />
       <Input
         label="Password"
         type="password"
-        value={generatorData.password}
-        onInput={(value) => setGeneratorData("password", value)}
+        value={generatorData().password}
+        onInput={(value) => setGeneratorData((data) => ({ ...data, password: value }))}
       />
       <div class="flex gap-4 justify-center">
         <span class="py-2 text-center select-all overflow-scroll font-mono font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-secondary-400">
