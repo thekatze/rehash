@@ -9,7 +9,9 @@ import { cx } from "cva";
 import { Dynamic } from "solid-js/web";
 import { Transition } from "solid-transition-group";
 import { PasswordInput } from "./PasswordInput";
-import { RehashStore, StoreState } from "../RehashProvider";
+import { RehashStore, STORE_KEY, StoreState } from "../RehashProvider";
+import { FileUploadButton } from "./FileUploadButton";
+import { set } from "idb-keyval";
 
 const Stepper: VoidComponent<{ steps: number; current: number }> = (props) => {
   return (
@@ -42,6 +44,12 @@ type OnboardingStep = VoidComponent<{
 const OnboardingStep1: OnboardingStep = (props) => {
   const [t] = useI18n();
 
+  const importFile = (text: string) => {
+    // hard reload after import, makes things simpler
+    set(STORE_KEY, JSON.parse(text)).then(() =>
+      window.location.assign("/"));
+  }
+
   return (
     <>
       <Heading>{t("onboarding.step_1.welcome")}</Heading>
@@ -60,7 +68,7 @@ const OnboardingStep1: OnboardingStep = (props) => {
       </Subheading>
       <Paragraph>{t("onboarding.step_1.im_already_familiar_text")}</Paragraph>
       <Stack direction="row" class="gap-3 ml-auto items-center">
-        <Button variant="ghost">{t("onboarding.step_1.import_vault")}</Button>
+        <FileUploadButton variant="ghost" onFileUploaded={importFile}>{t("onboarding.step_1.import_vault")}</FileUploadButton>
         {t("onboarding.step_1.or")}
         <Button
           variant="ghost"

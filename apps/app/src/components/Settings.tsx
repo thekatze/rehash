@@ -1,11 +1,16 @@
-import { Component, For, VoidComponent, createSelector } from "solid-js";
+import { Component, VoidComponent } from "solid-js";
 import { DetailPageLayout } from "./DetailPageLayout";
-import { locales, useI18n } from "../I18nProvider";
+import { useI18n } from "../I18nProvider";
 import { Stack } from "./Stack";
 import { Subheading } from "./Subheading";
 import { Button } from "./Button";
 import { STORE_KEY, StoreState, useRehash } from "../RehashProvider";
 import { set } from "idb-keyval";
+import { saveAs } from "file-saver";
+import { decrypt, encrypt, migrateLegacyStore } from "@rehash/logic";
+import { FileUploadButton } from "./FileUploadButton";
+import { LanguageSelect } from "./LanguageSelect";
+
 
 export const Settings: Component = () => {
   const [t] = useI18n();
@@ -45,9 +50,6 @@ const DeleteVaultButton: VoidComponent = () => {
   );
 };
 
-import { saveAs } from "file-saver";
-import { encrypt } from "@rehash/logic";
-
 const ExportButton: VoidComponent = () => {
   const [store] = useRehash();
   const [t] = useI18n();
@@ -66,10 +68,34 @@ const ExportButton: VoidComponent = () => {
 
 const MergeImportButton: VoidComponent = () => {
   const [t] = useI18n();
+  const [store, setStore] = useRehash();
+
+  const onFileUploaded = async (contents: string) => {
+    let parsed = JSON.parse(contents);
+    if ("iv" in parsed && "store" in parsed) {
+      parsed = await decrypt(store().password, parsed);
+      if (!parsed) {
+        alert(t("settings.vault.import_error.different_master_password"));
+        return;
+      }
+    }
+
+    if ("options" in parsed && "entries" in parsed) {
+      parsed = migrateLegacyStore(parsed);
+    }
+
+    if ("settings" in parsed && "entries" in parsed) {
+      const s = store();
+      setStore({ ...s, entries: { ...s.entries, ...parsed.entries } });
+    } else {
+      alert(t("settings.vault.import_error.unknown_format"));
+    }
+  };
+
   return (
-    <Button class="flex-1" variant="secondary">
+    <FileUploadButton class="flex-1" variant="secondary" onFileUploaded={onFileUploaded}>
       {t("settings.vault.import")}
-    </Button>
+    </FileUploadButton>
   );
 };
 
@@ -89,27 +115,6 @@ const EncryptToggle: VoidComponent = () => {
 
 const DefaultGeneratorSettings: VoidComponent = () => {
   const [t] = useI18n();
-  return <div>{t("settings.vault.default_generator_settings")}</div>;
+  return <div>TODO: {t("settings.vault.default_generator_settings")}</div>;
 };
 
-const LanguageSelect: VoidComponent = () => {
-  const [t, { locale, setLocale }] = useI18n();
-  const isCurrentLocale = createSelector(locale, (l, r) => l === r);
-
-  return (
-    <label>
-      <span>{t("settings.general.language")}</span>
-      <select
-        onChange={(e) => setLocale(e.target.value as (typeof locales)[number])}
-      >
-        <For each={locales}>
-          {(locale) => (
-            <option selected={isCurrentLocale(locale)} value={locale}>
-              {new Intl.DisplayNames([locale], { type: "language" }).of(locale)}
-            </option>
-          )}
-        </For>
-      </select>
-    </label>
-  );
-};
