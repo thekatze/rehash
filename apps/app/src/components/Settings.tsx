@@ -1,4 +1,4 @@
-import { Component, ComponentProps, VoidComponent } from "solid-js";
+import { Component, VoidComponent, createEffect, untrack } from "solid-js";
 import { DetailPageLayout } from "./DetailPageLayout";
 import { useI18n } from "../I18nProvider";
 import { Stack } from "./Stack";
@@ -7,9 +7,12 @@ import { Button } from "./Button";
 import { STORE_KEY, StoreState, useRehash } from "../RehashProvider";
 import { set } from "idb-keyval";
 import { saveAs } from "file-saver";
-import { decrypt, encrypt, migrateLegacyStore } from "@rehash/logic";
+import { GeneratorOptions, StoreEntry, decrypt, encrypt, migrateLegacyStore } from "@rehash/logic";
 import { FileUploadButton } from "./FileUploadButton";
 import { LanguageSelect } from "./LanguageSelect";
+import { Toggle } from "./Toggle";
+import { createForm, getValues } from "@modular-forms/solid";
+import { GeneratorSettingsForm } from "./GeneratorSettingsForm";
 
 
 export const Settings: Component = () => {
@@ -22,12 +25,14 @@ export const Settings: Component = () => {
         <LanguageSelect />
         {/* Dark Mode */}
         <Subheading>{t("settings.vault.heading")}</Subheading>
-        <DefaultGeneratorSettings />
         <EncryptToggle />
+        <DefaultGeneratorSettings />
+        <Subheading>{t("settings.vault.import_heading")}</Subheading>
         <Stack direction="row" class="gap-2 w-full">
           <MergeImportButton />
           <ExportButton />
         </Stack>
+        <Subheading>{t("settings.danger_zone")}</Subheading>
         <DeleteVaultButton />
       </Stack>
     </DetailPageLayout>
@@ -99,15 +104,6 @@ const MergeImportButton: VoidComponent = () => {
   );
 };
 
-const Toggle: VoidComponent<{ label: string } & Omit<ComponentProps<"input">, "type" | "class">> = (props) => {
-  return (
-    <label class="inline-flex items-center gap-2">
-      <input type="checkbox" class="accent-primary-600 w-6 h-6 rounded-md" {...props} />
-      {props.label}
-    </label>
-  );
-}
-
 const EncryptToggle: VoidComponent = () => {
   const [t] = useI18n();
   const [store, setStore] = useRehash();
@@ -123,6 +119,25 @@ const EncryptToggle: VoidComponent = () => {
 
 const DefaultGeneratorSettings: VoidComponent = () => {
   const [t] = useI18n();
-  return <div>TODO: {t("settings.vault.default_generator_settings")}</div>;
+  const [store, setStore] = useRehash();
+
+  const [form, { Form }] = createForm<StoreEntry>({ initialValues: { generatorOptions: store().settings.defaultGeneratorOptions } });
+
+  const settings = () => getValues(form);
+
+  createEffect(() => {
+    const options = settings().generatorOptions;
+    if (typeof options === "string" || typeof options === "object" && "iterations" in options && "memorySize" in options && "parallelism" in options) {
+      const s = untrack(store);
+      setStore({ ...s, settings: { ...s.settings, defaultGeneratorOptions: options as GeneratorOptions } });
+    }
+  });
+
+  return (
+    <Form onSubmit={() => { }}>
+      <h3 class="text-primary-700 font-bold -mb-4">{t("settings.vault.default_generator_settings")}</h3>
+      <GeneratorSettingsForm form={form} />
+    </Form>
+  );
 };
 

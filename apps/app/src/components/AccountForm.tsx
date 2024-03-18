@@ -21,7 +21,7 @@ import { Button } from "./Button";
 import { useRehash } from "../RehashProvider";
 import { Subheading } from "./Subheading";
 
-type Form<T extends FieldValues> = ReturnType<typeof createForm<T>>[0];
+export type Form<T extends FieldValues> = ReturnType<typeof createForm<T>>[0];
 
 export const AccountForm: VoidComponent<{
   form: Form<StoreEntry>;

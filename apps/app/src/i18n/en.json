@@ -94,6 +94,7 @@
       "heading": "Vault Settings",
       "default_generator_settings": "Default Generator Settings",
       "encrypt": "Encrypt",
+      "import_heading": "Import/Export",
       "import": "Import Vault",
       "export": "Export Vault",
       "delete": "Delete Vault",
@@ -101,6 +102,7 @@
         "unknown_format": "Sorry, this file could not be imported. The file format is unknown.",
         "different_master_password": "Sorry, this file was exported using a different master password. The exported store could not be decrypted."
       }
-    }
+    },
+    "danger_zone": "Danger Zone"
   }
 }

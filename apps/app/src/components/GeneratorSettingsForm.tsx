@@ -1,0 +1,111 @@
+import { Show, VoidComponent } from "solid-js";
+import { Form } from "./AccountForm";
+import { StoreEntry, recommendedDifficulty, recommendedGeneratorOptions } from "@rehash/logic";
+import { useI18n } from "../I18nProvider";
+import { useRehash } from "../RehashProvider";
+import { Field, getValue, setValue, setValues } from "@modular-forms/solid";
+import { Stack } from "./Stack";
+import { Button } from "./Button";
+import { NumberInput } from "./Input";
+
+export const GeneratorSettingsForm: VoidComponent<{ form: Form<StoreEntry> }> = (props) => {
+  const [t] = useI18n();
+  const [store] = useRehash();
+
+  const difficulty = () => getValue(props.form, "generatorOptions");
+
+  return (
+    <Field type="string" of={props.form} name="generatorOptions">
+      {() => (
+        <>
+          <Stack direction="row" class="gap-4 items-center">
+            <Button
+              variant={
+                typeof difficulty() === "object" ? "ghost" : "secondary"
+              }
+              class="flex-1"
+              onClick={() =>
+                setValue(
+                  props.form,
+                  "generatorOptions",
+                  recommendedDifficulty,
+                )
+              }
+            >
+              {t("account.difficulty.recommended")}
+            </Button>
+            <Button
+              variant={
+                typeof difficulty() === "object" ? "secondary" : "ghost"
+              }
+              class="flex-1"
+              onClick={() => {
+                let generatorOptions =
+                  store().settings.defaultGeneratorOptions ??
+                  recommendedGeneratorOptions[recommendedDifficulty];
+                if (typeof generatorOptions === "string")
+                  generatorOptions =
+                    recommendedGeneratorOptions[generatorOptions];
+
+                // need to explicitly set it to an object first
+                setValue(props.form, "generatorOptions", {
+                  ...generatorOptions,
+                });
+
+                // and then set all the member values
+                setValues(props.form, {
+                  generatorOptions: { ...generatorOptions },
+                });
+              }}
+            >
+              {t("account.difficulty.custom")}
+            </Button>
+          </Stack>
+          <Show when={typeof difficulty() === "object"}>
+            <Stack direction="row" class="gap-4">
+              <Field
+                of={props.form}
+                type={"number" as unknown as undefined}
+                name="generatorOptions.iterations"
+              >
+                {(field, fieldProps) => (
+                  <NumberInput
+                    label={t("account.difficulty.iterations")}
+                    {...fieldProps}
+                    value={field.value}
+                  />
+                )}
+              </Field>
+              <Field
+                of={props.form}
+                type={"number" as unknown as undefined}
+                name="generatorOptions.memorySize"
+              >
+                {(field, fieldProps) => (
+                  <NumberInput
+                    label={t("account.difficulty.memory_size")}
+                    {...fieldProps}
+                    value={field.value}
+                  />
+                )}
+              </Field>
+              <Field
+                of={props.form}
+                type={"number" as unknown as undefined}
+                name="generatorOptions.parallelism"
+              >
+                {(field, fieldProps) => (
+                  <NumberInput
+                    label={t("account.difficulty.parallelism")}
+                    {...fieldProps}
+                    value={field.value}
+                  />
+                )}
+              </Field>
+            </Stack>
+          </Show>
+        </>
+      )}
+    </Field>
+  );
+}
