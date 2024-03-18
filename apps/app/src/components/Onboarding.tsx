@@ -1,4 +1,4 @@
-import { Accessor, For, Setter, Show, VoidComponent, createSignal } from "solid-js";
+import { Accessor, For, Setter, Show, VoidComponent, createEffect, createSignal } from "solid-js";
 import { Stack } from "./Stack";
 import { Heading } from "./Heading";
 import { Subheading } from "./Subheading";
@@ -9,13 +9,15 @@ import { cx } from "cva";
 import { Dynamic } from "solid-js/web";
 import { Transition } from "solid-transition-group";
 import { PasswordInput } from "./PasswordInput";
-import { RehashStore, STORE_KEY, StoreState } from "../RehashProvider";
+import { RehashStore, STORE_KEY, StoreState, generateInWorkerThread } from "../RehashProvider";
 import { FileUploadButton } from "./FileUploadButton";
 import { set } from "idb-keyval";
 import { LanguageSelect } from "./LanguageSelect";
 import { Input } from "./Input";
 import { Toggle } from "./Toggle";
-import { GeneratorOptions, recommendedDifficulty } from "@rehash/logic";
+import { GeneratorOptions, StoreEntry, recommendedDifficulty } from "@rehash/logic";
+import { createForm, getValues } from "@modular-forms/solid";
+import { GeneratorSettingsForm } from "./GeneratorSettingsForm";
 
 const Stepper: VoidComponent<{ steps: number; current: number }> = (props) => {
   return (
@@ -145,6 +147,8 @@ const pregeneratedPasswords: any = {
   }
 };
 
+import CursorIcon from "~icons/solar/cursor-outline";
+
 const OnboardingWhatIsRehash: OnboardingStep = (props) => {
   const [t] = useI18n();
 
@@ -156,9 +160,17 @@ const OnboardingWhatIsRehash: OnboardingStep = (props) => {
     }
   );
 
-  const RowSelectButton: VoidComponent<{ value: string, field: keyof GetInnerType<typeof selection> }> = (props) =>
+  const [clicked, setClicked] = createSignal(false);
+
+  const RowSelectButton: VoidComponent<{ value: string, field: keyof GetInnerType<typeof selection>, showClickIndicator?: boolean }> = (props) =>
   (
-    <td><Button class="w-full" variant={selection()[props.field] === props.value ? "primary" : "secondary"} onClick={() => setSelection((s) => ({ ...s, [props.field]: props.value }))}>{props.value}</Button></td>
+    <td>
+      <Button class="w-full" variant={selection()[props.field] === props.value ? "primary" : "secondary"} onClick={() => { setSelection((s) => ({ ...s, [props.field]: props.value })); setClicked(true); }}>{props.value}</Button>
+      <Show when={props.showClickIndicator && !clicked()}>
+        <CursorIcon class="w-6 h-6 top-3 -right-3 absolute pointer-events-none" />
+        <CursorIcon class="w-6 h-6 top-3 -right-3 absolute animate-ping pointer-events-none opacity-40" />
+      </Show>
+    </td>
   );
 
   return (
@@ -169,10 +181,10 @@ const OnboardingWhatIsRehash: OnboardingStep = (props) => {
       <Paragraph>
         <table class="w-full">
           <tbody>
-            <tr>
+            <tr class="relative">
               <td class="font-bold text-primary-700">{t("onboarding.what_is_rehash.vault_password")}</td>
               <RowSelectButton value="hunter2" field="password" />
-              <RowSelectButton value="pas5w0rd" field="password" />
+              <RowSelectButton value="pas5w0rd" field="password" showClickIndicator />
             </tr>
             <tr>
               <td class="font-bold text-primary-700">{t("account.url")}</td>
@@ -214,16 +226,52 @@ const OnboardingEncryptVault: OnboardingStep = (props) => {
   );
 };
 
-const [generatorSettings, ] = createSignal<GeneratorOptions>(recommendedDifficulty);
+const [generatorSettings, setGeneratorSettings] = createSignal<GeneratorOptions>(recommendedDifficulty);
 
 const OnboardingVaultSettings: OnboardingStep = (props) => {
   const [t] = useI18n();
+  const [form] = createForm<StoreEntry>({ initialValues: { generatorOptions: generatorSettings() } });
+  const formGeneratorSettings = () => getValues(form);
+
+  createEffect(() => {
+    const options = formGeneratorSettings().generatorOptions;
+    if (typeof options === "string" || typeof options === "object" && "iterations" in options && "memorySize" in options && "parallelism" in options) {
+      setGeneratorSettings(options as GeneratorOptions);
+    }
+  });
+
+  const [seconds, setSeconds] = createSignal<number | undefined>();
+
+  const benchmark = () => {
+    const start = performance.now();
+
+    generateInWorkerThread("password", {
+      url: "https://www.rehash.one",
+      username: "thekatze",
+      options: { length: 32, iteration: 1 },
+      generatorOptions: generatorSettings(),
+    }).then(() => {
+      const end = performance.now();
+      setSeconds((end - start) / 1000);
+    });
+  }
 
   return (
     <>
       <Heading>{t("onboarding.vault_settings.vault_settings")}</Heading>
-      <Subheading>{t("onboarding.vault_settings.configure_your_vault")}</Subheading>
+      <Subheading>{t("onboarding.vault_settings.set_generation_difficulty")}</Subheading>
       <Paragraph>{t("onboarding.vault_settings.configure_your_vault_text")}</Paragraph>
+      <Stack direction="column" class="gap-4">
+        <GeneratorSettingsForm form={form} />
+      </Stack>
+      <Stack direction="column" class="mt-8 mb-4 gap-4 items-center">
+        <Button onClick={benchmark} class="w-full" variant="primary">{t("onboarding.vault_settings.measure_difficulty")}</Button>
+        <pre class="flex-1 relative">
+          <Show when={seconds()} fallback={<pre>{t("onboarding.vault_settings.took_seconds", { seconds: "X.XXX" })}</pre>} keyed>{(seconds) => (<pre>{t("onboarding.vault_settings.took_seconds", { seconds: seconds.toFixed(3) })}</pre>)}
+          </Show>
+        </pre>
+      </Stack>
+      <Paragraph>{t("onboarding.vault_settings.this_changes_all_your_passwords_text")}</Paragraph>
       <OnboardingNavigation setStep={props.setStep} />
     </>
   );

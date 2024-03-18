@@ -1,16 +1,14 @@
 import { Show, VoidComponent } from "solid-js";
 import { Form } from "./AccountForm";
-import { StoreEntry, recommendedDifficulty, recommendedGeneratorOptions } from "@rehash/logic";
+import { GeneratorOptions, StoreEntry, recommendedDifficulty, recommendedGeneratorOptions } from "@rehash/logic";
 import { useI18n } from "../I18nProvider";
-import { useRehash } from "../RehashProvider";
 import { Field, getValue, setValue, setValues } from "@modular-forms/solid";
 import { Stack } from "./Stack";
 import { Button } from "./Button";
 import { NumberInput } from "./Input";
 
-export const GeneratorSettingsForm: VoidComponent<{ form: Form<StoreEntry> }> = (props) => {
+export const GeneratorSettingsForm: VoidComponent<{ form: Form<StoreEntry>, customGeneratorOptions?: GeneratorOptions }> = (props) => {
   const [t] = useI18n();
-  const [store] = useRehash();
 
   const difficulty = () => getValue(props.form, "generatorOptions");
 
@@ -41,7 +39,7 @@ export const GeneratorSettingsForm: VoidComponent<{ form: Form<StoreEntry> }> = 
               class="flex-1"
               onClick={() => {
                 let generatorOptions =
-                  store().settings.defaultGeneratorOptions ??
+                  props.customGeneratorOptions ??
                   recommendedGeneratorOptions[recommendedDifficulty];
                 if (typeof generatorOptions === "string")
                   generatorOptions =

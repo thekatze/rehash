@@ -20,6 +20,7 @@ import { Stack } from "./Stack";
 import { Button } from "./Button";
 import { useRehash } from "../RehashProvider";
 import { Subheading } from "./Subheading";
+import { GeneratorSettingsForm } from "./GeneratorSettingsForm";
 
 export type Form<T extends FieldValues> = ReturnType<typeof createForm<T>>[0];
 
@@ -119,98 +120,7 @@ export const AccountForm: VoidComponent<{
       </Stack>
       <Stack direction="column" class="gap-4">
         <Subheading>{t("account.difficulty_label")}</Subheading>
-        <Field type="string" of={props.form} name="generatorOptions">
-          {() => (
-            <>
-              <Stack direction="row" class="gap-4 items-center">
-                <Button
-                  variant={
-                    typeof difficulty() === "object" ? "ghost" : "secondary"
-                  }
-                  class="flex-1"
-                  onClick={() =>
-                    setValue(
-                      props.form,
-                      "generatorOptions",
-                      recommendedDifficulty,
-                    )
-                  }
-                >
-                  {t("account.difficulty.recommended")}
-                </Button>
-                <Button
-                  variant={
-                    typeof difficulty() === "object" ? "secondary" : "ghost"
-                  }
-                  class="flex-1"
-                  onClick={() => {
-                    let generatorOptions =
-                      store().settings.defaultGeneratorOptions ??
-                      recommendedGeneratorOptions[recommendedDifficulty];
-                    if (typeof generatorOptions === "string")
-                      generatorOptions =
-                        recommendedGeneratorOptions[generatorOptions];
-
-                    // need to explicitly set it to an object first
-                    setValue(props.form, "generatorOptions", {
-                      ...generatorOptions,
-                    });
-
-                    // and then set all the member values
-                    setValues(props.form, {
-                      generatorOptions: { ...generatorOptions },
-                    });
-                  }}
-                >
-                  {t("account.difficulty.custom")}
-                </Button>
-              </Stack>
-              <Show when={typeof difficulty() === "object"}>
-                <Stack direction="row" class="gap-4">
-                  <Field
-                    of={props.form}
-                    type={"number" as unknown as undefined}
-                    name="generatorOptions.iterations"
-                  >
-                    {(field, fieldProps) => (
-                      <NumberInput
-                        label={t("account.difficulty.iterations")}
-                        {...fieldProps}
-                        value={field.value}
-                      />
-                    )}
-                  </Field>
-                  <Field
-                    of={props.form}
-                    type={"number" as unknown as undefined}
-                    name="generatorOptions.memorySize"
-                  >
-                    {(field, fieldProps) => (
-                      <NumberInput
-                        label={t("account.difficulty.memory_size")}
-                        {...fieldProps}
-                        value={field.value}
-                      />
-                    )}
-                  </Field>
-                  <Field
-                    of={props.form}
-                    type={"number" as unknown as undefined}
-                    name="generatorOptions.parallelism"
-                  >
-                    {(field, fieldProps) => (
-                      <NumberInput
-                        label={t("account.difficulty.parallelism")}
-                        {...fieldProps}
-                        value={field.value}
-                      />
-                    )}
-                  </Field>
-                </Stack>
-              </Show>
-            </>
-          )}
-        </Field>
+        <GeneratorSettingsForm form={props.form} customGeneratorOptions={store().settings.defaultGeneratorOptions} />
       </Stack>
       <Button variant="primary" type="submit">
         {props.submitText}

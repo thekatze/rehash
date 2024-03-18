@@ -6,8 +6,8 @@ import { useNavigate } from "@solidjs/router";
 export const SettingsButton: VoidComponent = () => {
   const navigate = useNavigate();
   return (
-    <IconButton onClick={() => navigate("/settings")} variant="primary">
-      <SettingsIcon />
+    <IconButton class="group" onClick={() => navigate("/settings")} variant="primary">
+      <SettingsIcon class="group-hover:rotate-60 transition" />
     </IconButton>
   );
 };

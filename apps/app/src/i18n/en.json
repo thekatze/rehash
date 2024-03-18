@@ -58,18 +58,21 @@
     "what_is_rehash": {
       "what_is_rehash": "What is rehash?",
       "how_does_it_work": "And how does it work?",
-      "how_does_it_work_text": "rehash generates your password from your vault password, the URL of the website and your username on that website. To ensure that there is no way to guess your vault password from the generated password, rehash uses a cryptographic hash function (argon2id) to generate your password. To get a feeling for how this works, try it out here!",
-      "cross_device_generation": "This process of generating your password works the same across different devices. This means, that by entering the same URL and username in a vault with the same password, you will always get the same password. This way you can easily access your passwords across devices without having to upload your vault to a cloud service.",
+      "how_does_it_work_text": "rehash generates your password from your vault password, the URL of the website and your username on that website. To ensure that there is no way to guess your vault password from the generated password, rehash uses a cryptographic hash function to generate your password. To get a feeling for how this works, try it out by clicking these buttons!",
+      "cross_device_generation": "This process of generating your password works the same across different devices. This means, that by entering the same URL and username in a vault with the same vault password, you will always get the same resulting password. This way you can easily access your passwords across devices without having to upload your vault to a cloud service.",
       "vault_password": "Vault password"
     },
     "encrypt_vault": {
-      "encrypt_vault": "Encrypt Vault",
+      "encrypt_vault": "Encrypt your vault",
       "encrypt_vault_text": "This setting controls if your vault gets encrypted when saving. You should probably leave this enabled. Disabling it will allow an attacker to see all your websites and usernames in plain text if your vault should become accessible to them. Your passwords will not be visible, as they require your vault password to be generated."
     },
     "vault_settings": {
       "vault_settings": "Vault Settings",
-      "configure_your_vault": "Configure the generator",
-      "configure_your_vault_text": "Configure your vault"
+      "set_generation_difficulty": "Choose the generator difficulty",
+      "configure_your_vault_text": "The generator difficulty determines how much time it takes to generate a password. We provide you with a sensible recommended setting, giving you a good trade-off between security and generation time. You can try out the time it takes to generate a password using the \"Measure Difficulty\" button.",
+      "measure_difficulty": "Measure Difficulty",
+      "took_seconds": "took {{ seconds }} seconds",
+      "this_changes_all_your_passwords_text": "Keep in mind that changing these settings will change how the generator derives your passwords, so to generate the same password across devices you will have to generate them using the same difficulty setting on both devices."
     },
     "create_your_vault": {
       "create_your_vault": "Create your vault",
@@ -93,7 +96,7 @@
     "vault": {
       "heading": "Vault Settings",
       "default_generator_settings": "Default Generator Settings",
-      "encrypt": "Encrypt",
+      "encrypt": "Encrypt vault",
       "import_heading": "Import/Export",
       "import": "Import Vault",
       "export": "Export Vault",
