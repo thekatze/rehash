@@ -38,7 +38,7 @@ export const AccountList: VoidComponent = () => {
         />
         <AddAccountButton />
       </Stack>
-      <Stack as="ol" direction="column" class="overflow-auto h-full">
+      <Stack as="ol" direction="column">
         <For each={sortedAccounts()}>
           {(account) => <AccountListItem account={account} />}
         </For>
@@ -99,7 +99,7 @@ const AccountListItem: VoidComponent<{ account: AccountWithId }> = (props) => {
           target="_blank"
           class="font-bold hover:underline"
         >
-          {props.account.displayName ?? props.account.url}
+          {props.account.displayName ? props.account.displayName : props.account.url}
         </a>
         <span class="text-sm text-primary-500">{props.account.username}</span>
         <div class="absolute inset-y-0 right-0 w-4 bg-gradient-to-r from-transparent to-white" />

@@ -37,7 +37,7 @@ export const AccountDetail: Component<RouteSectionProps<StoreEntry>> = (
         <DetailPageLayout
           header={t("account_detail.heading", {
             name: maybeAccount()
-              ? maybeAccount().displayName ?? maybeAccount().url
+              ? maybeAccount().displayName ? maybeAccount().displayName! : maybeAccount().url
               : t("account_detail.error.oops"),
           })}
         >
@@ -58,8 +58,9 @@ export const AccountDetail: Component<RouteSectionProps<StoreEntry>> = (
             {(account) => <Inner id={id} account={account()} />}
           </Show>
         </DetailPageLayout>
-      )}
-    </Show>
+      )
+      }
+    </Show >
   );
 };
 

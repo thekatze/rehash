@@ -136,10 +136,10 @@ export const SplitLayout: VoidComponent<{
   const onRoot = useMatch(() => "/");
   return (
     <Show when={mobileView() || onRoot() ? 2 : 3} keyed>
-      <Stack direction="row" class="min-h-screen">
+      <Stack direction="row" class="h-screen">
         <section
           class={cx(
-            "flex-col w-full lg:w-120",
+            "flex-col w-full lg:w-120 h-full overflow-auto",
             props.focus === "left" ? "flex" : "hidden lg:flex",
           )}
         >
@@ -147,7 +147,7 @@ export const SplitLayout: VoidComponent<{
         </section>
         <section
           class={cx(
-            "flex-col flex-1",
+            "flex-col flex-1 overflow-auto h-full",
             props.focus === "right" ? "flex" : "hidden lg:flex",
           )}
         >

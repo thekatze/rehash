@@ -1,18 +1,13 @@
 import {
   StoreEntry,
-  recommendedDifficulty,
-  recommendedGeneratorOptions,
 } from "@rehash/logic";
-import { Show, VoidComponent } from "solid-js";
+import { VoidComponent } from "solid-js";
 import {
   Field,
   FieldValues,
   Form,
   createForm,
-  getValue,
   required,
-  setValue,
-  setValues,
 } from "@modular-forms/solid";
 import { useI18n } from "../I18nProvider";
 import { Input, NumberInput } from "./Input";
@@ -31,8 +26,6 @@ export const AccountForm: VoidComponent<{
 }> = (props) => {
   const [store] = useRehash();
   const [t] = useI18n();
-
-  const difficulty = () => getValue(props.form, "generatorOptions");
 
   return (
     <Form of={props.form} onSubmit={props.onSubmit}>

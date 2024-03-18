@@ -9,7 +9,7 @@ export const Header: VoidComponent = () => {
     <Stack
       as="header"
       direction="row"
-      class="p-6 gap-8 justify-between items-center h-18 bg-primary-900 text-white"
+      class="p-6 gap-8 justify-between items-center h-18 bg-primary-900 text-white sticky top-0 z-50"
     >
       <Logo />
       <Stack direction="row" class="gap-2">
