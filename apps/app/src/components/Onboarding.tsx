@@ -214,7 +214,7 @@ const OnboardingEncryptVault: OnboardingStep = (props) => {
   );
 };
 
-const [generatorSettings, setGeneratorSettings] = createSignal<GeneratorOptions>(recommendedDifficulty);
+const [generatorSettings, ] = createSignal<GeneratorOptions>(recommendedDifficulty);
 
 const OnboardingVaultSettings: OnboardingStep = (props) => {
   const [t] = useI18n();
