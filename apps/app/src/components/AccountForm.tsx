@@ -1,6 +1,4 @@
-import {
-  StoreEntry,
-} from "@rehash/logic";
+import { StoreEntry } from "@rehash/logic";
 import { VoidComponent } from "solid-js";
 import {
   Field,
@@ -113,7 +111,10 @@ export const AccountForm: VoidComponent<{
       </Stack>
       <Stack direction="column" class="gap-4">
         <Subheading>{t("account.difficulty_label")}</Subheading>
-        <GeneratorSettingsForm form={props.form} customGeneratorOptions={store().settings.defaultGeneratorOptions} />
+        <GeneratorSettingsForm
+          form={props.form}
+          customGeneratorOptions={store().settings.defaultGeneratorOptions}
+        />
       </Stack>
       <Button variant="primary" type="submit">
         {props.submitText}

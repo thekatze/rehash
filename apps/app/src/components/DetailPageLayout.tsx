@@ -17,7 +17,10 @@ export const BackButton: VoidComponent = () => {
 
 export const DetailPageLayout: FlowComponent<{ header: string }> = (props) => (
   <Stack as="section" direction="column" class="px-4">
-    <Stack direction="row" class="gap-4 overflow-hidden items-center h-18 sticky top-0 bg-white w-full z-50">
+    <Stack
+      direction="row"
+      class="gap-4 overflow-hidden items-center h-18 sticky top-0 bg-white w-full z-50"
+    >
       <BackButton />
       <Heading>{props.header}</Heading>
     </Stack>

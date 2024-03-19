@@ -33,31 +33,39 @@ const PasswordGenerator: Component = () => {
 
   onMount(() => setFirstRun(false));
 
-  const [password] = createResource(generatorData, (data) => {
-    return untrack(firstRun)
-      ? undefined
-      : generate(data.password, data);
-  }, {
-    initialValue: "r+L27FcK0NGvy2GB1HXay9YJz1zL5hN3",
-  });
+  const [password] = createResource(
+    generatorData,
+    (data) => {
+      return untrack(firstRun) ? undefined : generate(data.password, data);
+    },
+    {
+      initialValue: "r+L27FcK0NGvy2GB1HXay9YJz1zL5hN3",
+    },
+  );
 
   return (
     <div class="flex gap-4 flex-col">
       <Input
         label="URL"
         value={generatorData().url}
-        onInput={(value) => setGeneratorData((data) => ({ ...data, url: value }))}
+        onInput={(value) =>
+          setGeneratorData((data) => ({ ...data, url: value }))
+        }
       />
       <Input
         label="Username"
         value={generatorData().username}
-        onInput={(value) => setGeneratorData((data) => ({ ...data, username: value }))}
+        onInput={(value) =>
+          setGeneratorData((data) => ({ ...data, username: value }))
+        }
       />
       <Input
         label="Password"
         type="password"
         value={generatorData().password}
-        onInput={(value) => setGeneratorData((data) => ({ ...data, password: value }))}
+        onInput={(value) =>
+          setGeneratorData((data) => ({ ...data, password: value }))
+        }
       />
       <div class="flex gap-4 justify-center">
         <span class="py-2 text-center select-all overflow-scroll font-mono font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-secondary-400">

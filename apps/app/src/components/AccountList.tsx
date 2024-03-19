@@ -11,10 +11,12 @@ const EmptyVaultPlaceholder: VoidComponent = () => {
   return (
     <Stack direction="column" class="w-full items-center gap-2 mt-8">
       <Subheading>{t("account_list.your_vault_is_empty")}</Subheading>
-      <p class="flex items-center gap-2">{t("account_list.create_first_account_with")} <AddAccountButton /></p>
+      <p class="flex items-center gap-2">
+        {t("account_list.create_first_account_with")} <AddAccountButton />
+      </p>
     </Stack>
   );
-}
+};
 
 export const AccountList: VoidComponent = () => {
   const [store] = useRehash();
@@ -49,9 +51,7 @@ export const AccountList: VoidComponent = () => {
         <AddAccountButton />
       </Stack>
       <Stack as="ol" direction="column">
-        <For fallback={
-          <EmptyVaultPlaceholder />
-        } each={sortedAccounts()}>
+        <For fallback={<EmptyVaultPlaceholder />} each={sortedAccounts()}>
           {(account) => <AccountListItem account={account} />}
         </For>
       </Stack>
@@ -113,7 +113,9 @@ const AccountListItem: VoidComponent<{ account: AccountWithId }> = (props) => {
           target="_blank"
           class="font-bold hover:underline"
         >
-          {props.account.displayName ? props.account.displayName : props.account.url}
+          {props.account.displayName
+            ? props.account.displayName
+            : props.account.url}
         </a>
         <span class="text-sm text-primary-500">{props.account.username}</span>
         <div class="absolute inset-y-0 right-0 w-4 bg-gradient-to-r from-transparent to-white" />

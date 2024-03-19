@@ -33,7 +33,9 @@ export const LanguageSelect: VoidComponent = () => {
           )}
         </For>
       </select>
-      <label for={id} class="
+      <label
+        for={id}
+        class="
         truncate 
         transition-all 
         absolute 
@@ -44,7 +46,10 @@ export const LanguageSelect: VoidComponent = () => {
         peer-placeholder-shown:inset-x-4 
         peer-placeholder-shown:pointer-events-none 
         peer-placeholder-shown:text-base
-        ">{t("settings.general.language")}</label>
+        "
+      >
+        {t("settings.general.language")}
+      </label>
     </div>
   );
 };

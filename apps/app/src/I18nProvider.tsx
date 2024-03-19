@@ -47,8 +47,9 @@ export const useI18n = () => {
 const LOCALE_KEY = "rehash_locale";
 
 export const I18nProvider: FlowComponent = (props) => {
-  let lang = localStorage.getItem(LOCALE_KEY)
-    ?? new Intl.Locale(navigator.languages[0]).language;
+  let lang =
+    localStorage.getItem(LOCALE_KEY) ??
+    new Intl.Locale(navigator.languages[0]).language;
 
   if (!locales.includes(lang as Locale)) lang = "en";
 

@@ -1,13 +1,20 @@
 import { ComponentProps, FlowComponent } from "solid-js";
 import { Button } from "./Button";
 
-export const FileUploadButton: FlowComponent<{ onFileUploaded: (text: string) => void } & Omit<ComponentProps<typeof Button>, "onClick">> = (props) => {
+export const FileUploadButton: FlowComponent<
+  { onFileUploaded: (text: string) => void } & Omit<
+    ComponentProps<typeof Button>,
+    "onClick"
+  >
+> = (props) => {
   let fileInput: HTMLInputElement;
 
-  const onFileSelected = async (event: Event & {
-    currentTarget: HTMLInputElement;
-    target: HTMLInputElement;
-  }) => {
+  const onFileSelected = async (
+    event: Event & {
+      currentTarget: HTMLInputElement;
+      target: HTMLInputElement;
+    },
+  ) => {
     const file = event.target.files?.[0];
     if (!file) {
       return;
@@ -19,13 +26,19 @@ export const FileUploadButton: FlowComponent<{ onFileUploaded: (text: string) =>
 
   return (
     <>
-      <input class="hidden" ref={fileInput!} type="file" accept=".json" onChange={onFileSelected} />
+      <input
+        class="hidden"
+        ref={fileInput!}
+        type="file"
+        accept=".json"
+        onChange={onFileSelected}
+      />
       <Button {...props} onClick={() => fileInput.click()}>
         {props.children}
       </Button>
     </>
   );
-}
+};
 
 const getFileContents: (file: File) => Promise<string> = (file) => {
   return new Promise((res, rej) => {
@@ -37,8 +50,7 @@ const getFileContents: (file: File) => Promise<string> = (file) => {
       } else {
         rej();
       }
-    })
+    });
     reader.readAsText(file);
   });
-}
-
+};

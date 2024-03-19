@@ -1,13 +1,21 @@
 import { Show, VoidComponent } from "solid-js";
 import { Form } from "./AccountForm";
-import { GeneratorOptions, StoreEntry, recommendedDifficulty, recommendedGeneratorOptions } from "@rehash/logic";
+import {
+  GeneratorOptions,
+  StoreEntry,
+  recommendedDifficulty,
+  recommendedGeneratorOptions,
+} from "@rehash/logic";
 import { useI18n } from "../I18nProvider";
 import { Field, getValue, setValue, setValues } from "@modular-forms/solid";
 import { Stack } from "./Stack";
 import { Button } from "./Button";
 import { NumberInput } from "./Input";
 
-export const GeneratorSettingsForm: VoidComponent<{ form: Form<StoreEntry>, customGeneratorOptions?: GeneratorOptions }> = (props) => {
+export const GeneratorSettingsForm: VoidComponent<{
+  form: Form<StoreEntry>;
+  customGeneratorOptions?: GeneratorOptions;
+}> = (props) => {
   const [t] = useI18n();
 
   const difficulty = () => getValue(props.form, "generatorOptions");
@@ -18,24 +26,16 @@ export const GeneratorSettingsForm: VoidComponent<{ form: Form<StoreEntry>, cust
         <>
           <Stack direction="row" class="gap-4 items-center">
             <Button
-              variant={
-                typeof difficulty() === "object" ? "ghost" : "secondary"
-              }
+              variant={typeof difficulty() === "object" ? "ghost" : "secondary"}
               class="flex-1"
               onClick={() =>
-                setValue(
-                  props.form,
-                  "generatorOptions",
-                  recommendedDifficulty,
-                )
+                setValue(props.form, "generatorOptions", recommendedDifficulty)
               }
             >
               {t("account.difficulty.recommended")}
             </Button>
             <Button
-              variant={
-                typeof difficulty() === "object" ? "secondary" : "ghost"
-              }
+              variant={typeof difficulty() === "object" ? "secondary" : "ghost"}
               class="flex-1"
               onClick={() => {
                 let generatorOptions =
@@ -106,4 +106,4 @@ export const GeneratorSettingsForm: VoidComponent<{ form: Form<StoreEntry>, cust
       )}
     </Field>
   );
-}
+};
