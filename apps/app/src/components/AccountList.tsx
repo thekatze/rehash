@@ -74,7 +74,6 @@ import PenIcon from "~icons/solar/pen-linear";
 import { useNavigate } from "@solidjs/router";
 import { createAsyncAction, AsyncActionStatus } from "../createAsyncAction";
 import { AddAccountButton } from "./AddAccountButton";
-import { Paragraph } from "./Paragraph";
 import { Subheading } from "./Subheading";
 import { useI18n } from "../I18nProvider";
 

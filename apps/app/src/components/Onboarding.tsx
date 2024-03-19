@@ -287,7 +287,7 @@ const OnboardingCreateVault: OnboardingStep = (props) => {
     props.setStore({
       state: StoreState.Unlocked,
       settings: {
-        encrypt: true,
+        encrypt: encryptVault(),
         defaultGeneratorOptions: generatorSettings(),
       },
       entries: {},

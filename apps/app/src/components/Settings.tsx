@@ -121,7 +121,7 @@ const DefaultGeneratorSettings: VoidComponent = () => {
   const [t] = useI18n();
   const [store, setStore] = useRehash();
 
-  const [form, { Form }] = createForm<StoreEntry>({ initialValues: { generatorOptions: store().settings.defaultGeneratorOptions } });
+  const [form] = createForm<StoreEntry>({ initialValues: { generatorOptions: store().settings.defaultGeneratorOptions } });
 
   const settings = () => getValues(form);
 
@@ -134,10 +134,10 @@ const DefaultGeneratorSettings: VoidComponent = () => {
   });
 
   return (
-    <Form onSubmit={() => { }}>
-      <h3 class="text-primary-700 font-bold -mb-4">{t("settings.vault.default_generator_settings")}</h3>
+    <Stack direction="column" class="gap-2">
+      <h3 class="text-primary-700 font-bold">{t("settings.vault.default_generator_difficulty")}</h3>
       <GeneratorSettingsForm form={form} />
-    </Form>
+    </Stack>
   );
 };
 

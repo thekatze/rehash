@@ -37,7 +37,7 @@
       "recommended": "Recommended",
       "custom": "Custom",
       "iterations": "Iterations",
-      "memory_size": "Memory Size",
+      "memory_size": "Memory Size (kb)",
       "parallelism": "Parallelism"
     }
   },
@@ -82,7 +82,7 @@
     "create_your_vault": {
       "create_your_vault": "Create your vault",
       "set_password": "Set your password",
-      "set_password_text": "Choose a strong password for your vault.",
+      "set_password_text": "You're almost done! The final step is to choose a strong password for your vault. This is the password from which all your other passwords will be derived, so choose a very strong password here.",
       "create_vault": "Create vault"
     }
   },
@@ -100,7 +100,7 @@
     },
     "vault": {
       "heading": "Vault Settings",
-      "default_generator_settings": "Default Generator Settings",
+      "default_generator_difficulty": "Default Generator Difficulty",
       "encrypt": "Encrypt vault",
       "import_heading": "Import/Export",
       "import": "Import Vault",
