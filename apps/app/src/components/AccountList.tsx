@@ -6,6 +6,16 @@ import { Input } from "./Input";
 import { For, Match, Switch, VoidComponent, createSignal } from "solid-js";
 import { Stack } from "./Stack";
 
+const EmptyVaultPlaceholder: VoidComponent = () => {
+  const [t] = useI18n();
+  return (
+    <Stack direction="column" class="w-full items-center gap-2 mt-8">
+      <Subheading>{t("account_list.your_vault_is_empty")}</Subheading>
+      <p class="flex items-center gap-2">{t("account_list.create_first_account_with")} <AddAccountButton /></p>
+    </Stack>
+  );
+}
+
 export const AccountList: VoidComponent = () => {
   const [store] = useRehash();
   const [search, setSearch] = createSignal("");
@@ -29,7 +39,7 @@ export const AccountList: VoidComponent = () => {
     sortBy(filteredAccounts(), (u) => u.displayName ?? u.url);
 
   return (
-    <Stack direction="column" class="px-6 h-full">
+    <Stack direction="column" class="py-2 px-6 h-full">
       <Stack direction="row" class="h-16 gap-2 items-center">
         <Input
           value={search()}
@@ -39,7 +49,9 @@ export const AccountList: VoidComponent = () => {
         <AddAccountButton />
       </Stack>
       <Stack as="ol" direction="column">
-        <For each={sortedAccounts()}>
+        <For fallback={
+          <EmptyVaultPlaceholder />
+        } each={sortedAccounts()}>
           {(account) => <AccountListItem account={account} />}
         </For>
       </Stack>
@@ -62,6 +74,9 @@ import PenIcon from "~icons/solar/pen-linear";
 import { useNavigate } from "@solidjs/router";
 import { createAsyncAction, AsyncActionStatus } from "../createAsyncAction";
 import { AddAccountButton } from "./AddAccountButton";
+import { Paragraph } from "./Paragraph";
+import { Subheading } from "./Subheading";
+import { useI18n } from "../I18nProvider";
 
 const Spinner: VoidComponent = () => (
   <div class="animate-spin inline-block w-5 h-5 border-1.5 border-current border-t-transparent rounded-full" />

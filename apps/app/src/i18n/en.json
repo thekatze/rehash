@@ -11,6 +11,10 @@
     "heading": "New account",
     "create": "Create Account"
   },
+  "account_list": {
+    "your_vault_is_empty": "Your vault is empty",
+    "create_first_account_with": "Let's create your first account with"
+  },
   "account_detail": {
     "heading": "Account: {{ name }}",
     "generated_password": "Generated Password",
@@ -58,8 +62,9 @@
     "what_is_rehash": {
       "what_is_rehash": "What is rehash?",
       "how_does_it_work": "And how does it work?",
-      "how_does_it_work_text": "rehash generates your password from your vault password, the URL of the website and your username on that website. To ensure that there is no way to guess your vault password from the generated password, rehash uses a cryptographic hash function to generate your password. To get a feeling for how this works, try it out by clicking these buttons!",
+      "how_does_it_work_text": "rehash works completely offline and generates your password from your vault password, the URL of the website and your username on that website. To ensure that there is no way to guess your vault password from the generated password, rehash uses a cryptographic hash function to generate your passwords. To get a feeling for how this works, try it out by clicking these buttons!",
       "cross_device_generation": "This process of generating your password works the same across different devices. This means, that by entering the same URL and username in a vault with the same vault password, you will always get the same resulting password. This way you can easily access your passwords across devices without having to upload your vault to a cloud service.",
+      "next_steps": "In the next steps we will be configuring your new local vault where your accounts will be stored.",
       "vault_password": "Vault password"
     },
     "encrypt_vault": {

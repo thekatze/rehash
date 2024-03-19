@@ -47,7 +47,7 @@ type OnboardingStep = VoidComponent<{
   setStore: Setter<RehashStore>;
 }>;
 
-const OnboardingNavigation: VoidComponent<{ setStep: Setter<number> }> = (props) => {
+const OnboardingNavigation: VoidComponent<{ setStep: Setter<number>, continueText?: string }> = (props) => {
   const [t] = useI18n();
   return (
     <div class="flex gap-2 ml-auto mt-4">
@@ -61,7 +61,7 @@ const OnboardingNavigation: VoidComponent<{ setStep: Setter<number> }> = (props)
         variant="primary"
         onClick={() => props.setStep((s) => s + 1)}
       >
-        {t("onboarding.continue")}
+        {props.continueText ?? t("onboarding.continue")}
       </Button>
     </div>
   );
@@ -203,7 +203,8 @@ const OnboardingWhatIsRehash: OnboardingStep = (props) => {
         <Input label={t("common.password")} readonly value={pregeneratedPasswords[selection().password][selection().url][selection().username]} />
       </Paragraph>
       <Paragraph>{t("onboarding.what_is_rehash.cross_device_generation")}</Paragraph>
-      <OnboardingNavigation setStep={props.setStep} />
+      <Paragraph>{t("onboarding.what_is_rehash.next_steps")}</Paragraph>
+      <OnboardingNavigation setStep={props.setStep} continueText={t("onboarding.create_your_vault.create_vault")} />
     </>
   );
 };
@@ -219,7 +220,7 @@ const OnboardingEncryptVault: OnboardingStep = (props) => {
       <Subheading>{t("onboarding.encrypt_vault.encrypt_vault")}</Subheading>
       <Paragraph>{t("onboarding.encrypt_vault.encrypt_vault_text")}</Paragraph>
       <Paragraph>
-        <Toggle label={t("settings.vault.encrypt")} checked={encryptVault()} onChange={() => setEncryptVault((e) => !e)} />
+        <Toggle label={t("settings.vault.encrypt")} checked={encryptVault()} onChange={() => setEncryptVault(!encryptVault())} />
       </Paragraph>
       <OnboardingNavigation setStep={props.setStep} />
     </>
