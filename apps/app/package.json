@@ -11,10 +11,10 @@
   "dependencies": {
     "@modular-forms/solid": "^0.20.0",
     "@rehash/logic": "workspace:*",
-    "@solid-primitives/i18n": "^2.0.1",
-    "@solid-primitives/media": "^2.2.6",
-    "@solidjs/router": "^0.12.4",
-    "@unocss/reset": "^0.58.5",
+    "@solid-primitives/i18n": "^2.1.1",
+    "@solid-primitives/media": "^2.2.8",
+    "@solidjs/router": "^0.13.1",
+    "@unocss/reset": "^0.58.6",
     "cva": "1.0.0-beta.1",
     "file-saver": "^2.0.5",
     "idb-keyval": "^6.2.1",
@@ -26,11 +26,11 @@
     "@iconify-json/solar": "^1.1.9",
     "@types/file-saver": "^2.0.7",
     "@types/lodash-es": "^4.17.12",
-    "@unocss/preset-web-fonts": "^0.58.5",
-    "typescript": "^5.2.2",
-    "unocss": "^0.58.5",
+    "@unocss/preset-web-fonts": "^0.58.6",
+    "typescript": "^5.4.2",
+    "unocss": "^0.58.6",
     "unplugin-icons": "^0.18.5",
-    "vite": "^5.1.4",
-    "vite-plugin-solid": "^2.10.1"
+    "vite": "^5.1.6",
+    "vite-plugin-solid": "^2.10.2"
   }
 }
