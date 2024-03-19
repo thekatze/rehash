@@ -158,6 +158,15 @@ export const SplitLayout: VoidComponent<{
   );
 };
 
+export const serializeStore = async (store: UnlockedStore) => {
+  const serializableStore = { ...store, password: undefined };
+  if (store.settings.encrypt) {
+    return await encrypt(store.password, serializableStore);
+  } else {
+    return serializableStore;
+  }
+};
+
 export const RehashProvider: Component<RouteSectionProps> = (props) => {
   const [store, setStore] = createSignal<RehashStore>({
     state: StoreState.Empty,
@@ -167,14 +176,7 @@ export const RehashProvider: Component<RouteSectionProps> = (props) => {
     // save store on change if unlocked
     const s = store();
     if (s.state === StoreState.Unlocked) {
-      const serializableStore = { ...s, password: undefined, state: undefined };
-      if (s.settings.encrypt) {
-        encrypt(s.password, serializableStore).then((encrypted) => {
-          set(STORE_KEY, encrypted);
-        });
-      } else {
-        set(STORE_KEY, serializableStore);
-      }
+      serializeStore(s).then((serialized) => set(STORE_KEY, serialized));
     }
   });
 
