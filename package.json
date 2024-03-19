@@ -14,7 +14,7 @@
   "scripts": {
     "app:dev": "pnpm -C apps/app run dev",
     "app:build": "pnpm -C apps/app run build",
-    "web:start": "pnpm -C apps/web run start",
+    "web:dev": "pnpm -C apps/web run dev",
     "web:build": "pnpm -C apps/web run build",
     "lint": "prettier apps/* packages/* --check && eslint apps/* packages/*",
     "lint:fix": "prettier apps/* packages/* --write"
