@@ -4,14 +4,18 @@ import { useI18n } from "../I18nProvider";
 import { Stack } from "./Stack";
 import { Subheading } from "./Subheading";
 import { Button } from "./Button";
-import { STORE_KEY, StoreState, useRehash } from "../RehashProvider";
+import {
+  STORE_KEY,
+  StoreState,
+  serializeStore,
+  useRehash,
+} from "../RehashProvider";
 import { set } from "idb-keyval";
 import { saveAs } from "file-saver";
 import {
   GeneratorOptions,
   StoreEntry,
   decrypt,
-  encrypt,
   migrateLegacyStore,
 } from "@rehash/logic";
 import { FileUploadButton } from "./FileUploadButton";
@@ -71,9 +75,8 @@ const ExportButton: VoidComponent = () => {
       class="flex-1"
       variant="secondary"
       onClick={() => {
-        const s = { ...store(), state: undefined, password: undefined };
-        encrypt(store().password, s).then((encrypted) => {
-          const blob = new Blob([JSON.stringify(encrypted)], {
+        serializeStore(store()).then((serialized) => {
+          const blob = new Blob([JSON.stringify(serialized)], {
             type: "text/plain",
           });
           saveAs(blob, "rehash-store.json");
