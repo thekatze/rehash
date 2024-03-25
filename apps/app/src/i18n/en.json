@@ -30,7 +30,7 @@
     "username": "Username",
     "notes": "Notes",
     "generator_settings": "Generator Settings",
-    "iteration": "Iteration",
+    "generation": "Generation",
     "length": "Length",
     "difficulty_label": "Difficulty",
     "difficulty": {

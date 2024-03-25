@@ -18,7 +18,7 @@ export async function generate(
 
   const result = await argon2id({
     password: password,
-    salt: `${entry.username}${entry.options.iteration}${entry.url}`.padEnd(8),
+    salt: `${entry.username}${entry.options.generation}${entry.url}`.padEnd(8),
     outputType: "binary",
     hashLength: entry.options.length,
     iterations: resolvedOptions.iterations,

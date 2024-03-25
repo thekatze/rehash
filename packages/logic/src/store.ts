@@ -24,7 +24,7 @@ export type StoreEntry = {
   created: string;
   options: {
     length: number;
-    iteration: number;
+    generation: number;
   };
   generatorOptions: GeneratorOptions;
   displayName?: string;
@@ -48,7 +48,8 @@ export const migrateLegacyStore = (store: LegacyStore): Store => {
   return {
     entries: Object.entries(store.entries).reduce(
       (acc, [key, value]) => {
-        acc[key] = { ...value, generatorOptions: store.options };
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- old store used 'iteration' for generation
+        acc[key] = { ...value, options: { ...value.options, generation: (value.options as any).iteration }, generatorOptions: store.options };
         return acc;
       },
       {} as Record<string, StoreEntry>,

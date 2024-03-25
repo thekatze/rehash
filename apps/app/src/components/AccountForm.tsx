@@ -95,12 +95,12 @@ export const AccountForm: VoidComponent<{
           <Field
             of={props.form}
             type="number"
-            name="options.iteration"
+            name="options.generation"
             validate={[required(t("validation.required"))]}
           >
             {(field, fieldProps) => (
               <NumberInput
-                label={t("account.iteration")}
+                label={t("account.generation")}
                 {...fieldProps}
                 value={field.value}
                 error={field.error}

@@ -246,7 +246,7 @@ const OnboardingWhatIsRehash: OnboardingStep = (props) => {
           readonly
           value={
             pregeneratedPasswords[selection().password][selection().url][
-              selection().username
+            selection().username
             ]
           }
         />
@@ -316,7 +316,7 @@ const OnboardingVaultSettings: OnboardingStep = (props) => {
     generateInWorkerThread("password", {
       url: "https://www.rehash.one",
       username: "thekatze",
-      options: { length: 32, iteration: 1 },
+      options: { length: 32, generation: 1 },
       generatorOptions: generatorSettings(),
     }).then(() => {
       const end = performance.now();

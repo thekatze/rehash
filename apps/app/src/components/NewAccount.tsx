@@ -14,7 +14,7 @@ export const NewAccount: VoidComponent = () => {
 
   const [form] = createForm<StoreEntry>({
     initialValues: {
-      options: { length: 32, iteration: 1 },
+      options: { length: 32, generation: 1 },
       generatorOptions: recommendedDifficulty,
     },
   });
