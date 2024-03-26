@@ -49,7 +49,14 @@ export const migrateLegacyStore = (store: LegacyStore): Store => {
     entries: Object.entries(store.entries).reduce(
       (acc, [key, value]) => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any -- old store used 'iteration' for generation
-        acc[key] = { ...value, options: { ...value.options, generation: (value.options as any).iteration }, generatorOptions: store.options };
+        acc[key] = {
+          ...value,
+          options: {
+            ...value.options,
+            generation: (value.options as any).iteration,
+          },
+          generatorOptions: store.options,
+        };
         return acc;
       },
       {} as Record<string, StoreEntry>,

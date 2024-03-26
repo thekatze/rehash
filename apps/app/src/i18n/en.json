@@ -96,7 +96,8 @@
     "heading": "Settings",
     "general": {
       "heading": "General",
-      "language": "Language"
+      "language": "Language",
+      "version": "Version: {{ version }}"
     },
     "vault": {
       "heading": "Vault Settings",

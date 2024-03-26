@@ -246,7 +246,7 @@ const OnboardingWhatIsRehash: OnboardingStep = (props) => {
           readonly
           value={
             pregeneratedPasswords[selection().password][selection().url][
-            selection().username
+              selection().username
             ]
           }
         />

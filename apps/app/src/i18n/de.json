@@ -96,7 +96,8 @@
     "heading": "Einstellungen",
     "general": {
       "heading": "Allgemein",
-      "language": "Sprache"
+      "language": "Sprache",
+      "version": "Version: {{ version }}"
     },
     "vault": {
       "heading": "Tresoreinstellungen",
