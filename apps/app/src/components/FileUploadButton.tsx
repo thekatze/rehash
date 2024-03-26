@@ -1,44 +1,56 @@
-import { Button, ButtonProps, hope } from "@hope-ui/solid";
-import { ParentComponent } from "solid-js";
+import { ComponentProps, FlowComponent } from "solid-js";
+import { Button } from "./Button";
 
-interface FileUploadButtonProps {
-  onFileSelected: (content: string) => Promise<void>;
-}
-
-const HiddenInput = hope("input", {
-  baseStyle: {
-    display: "none",
-  },
-});
-
-const FileUploadButton: ParentComponent<
-  FileUploadButtonProps & Omit<ButtonProps, "onClick">
+export const FileUploadButton: FlowComponent<
+  { onFileUploaded: (text: string) => void } & Omit<
+    ComponentProps<typeof Button>,
+    "onClick"
+  >
 > = (props) => {
-  let fileInput: HTMLInputElement | undefined;
+  let fileInput: HTMLInputElement;
 
-  const fileChosen = async (
-    e: Event & { currentTarget: HTMLInputElement; target: Element }
+  const onFileSelected = async (
+    event: Event & {
+      currentTarget: HTMLInputElement;
+      target: HTMLInputElement;
+    },
   ) => {
-    const text = (await e.currentTarget?.files?.[0].text()) ?? "";
+    const file = event.target.files?.[0];
+    if (!file) {
+      return;
+    }
 
-    await props.onFileSelected(text);
-  };
-
-  const onClick = () => {
-    fileInput?.click();
+    const result = await getFileContents(file);
+    props.onFileUploaded(result);
   };
 
   return (
     <>
-      <HiddenInput
-        ref={fileInput}
+      <input
+        class="hidden"
+        ref={fileInput!}
         type="file"
-        onChange={fileChosen}
         accept=".json"
+        onChange={onFileSelected}
       />
-      <Button onClick={onClick} {...props} />
+      <Button {...props} onClick={() => fileInput.click()}>
+        {props.children}
+      </Button>
     </>
   );
 };
 
-export default FileUploadButton;
+const getFileContents: (file: File) => Promise<string> = (file) => {
+  return new Promise((res, rej) => {
+    const reader = new FileReader();
+    reader.addEventListener("load", (event) => {
+      const text = event.target?.result;
+      if (typeof text === "string") {
+        res(text);
+      } else {
+        rej();
+      }
+    });
+    reader.readAsText(file);
+  });
+};

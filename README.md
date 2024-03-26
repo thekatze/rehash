@@ -33,15 +33,16 @@ rehash uses the [Argon2id](https://github.com/P-H-C/phc-winner-argon2) function 
 
 # Is rehash for me?
 
-A normal password manager is the way to go for most intents and purposes. I would highly recommend [Bitwarden](https://bitwarden.com/).
+A cloud password manager is the way to go for most intents and purposes. I highly recommend [Bitwarden](https://bitwarden.com/).
 
 The major drawbacks of rehash are:
 
 - Changing the master password changes all your passwords.
-- Changing a single password is difficult (there is support for password iterations, but it is only workaround, not a solution)
+- Changing a single password is difficult (password generations exist, but have to be remembered)
 - It is not as secure as a password manager with truly randomly generated passwords.
 
-The type of person rehash is for could be described like this:
+rehash tries to fit the niche of people who:
 
-- Does not want their passwords stored in the cloud (encrypted or not - it's about the principle)
-- Uses many different devices, so using a traditional offline password manager like [KeePass](https://keepassxc.org/) is unviable
+- Do not want their passwords stored in the cloud
+- Yet use many different devices, so using a traditional offline password manager like [KeePass](https://keepassxc.org/) is unviable
+
