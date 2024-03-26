@@ -32,7 +32,9 @@ export const Settings: Component = () => {
       <Stack direction="column" class="gap-4">
         <Subheading>{t("settings.general.heading")}</Subheading>
         <LanguageSelect />
-        <p class="text-right opacity-50">{t("settings.general.version", { version: __GIT_REVISION__ })}</p>
+        <p class="text-right opacity-50">
+          {t("settings.general.version", { version: __GIT_REVISION__ })}
+        </p>
         {/* Dark Mode */}
         <Subheading>{t("settings.vault.heading")}</Subheading>
         <EncryptToggle />
