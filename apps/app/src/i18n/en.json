@@ -108,7 +108,7 @@
       "delete": "Delete Vault",
       "import_error": {
         "unknown_format": "Sorry, this file could not be imported. The file format is unknown.",
-        "different_master_password": "Sorry, this file was exported using a different master password. The exported store could not be decrypted."
+        "different_master_password": "Sorry, this file was exported using a different vault password. The exported vault could not be decrypted."
       }
     },
     "danger_zone": "Danger Zone"

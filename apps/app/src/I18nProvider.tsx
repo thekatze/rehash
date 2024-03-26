@@ -15,7 +15,7 @@ import * as i18n from "@solid-primitives/i18n";
 import type RawDictionary from "./i18n/en.json";
 type Dictionary = i18n.Flatten<typeof RawDictionary>;
 
-export const locales = ["en"] as const;
+export const locales = ["en", "de"] as const;
 export type Locale = (typeof locales)[number];
 
 const fetchDictionary = async (locale: Locale): Promise<Dictionary> => {
