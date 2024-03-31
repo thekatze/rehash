@@ -1,0 +1,31 @@
+[package]
+name = "app"
+version = "0.2.0"
+description = "rehash: the password manager that does not store your passwords"
+authors = ["Leo Felix Katzengruber <leofel.katz@gmail.com>"]
+license = "MIT"
+repository = "https://github.com/thekatze/rehash"
+edition = "2021"
+rust-version = "1.70"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+name = "app_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2.0.0-beta.10", features = [] }
+
+[dependencies]
+serde_json = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+tauri = { version = "2.0.0-beta.13", features = [] }
+tauri-plugin-dialog = "2.0.0-beta.3"
+tauri-plugin-fs = "2.0.0-beta.3"
+
+[profile.release]
+lto = "fat"
+codegen-units = 1
+strip = "symbols"
+

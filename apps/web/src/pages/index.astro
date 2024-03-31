@@ -1,116 +1,44 @@
 ---
-import PasswordGenerator from "../components/PasswordGenerator";
-import MainLayout from "../layouts/MainLayout.astro";
+
 ---
 
-<MainLayout>
-  <section class="flex relative">
-    <div class="px-4 mx-auto md:mx-12 my-32">
-      <div
-        class="font-black text-5xl md:text-7xl mb-12 text-center md:text-left"
-      >
-        <h2 class="inline">Offline Passwords</h2>
-        <br />
-        <h2
-          class="inline text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-secondary-400"
-        >
-          accessible anywhere
-        </h2>
-      </div>
-      <span class="text-xl"
-        >The password manager that doesn't save your passwords
-      </span>
-    </div>
-  </section>
-  <section class="mt-24 bg-surface shadow py-16">
-    <div class="md:mx-12 flex gap-8 justify-evenly flex-col md:flex-row px-4">
-      <div class="md:min-w-[24rem]">
-        <h3 class="text-2xl font-bold mb-6">Interactive Demo</h3>
-        <PasswordGenerator client:idle />
-      </div>
-      <div class="flex flex-col gap-16">
-        <div>
-          <h3 class="text-2xl font-bold mb-2">What is rehash?</h3>
-          <p>
-            rehash is a password manager that generates your passwords on the
-            fly based on your master password, the site you're saving the
-            password for and your username.
-            <br />
-            This allows you to generate a seemingly random password for every site,
-            while also being able to access that same password from other devices
-            without having to upload it into the cloud.
-          </p>
-        </div>
-        <div>
-          <h3 class="text-2xl font-bold mb-2">How does it work?</h3>
-          <p>
-            Your password is generated using a cryptographic hash function, a
-            one-way mapping from any input data to a unique identifier of that
-            data.
-          </p>
-          <p>
-            It is ensured that there is no computationally feasible way to get
-            from the output (generated password) of the hash function to the
-            input (password, site and username).
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section
-    class="flex gap-8 items-stretch md:items-start md:justify-around mt-32 flex-col md:flex-row px-4"
-  >
-    {
-      // eslint-disable-next-line solid/prefer-for
-      [
-        {
-          icon: "lock-line.svg",
-          title: "Secure",
-          text: `Based on <a class="text-subtle hover:text-white hover:underline" href="https://crypto.stanford.edu/PwdHash/">research at Stanford university</a> and implemented using modern cryptographic algorithms.`,
-        },
-        {
-          icon: "globe-grid-line.svg",
-          title: "Available everywhere",
-          text: `Accessible from any device with a modern web browser. No installation required.`,
-        },
-        {
-          icon: "flask-line.svg",
-          title: "Free and Open-Source",
-          text: `Free forever, open for inspection and maintained by the community.`,
-        },
-      ].map((card) => (
-        <div class="flex-1 md:max-w-lg rounded-lg p-4 bg-surface">
-          <div class="flex items-center mb-4">
-            {card.icon && (
-              <img
-                src={card.icon}
-                alt={card.icon}
-                class="mr-4 w-8 h-8 invert select-none"
-              />
-            )}
-            <h4 class="text-xl font-bold flex-1">{card.title}</h4>
-          </div>
-          <p set:html={card.text} />
-        </div>
-      ))
-    }
-  </section>
-  <section class="relative flex py-32">
-    <div class="px-4 mx-auto text-center my-12">
-      <div class="font-black text-4xl md:text-5xl mb-6">
-        <h2>No more password reuse</h2>
-        <h2
-          class="mt-2 text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-secondary-400"
-        >
-          Get started now
-        </h2>
-      </div>
-      <a
-        class="text-lg bg-primary hover:bg-primary-400 rounded py-2 px-4 mx-auto w-32 inline-flex justify-center items-center font-bold"
-        href="https://app.rehash.one"
-      >
-        Go to App
-      </a>
-    </div>
-  </section>
-</MainLayout>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>rehash | offline passwords, accessible anywhere</title>
+	</head>
+	<body class="flex justify-center w-full min-h-screen font-sans bg-white text-black font-medium">
+		<main class="px-8 py-16 max-w-160">
+			<h1 class="text-black font-black text-6xl">rehash</h1>
+			<h2 class="text-primary-700 font-black text-3xl">offline passwords, accessible anywhere</h2>
+			<section class="mt-12 flex flex-col gap-4">
+				<h3 class="text-primary-700 font-bold text-2xl">Get Started</h3>
+				<a href="https://app.rehash.one" class="flex-1 px-4 py-2 font-black bg-primary-800 hover:bg-primary-700 focus:bg-primary-700 active:bg-primary-600 text-primary-100 active:text-primary-50 rounded-md">Open in browser</a>
+
+				<h3 class="text-primary-700 font-bold text-2xl">Install</h3>
+
+				<h4>On Desktop</h4>
+				<div class="flex gap-4 items-stretch">
+					<a href="https://github.com/thekatze/rehash/releases" class="flex-1 px-4 py-2 font-black bg-primary-800 hover:bg-primary-700 focus:bg-primary-700 active:bg-primary-600 text-primary-100 active:text-primary-50 rounded-md">Download App</a>
+					<a href="https://github.com/thekatze/rehash-cli" class="flex-1 px-4 py-2 font-black bg-primary-800 hover:bg-primary-700 focus:bg-primary-700 active:bg-primary-600 text-primary-100 active:text-primary-50 rounded-md">Download CLI</a>
+				</div>
+
+				<h4>On Mobile (Work in progress)</h4>
+				<div class="flex gap-4 items-stretch">
+					<span class="opacity-50 pointer-events-none select-none flex-1 px-4 py-2 font-black bg-primary-800 hover:bg-primary-700 focus:bg-primary-700 active:bg-primary-600 text-primary-100 active:text-primary-50 rounded-md">Android</span>
+					<span class="opacity-50 pointer-events-none select-none flex-1 px-4 py-2 font-black bg-primary-800 hover:bg-primary-700 focus:bg-primary-700 active:bg-primary-600 text-primary-100 active:text-primary-50 rounded-md">iOS</span>
+				</div>
+			</section>
+		</main>
+		<footer class="font-bold text-primary-700 fixed bottom-0 right-0 flex gap-8 px-8 py-4">
+			<a class="hover:underline" href="https://github.com/thekatze/rehash">GitHub</a>
+			<a class="hover:underline" href="/security.txt">Security</a>
+			<a class="hover:underline" href="/privacy-policy.txt">Privacy Policy</a>
+			<a class="hover:underline" href="/imprint.txt">Imprint</a>
+		</footer>
+	</body>
+</html>
+

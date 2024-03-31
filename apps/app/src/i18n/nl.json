@@ -1,0 +1,117 @@
+{
+  "common": {
+    "password": "Wachtwoord",
+    "save_changes": "Wijzigingen opslaan"
+  },
+  "validation": {
+    "required": "Dit veld is verplicht",
+    "wrong_password": "Wachtwoord incorrect. Probeer opnieuw"
+  },
+  "new_account": {
+    "heading": "Nieuw account",
+    "create": "Creëer Account"
+  },
+  "account_list": {
+    "your_vault_is_empty": "Je opslag is leeg",
+    "create_first_account_with": "Creëer je eerste account met"
+  },
+  "account_detail": {
+    "heading": "Account: {{ name }}",
+    "generated_password": "Gegenereerd wachtwoord",
+    "save_changes_to_regenerate": "Wijzigingen opslaan om opnieuw te genereren",
+    "error": {
+      "oops": "Oeps!",
+      "account_does_not_exist": "Dit account bestaat niet meer."
+    }
+  },
+  "account": {
+    "display_name": "Weergavenaam",
+    "url": "URL",
+    "username": "Gebruikersnaam",
+    "notes": "Notities",
+    "generator_settings": "Generatorinstellingen",
+    "generation": "Generatie",
+    "length": "Lengte",
+    "difficulty_label": "Sterkte",
+    "difficulty": {
+      "recommended": "Aanbevolen",
+      "custom": "Aangepast",
+      "iterations": "Iteraties",
+      "memory_size": "Opslaggrootte (kb)",
+      "parallelism": "Parallelisme"
+    }
+  },
+  "onboarding": {
+    "continue": "Ga verder",
+    "go_back": "Ga terug",
+    "welcome": {
+      "welcome": "Welkom bij rehash",
+      "get_started": "Aan de slag",
+      "get_started_text": "Hallo daar! Welkom bij rehash: de wachtwoordmanager die je wachtwoorden niet opslaat. Voordat we je opslag creëren, hebben we eerst een korte introductie om je de best mogelijke ervaring te geven. Als je al bekend bent met rehash, voel je vrij om de introductie over te slaan onder aan de pagina.",
+      "im_already_familiar": "Ik ben al bekend",
+      "im_already_familiar_text": "Goed! Dan kun je gelijk door naar het creëren van je nieuwe opslag.",
+      "import_vault": "Importeer opslag",
+      "or": "of",
+      "skip_introduction": "Skip introductie"
+    },
+    "language": {
+      "language": "Taal",
+      "set_your_preferred_language": "Stel je voorkeurstaal in",
+      "set_your_preferred_language_text": "We hebben geprobeerd om automatisch de juiste taal te detecteren. Als het toch de verkeerde taal is, dan kun je het hier veranderen."
+    },
+    "what_is_rehash": {
+      "what_is_rehash": "Wat is rehash?",
+      "how_does_it_work": "Hoe werkt het?",
+      "how_does_it_work_text": "rehash werkt volledig offline en genereert je wachtwoord op basis van het wachtwoord van je opslag, de URl van de website en je gebruikersnaam van die website. Om er zeker van te zijn dat er geen mogelijkheid is om het wachtwoord van je opslag te raden op basis van je gegenereerde wachtwoord, gebruikt rehas een cryptografische hash functie om je wachtwoorden te genereren. Om een idee te krijgen hoe dit werkt, kun je het uitproberen met onderstaande knoppen!",
+      "cross_device_generation": "Het proces om je wachtwoorden te genereren werkt hetzelfde op verschillende apparaten. Dit betekent dat je altijd hetzelfde wachtwoord krijgt als je dezelfde URL, gebruikersnaam, en wachtwoord van je opslag gebruikt. Op deze manier kun je makkelijk toegang krijgen tot al je wachtwoorden zonder dat je deze online hoeft op te slaan.",
+      "next_steps": "In de volgende stappen zullen we je nieuwe locale opslag instellen waarin al je wachtwoorden opgeslagen worden.",
+      "vault_password": "Wachtwoord van opslag"
+    },
+    "encrypt_vault": {
+      "encrypt_vault": "Versleutel je opslag",
+      "encrypt_vault_text": "Deze instelling zorgt ervoor dat je opslag wordt versleuteld wanneer je deze opslaat. Je kan deze instelling het beste aan laten staan. Als je deze toch uitzet, dan kan een indringer al je websites en gebruikernamen zien in gewone tekst als ze toegang krijgen tot je opslag. Je wachtwoorden zullen niet zichtbaar zijn, want hier is het wachtwoord van je opslag voor nodig."
+    },
+    "vault_settings": {
+      "vault_settings": "Opslaginstellingen",
+      "set_generation_difficulty": "Kies de sterkte van de generator",
+      "configure_your_vault_text": "De generatorsterkte bepaalt hoe veel tijd er nodig is om je wachtwoord te genereren. We geven je de aanbevolen optie waarbij er een goede balans is tussen veiligheid en tijd om het wachtwoord te genereren. Je kan de knop \"Meet sterkte\" gebruiken om te kijken hoe lang het duurt om een wachtwoord te genereren.",
+      "measure_difficulty": "Meet sterkte",
+      "took_seconds": "duurde {{ seconds }} seconden",
+      "this_changes_all_your_passwords_text": "Denk eraan dat al de generator andere wachtwoorden maakt op basis van deze instellingen. Voor dezelfde wachtwoorden op verschillende apparaten moet je deze sterkteinstellingen gelijk houden op beide apparaten."
+    },
+    "create_your_vault": {
+      "create_your_vault": "Creëer je opslag",
+      "set_password": "Kies je wachtwoord",
+      "set_password_text": "Je bent bijna klaar! De laatste stap is om een sterk wachtwoord te kiezen voor je opslag. Al je andere wachtwoorden worden gegenereerd op basis van dit wachtwoord, dus kies voor een sterk wachtwoord hier.",
+      "create_vault": "Creëer opslag"
+    }
+  },
+  "password_prompt": {
+    "welcome_back": "Welkom terug",
+    "unlock_your_vault": "Ontgrendel je wachtwoord",
+    "unlock_your_vault_text": "Vul je wachtwoord in om je opslag te ontgrendelen.",
+    "unlock_vault": "Ontgrendel opslag"
+  },
+  "settings": {
+    "heading": "Instellingen",
+    "general": {
+      "heading": "Algemeen",
+      "language": "Taal",
+      "version": "Versie: {{ version }}"
+    },
+    "vault": {
+      "heading": "Opslaginstellingen",
+      "default_generator_difficulty": "Standaard generator sterkte",
+      "encrypt": "Versleutel opslag",
+      "import_heading": "Import/Export",
+      "import": "Import opslag",
+      "export": "Export opslag",
+      "delete": "Verwijder Vault",
+      "import_error": {
+        "unknown_format": "Sorry, dit bestand kon niet geïmporteerd worden. Het type bestand is niet bekend.",
+        "different_master_password": "Sorry, dit bestand heeft een ander wachtwoord voor de opslag. De geëxporteerde opslag kon niet ontgrendeld worden."
+      }
+    },
+    "danger_zone": "Gevarenzone"
+  }
+}
