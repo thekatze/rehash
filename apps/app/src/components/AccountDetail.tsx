@@ -22,6 +22,7 @@ import { AsyncActionStatus, createAsyncAction } from "../createAsyncAction";
 import ClipboardIcon from "~icons/solar/clipboard-text-linear";
 import ClipboardCheckIcon from "~icons/solar/clipboard-check-linear";
 import ClipboardErrorIcon from "~icons/solar/clipboard-remove-linear";
+import { platform } from "../platform";
 
 export const AccountDetail: Component<RouteSectionProps<StoreEntry>> = (
   props,
@@ -135,7 +136,7 @@ const CopyPasswordButton: VoidComponent<{ password?: string }> = (props) => {
     () => {
       const password = props.password;
       if (!password) throw new Error("password not generated");
-      return navigator.clipboard.writeText(password);
+      return platform.copyToClipboard(Promise.resolve(password));
     },
     { reset: 3000 },
   );

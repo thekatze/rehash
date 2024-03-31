@@ -76,6 +76,7 @@ import { createAsyncAction, AsyncActionStatus } from "../createAsyncAction";
 import { AddAccountButton } from "./AddAccountButton";
 import { Subheading } from "./Subheading";
 import { useI18n } from "../I18nProvider";
+import { platform } from "../platform";
 
 const Spinner: VoidComponent = () => (
   <div class="animate-spin inline-block w-5 h-5 border-1.5 border-current border-t-transparent rounded-full" />
@@ -86,17 +87,16 @@ const AccountListItem: VoidComponent<{ account: AccountWithId }> = (props) => {
   const [store] = useRehash();
 
   const [usernameStatus, copyUsername] = createAsyncAction(
-    () => navigator.clipboard.writeText(props.account.username),
+    () => platform.copyToClipboard(Promise.resolve(props.account.username)),
     { reset: 3000 },
   );
 
   const [passwordStatus, copyPassword] = createAsyncAction(
     async () => {
-      const password = await generateInWorkerThread(
+      platform.copyToClipboard(generateInWorkerThread(
         store().password,
         props.account,
-      );
-      await navigator.clipboard.writeText(password);
+      ));
     },
     { reset: 3000 },
   );
