@@ -9,7 +9,7 @@ const web: Platform = {
     }
 
     const item = new ClipboardItem({
-      "text/plain": text
+      "text/plain": text,
     });
 
     return await navigator.clipboard.write([item]);
@@ -17,4 +17,3 @@ const web: Platform = {
 };
 
 export const platform = web;
-

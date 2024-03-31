@@ -93,10 +93,9 @@ const AccountListItem: VoidComponent<{ account: AccountWithId }> = (props) => {
 
   const [passwordStatus, copyPassword] = createAsyncAction(
     async () => {
-      platform.copyToClipboard(generateInWorkerThread(
-        store().password,
-        props.account,
-      ));
+      platform.copyToClipboard(
+        generateInWorkerThread(store().password, props.account),
+      );
     },
     { reset: 3000 },
   );
