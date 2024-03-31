@@ -14,7 +14,7 @@
     "@solid-primitives/i18n": "^2.1.1",
     "@solid-primitives/media": "^2.2.8",
     "@solidjs/router": "^0.13.1",
-    "@unocss/reset": "^0.58.6",
+    "@unocss/reset": "^0.58.8",
     "cva": "1.0.0-beta.1",
     "file-saver": "^2.0.5",
     "idb-keyval": "^6.2.1",
@@ -26,11 +26,11 @@
     "@iconify-json/solar": "^1.1.9",
     "@types/file-saver": "^2.0.7",
     "@types/lodash-es": "^4.17.12",
-    "@unocss/preset-web-fonts": "^0.58.6",
+    "@unocss/preset-web-fonts": "^0.58.8",
     "typescript": "^5.4.3",
-    "unocss": "^0.58.6",
+    "unocss": "^0.58.8",
     "unplugin-icons": "^0.18.5",
-    "vite": "^5.2.6",
+    "vite": "^5.2.7",
     "vite-plugin-solid": "^2.10.2"
   }
 }
