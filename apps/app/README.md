@@ -3,11 +3,13 @@
 ### Development
 
 Web
+
 ```sh
 pnpm dev
 ```
 
 Desktop
+
 ```sh
 pnpm tauri dev
 ```
@@ -21,4 +23,3 @@ pnpm build
 ```sh
 pnpm tauri build
 ```
-
