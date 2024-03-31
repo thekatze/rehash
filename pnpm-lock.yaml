@@ -132,7 +132,7 @@ importers:
     dependencies:
       hash-wasm:
         specifier: ^4.9.0
-        version: 4.9.0
+        version: 4.11.0
 
 packages:
 
@@ -3619,8 +3619,8 @@ packages:
       has-symbols: 1.0.3
     dev: true
 
-  /hash-wasm@4.9.0:
-    resolution: {integrity: sha512-7SW7ejyfnRxuOc7ptQHSf4LDoZaWOivfzqw+5rpcQku0nHfmicPKE51ra9BiRLAmT8+gGLestr1XroUkqdjL6w==}
+  /hash-wasm@4.11.0:
+    resolution: {integrity: sha512-HVusNXlVqHe0fzIzdQOGolnFN6mX/fqcrSAOcTBXdvzrXVHwTz11vXeKRmkR5gTuwVpvHZEIyKoePDvuAR+XwQ==}
     dev: false
 
   /hasown@2.0.0:
