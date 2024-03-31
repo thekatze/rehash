@@ -2,8 +2,23 @@
 
 ### Development
 
-`pnpm dev`
+Web
+```sh
+pnpm dev
+```
+
+Desktop
+```sh
+pnpm tauri dev
+```
 
 ### Building
 
-`pnpm build`
+```sh
+pnpm build
+```
+
+```sh
+pnpm tauri build
+```
+
