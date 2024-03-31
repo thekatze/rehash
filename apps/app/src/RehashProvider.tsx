@@ -37,7 +37,7 @@ import { createMediaQuery } from "@solid-primitives/media";
 
 export const STORE_KEY = "rehash_store";
 
-import PasswordWorker from "./rehashGeneratorWorker?worker";
+import PasswordWorker from "./rehashGeneratorWorker?worker&inline";
 
 export const generateInWorkerThread = (
   ...params: Parameters<typeof generate>
