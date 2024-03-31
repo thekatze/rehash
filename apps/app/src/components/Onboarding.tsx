@@ -184,7 +184,7 @@ const OnboardingWhatIsRehash: OnboardingStep = (props) => {
     field: keyof GetInnerType<typeof selection>;
     showClickIndicator?: boolean;
   }> = (props) => (
-    <td>
+    <td class="relative">
       <Button
         class="w-full"
         variant={
@@ -214,7 +214,7 @@ const OnboardingWhatIsRehash: OnboardingStep = (props) => {
       <Paragraph>
         <table class="w-full">
           <tbody>
-            <tr class="relative">
+            <tr>
               <td class="font-bold text-primary-700">
                 {t("onboarding.what_is_rehash.vault_password")}
               </td>
