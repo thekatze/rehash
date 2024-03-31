@@ -1,5 +1,8 @@
-export interface Platform {
+import saveAs from "file-saver";
+
+interface Platform {
   copyToClipboard(text: Promise<string>): Promise<void>;
+  saveTextAsFile(text: string, filename: string): Promise<void>;
 }
 
 const web: Platform = {
@@ -14,6 +17,29 @@ const web: Platform = {
 
     return await navigator.clipboard.write([item]);
   },
+  saveTextAsFile: async (text: string, filename: string): Promise<void> => {
+    const blob = new Blob([text], {
+      type: "text/plain",
+    });
+
+    saveAs(blob, filename);
+  },
 };
 
-export const platform = web;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- TODO: add tauri d.ts
+const tauri = (window as any).__TAURI__;
+const tauriPlatform: Platform = {
+  copyToClipboard: web.copyToClipboard,
+  saveTextAsFile: async (text: string, filename: string): Promise<void> => {
+    const path = await tauri.dialog.save({
+      filters: [{
+        name: filename.split('.')[0],
+        extensions: [filename.split('.')[1]],
+      }]
+    });
+
+    return tauri.fs.writeTextFile(path, text);
+  },
+}
+
+export const platform: Platform = tauri ? tauriPlatform : web;

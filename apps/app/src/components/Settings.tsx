@@ -23,6 +23,7 @@ import { LanguageSelect } from "./LanguageSelect";
 import { Toggle } from "./Toggle";
 import { createForm, getValues } from "@modular-forms/solid";
 import { GeneratorSettingsForm } from "./GeneratorSettingsForm";
+import { platform } from "../platform";
 
 export const Settings: Component = () => {
   const [t] = useI18n();
@@ -79,10 +80,7 @@ const ExportButton: VoidComponent = () => {
       variant="secondary"
       onClick={() => {
         serializeStore(store()).then((serialized) => {
-          const blob = new Blob([JSON.stringify(serialized)], {
-            type: "text/plain",
-          });
-          saveAs(blob, "rehash-store.json");
+          platform.saveTextAsFile(JSON.stringify(serialized), "rehash-store.json");
         });
       }}
     >
