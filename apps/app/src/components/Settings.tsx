@@ -80,7 +80,10 @@ const ExportButton: VoidComponent = () => {
       variant="secondary"
       onClick={() => {
         serializeStore(store()).then((serialized) => {
-          platform.saveTextAsFile(JSON.stringify(serialized), "rehash-store.json");
+          platform.saveTextAsFile(
+            JSON.stringify(serialized),
+            "rehash-store.json",
+          );
         });
       }}
     >

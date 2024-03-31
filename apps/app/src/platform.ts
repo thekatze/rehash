@@ -32,14 +32,16 @@ const tauriPlatform: Platform = {
   copyToClipboard: web.copyToClipboard,
   saveTextAsFile: async (text: string, filename: string): Promise<void> => {
     const path = await tauri.dialog.save({
-      filters: [{
-        name: filename.split('.')[0],
-        extensions: [filename.split('.')[1]],
-      }]
+      filters: [
+        {
+          name: filename.split(".")[0],
+          extensions: [filename.split(".")[1]],
+        },
+      ],
     });
 
     return tauri.fs.writeTextFile(path, text);
   },
-}
+};
 
 export const platform: Platform = tauri ? tauriPlatform : web;
