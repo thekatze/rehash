@@ -11,7 +11,6 @@ import {
   useRehash,
 } from "../RehashProvider";
 import { set } from "idb-keyval";
-import { saveAs } from "file-saver";
 import {
   GeneratorOptions,
   StoreEntry,
