@@ -9,7 +9,7 @@
   "author": "TheKatze",
   "license": "MIT",
   "dependencies": {
-    "hash-wasm": "^4.9.0"
+    "hash-wasm": "^4.11.0"
   },
   "sideEffects": false
 }
