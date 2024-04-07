@@ -55,8 +55,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tauriScript: 'pnpm tauri'
-          projectPath: apps/app
           args: "--target ${{ matrix.platform.rust_target }}"
+          projectPath: apps/app
+          tagName: "${{ github.ref_name }}"
           releaseName: "App ${{ github.ref_name }}"
           releaseBody: 'See the assets to download this version and install.'
           releaseDraft: true
