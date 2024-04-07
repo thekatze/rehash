@@ -39,33 +39,34 @@ export const STORE_KEY = "rehash_store";
 
 import PasswordWorker from "./rehashGeneratorWorker?worker&inline";
 import EncryptionWorker from "./rehashEncryptionWorker?worker&inline";
+import DecryptionWorker from "./rehashDecryptionWorker?worker&inline";
 
 // TODO: find a way to generically 'promisify' doing something in a worker thread
-export const generateInWorkerThread = (
-  ...params: Parameters<typeof generate>
-): Promise<string> =>
-  new Promise((resolve) => {
-    const passwordWorker = new PasswordWorker();
-    passwordWorker.onmessage = (e) => {
-      passwordWorker.terminate();
-      resolve(e.data);
-    };
 
-    passwordWorker.postMessage(params);
-  });
+const promisifyWorker =
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- TODO: no clue how to type this correctly, but this works
+  <TWorkerFunction extends (...args: any[]) => any>(workerConstructor: {
+    new (): Worker;
+  }) =>
+  (
+    ...params: Parameters<TWorkerFunction>
+  ): Promise<Awaited<ReturnType<TWorkerFunction>>> =>
+    new Promise((resolve) => {
+      const worker = new workerConstructor();
+      worker.onmessage = (e) => {
+        worker.terminate();
+        resolve(e.data);
+      };
 
-export const encryptInWorkerThread = (
-  ...params: Parameters<typeof encrypt>
-): Promise<string> =>
-  new Promise((resolve) => {
-    const encryptWorker = new EncryptionWorker();
-    encryptWorker.onmessage = (e) => {
-      encryptWorker.terminate();
-      resolve(e.data);
-    };
+      worker.postMessage(params);
+    });
 
-    encryptWorker.postMessage(params);
-  });
+export const generateInWorkerThread =
+  promisifyWorker<typeof generate>(PasswordWorker);
+export const encryptInWorkerThread =
+  promisifyWorker<typeof encrypt>(EncryptionWorker);
+export const decryptInWorkerThread =
+  promisifyWorker<typeof decrypt>(DecryptionWorker);
 
 export enum StoreState {
   Empty,
@@ -226,7 +227,10 @@ export const RehashProvider: Component<RouteSectionProps> = (props) => {
               <Match when={returnNarrowedOrNull(store(), StoreState.Encrypted)}>
                 {(encryptedStore) => {
                   const tryDecrypt = async (password: string) => {
-                    let store = await decrypt(password, encryptedStore());
+                    let store = await decryptInWorkerThread(
+                      password,
+                      encryptedStore(),
+                    );
                     if (!store) {
                       return false;
                     }

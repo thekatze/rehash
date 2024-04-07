@@ -38,7 +38,11 @@ export async function encrypt(
   store: Store,
 ): Promise<EncryptedStore> {
   const aesParams = getAesParams(crypto.getRandomValues(new Uint8Array(32)));
-  const key = await deriveKey(password, aesParams.iv, store.settings.defaultGeneratorOptions); 
+  const key = await deriveKey(
+    password,
+    aesParams.iv,
+    store.settings.defaultGeneratorOptions,
+  );
 
   const data = await crypto.subtle.encrypt(
     aesParams,
@@ -49,7 +53,11 @@ export async function encrypt(
   const iv = encodeBase64(aesParams.iv as Uint8Array);
   const encryptedStore = encodeBase64(new Uint8Array(data));
 
-  return { iv, store: encryptedStore, kdfDifficulty: store.settings.defaultGeneratorOptions };
+  return {
+    iv,
+    store: encryptedStore,
+    kdfDifficulty: store.settings.defaultGeneratorOptions,
+  };
 }
 
 function getAesParams(iv: Uint8Array): AesGcmParams {
