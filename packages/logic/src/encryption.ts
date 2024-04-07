@@ -1,7 +1,9 @@
 import { decodeBase64, encodeBase64 } from "./utils";
-import { Store } from "./store";
+import { GeneratorOptions, Store, recommendedGeneratorOptions } from "./store";
+import { argon2id } from "hash-wasm";
 
 export interface EncryptedStore {
+  kdfDifficulty?: GeneratorOptions;
   iv: string;
   store: string;
 }
@@ -11,7 +13,10 @@ export async function decrypt(
   store: EncryptedStore,
 ): Promise<Store | null> {
   const iv = decodeBase64(store.iv);
-  const key = await deriveKey(password, iv);
+
+  const key = store.kdfDifficulty
+    ? await deriveKey(password, iv, store.kdfDifficulty)
+    : await legacyDeriveKey(password, iv);
 
   try {
     const data = await crypto.subtle.decrypt(
@@ -33,7 +38,11 @@ export async function encrypt(
   store: Store,
 ): Promise<EncryptedStore> {
   const aesParams = getAesParams(crypto.getRandomValues(new Uint8Array(32)));
-  const key = await deriveKey(password, aesParams.iv);
+  const key = await deriveKey(
+    password,
+    aesParams.iv,
+    store.settings.defaultGeneratorOptions,
+  );
 
   const data = await crypto.subtle.encrypt(
     aesParams,
@@ -44,7 +53,11 @@ export async function encrypt(
   const iv = encodeBase64(aesParams.iv as Uint8Array);
   const encryptedStore = encodeBase64(new Uint8Array(data));
 
-  return { iv, store: encryptedStore };
+  return {
+    iv,
+    store: encryptedStore,
+    kdfDifficulty: store.settings.defaultGeneratorOptions,
+  };
 }
 
 function getAesParams(iv: Uint8Array): AesGcmParams {
@@ -54,7 +67,7 @@ function getAesParams(iv: Uint8Array): AesGcmParams {
   };
 }
 
-async function deriveKey(
+async function legacyDeriveKey(
   password: string,
   salt: BufferSource,
 ): Promise<CryptoKey> {
@@ -68,33 +81,55 @@ async function deriveKey(
 
   const keyType = { name: "AES-GCM", length: 256 };
 
-  // TODO: Investigate if this can be implemented in a simpler manner
-  try {
-    const key = await crypto.subtle.importKey(
+  const key = await crypto.subtle.importKey(
+    "raw",
+    await crypto.subtle.exportKey(
       "raw",
-      await crypto.subtle.exportKey(
-        "raw",
-        await crypto.subtle.deriveKey(
-          {
-            name: "PBKDF2",
-            salt,
-            iterations: 100000,
-            hash: "SHA-512",
-          },
-          derived,
-          keyType,
-          true,
-          ["encrypt", "decrypt"],
-        ),
+      await crypto.subtle.deriveKey(
+        {
+          name: "PBKDF2",
+          salt,
+          iterations: 100000,
+          hash: "SHA-512",
+        },
+        derived,
+        keyType,
+        true,
+        ["encrypt", "decrypt"],
       ),
-      keyType,
-      false,
-      ["encrypt", "decrypt"],
-    );
-    return key;
-  } catch (e) {
-    console.error(e);
+    ),
+    keyType,
+    false,
+    ["encrypt", "decrypt"],
+  );
+  return key;
+}
 
-    return null!;
-  }
+async function deriveKey(
+  password: string,
+  iv: BufferSource,
+  kdfDifficulty: GeneratorOptions,
+): Promise<CryptoKey> {
+  const resolvedOptions =
+    typeof kdfDifficulty === "string"
+      ? recommendedGeneratorOptions[kdfDifficulty]
+      : kdfDifficulty;
+
+  const keyBuffer = await argon2id({
+    password,
+    salt: iv,
+    hashLength: 32, // how many bytes: 256 / 8
+    iterations: resolvedOptions.iterations,
+    memorySize: resolvedOptions.memorySize,
+    parallelism: resolvedOptions.parallelism,
+    outputType: "binary",
+  });
+
+  return await crypto.subtle.importKey(
+    "raw",
+    keyBuffer,
+    { name: "AES-GCM", length: 256 },
+    false,
+    ["encrypt", "decrypt"],
+  );
 }

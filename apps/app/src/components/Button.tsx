@@ -1,5 +1,6 @@
 import { cva, VariantProps } from "cva";
-import { FlowComponent, ComponentProps } from "solid-js";
+import { FlowComponent, ComponentProps, JSX } from "solid-js";
+import { Spinner } from "./Spinner";
 
 const variants = {
   variant: {
@@ -15,14 +16,14 @@ const variants = {
 };
 
 const buttonStyle = cva({
-  base: "px-4 py-2 font-black rounded-md",
+  base: "px-4 py-2 font-black rounded-md inline-flex justify-center",
   variants,
 });
 
 export const Button: FlowComponent<
   ComponentProps<"button"> & VariantProps<typeof buttonStyle>
 > = (props) => (
-  <button type="button" {...props} class={buttonStyle(props)}>
+  <button type="button" {...props} class={buttonStyle({ ...props })}>
     {props.children}
   </button>
 );
@@ -39,3 +40,25 @@ export const IconButton: FlowComponent<
     {props.children}
   </button>
 );
+
+const createLoadingVariant =
+  <TProps extends { children: JSX.Element }, T extends FlowComponent<TProps>>(
+    Component: T,
+  ) =>
+  (props: TProps & { loading: boolean }) => (
+    <Component {...props}>
+      <div classList={{ invisible: props.loading }}>{props.children}</div>
+      <div class="absolute mt-0.5" classList={{ invisible: !props.loading }}>
+        <Spinner />
+      </div>
+    </Component>
+  );
+
+export const LoadingButton = createLoadingVariant<
+  ComponentProps<typeof Button>,
+  typeof Button
+>(Button);
+export const LoadingIconButton = createLoadingVariant<
+  ComponentProps<typeof IconButton>,
+  typeof IconButton
+>(IconButton);
