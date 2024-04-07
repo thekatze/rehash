@@ -46,6 +46,7 @@ import DecryptionWorker from "./rehashDecryptionWorker?worker&inline";
 const promisifyWorker =
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- TODO: no clue how to type this correctly, but this works
 
+
     <TWorkerFunction extends (...args: any[]) => any>(workerConstructor: {
       new (): Worker;
     }) =>
