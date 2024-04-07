@@ -11,12 +11,12 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.5.10",
-    "astro": "^4.5.12",
-    "typescript": "^5.4.3"
+    "astro": "^4.5.16",
+    "typescript": "^5.4.4"
   },
   "devDependencies": {
-    "@unocss/preset-web-fonts": "^0.58.8",
-    "@unocss/reset": "^0.58.8",
-    "unocss": "^0.58.8"
+    "@unocss/preset-web-fonts": "^0.59.0",
+    "@unocss/reset": "^0.59.0",
+    "unocss": "^0.59.0"
   }
 }
