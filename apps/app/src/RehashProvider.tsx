@@ -43,11 +43,13 @@ export const generateInWorkerThread = (
   ...params: Parameters<typeof generate>
 ): Promise<string> =>
   new Promise((resolve) => {
-    const worker = new PasswordWorker();
+    const passwordWorker = new PasswordWorker();
+    passwordWorker.onmessage = (e) => {
+      passwordWorker.terminate();
+      resolve(e.data);
+    };
 
-    worker.onmessage = (e) => resolve(e.data);
-
-    worker.postMessage(params);
+    passwordWorker.postMessage(params);
   });
 
 export enum StoreState {
