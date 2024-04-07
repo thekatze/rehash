@@ -41,15 +41,12 @@ import PasswordWorker from "./rehashGeneratorWorker?worker&inline";
 import EncryptionWorker from "./rehashEncryptionWorker?worker&inline";
 import DecryptionWorker from "./rehashDecryptionWorker?worker&inline";
 
-// TODO: find a way to generically 'promisify' doing something in a worker thread
-
 const promisifyWorker =
+  // prettier-ignore
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- TODO: no clue how to type this correctly, but this works
-
-
-    <TWorkerFunction extends (...args: any[]) => any>(workerConstructor: {
-      new (): Worker;
-    }) =>
+  <TWorkerFunction extends (...args: any[]) => any>(workerConstructor: {
+    new(): Worker;
+  }) =>
     (
       ...params: Parameters<TWorkerFunction>
     ): Promise<Awaited<ReturnType<TWorkerFunction>>> =>
