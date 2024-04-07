@@ -38,7 +38,9 @@ import { createMediaQuery } from "@solid-primitives/media";
 export const STORE_KEY = "rehash_store";
 
 import PasswordWorker from "./rehashGeneratorWorker?worker&inline";
+import EncryptionWorker from "./rehashEncryptionWorker?worker&inline";
 
+// TODO: find a way to generically 'promisify' doing something in a worker thread
 export const generateInWorkerThread = (
   ...params: Parameters<typeof generate>
 ): Promise<string> =>
@@ -50,6 +52,19 @@ export const generateInWorkerThread = (
     };
 
     passwordWorker.postMessage(params);
+  });
+
+export const encryptInWorkerThread = (
+  ...params: Parameters<typeof encrypt>
+): Promise<string> =>
+  new Promise((resolve) => {
+    const encryptWorker = new EncryptionWorker();
+    encryptWorker.onmessage = (e) => {
+      encryptWorker.terminate();
+      resolve(e.data);
+    };
+
+    encryptWorker.postMessage(params);
   });
 
 export enum StoreState {
@@ -163,7 +178,7 @@ export const SplitLayout: VoidComponent<{
 export const serializeStore = async (store: UnlockedStore) => {
   const serializableStore = { ...store, password: undefined };
   if (store.settings.encrypt) {
-    return await encrypt(store.password, serializableStore);
+    return await encryptInWorkerThread(store.password, serializableStore);
   } else {
     return serializableStore;
   }

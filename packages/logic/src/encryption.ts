@@ -110,7 +110,7 @@ async function deriveKey(
   const keyBuffer = await argon2id({
     password,
     salt: iv,
-    hashLength: 256 / 8,
+    hashLength: 32, // how many bytes: 256 / 8
     iterations: resolvedOptions.iterations,
     memorySize: resolvedOptions.memorySize,
     parallelism: resolvedOptions.parallelism,
