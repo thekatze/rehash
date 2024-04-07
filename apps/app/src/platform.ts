@@ -7,15 +7,19 @@ interface Platform {
 
 const web: Platform = {
   copyToClipboard: async (text: Promise<string>): Promise<void> => {
+    // firefox does not support ClipboardItem api, but allows awaited content to be copied to clipboard
     if (typeof ClipboardItem === "undefined") {
       return await navigator.clipboard.writeText(await text);
     }
 
+    // safari does not allow awaited content to be copied to clipboard, pass promise into clipboard
     const item = new ClipboardItem({
-      "text/plain": text,
+      "text/plain": text.then((t) => new Blob([t], { type: "text/plain" })),
     });
 
-    return await navigator.clipboard.write([item]);
+    return await navigator.clipboard
+      .write([item])
+      .catch((e) => console.error(e));
   },
   saveTextAsFile: async (text: string, filename: string): Promise<void> => {
     const blob = new Blob([text], {
