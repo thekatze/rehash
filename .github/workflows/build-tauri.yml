@@ -2,8 +2,8 @@ name: 'publish'
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - v**
 
 jobs:
   publish-tauri:
@@ -57,8 +57,7 @@ jobs:
           tauriScript: 'pnpm tauri'
           projectPath: apps/app
           args: "--target ${{ matrix.platform.rust_target }}"
-          tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
-          releaseName: 'App v__VERSION__'
+          releaseName: "App ${{ github.ref_name }}"
           releaseBody: 'See the assets to download this version and install.'
           releaseDraft: true
           prerelease: false
