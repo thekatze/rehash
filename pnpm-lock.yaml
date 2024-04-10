@@ -49,7 +49,7 @@ importers:
         version: 2.1.1(solid-js@1.8.16)
       '@solid-primitives/media':
         specifier: ^2.2.8
-        version: 2.2.8(solid-js@1.8.16)
+        version: 2.2.9(solid-js@1.8.16)
       '@solidjs/router':
         specifier: ^0.13.1
         version: 0.13.1(solid-js@1.8.16)
@@ -1322,8 +1322,8 @@ packages:
       solid-js: 1.8.16
     dev: false
 
-  /@solid-primitives/media@2.2.8(solid-js@1.8.16):
-    resolution: {integrity: sha512-jcwTxjEn07W5KEeQIc0nR+07xRjvsWTf115PIwScCWgo6aPkfW3x74aq7lH5F3mLfb/9SeTn0ixz8fBVel3cHg==}
+  /@solid-primitives/media@2.2.9(solid-js@1.8.16):
+    resolution: {integrity: sha512-QUmU62D4/d9YWx/4Dvr/UZasIkIpqNXz7wosA5GLmesRW9XlPa3G5M6uOmTw73SByHNTCw0D6x8bSdtvvLgzvQ==}
     peerDependencies:
       solid-js: ^1.6.12
     dependencies:
@@ -1339,7 +1339,7 @@ packages:
     peerDependencies:
       solid-js: ^1.6.12
     dependencies:
-      '@solid-primitives/utils': 6.2.1(solid-js@1.8.16)
+      '@solid-primitives/utils': 6.2.3(solid-js@1.8.16)
       solid-js: 1.8.16
     dev: false
 
@@ -1363,14 +1363,6 @@ packages:
 
   /@solid-primitives/transition-group@1.0.3(solid-js@1.8.16):
     resolution: {integrity: sha512-TnFADZhx9sibdoW5gxkU1QmLabzV2H2OBKYGS2aR5IC61Q/+7v8wlxOJEevxXNbPiRo6qlE3STLU3L9XS8hDbA==}
-    peerDependencies:
-      solid-js: ^1.6.12
-    dependencies:
-      solid-js: 1.8.16
-    dev: false
-
-  /@solid-primitives/utils@6.2.1(solid-js@1.8.16):
-    resolution: {integrity: sha512-TsecNzxiO5bLfzqb4OOuzfUmdOROcssuGqgh5rXMMaasoFZ3GoveUgdY1wcf17frMJM7kCNGNuK34EjErneZkg==}
     peerDependencies:
       solid-js: ^1.6.12
     dependencies:
