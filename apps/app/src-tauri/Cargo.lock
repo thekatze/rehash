@@ -3443,9 +3443,9 @@ dependencies = [
 
 [[package]]
 name = "tauri-plugin-dialog"
-version = "2.0.0-beta.6"
+version = "2.0.0-beta.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "87caf6f2b704b0d27b4c64ef1fdd1f6ef97e2f5293216e230ad1efe61de54131"
+checksum = "4563f62939a475273e7b75eb4a862f0108969a54db813ef250092d470eff84dc"
 dependencies = [
  "dunce",
  "log",
