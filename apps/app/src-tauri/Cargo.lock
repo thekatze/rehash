@@ -3314,9 +3314,9 @@ checksum = "e1fc403891a21bcfb7c37834ba66a547a8f402146eba7265b5a6d88059c9ff2f"
 
 [[package]]
 name = "tauri"
-version = "2.0.0-beta.21"
+version = "2.0.0-beta.22"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3bec12778ed0623725a0cca67b5b97ad9331e4fdfbcf3d47c665215b9a3223fb"
+checksum = "5a258ecc5ac7ddade525f512c4962fd01cd0f5265e917b4572579c32c027bb31"
 dependencies = [
  "anyhow",
  "bytes",
@@ -3426,9 +3426,9 @@ dependencies = [
 
 [[package]]
 name = "tauri-plugin"
-version = "2.0.0-beta.15"
+version = "2.0.0-beta.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c4b2f5a6ebff6558445ac0c54171e599abf1cddf9da539b043af74a46d2c04ce"
+checksum = "7c8385fd0a4f661f5652b0d9e2d7256187d553bb174f88564d10ebcfa6a3af53"
 dependencies = [
  "anyhow",
  "glob",
@@ -3443,9 +3443,9 @@ dependencies = [
 
 [[package]]
 name = "tauri-plugin-dialog"
-version = "2.0.0-beta.7"
+version = "2.0.0-beta.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4563f62939a475273e7b75eb4a862f0108969a54db813ef250092d470eff84dc"
+checksum = "fed4b22c59f7b04ae2a0bed8241aa715b41973c3f042c84aa67a1f4dc0174a8d"
 dependencies = [
  "dunce",
  "log",
@@ -3461,9 +3461,9 @@ dependencies = [
 
 [[package]]
 name = "tauri-plugin-fs"
-version = "2.0.0-beta.7"
+version = "2.0.0-beta.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "35377195c6923beda5f29482a16b492d431de964389fca9aaf81a0f7e908023f"
+checksum = "3aa91955751f329e0aa431b87c199b7378b6f91ec0765d2ad9d4c64e017c3cda"
 dependencies = [
  "anyhow",
  "glob",
