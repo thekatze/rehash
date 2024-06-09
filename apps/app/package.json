@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@modular-forms/solid": "^0.20.0",
+    "@modular-forms/solid": "^0.21.0",
     "@rehash/logic": "workspace:*",
     "@solid-primitives/i18n": "^2.1.1",
     "@solid-primitives/media": "^2.2.8",

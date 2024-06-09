@@ -39,8 +39,8 @@ importers:
   apps/app:
     dependencies:
       '@modular-forms/solid':
-        specifier: ^0.20.0
-        version: 0.20.0(solid-js@1.8.17)
+        specifier: ^0.21.0
+        version: 0.21.0(solid-js@1.8.17)
       '@rehash/logic':
         specifier: workspace:*
         version: link:../../packages/logic
@@ -972,8 +972,8 @@ packages:
     resolution: {integrity: sha512-f5DRIOZf7wxogefH03RjMPMdBF7ADTWUMoOs9kaJo06EfwF+aFhMZMDZxHg/Xe12hptN9xoZjGso2fdjapBRIA==}
     engines: {node: '>=10'}
 
-  '@modular-forms/solid@0.20.0':
-    resolution: {integrity: sha512-CyXoeo2cwNel2N753c+iDzA+4DgtBrLNAS87DY/aODFZG7QoY0A9YSxdUxRf0N5NDwkzmn1O0XqwMP+EAiOHbA==}
+  '@modular-forms/solid@0.21.0':
+    resolution: {integrity: sha512-9QUykslNeVvn/gBj4iXoiNPV1UutS8sOCPGoqBxCNBwVQVjfeMljvXU3kZtctWEMy984q7JtKVVGSOXMDydW6A==}
     peerDependencies:
       solid-js: ^1.3.1
 
@@ -3439,6 +3439,9 @@ packages:
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
+  valibot@0.31.0:
+    resolution: {integrity: sha512-bleS8aVFpRGTUgbMoXzsRJhpxJGiZ3MG1nuNSORuDvio+sI1EyT1+lQHg+77Pfnlxz+25Uj5HiwdaklcDcYdiQ==}
+
   validate-html-nesting@1.2.2:
     resolution: {integrity: sha512-hGdgQozCsQJMyfK5urgFcWEqsSSrK63Awe0t/IMR0bZ0QMtnuaiHzThW81guu3qx9abLi99NEuiaN6P9gVYsNg==}
 
@@ -4563,9 +4566,10 @@ snapshots:
       string-argv: 0.3.2
       type-detect: 4.0.8
 
-  '@modular-forms/solid@0.20.0(solid-js@1.8.17)':
+  '@modular-forms/solid@0.21.0(solid-js@1.8.17)':
     dependencies:
       solid-js: 1.8.17
+      valibot: 0.31.0
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
@@ -7668,6 +7672,8 @@ snapshots:
       punycode: 2.3.1
 
   util-deprecate@1.0.2: {}
+
+  valibot@0.31.0: {}
 
   validate-html-nesting@1.2.2: {}
 
