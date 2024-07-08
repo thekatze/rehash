@@ -13,7 +13,7 @@
     "@rehash/logic": "workspace:*",
     "@solid-primitives/i18n": "^2.1.1",
     "@solid-primitives/media": "^2.2.8",
-    "@solidjs/router": "^0.13.5",
+    "@solidjs/router": "^0.14.0",
     "@unocss/reset": "^0.61.0",
     "cva": "1.0.0-beta.1",
     "file-saver": "^2.0.5",
