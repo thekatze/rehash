@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@iconify-json/solar": "^1.1.9",
-    "@tauri-apps/cli": "2.0.0-beta.21",
+    "@tauri-apps/cli": "2.0.0-beta.22",
     "@types/file-saver": "^2.0.7",
     "@types/lodash-es": "^4.17.12",
     "@unocss/preset-web-fonts": "^0.61.0",
