@@ -46,9 +46,7 @@ export const AccountDetail: Component<RouteSectionProps<StoreEntry>> = (
           <Show
             when={maybeAccount()}
             fallback={
-              <div
-                class="flex flex-col flex-1 h-full gap-3 items-center justify-center"
-              >
+              <div class="flex flex-col flex-1 h-full gap-3 items-center justify-center">
                 <Heading>{t("account_detail.error.oops")}</Heading>
                 <Subheading>
                   {t("account_detail.error.account_does_not_exist")}

@@ -16,9 +16,7 @@ export const BackButton: VoidComponent = () => {
 
 export const DetailPageLayout: FlowComponent<{ header: string }> = (props) => (
   <section class="flex flex-col px-4">
-    <div
-      class="flex flex-row gap-4 overflow-hidden items-center h-18 sticky top-0 bg-white w-full z-50"
-    >
+    <div class="flex flex-row gap-4 overflow-hidden items-center h-18 sticky top-0 bg-white w-full z-50">
       <BackButton />
       <Heading>{props.header}</Heading>
     </div>

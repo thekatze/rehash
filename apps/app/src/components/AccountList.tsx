@@ -96,9 +96,7 @@ const AccountListItem: VoidComponent<{ account: AccountWithId }> = (props) => {
   );
 
   return (
-    <li
-      class="flex flex-row h-12 gap-4 justify-between group items-center"
-    >
+    <li class="flex flex-row h-12 gap-4 justify-between group items-center">
       <div class="flex flex-col flex-1 items-start truncate relative">
         <a
           href={props.account.url}
