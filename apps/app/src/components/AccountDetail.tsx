@@ -10,7 +10,6 @@ import {
 } from "solid-js";
 import { generateInWorkerThread, useRehash } from "../RehashProvider";
 import { StoreEntry } from "@rehash/logic";
-import { Stack } from "./Stack";
 import { Heading } from "./Heading";
 import { Subheading } from "./Subheading";
 import { DetailPageLayout } from "./DetailPageLayout";
@@ -47,15 +46,12 @@ export const AccountDetail: Component<RouteSectionProps<StoreEntry>> = (
           <Show
             when={maybeAccount()}
             fallback={
-              <Stack
-                direction="column"
-                class="flex-1 h-full gap-3 items-center justify-center"
-              >
+              <div class="flex flex-col flex-1 h-full gap-3 items-center justify-center">
                 <Heading>{t("account_detail.error.oops")}</Heading>
                 <Subheading>
                   {t("account_detail.error.account_does_not_exist")}
                 </Subheading>
-              </Stack>
+              </div>
             }
           >
             {(account) => <Inner id={id} account={account()} />}
@@ -90,8 +86,8 @@ const Inner: VoidComponent<{ id: string; account: StoreEntry }> = (props) => {
           setStore({ ...updatedStore });
         }}
       />
-      <Stack direction="column" class="mt-7 gap-7">
-        <Stack class="gap-2" direction="row">
+      <div class="flex flex-col mt-7 gap-7">
+        <div class="flex flex-row gap-2">
           <Show
             when={!generatedPassword.loading && generatedPassword()}
             fallback={
@@ -114,7 +110,7 @@ const Inner: VoidComponent<{ id: string; account: StoreEntry }> = (props) => {
               </>
             )}
           </Show>
-        </Stack>
+        </div>
         <Button
           variant="ghost-danger"
           onClick={() => {
@@ -126,7 +122,7 @@ const Inner: VoidComponent<{ id: string; account: StoreEntry }> = (props) => {
         >
           Delete
         </Button>
-      </Stack>
+      </div>
     </>
   );
 };

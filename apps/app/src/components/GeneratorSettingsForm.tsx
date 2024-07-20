@@ -8,7 +8,6 @@ import {
 } from "@rehash/logic";
 import { useI18n } from "../I18nProvider";
 import { Field, getValue, setValue, setValues } from "@modular-forms/solid";
-import { Stack } from "./Stack";
 import { Button } from "./Button";
 import { NumberInput } from "./Input";
 
@@ -24,7 +23,7 @@ export const GeneratorSettingsForm: VoidComponent<{
     <Field type="string" of={props.form} name="generatorOptions">
       {() => (
         <>
-          <Stack direction="row" class="gap-4 items-center">
+          <div class="flex flex-row gap-4 items-center">
             <Button
               variant={typeof difficulty() === "object" ? "ghost" : "secondary"}
               class="flex-1"
@@ -58,9 +57,9 @@ export const GeneratorSettingsForm: VoidComponent<{
             >
               {t("account.difficulty.custom")}
             </Button>
-          </Stack>
+          </div>
           <Show when={typeof difficulty() === "object"}>
-            <Stack direction="row" class="gap-4">
+            <div class="flex flex-row gap-4">
               <Field
                 of={props.form}
                 type={"number" as unknown as undefined}
@@ -100,7 +99,7 @@ export const GeneratorSettingsForm: VoidComponent<{
                   />
                 )}
               </Field>
-            </Stack>
+            </div>
           </Show>
         </>
       )}

@@ -31,7 +31,6 @@ import { UnlockedVault } from "./components/UnlockedVault";
 import { Onboarding } from "./components/Onboarding";
 import { Logo } from "./components/Logo";
 import { RouteSectionProps, useMatch } from "@solidjs/router";
-import { Stack } from "./components/Stack";
 import { cx } from "cva";
 import { createMediaQuery } from "@solid-primitives/media";
 
@@ -153,7 +152,7 @@ export const SplitLayout: VoidComponent<{
   const onRoot = useMatch(() => "/");
   return (
     <Show when={mobileView() || onRoot() ? 2 : 3} keyed>
-      <Stack direction="row" class="h-screen">
+      <div class="flex flex-row h-screen">
         <section
           class={cx(
             "flex-col w-full lg:w-120 h-full overflow-auto",
@@ -170,7 +169,7 @@ export const SplitLayout: VoidComponent<{
         >
           {props.right}
         </section>
-      </Stack>
+      </div>
     </Show>
   );
 };
