@@ -1,7 +1,6 @@
 import { VoidComponent, onMount } from "solid-js";
 import { PasswordInput } from "./PasswordInput";
 import { useI18n } from "../I18nProvider";
-import { Stack } from "./Stack";
 import { Subheading } from "./Subheading";
 import { Heading } from "./Heading";
 import { Paragraph } from "./Paragraph";
@@ -38,7 +37,7 @@ export const PasswordPrompt: VoidComponent<{
   );
 
   return (
-    <Stack as="main" direction="column" class="p-8 gap-3">
+    <main class="flex flex-col p-8 gap-3">
       <Heading>{t("password_prompt.welcome_back")}</Heading>
       <Subheading>{t("password_prompt.unlock_your_vault")}</Subheading>
       <Paragraph>{t("password_prompt.unlock_your_vault_text")}</Paragraph>
@@ -61,6 +60,6 @@ export const PasswordPrompt: VoidComponent<{
           {t("password_prompt.unlock_vault")}
         </LoadingButton>
       </Form>
-    </Stack>
+    </main>
   );
 };

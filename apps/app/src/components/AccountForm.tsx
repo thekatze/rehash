@@ -9,7 +9,6 @@ import {
 } from "@modular-forms/solid";
 import { useI18n } from "../I18nProvider";
 import { Input, NumberInput } from "./Input";
-import { Stack } from "./Stack";
 import { Button } from "./Button";
 import { useRehash } from "../RehashProvider";
 import { Subheading } from "./Subheading";
@@ -74,9 +73,9 @@ export const AccountForm: VoidComponent<{
         )}
       </Field>
 
-      <Stack direction="column" class="gap-4">
+      <div class="flex flex-col gap-4">
         <Subheading>{t("account.generator_settings")}</Subheading>
-        <Stack direction="row" class="gap-4">
+        <div class="flex flex-col gap-4">
           <Field
             of={props.form}
             type="number"
@@ -107,15 +106,15 @@ export const AccountForm: VoidComponent<{
               />
             )}
           </Field>
-        </Stack>
-      </Stack>
-      <Stack direction="column" class="gap-4">
+        </div>
+      </div>
+      <div class="flex flex-col gap-4">
         <Subheading>{t("account.difficulty_label")}</Subheading>
         <GeneratorSettingsForm
           form={props.form}
           customGeneratorOptions={store().settings.defaultGeneratorOptions}
         />
-      </Stack>
+      </div>
       <Button variant="primary" type="submit">
         {props.submitText}
       </Button>

@@ -4,17 +4,16 @@ import { StoreEntry } from "@rehash/logic";
 import { IconButton } from "./Button";
 import { Input } from "./Input";
 import { For, Match, Switch, VoidComponent, createSignal } from "solid-js";
-import { Stack } from "./Stack";
 
 const EmptyVaultPlaceholder: VoidComponent = () => {
   const [t] = useI18n();
   return (
-    <Stack direction="column" class="w-full items-center gap-2 mt-8">
+    <div class="flex flex-col w-full items-center gap-2 mt-8">
       <Subheading>{t("account_list.your_vault_is_empty")}</Subheading>
       <p class="flex items-center gap-2">
         {t("account_list.create_first_account_with")} <AddAccountButton />
       </p>
-    </Stack>
+    </div>
   );
 };
 
@@ -41,21 +40,21 @@ export const AccountList: VoidComponent = () => {
     sortBy(filteredAccounts(), (u) => u.displayName ?? u.url);
 
   return (
-    <Stack direction="column" class="py-2 px-6 h-full">
-      <Stack direction="row" class="h-16 gap-2 items-center">
+    <div class="flex flex-col py-2 px-6 h-full">
+      <div class="flex flex-row h-16 gap-2 items-center">
         <Input
           value={search()}
           onInput={(e) => setSearch(e.target.value)}
           label="Search"
         />
         <AddAccountButton />
-      </Stack>
-      <Stack as="ol" direction="column">
+      </div>
+      <ol class="flex flex-col">
         <For fallback={<EmptyVaultPlaceholder />} each={sortedAccounts()}>
           {(account) => <AccountListItem account={account} />}
         </For>
-      </Stack>
-    </Stack>
+      </ol>
+    </div>
   );
 };
 
@@ -97,12 +96,10 @@ const AccountListItem: VoidComponent<{ account: AccountWithId }> = (props) => {
   );
 
   return (
-    <Stack
-      direction="row"
-      as="li"
-      class="h-12 gap-4 justify-between group items-center"
+    <li
+      class="flex flex-row h-12 gap-4 justify-between group items-center"
     >
-      <Stack direction="column" class="flex-1 items-start truncate relative">
+      <div class="flex flex-col flex-1 items-start truncate relative">
         <a
           href={props.account.url}
           target="_blank"
@@ -114,8 +111,8 @@ const AccountListItem: VoidComponent<{ account: AccountWithId }> = (props) => {
         </a>
         <span class="text-sm text-primary-500">{props.account.username}</span>
         <div class="absolute inset-y-0 right-0 w-4 bg-gradient-to-r from-transparent to-white" />
-      </Stack>
-      <Stack direction="row" class="gap-2">
+      </div>
+      <div class="flex flex-row gap-2">
         <IconButton
           variant="ghost"
           onClick={() => navigate(`/account/${props.account.id}`)}
@@ -154,7 +151,7 @@ const AccountListItem: VoidComponent<{ account: AccountWithId }> = (props) => {
             </Match>
           </Switch>
         </IconButton>
-      </Stack>
-    </Stack>
+      </div>
+    </li>
   );
 };

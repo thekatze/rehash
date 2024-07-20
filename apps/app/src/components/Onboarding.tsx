@@ -7,7 +7,6 @@ import {
   createEffect,
   createSignal,
 } from "solid-js";
-import { Stack } from "./Stack";
 import { Heading } from "./Heading";
 import { Subheading } from "./Subheading";
 import { Paragraph } from "./Paragraph";
@@ -106,7 +105,7 @@ const OnboardingWelcome: OnboardingStep = (props) => {
         {t("onboarding.welcome.im_already_familiar")}
       </Subheading>
       <Paragraph>{t("onboarding.welcome.im_already_familiar_text")}</Paragraph>
-      <Stack direction="row" class="gap-3 ml-auto items-center">
+      <div class="flex flex-row gap-3 ml-auto items-center">
         <FileUploadButton variant="ghost" onFileUploaded={importFile}>
           {t("onboarding.welcome.import_vault")}
         </FileUploadButton>
@@ -117,7 +116,7 @@ const OnboardingWelcome: OnboardingStep = (props) => {
         >
           {t("onboarding.welcome.skip_introduction")}
         </Button>
-      </Stack>
+      </div>
     </>
   );
 };
@@ -246,7 +245,7 @@ const OnboardingWhatIsRehash: OnboardingStep = (props) => {
           readonly
           value={
             pregeneratedPasswords[selection().password][selection().url][
-              selection().username
+            selection().username
             ]
           }
         />
@@ -333,10 +332,10 @@ const OnboardingVaultSettings: OnboardingStep = (props) => {
       <Paragraph>
         {t("onboarding.vault_settings.configure_your_vault_text")}
       </Paragraph>
-      <Stack direction="column" class="gap-4">
+      <div class="flex flex-col gap-4">
         <GeneratorSettingsForm form={form} />
-      </Stack>
-      <Stack direction="column" class="mt-8 mb-4 gap-4 items-center">
+      </div>
+      <div class="flex flex-col mt-8 mb-4 gap-4 items-center">
         <Button onClick={benchmark} class="w-full" variant="primary">
           {t("onboarding.vault_settings.measure_difficulty")}
         </Button>
@@ -361,7 +360,7 @@ const OnboardingVaultSettings: OnboardingStep = (props) => {
             )}
           </Show>
         </pre>
-      </Stack>
+      </div>
       <Paragraph>
         {t("onboarding.vault_settings.this_changes_all_your_passwords_text")}
       </Paragraph>
@@ -433,7 +432,7 @@ export const Onboarding: VoidComponent<{ setStore: Setter<RehashStore> }> = (
   const [step, setStep] = createSignal(0);
 
   return (
-    <Stack as="main" direction="column" class="gap-3 p-8 h-full">
+    <main class="flex flex-col gap-3 p-8 h-full">
       <Stepper steps={onboardingSteps.length} current={step() + 1} />
       <div class="relative h-full">
         <Transition
@@ -445,16 +444,16 @@ export const Onboarding: VoidComponent<{ setStore: Setter<RehashStore> }> = (
           exitToClass="-translate-x-4"
         >
           <Show when={step() + 1} keyed>
-            <Stack direction="column" class="gap-3 w-full h-full">
+            <div class="flex flex-col gap-3 w-full h-full">
               <Dynamic
                 component={onboardingSteps[step()]}
                 setStep={setStep}
                 setStore={props.setStore}
               />
-            </Stack>
+            </div>
           </Show>
         </Transition>
       </div>
-    </Stack>
+    </main>
   );
 };

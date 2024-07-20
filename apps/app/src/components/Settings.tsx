@@ -1,7 +1,6 @@
 import { Component, VoidComponent, createEffect, untrack } from "solid-js";
 import { DetailPageLayout } from "./DetailPageLayout";
 import { useI18n } from "../I18nProvider";
-import { Stack } from "./Stack";
 import { Subheading } from "./Subheading";
 import { Button } from "./Button";
 import {
@@ -29,7 +28,7 @@ export const Settings: Component = () => {
 
   return (
     <DetailPageLayout header={t("settings.heading")}>
-      <Stack direction="column" class="gap-4">
+      <div class="flex flex-col gap-4">
         <Subheading>{t("settings.general.heading")}</Subheading>
         <LanguageSelect />
         <p class="text-right opacity-50">
@@ -40,13 +39,13 @@ export const Settings: Component = () => {
         <EncryptToggle />
         <DefaultGeneratorSettings />
         <Subheading>{t("settings.vault.import_heading")}</Subheading>
-        <Stack direction="row" class="gap-2 w-full">
+        <div class="flex flex-row flex-gap-2 w-full">
           <MergeImportButton />
           <ExportButton />
-        </Stack>
+        </div>
         <Subheading>{t("settings.danger_zone")}</Subheading>
         <DeleteVaultButton />
-      </Stack>
+      </div>
     </DetailPageLayout>
   );
 };
@@ -179,11 +178,11 @@ const DefaultGeneratorSettings: VoidComponent = () => {
   });
 
   return (
-    <Stack direction="column" class="gap-2">
+    <div class="flex flex-col gap-2">
       <h3 class="text-primary-700 font-bold">
         {t("settings.vault.default_generator_difficulty")}
       </h3>
       <GeneratorSettingsForm form={form} />
-    </Stack>
+    </div>
   );
 };
