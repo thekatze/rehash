@@ -107,8 +107,10 @@ const AccountListItem: VoidComponent<{ account: AccountWithId }> = (props) => {
             ? props.account.displayName
             : props.account.url}
         </a>
-        <span class="text-sm text-primary-500">{props.account.username}</span>
-        <div class="absolute inset-y-0 right-0 w-4 bg-gradient-to-r from-transparent to-white" />
+        <span class="text-sm text-primary-500 dark:text-primary-300">
+          {props.account.username}
+        </span>
+        <div class="absolute inset-y-0 right-0 w-4 bg-gradient-to-r from-transparent to-white dark:to-primary-900" />
       </div>
       <div class="flex flex-row gap-2">
         <IconButton

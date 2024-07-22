@@ -91,7 +91,7 @@ const Inner: VoidComponent<{ id: string; account: StoreEntry }> = (props) => {
           <Show
             when={!generatedPassword.loading && generatedPassword()}
             fallback={
-              <div class="w-full bg-primary-100 h-10 rounded-md animate-pulse" />
+              <div class="w-full bg-primary-100 dark:bg-primary-800 h-10 rounded-md animate-pulse" />
             }
           >
             {(password) => (

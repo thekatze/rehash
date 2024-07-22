@@ -76,8 +76,8 @@ export enum StoreState {
 }
 
 const LockedPlaceholder: VoidComponent = () => (
-  <div class="hidden lg:flex flex-1 bg-primary-900 justify-center items-center">
-    <Logo class="text-primary-700" />
+  <div class="hidden lg:flex flex-1 justify-center items-center bg-primary-900 dark:bg-primary-950">
+    <Logo class="text-primary-700 dark:text-primary-800" />
   </div>
 );
 

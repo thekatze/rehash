@@ -42,8 +42,8 @@ export const Input: VoidComponent<InputProps> = (mixedProps) => {
         `,
           inputProps.class,
           props.error
-            ? "bg-error-100 text-error-800 focus:bg-error-200"
-            : "bg-primary-100 text-primary-800 focus:bg-primary-200",
+            ? "bg-error-100 text-error-800 focus:bg-error-200 dark:bg-error-800 dark:text-error-200 dark:focus:bg-error-700"
+            : "bg-primary-100 text-primary-800 focus:bg-primary-200 dark:bg-primary-800 dark:focus:bg-primary-700 dark:text-primary-100",
         )}
       />
       <label
@@ -51,8 +51,8 @@ export const Input: VoidComponent<InputProps> = (mixedProps) => {
         class={cx(
           "truncate transition-all absolute -top-2 left-3 text-xs peer-placeholder-shown:top-2 peer-placeholder-shown:inset-x-4 peer-placeholder-shown:pointer-events-none peer-placeholder-shown:text-base",
           props.error
-            ? "text-error-800 peer-placeholder-shown:text-error-500"
-            : "text-primary-800 peer-placeholder-shown:text-primary-500",
+            ? "text-error-800 peer-placeholder-shown:text-error-500 dark:text-error-100 dark:peer-placeholder-shown:text-error-200"
+            : "text-primary-800 peer-placeholder-shown:text-primary-500 dark:text-primary-200 dark:peer-placeholder-shown:text-primary-300",
         )}
       >
         {props.label}
@@ -60,7 +60,9 @@ export const Input: VoidComponent<InputProps> = (mixedProps) => {
       <span
         class={cx(
           "transition-color absolute -bottom-4 left-3 text-xs",
-          props.error ? "text-error-600" : "text-primary-600",
+          props.error
+            ? "text-error-600 dark:text-error-400"
+            : "text-primary-600 dark:text-primary-300",
         )}
       >
         {props.error || props.info}
