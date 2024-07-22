@@ -8,7 +8,9 @@ const dispatcher = {
   // eslint-disable-next-line @typescript-eslint/ban-types -- Function is okay in a satisfies clause
 } satisfies Record<WorkerThreadOperation, Function>;
 
-onmessage = (e: MessageEvent<[WorkerThreadOperation, ...Parameters<typeof generate>]>) => {
+onmessage = (
+  e: MessageEvent<[WorkerThreadOperation, ...Parameters<typeof generate>]>,
+) => {
   const operation = e.data.shift() as WorkerThreadOperation;
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment -- typescript does not understand we shifted the array. it still thinks its 3 elements long
@@ -17,4 +19,3 @@ onmessage = (e: MessageEvent<[WorkerThreadOperation, ...Parameters<typeof genera
     .then((result) => postMessage(result))
     .catch((e) => postMessage(e));
 };
-

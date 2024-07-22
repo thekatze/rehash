@@ -58,12 +58,15 @@ const promisifyWorker =
         worker.postMessage([operation, ...params]);
       });
 
-export const generateInWorkerThread =
-  promisifyWorker<typeof generate>(WorkerThreadOperation.Generate);
-export const encryptInWorkerThread =
-  promisifyWorker<typeof encrypt>(WorkerThreadOperation.Encrypt);
-export const decryptInWorkerThread =
-  promisifyWorker<typeof decrypt>(WorkerThreadOperation.Decrypt);
+export const generateInWorkerThread = promisifyWorker<typeof generate>(
+  WorkerThreadOperation.Generate,
+);
+export const encryptInWorkerThread = promisifyWorker<typeof encrypt>(
+  WorkerThreadOperation.Encrypt,
+);
+export const decryptInWorkerThread = promisifyWorker<typeof decrypt>(
+  WorkerThreadOperation.Decrypt,
+);
 
 export enum StoreState {
   Empty,
