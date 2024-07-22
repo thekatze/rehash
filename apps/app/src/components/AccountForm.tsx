@@ -75,7 +75,7 @@ export const AccountForm: VoidComponent<{
 
       <div class="flex flex-col gap-4">
         <Subheading>{t("account.generator_settings")}</Subheading>
-        <div class="flex flex-col gap-4">
+        <div class="flex flex-row gap-4">
           <Field
             of={props.form}
             type="number"

@@ -41,15 +41,15 @@ const Stepper: VoidComponent<{ steps: number; current: number }> = (props) => {
       aria-hidden="true"
       class="relative w-full h-8 flex flex-row justify-between items-center"
     >
-      <div class="absolute w-full h-1 bg-primary-300" />
+      <div class="absolute w-full h-1 bg-primary-300 dark:bg-primary-600" />
       <For each={[...new Array(props.steps).keys()]}>
         {(i) => (
           <div
             class={cx(
               "z-10 h-3 w-3 rounded-full",
               props.current > i
-                ? "bg-primary-700"
-                : "bg-white border-3 border-primary-300",
+                ? "bg-primary-700 dark:bg-primary-400"
+                : "bg-white dark:bg-primary-900 border-3 border-primary-300 dark:border-primary-600",
             )}
           />
         )}
@@ -214,7 +214,7 @@ const OnboardingWhatIsRehash: OnboardingStep = (props) => {
         <table class="w-full">
           <tbody>
             <tr>
-              <td class="font-bold text-primary-700">
+              <td class="font-bold text-primary-700 dark:text-primary-300">
                 {t("onboarding.what_is_rehash.vault_password")}
               </td>
               <RowSelectButton value="hunter2" field="password" />
@@ -225,12 +225,12 @@ const OnboardingWhatIsRehash: OnboardingStep = (props) => {
               />
             </tr>
             <tr>
-              <td class="font-bold text-primary-700">{t("account.url")}</td>
+              <td class="font-bold text-primary-700 dark:text-primary-300">{t("account.url")}</td>
               <RowSelectButton value="google.com" field="url" />
               <RowSelectButton value="spotify.com" field="url" />
             </tr>
             <tr>
-              <td class="font-bold text-primary-700">
+              <td class="font-bold text-primary-700 dark:text-primary-300">
                 {t("account.username")}
               </td>
               <RowSelectButton value="johndoe" field="username" />

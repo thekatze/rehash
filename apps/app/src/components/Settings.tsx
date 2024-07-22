@@ -1,8 +1,8 @@
-import { Component, VoidComponent, createEffect, untrack } from "solid-js";
+import { Component, Show, VoidComponent, createEffect, untrack } from "solid-js";
 import { DetailPageLayout } from "./DetailPageLayout";
 import { useI18n } from "../I18nProvider";
 import { Subheading } from "./Subheading";
-import { Button } from "./Button";
+import { Button, IconButton } from "./Button";
 import {
   STORE_KEY,
   StoreState,
@@ -22,6 +22,10 @@ import { Toggle } from "./Toggle";
 import { createForm, getValues } from "@modular-forms/solid";
 import { GeneratorSettingsForm } from "./GeneratorSettingsForm";
 import { platform } from "../platform";
+import { useTheme } from "../ThemeProvider";
+
+import SunIcon from "~icons/solar/sun-linear"
+import MoonIcon from "~icons/solar/moon-linear"
 
 export const Settings: Component = () => {
   const [t] = useI18n();
@@ -30,11 +34,13 @@ export const Settings: Component = () => {
     <DetailPageLayout header={t("settings.heading")}>
       <div class="flex flex-col gap-4">
         <Subheading>{t("settings.general.heading")}</Subheading>
-        <LanguageSelect />
+        <div class="flex flex-row gap-2">
+          <DarkModeToggle />
+          <LanguageSelect />
+        </div>
         <p class="text-right opacity-50">
           {t("settings.general.version", { version: __GIT_REVISION__ })}
         </p>
-        {/* Dark Mode */}
         <Subheading>{t("settings.vault.heading")}</Subheading>
         <EncryptToggle />
         <DefaultGeneratorSettings />
@@ -49,6 +55,18 @@ export const Settings: Component = () => {
     </DetailPageLayout>
   );
 };
+
+const DarkModeToggle: VoidComponent = () => {
+  const [isDark, setDark] = useTheme();
+
+  return (
+    <IconButton variant="secondary" onClick={() => setDark((dark) => !dark)}>
+      <Show when={isDark()} fallback={<MoonIcon />}>
+        <SunIcon />
+      </Show>
+    </IconButton>
+  );
+}
 
 const DeleteVaultButton: VoidComponent = () => {
   const [t] = useI18n();
@@ -179,7 +197,7 @@ const DefaultGeneratorSettings: VoidComponent = () => {
 
   return (
     <div class="flex flex-col gap-2">
-      <h3 class="text-primary-700 font-bold">
+      <h3 class="text-primary-700 dark:text-primary-300 font-bold">
         {t("settings.vault.default_generator_difficulty")}
       </h3>
       <GeneratorSettingsForm form={form} />

@@ -22,6 +22,9 @@ export const LanguageSelect: VoidComponent = () => {
         bg-primary-100
         text-primary-800
         focus:bg-primary-200
+        dark:bg-primary-800 
+        dark:focus:bg-primary-700 
+        dark:text-primary-100
         "
         onChange={(e) => setLocale(e.target.value as (typeof locales)[number])}
       >
@@ -46,6 +49,10 @@ export const LanguageSelect: VoidComponent = () => {
         peer-placeholder-shown:inset-x-4 
         peer-placeholder-shown:pointer-events-none 
         peer-placeholder-shown:text-base
+        text-primary-800 
+        peer-placeholder-shown:text-primary-500 
+        dark:text-primary-200 
+        dark:peer-placeholder-shown:text-primary-300
         "
       >
         {t("settings.general.language")}
