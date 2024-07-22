@@ -225,7 +225,9 @@ const OnboardingWhatIsRehash: OnboardingStep = (props) => {
               />
             </tr>
             <tr>
-              <td class="font-bold text-primary-700 dark:text-primary-300">{t("account.url")}</td>
+              <td class="font-bold text-primary-700 dark:text-primary-300">
+                {t("account.url")}
+              </td>
               <RowSelectButton value="google.com" field="url" />
               <RowSelectButton value="spotify.com" field="url" />
             </tr>

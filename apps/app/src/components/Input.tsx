@@ -60,7 +60,9 @@ export const Input: VoidComponent<InputProps> = (mixedProps) => {
       <span
         class={cx(
           "transition-color absolute -bottom-4 left-3 text-xs",
-          props.error ? "text-error-600 dark:text-error-400" : "text-primary-600 dark:text-primary-300",
+          props.error
+            ? "text-error-600 dark:text-error-400"
+            : "text-primary-600 dark:text-primary-300",
         )}
       >
         {props.error || props.info}

@@ -1,4 +1,10 @@
-import { Component, Show, VoidComponent, createEffect, untrack } from "solid-js";
+import {
+  Component,
+  Show,
+  VoidComponent,
+  createEffect,
+  untrack,
+} from "solid-js";
 import { DetailPageLayout } from "./DetailPageLayout";
 import { useI18n } from "../I18nProvider";
 import { Subheading } from "./Subheading";
@@ -24,8 +30,8 @@ import { GeneratorSettingsForm } from "./GeneratorSettingsForm";
 import { platform } from "../platform";
 import { useTheme } from "../ThemeProvider";
 
-import SunIcon from "~icons/solar/sun-linear"
-import MoonIcon from "~icons/solar/moon-linear"
+import SunIcon from "~icons/solar/sun-linear";
+import MoonIcon from "~icons/solar/moon-linear";
 
 export const Settings: Component = () => {
   const [t] = useI18n();
@@ -66,7 +72,7 @@ const DarkModeToggle: VoidComponent = () => {
       </Show>
     </IconButton>
   );
-}
+};
 
 const DeleteVaultButton: VoidComponent = () => {
   const [t] = useI18n();
