@@ -36,35 +36,37 @@ import { createMediaQuery } from "@solid-primitives/media";
 
 export const STORE_KEY = "rehash_store";
 
-import PasswordWorker from "./rehashGeneratorWorker?worker&inline";
-import EncryptionWorker from "./rehashEncryptionWorker?worker&inline";
-import DecryptionWorker from "./rehashDecryptionWorker?worker&inline";
+import RehashWorkerThread from "./rehashWorker?worker&inline";
+import { WorkerThreadOperation } from "./workerThreadOperations";
 
 const promisifyWorker =
   // prettier-ignore
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- TODO: no clue how to type this correctly, but this works
-  <TWorkerFunction extends (...args: any[]) => any>(workerConstructor: {
-    new(): Worker;
-  }) =>
+  <TWorkerFunction extends (...args: any[]) => any>(operation: WorkerThreadOperation) =>
     (
       ...params: Parameters<TWorkerFunction>
     ): Promise<Awaited<ReturnType<TWorkerFunction>>> =>
       new Promise((resolve) => {
-        const worker = new workerConstructor();
+        // this worker can not be shared between calls. 
+        // a "encrypt vault" request might be answered by a previous "generate password" request, corrupting the entire vault.
+        const worker = new RehashWorkerThread();
         worker.onmessage = (e) => {
           worker.terminate();
           resolve(e.data);
         };
 
-        worker.postMessage(params);
+        worker.postMessage([operation, ...params]);
       });
 
-export const generateInWorkerThread =
-  promisifyWorker<typeof generate>(PasswordWorker);
-export const encryptInWorkerThread =
-  promisifyWorker<typeof encrypt>(EncryptionWorker);
-export const decryptInWorkerThread =
-  promisifyWorker<typeof decrypt>(DecryptionWorker);
+export const generateInWorkerThread = promisifyWorker<typeof generate>(
+  WorkerThreadOperation.Generate,
+);
+export const encryptInWorkerThread = promisifyWorker<typeof encrypt>(
+  WorkerThreadOperation.Encrypt,
+);
+export const decryptInWorkerThread = promisifyWorker<typeof decrypt>(
+  WorkerThreadOperation.Decrypt,
+);
 
 export enum StoreState {
   Empty,
