@@ -77,7 +77,7 @@ importers:
     devDependencies:
       '@iconify-json/solar':
         specifier: ^1.1.9
-        version: 1.1.9
+        version: 1.1.10
       '@tauri-apps/cli':
         specifier: 2.0.0-beta.23
         version: 2.0.0-beta.23
@@ -759,8 +759,8 @@ packages:
     resolution: {integrity: sha512-93zYdMES/c1D69yZiKDBj0V24vqNzB/koF26KPaagAfd3P/4gUlh3Dys5ogAK+Exi9QyzlD8x/08Zt7wIKcDcA==}
     deprecated: Use @eslint/object-schema instead
 
-  '@iconify-json/solar@1.1.9':
-    resolution: {integrity: sha512-BcWzZqA02BiQduYizqU/J4v4RNs0MkjZUGpMbejpozH8YQSt3+S/LfV6zfVRonx/2DhXTVSqiLa1abDRAZtojQ==}
+  '@iconify-json/solar@1.1.10':
+    resolution: {integrity: sha512-g+p9GbYrzfLkbcbs+TwBr42YvUeRgNUbVv0ZRi464MvlTWN9B/ekgFZszbIBqgjQT9GjfToQQLP6GOmDPDhLNw==}
 
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
@@ -4260,7 +4260,7 @@ snapshots:
 
   '@humanwhocodes/object-schema@2.0.3': {}
 
-  '@iconify-json/solar@1.1.9':
+  '@iconify-json/solar@1.1.10':
     dependencies:
       '@iconify/types': 2.0.0
 
