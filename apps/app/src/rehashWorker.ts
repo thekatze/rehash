@@ -5,7 +5,7 @@ const dispatcher = {
   [WorkerThreadOperation.Generate]: generate,
   [WorkerThreadOperation.Encrypt]: encrypt,
   [WorkerThreadOperation.Decrypt]: decrypt,
-  // eslint-disable-next-line @typescript-eslint/ban-types -- Function is okay in a satisfies clause
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type -- Function is okay in a satisfies clause
 } satisfies Record<WorkerThreadOperation, Function>;
 
 onmessage = (

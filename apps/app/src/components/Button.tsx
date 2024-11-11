@@ -15,7 +15,6 @@ const variants = {
   },
 };
 
-("");
 const buttonStyle = cva({
   base: "px-4 py-2 font-black rounded-md inline-flex justify-center",
   variants,

@@ -28,7 +28,7 @@ export const createAsyncAction = <T>(
     try {
       await action();
       setStatus(AsyncActionStatus.Success);
-    } catch (e) {
+    } catch {
       setStatus(AsyncActionStatus.Error);
     } finally {
       if (options?.reset) {
