@@ -33,7 +33,7 @@ export const FileUploadButton: FlowComponent<
         accept=".json"
         onChange={onFileSelected}
       />
-      <Button {...props} onClick={() => fileInput.click()}>
+      <Button {...props} onClick={() => fileInput!.click()}>
         {props.children}
       </Button>
     </>
