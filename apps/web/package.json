@@ -10,13 +10,13 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.0",
-    "astro": "^5.0.0",
-    "typescript": "^5.4.4"
+    "@astrojs/check": "^0.9.6",
+    "astro": "^5.16.4",
+    "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "@unocss/preset-web-fonts": "^0.65.0",
-    "@unocss/reset": "^0.65.0",
-    "unocss": "^0.65.0"
+    "@unocss/preset-web-fonts": "^66.5.10",
+    "@unocss/reset": "^66.5.10",
+    "unocss": "^66.5.10"
   }
 }
