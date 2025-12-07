@@ -27,35 +27,33 @@ export const AccountDetail: Component<RouteSectionProps<StoreEntry>> = (
   props,
 ) => {
   const [store] = useRehash();
-  const maybeAccount = () => store().entries[props.params.id];
+  const maybeAccount = () =>
+    props.params.id !== undefined && store().entries[props.params.id];
 
   const [t] = useI18n();
 
   return (
-    <Show keyed when={props.params.id}>
-      {(id) => (
+    <Show
+      keyed
+      when={maybeAccount()}
+      fallback={
+        <DetailPageLayout header={t("account_detail.error.oops")}>
+          <div class="flex flex-col flex-1 h-full gap-3 items-center justify-center">
+            <Heading>{t("account_detail.error.oops")}</Heading>
+            <Subheading>
+              {t("account_detail.error.account_does_not_exist")}
+            </Subheading>
+          </div>
+        </DetailPageLayout>
+      }
+    >
+      {(account) => (
         <DetailPageLayout
           header={t("account_detail.heading", {
-            name: maybeAccount()
-              ? maybeAccount().displayName
-                ? maybeAccount().displayName!
-                : maybeAccount().url
-              : t("account_detail.error.oops"),
+            name: account.displayName ?? account.url,
           })}
         >
-          <Show
-            when={maybeAccount()}
-            fallback={
-              <div class="flex flex-col flex-1 h-full gap-3 items-center justify-center">
-                <Heading>{t("account_detail.error.oops")}</Heading>
-                <Subheading>
-                  {t("account_detail.error.account_does_not_exist")}
-                </Subheading>
-              </div>
-            }
-          >
-            {(account) => <Inner id={id} account={account()} />}
-          </Show>
+          <Inner id={props.params.id!} account={account} />
         </DetailPageLayout>
       )}
     </Show>

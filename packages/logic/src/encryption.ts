@@ -60,7 +60,7 @@ export async function encrypt(
   };
 }
 
-function getAesParams(iv: Uint8Array): AesGcmParams {
+function getAesParams(iv: Uint8Array<ArrayBuffer>): AesGcmParams {
   return {
     name: "AES-GCM",
     iv,
@@ -115,15 +115,17 @@ async function deriveKey(
       ? recommendedGeneratorOptions[kdfDifficulty]
       : kdfDifficulty;
 
-  const keyBuffer = await argon2id({
-    password,
-    salt: iv,
-    hashLength: 32, // how many bytes: 256 / 8
-    iterations: resolvedOptions.iterations,
-    memorySize: resolvedOptions.memorySize,
-    parallelism: resolvedOptions.parallelism,
-    outputType: "binary",
-  });
+  const keyBuffer: Uint8Array<ArrayBuffer> = Uint8Array.from(
+    await argon2id({
+      password,
+      salt: iv,
+      hashLength: 32, // how many bytes: 256 / 8
+      iterations: resolvedOptions.iterations,
+      memorySize: resolvedOptions.memorySize,
+      parallelism: resolvedOptions.parallelism,
+      outputType: "binary",
+    }),
+  );
 
   return await crypto.subtle.importKey(
     "raw",

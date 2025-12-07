@@ -77,7 +77,7 @@ export function getDecodeBase64Length(data: string): number {
   return bufferLength;
 }
 
-export function decodeBase64(data: string): Uint8Array {
+export function decodeBase64(data: string): Uint8Array<ArrayBuffer> {
   const bufferLength = getDecodeBase64Length(data);
   const len = data.length;
 
