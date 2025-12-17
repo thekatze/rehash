@@ -16,7 +16,7 @@ const variants = {
 };
 
 const buttonStyle = cva({
-  base: "px-4 py-2 font-black rounded-md inline-flex justify-center",
+  base: "px-4 py-2 font-black rounded-md inline-flex justify-center relative",
   variants,
 });
 
@@ -48,7 +48,7 @@ const createLoadingVariant =
   (props: TProps & { loading: boolean }) => (
     <Component {...props}>
       <div classList={{ invisible: props.loading }}>{props.children}</div>
-      <div class="absolute mt-0.5" classList={{ invisible: !props.loading }}>
+      <div class="absolute mt-1.5" classList={{ invisible: !props.loading }}>
         <Spinner />
       </div>
     </Component>

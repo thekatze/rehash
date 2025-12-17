@@ -8,10 +8,11 @@ import {
 import { DetailPageLayout } from "./DetailPageLayout";
 import { useI18n } from "../I18nProvider";
 import { Subheading } from "./Subheading";
-import { Button, IconButton } from "./Button";
+import { Button, IconButton, LoadingButton } from "./Button";
 import {
   STORE_KEY,
   StoreState,
+  generateInWorkerThread,
   serializeStore,
   useRehash,
 } from "../RehashProvider";
@@ -32,6 +33,7 @@ import { useTheme } from "../ThemeProvider";
 
 import SunIcon from "~icons/solar/sun-linear";
 import MoonIcon from "~icons/solar/moon-linear";
+import { AsyncActionStatus, createAsyncAction } from "../createAsyncAction";
 
 export const Settings: Component = () => {
   const [t] = useI18n();
@@ -55,6 +57,10 @@ export const Settings: Component = () => {
           <MergeImportButton />
           <ExportButton />
         </div>
+        <Subheading class="text-base">
+          {t("settings.vault.export_other_password_managers_heading")}
+        </Subheading>
+        <BitwardenExportButton />
         <Subheading>{t("settings.danger_zone")}</Subheading>
         <DeleteVaultButton />
       </div>
@@ -90,6 +96,69 @@ const DeleteVaultButton: VoidComponent = () => {
     >
       {t("settings.vault.delete")}
     </Button>
+  );
+};
+
+const BitwardenExportButton: VoidComponent = () => {
+  const [store] = useRehash();
+  const [t] = useI18n();
+
+  const [status, exportToBitwarden] = createAsyncAction(async () => {
+    // see format documented in https://bitwarden.com/help/condition-bitwarden-import/#json-for-individual-vault
+    const folderId = crypto.randomUUID();
+
+    const entriesWithPasswords = await Promise.all(
+      Object.entries(store().entries).map(async ([id, entry]) => {
+        const rehashPassword = await generateInWorkerThread(
+          store().password,
+          entry,
+        );
+        return {
+          passwordHistory: [],
+          id,
+          organizationId: null,
+          folderId,
+          type: 1,
+          reprompt: 0,
+          name: entry.displayName ?? entry.url,
+          notes: entry.notes,
+          favorite: false,
+          fields: [],
+          login: {
+            uris: [
+              {
+                match: null,
+                uri: entry.url,
+              },
+            ],
+            username: entry.username,
+            password: rehashPassword,
+          },
+          collectionIds: null,
+        };
+      }),
+    );
+
+    const bitwardenExportFormat = {
+      folders: [{ id: folderId, name: "Exported from rehash" }],
+      items: entriesWithPasswords,
+    };
+
+    platform.saveTextAsFile(
+      JSON.stringify(bitwardenExportFormat),
+      "rehash-to-bitwarden-export.json",
+    );
+  });
+
+  return (
+    <LoadingButton
+      class="flex-1"
+      variant="ghost"
+      loading={status() == AsyncActionStatus.Pending}
+      onClick={exportToBitwarden}
+    >
+      {t("settings.vault.export_bitwarden")}
+    </LoadingButton>
   );
 };
 

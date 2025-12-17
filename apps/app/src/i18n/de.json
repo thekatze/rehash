@@ -106,6 +106,8 @@
       "import_heading": "Importieren/Exportieren",
       "import": "Tresor Importieren",
       "export": "Tresor Exportieren",
+      "export_other_password_managers_heading": "Andere Passwortmanager",
+      "export_bitwarden": "Export zu Bitwarden",
       "delete": "Tresor Löschen",
       "import_error": {
         "unknown_format": "Entschuldigung, diese Datei konnte nicht importiert werden. Das Dateiformat wurde nicht erkannt.",
