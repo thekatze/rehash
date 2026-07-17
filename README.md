@@ -2,7 +2,7 @@
 
 The password manager that does not save your passwords.
 
-[Open App](https://app.rehash.one)
+[Open App](https://rehash.thekatze.com)
 
 ![Demo Image - Homescreen](./docs/homescreen.png)
 
