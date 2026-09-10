@@ -25,6 +25,7 @@
     }
   },
   "account": {
+    "display_name": "Anzeigename",
     "url": "URL",
     "username": "Benutzername",
     "notes": "Anmerkungen",
