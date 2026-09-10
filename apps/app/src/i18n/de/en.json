@@ -1,0 +1,118 @@
+{
+  "common": {
+    "password": "Passwort",
+    "save_changes": "Änderungen speichern"
+  },
+  "validation": {
+    "required": "Dieses Feld ist erforderlich",
+    "wrong_password": "Falsches Passwort. Bitte versuchen Sie es erneut."
+  },
+  "new_account": {
+    "heading": "Neues Konto",
+    "create": "Benutzerkonto erstellen"
+  },
+  "account_list": {
+    "your_vault_is_empty": "Ihr Tresor ist leer",
+    "create_first_account_with": "Lass uns dein erstes Konto erstellen mit"
+  },
+  "account_detail": {
+    "heading": "Kontoname }}",
+    "generated_password": "Generiertes Passwort",
+    "save_changes_to_regenerate": "Änderungen speichern, um sie neu zu generieren",
+    "error": {
+      "oops": "Hoppla!",
+      "account_does_not_exist": "Dieses Konto existiert nicht mehr."
+    }
+  },
+  "account": {
+    "url": "URL",
+    "username": "Benutzername",
+    "notes": "Anmerkungen",
+    "generator_settings": "Generatoreinstellungen",
+    "generation": "Generation",
+    "length": "Länge",
+    "difficulty_label": "Schwierigkeit",
+    "difficulty": {
+      "recommended": "Empfohlen",
+      "custom": "Brauch",
+      "iterations": "Iterationen",
+      "memory_size": "Speichergröße (kB)",
+      "parallelism": "Parallelität"
+    }
+  },
+  "onboarding": {
+    "continue": "Weitermachen",
+    "go_back": "Geh zurück",
+    "welcome": {
+      "welcome": "Willkommen zum Rehash",
+      "get_started": "Los geht's",
+      "get_started_text": "Hallo! Willkommen bei rehash: dem Passwort-Manager, der Ihre Passwörter nicht speichert. Bevor wir Ihren Tresor erstellen, gehen wir einige einführende Schritte durch, um Ihnen die bestmögliche Benutzererfahrung zu bieten. Wenn Sie rehash bereits kennen, können Sie diese Einführung über die Optionen ganz unten überspringen.",
+      "im_already_familiar": "Ich bin bereits damit vertraut.",
+      "im_already_familiar_text": "Großartig! Dann lasst uns gleich mit der Erstellung eures neuen Tresors beginnen.",
+      "import_vault": "Import Vault",
+      "or": "oder",
+      "skip_introduction": "Einleitung überspringen"
+    },
+    "language": {
+      "language": "Sprache",
+      "set_your_preferred_language": "Wählen Sie Ihre bevorzugte Sprache aus.",
+      "set_your_preferred_language_text": "Wir haben versucht, Ihre bevorzugte Sprache automatisch zu erkennen. Sollte dies nicht die richtige gewesen sein, können Sie sie hier ändern."
+    },
+    "what_is_rehash": {
+      "what_is_rehash": "Was ist ein Rehash?",
+      "how_does_it_work": "Und wie funktioniert es?",
+      "how_does_it_work_text": "Rehash funktioniert komplett offline und generiert Ihr Passwort aus Ihrem Tresorpasswort, der Website-URL und Ihrem Benutzernamen auf dieser Website. Um sicherzustellen, dass Ihr Tresorpasswort nicht aus dem generierten Passwort erraten werden kann, verwendet Rehash eine kryptografische Hash-Funktion. Um zu verstehen, wie es funktioniert, klicken Sie einfach auf die Schaltflächen!",
+      "cross_device_generation": "Dieser Vorgang zur Passwortgenerierung funktioniert auf allen Geräten gleich. Das bedeutet: Wenn Sie dieselbe URL und denselben Benutzernamen mit demselben Passwort in einem Tresor eingeben, erhalten Sie immer dasselbe Passwort. So können Sie Ihre Passwörter problemlos auf verschiedenen Geräten abrufen, ohne Ihren Tresor in einen Cloud-Dienst hochladen zu müssen.",
+      "next_steps": "In den nächsten Schritten konfigurieren wir Ihren neuen lokalen Tresor, in dem Ihre Konten gespeichert werden.",
+      "vault_password": "Tresorpasswort"
+    },
+    "encrypt_vault": {
+      "encrypt_vault": "Verschlüsseln Sie Ihren Tresor",
+      "encrypt_vault_text": "Diese Einstellung steuert, ob Ihr Tresor beim Speichern verschlüsselt wird. Sie sollten diese Option aktiviert lassen. Wenn Sie sie deaktivieren, kann ein Angreifer alle Ihre Webseiten und Benutzernamen im Klartext einsehen, falls Ihr Tresor für ihn zugänglich wird. Ihre Passwörter sind nicht sichtbar, da hierfür ein Tresorpasswort generiert werden muss."
+    },
+    "vault_settings": {
+      "vault_settings": "Tresoreinstellungen",
+      "set_generation_difficulty": "Wähle den Schwierigkeitsgrad des Generators.",
+      "configure_your_vault_text": "Der Schwierigkeitsgrad des Passwortgenerators bestimmt, wie lange die Generierung eines Passworts dauert. Wir bieten Ihnen eine sinnvolle Empfehlung, die ein gutes Verhältnis zwischen Sicherheit und Generierungszeit gewährleistet. Mit der Schaltfläche „Schwierigkeitsgrad messen“ können Sie die benötigte Zeit testen.",
+      "measure_difficulty": "Schwierigkeitsgrad der Messung",
+      "took_seconds": "dauerte {{ Sekunden }} Sekunden",
+      "this_changes_all_your_passwords_text": "Beachten Sie, dass sich durch die Änderung dieser Einstellungen die Art und Weise ändert, wie der Generator Ihre Passwörter ableitet. Um also auf mehreren Geräten dasselbe Passwort zu generieren, müssen Sie auf beiden Geräten dieselbe Schwierigkeitseinstellung verwenden."
+    },
+    "create_your_vault": {
+      "create_your_vault": "Erstelle deinen Tresor",
+      "set_password": "Legen Sie Ihr Passwort fest",
+      "set_password_text": "Sie haben es fast geschafft! Im letzten Schritt wählen Sie ein sicheres Passwort für Ihren Tresor. Von diesem Passwort werden alle anderen Passwörter abgeleitet. Wählen Sie daher ein besonders sicheres Passwort.",
+      "create_vault": "Tresor erstellen"
+    }
+  },
+  "password_prompt": {
+    "welcome_back": "Willkommen zurück",
+    "unlock_your_vault": "Öffne deinen Tresor",
+    "unlock_your_vault_text": "Geben Sie Ihr Passwort ein, um Ihren Tresor zu entsperren.",
+    "unlock_vault": "Schließe den Tresor ab"
+  },
+  "settings": {
+    "heading": "Einstellungen",
+    "general": {
+      "heading": "Allgemein",
+      "language": "Sprache",
+      "version": "Version: {{ version }}"
+    },
+    "vault": {
+      "heading": "Tresoreinstellungen",
+      "default_generator_difficulty": "Standard-Generator-Schwierigkeitsgrad",
+      "encrypt": "Tresor verschlüsseln",
+      "import_heading": "Import/Export",
+      "import": "Import Vault",
+      "export": "Export Vault",
+      "export_other_password_managers_heading": "Andere Passwortmanager",
+      "export_bitwarden": "Export nach Bitwarden",
+      "delete": "Tresor löschen",
+      "import_error": {
+        "unknown_format": "Diese Datei konnte leider nicht importiert werden. Das Dateiformat ist unbekannt.",
+        "different_master_password": "Diese Datei wurde leider mit einem anderen Tresorpasswort exportiert. Der exportierte Tresor konnte nicht entschlüsselt werden."
+      }
+    },
+    "danger_zone": "Gefahrenzone"
+  }
+}
